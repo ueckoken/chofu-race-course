@@ -26,11 +26,26 @@ message Horse {
   string name = 2;
 }
 
+message History {
+  Race race = 1;
+  uint64 order = 2;
+  uint64 result = 3;
+}
+
+message HorseDetail {
+  string: name = 1;
+  string owner = 2;
+  uint64 wins = 3;
+  uint64 matches = 4;
+  optional uint64 next = 5;
+  repeated History history = 6;
+}
+
 message HorseDataRequest {
   uint64 id = 1;
 }
 message HorseDataResponse {
-  Horse horse = 1;
+  HorseDetail horse = 1;
 }
 message AllHorseDataRequest {}
 message AllHorseDataResponse {
@@ -44,6 +59,31 @@ service RaceDataService {
 message Race {
   uint64 id = 1;
   string name = 2;
+  uint64 order = 3;
+  google.protobuf.Timestamp start = 4;
+}
+message Member {
+  uint64 order = 1;
+  uint64 result = 2;
+  Horse horse = 3;
+  double odds = 4;
+  uint64 popularity = 5;
+}
+message Result {
+  Horse horse = 1;
+  uint64 order = 2;
+  uint64 return = 3;
+}
+message ReceDetail {
+  uint64 id = 1;
+  string description = 2;
+  uint64 order = 3;
+  bool isFinished = 4;
+  repeated Member member = 5;
+  Result result = 6;
+  google.protobuf.Timestamp start = 7;
+  google.protobuf.Timestamp voteBegin = 8;
+  google.protobuf.Timestamp voteEnd = 9;
 }
 message RangeRaceDataRequest {
   // 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。
@@ -58,5 +98,5 @@ message RaceDataRequest{
   uint64 race_id = 1;
 }
 message RaceDataResponse{
-  Race race = 1;
+  RaceDetail race = 1;
 }
