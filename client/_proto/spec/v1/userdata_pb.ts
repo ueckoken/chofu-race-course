@@ -10,6 +10,11 @@ import {Message, proto3} from "@bufbuild/protobuf";
  * @generated from message spec.v1.User
  */
 export class User extends Message<User> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
   constructor(data?: PartialMessage<User>) {
     super();
     proto3.util.initPartial(data, this);
@@ -18,6 +23,7 @@ export class User extends Message<User> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.User";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): User {

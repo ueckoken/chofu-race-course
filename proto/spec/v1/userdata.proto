@@ -3,14 +3,25 @@ package spec.v1;
 option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
 
 service UserDataService {
-  rpc UserData(UserDataRequest) returns (UserDataResponse){}
+  rpc UserData(UserDataRequest) returns (UserDataResponse) {}
 }
 
-message User {}
-message UserDataRequest {
-  User user = 1;
+service HorseDataService {
+  rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
+  rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
 }
 
-message UserDataResponse {
-  User user = 1;
+message User { string id = 1; }
+message UserDataRequest { string user_id = 1; }
+message UserDataResponse { User user = 1; }
+
+message Horse {
+  string id = 1;
+  string name = 2;
 }
+
+message HorseDataRequest { string id = 1; }
+message HorseDataResponse { Horse horse = 1; }
+message AllHorseDataRequest {}
+message AllHorseDataResponse { repeated Horse horses = 1; }
+
