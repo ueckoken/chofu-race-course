@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {UserDataRequest, UserDataResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, HorseDataRequest, HorseDataResponse, UserDataRequest, UserDataResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,33 @@ export const UserDataService = {
       name: "UserData",
       I: UserDataRequest,
       O: UserDataResponse,
+      kind: MethodKind.Unary,
+    },
+  }
+} as const;
+
+/**
+ * @generated from service spec.v1.HorseDataService
+ */
+export const HorseDataService = {
+  typeName: "spec.v1.HorseDataService",
+  methods: {
+    /**
+     * @generated from rpc spec.v1.HorseDataService.HorseData
+     */
+    horseData: {
+      name: "HorseData",
+      I: HorseDataRequest,
+      O: HorseDataResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc spec.v1.HorseDataService.AllHorseData
+     */
+    allHorseData: {
+      name: "AllHorseData",
+      I: AllHorseDataRequest,
+      O: AllHorseDataResponse,
       kind: MethodKind.Unary,
     },
   }
