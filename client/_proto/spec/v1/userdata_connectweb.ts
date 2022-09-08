@@ -7,7 +7,7 @@ import {AllHorseDataRequest, AllHorseDataResponse, HorseDataRequest, HorseDataRe
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
- * ユーザのデータをやり取りする
+ * ユーザのデータをやり取りするサービス
  *
  * @generated from service spec.v1.UserDataService
  */
@@ -15,6 +15,8 @@ export const UserDataService = {
   typeName: "spec.v1.UserDataService",
   methods: {
     /**
+     *
+     *
      * @generated from rpc spec.v1.UserDataService.UserData
      */
     userData: {

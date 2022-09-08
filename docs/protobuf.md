@@ -184,12 +184,12 @@
 <a name="spec-v1-User"></a>
 
 ### User
-
+ユーザを表現する型
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
+| id | [string](#string) |  | ユーザID。このIDのみstringで入れる |
 
 
 
@@ -257,7 +257,7 @@
 <a name="spec-v1-UserDataService"></a>
 
 ### UserDataService
-ユーザのデータをやり取りする
+ユーザのデータをやり取りするサービス
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
