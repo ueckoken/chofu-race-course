@@ -1,27 +1,62 @@
 syntax = "proto3";
 package spec.v1;
 option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
-
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 service UserDataService {
   rpc UserData(UserDataRequest) returns (UserDataResponse) {}
 }
 
-service HorseDataService {
-  rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
-  rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
+message User {
+  string id = 1;
+}
+message UserDataRequest {
+  string user_id = 1;
+}
+message UserDataResponse {
+  User user = 1;
 }
 
-message User { string id = 1; }
-message UserDataRequest { string user_id = 1; }
-message UserDataResponse { User user = 1; }
+service HorseDataService {
+  rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
+  rpc AllHorseData(google.protobuf.Empty) returns (AllHorseDataResponse) {}
+}
 
 message Horse {
   string id = 1;
   string name = 2;
 }
 
-message HorseDataRequest { string id = 1; }
-message HorseDataResponse { Horse horse = 1; }
-message AllHorseDataRequest {}
-message AllHorseDataResponse { repeated Horse horses = 1; }
+message HorseDataRequest {
+  string id = 1;
+}
+message HorseDataResponse {
+  Horse horse = 1;
+}
+message AllHorseDataResponse {
+  repeated Horse horses = 1;
+}
 
+service RaceDataService {
+  rpc RangeRaceData(RangeRaceDataRequest) returns (RangeRaceDataResponse){}
+  rpc RaceData(RaceDataRequest) returns (RaceDataResponse){}
+}
+message Race {
+  string id = 1;
+  string name = 2;
+}
+message RangeRaceDataRequest {
+  // 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。
+  optional google.protobuf.Timestamp begin = 1;
+  // 指定した時間を含む、指定した時間までのデータを取得する。指定しなかったときは取得できる最新まで取得する。
+  optional google.protobuf.Timestamp end = 2;
+}
+message RangeRaceDataResponse {
+  repeated Race races = 1;
+}
+message RaceDataRequest{
+  string race_id = 1;
+}
+message RaceDataResponse{
+  Race race = 1;
+}

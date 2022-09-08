@@ -9,6 +9,7 @@ import (
 	errors "errors"
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	http "net/http"
 	strings "strings"
 )
@@ -25,6 +26,8 @@ const (
 	UserDataServiceName = "spec.v1.UserDataService"
 	// HorseDataServiceName is the fully-qualified name of the HorseDataService service.
 	HorseDataServiceName = "spec.v1.HorseDataService"
+	// RaceDataServiceName is the fully-qualified name of the RaceDataService service.
+	RaceDataServiceName = "spec.v1.RaceDataService"
 )
 
 // UserDataServiceClient is a client for the spec.v1.UserDataService service.
@@ -90,7 +93,7 @@ func (UnimplementedUserDataServiceHandler) UserData(context.Context, *connect_go
 // HorseDataServiceClient is a client for the spec.v1.HorseDataService service.
 type HorseDataServiceClient interface {
 	HorseData(context.Context, *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error)
-	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
+	AllHorseData(context.Context, *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error)
 }
 
 // NewHorseDataServiceClient constructs a client for the spec.v1.HorseDataService service. By
@@ -108,7 +111,7 @@ func NewHorseDataServiceClient(httpClient connect_go.HTTPClient, baseURL string,
 			baseURL+"/spec.v1.HorseDataService/HorseData",
 			opts...,
 		),
-		allHorseData: connect_go.NewClient[v1.AllHorseDataRequest, v1.AllHorseDataResponse](
+		allHorseData: connect_go.NewClient[emptypb.Empty, v1.AllHorseDataResponse](
 			httpClient,
 			baseURL+"/spec.v1.HorseDataService/AllHorseData",
 			opts...,
@@ -119,7 +122,7 @@ func NewHorseDataServiceClient(httpClient connect_go.HTTPClient, baseURL string,
 // horseDataServiceClient implements HorseDataServiceClient.
 type horseDataServiceClient struct {
 	horseData    *connect_go.Client[v1.HorseDataRequest, v1.HorseDataResponse]
-	allHorseData *connect_go.Client[v1.AllHorseDataRequest, v1.AllHorseDataResponse]
+	allHorseData *connect_go.Client[emptypb.Empty, v1.AllHorseDataResponse]
 }
 
 // HorseData calls spec.v1.HorseDataService.HorseData.
@@ -128,14 +131,14 @@ func (c *horseDataServiceClient) HorseData(ctx context.Context, req *connect_go.
 }
 
 // AllHorseData calls spec.v1.HorseDataService.AllHorseData.
-func (c *horseDataServiceClient) AllHorseData(ctx context.Context, req *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
+func (c *horseDataServiceClient) AllHorseData(ctx context.Context, req *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
 	return c.allHorseData.CallUnary(ctx, req)
 }
 
 // HorseDataServiceHandler is an implementation of the spec.v1.HorseDataService service.
 type HorseDataServiceHandler interface {
 	HorseData(context.Context, *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error)
-	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
+	AllHorseData(context.Context, *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error)
 }
 
 // NewHorseDataServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -165,6 +168,88 @@ func (UnimplementedHorseDataServiceHandler) HorseData(context.Context, *connect_
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.HorseDataService.HorseData is not implemented"))
 }
 
-func (UnimplementedHorseDataServiceHandler) AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
+func (UnimplementedHorseDataServiceHandler) AllHorseData(context.Context, *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.HorseDataService.AllHorseData is not implemented"))
+}
+
+// RaceDataServiceClient is a client for the spec.v1.RaceDataService service.
+type RaceDataServiceClient interface {
+	RangeRaceData(context.Context, *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error)
+	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
+}
+
+// NewRaceDataServiceClient constructs a client for the spec.v1.RaceDataService service. By default,
+// it uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and
+// sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC()
+// or connect.WithGRPCWeb() options.
+//
+// The URL supplied here should be the base URL for the Connect or gRPC server (for example,
+// http://api.acme.com or https://acme.com/grpc).
+func NewRaceDataServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) RaceDataServiceClient {
+	baseURL = strings.TrimRight(baseURL, "/")
+	return &raceDataServiceClient{
+		rangeRaceData: connect_go.NewClient[v1.RangeRaceDataRequest, v1.RangeRaceDataResponse](
+			httpClient,
+			baseURL+"/spec.v1.RaceDataService/RangeRaceData",
+			opts...,
+		),
+		raceData: connect_go.NewClient[v1.RaceDataRequest, v1.RaceDataResponse](
+			httpClient,
+			baseURL+"/spec.v1.RaceDataService/RaceData",
+			opts...,
+		),
+	}
+}
+
+// raceDataServiceClient implements RaceDataServiceClient.
+type raceDataServiceClient struct {
+	rangeRaceData *connect_go.Client[v1.RangeRaceDataRequest, v1.RangeRaceDataResponse]
+	raceData      *connect_go.Client[v1.RaceDataRequest, v1.RaceDataResponse]
+}
+
+// RangeRaceData calls spec.v1.RaceDataService.RangeRaceData.
+func (c *raceDataServiceClient) RangeRaceData(ctx context.Context, req *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error) {
+	return c.rangeRaceData.CallUnary(ctx, req)
+}
+
+// RaceData calls spec.v1.RaceDataService.RaceData.
+func (c *raceDataServiceClient) RaceData(ctx context.Context, req *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {
+	return c.raceData.CallUnary(ctx, req)
+}
+
+// RaceDataServiceHandler is an implementation of the spec.v1.RaceDataService service.
+type RaceDataServiceHandler interface {
+	RangeRaceData(context.Context, *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error)
+	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
+}
+
+// NewRaceDataServiceHandler builds an HTTP handler from the service implementation. It returns the
+// path on which to mount the handler and the handler itself.
+//
+// By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
+// and JSON codecs. They also support gzip compression.
+func NewRaceDataServiceHandler(svc RaceDataServiceHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
+	mux := http.NewServeMux()
+	mux.Handle("/spec.v1.RaceDataService/RangeRaceData", connect_go.NewUnaryHandler(
+		"/spec.v1.RaceDataService/RangeRaceData",
+		svc.RangeRaceData,
+		opts...,
+	))
+	mux.Handle("/spec.v1.RaceDataService/RaceData", connect_go.NewUnaryHandler(
+		"/spec.v1.RaceDataService/RaceData",
+		svc.RaceData,
+		opts...,
+	))
+	return "/spec.v1.RaceDataService/", mux
+}
+
+// UnimplementedRaceDataServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedRaceDataServiceHandler struct{}
+
+func (UnimplementedRaceDataServiceHandler) RangeRaceData(context.Context, *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.RangeRaceData is not implemented"))
+}
+
+func (UnimplementedRaceDataServiceHandler) RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.RaceData is not implemented"))
 }
