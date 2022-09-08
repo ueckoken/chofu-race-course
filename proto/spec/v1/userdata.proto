@@ -2,11 +2,15 @@ syntax = "proto3";
 package spec.v1;
 option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
 import "google/protobuf/timestamp.proto";
+
+// ユーザのデータをやり取りするサービス
 service UserDataService {
+  // 
   rpc UserData(UserDataRequest) returns (UserDataResponse) {}
 }
-
+// ユーザを表現する型
 message User {
+  // ユーザID。このIDのみstringで入れる
   string id = 1;
 }
 message UserDataRequest {
