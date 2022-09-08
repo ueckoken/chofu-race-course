@@ -7,10 +7,14 @@ import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMe
 import {Message, proto3, protoInt64, Timestamp} from "@bufbuild/protobuf";
 
 /**
+ * ユーザを表現する型
+ *
  * @generated from message spec.v1.User
  */
 export class User extends Message<User> {
   /**
+   * ユーザID。このIDのみstringで入れる
+   *
    * @generated from field: string id = 1;
    */
   id = "";
