@@ -46,7 +46,7 @@ message HorseDetail {
   uint64 wins = 3;
   uint64 matches = 4;
   optional uint64 next = 5;
-  repeated History histories = 6;
+  repeated History histories = 7;
 }
 
 message HorseDataRequest {
