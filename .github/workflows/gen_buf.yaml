@@ -3,7 +3,7 @@ name: compile_buf
 on:
   push:
     paths:
-      - ./github/workflows/*.y?aml
+      - ./.github/workflows/*.yaml
       - ./proto/**
     branches-ignore:
       - main
