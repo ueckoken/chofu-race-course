@@ -2,7 +2,6 @@ syntax = "proto3";
 package spec.v1;
 option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/empty.proto";
 service UserDataService {
   rpc UserData(UserDataRequest) returns (UserDataResponse) {}
 }
@@ -19,20 +18,21 @@ message UserDataResponse {
 
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
-  rpc AllHorseData(google.protobuf.Empty) returns (AllHorseDataResponse) {}
+  rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
 }
 
 message Horse {
-  string id = 1;
+  uint64 id = 1;
   string name = 2;
 }
 
 message HorseDataRequest {
-  string id = 1;
+  uint64 id = 1;
 }
 message HorseDataResponse {
   Horse horse = 1;
 }
+message AllHorseDataRequest {}
 message AllHorseDataResponse {
   repeated Horse horses = 1;
 }
@@ -42,7 +42,7 @@ service RaceDataService {
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse){}
 }
 message Race {
-  string id = 1;
+  uint64 id = 1;
   string name = 2;
 }
 message RangeRaceDataRequest {
@@ -55,7 +55,7 @@ message RangeRaceDataResponse {
   repeated Race races = 1;
 }
 message RaceDataRequest{
-  string race_id = 1;
+  uint64 race_id = 1;
 }
 message RaceDataResponse{
   Race race = 1;

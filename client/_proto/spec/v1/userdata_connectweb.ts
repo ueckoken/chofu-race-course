@@ -3,8 +3,8 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataResponse, HorseDataRequest, HorseDataResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, UserDataRequest, UserDataResponse} from "./userdata_pb.js";
-import {Empty, MethodKind} from "@bufbuild/protobuf";
+import {AllHorseDataRequest, AllHorseDataResponse, HorseDataRequest, HorseDataResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, UserDataRequest, UserDataResponse} from "./userdata_pb.js";
+import {MethodKind} from "@bufbuild/protobuf";
 
 /**
  * @generated from service spec.v1.UserDataService
@@ -44,7 +44,7 @@ export const HorseDataService = {
      */
     allHorseData: {
       name: "AllHorseData",
-      I: Empty,
+      I: AllHorseDataRequest,
       O: AllHorseDataResponse,
       kind: MethodKind.Unary,
     },

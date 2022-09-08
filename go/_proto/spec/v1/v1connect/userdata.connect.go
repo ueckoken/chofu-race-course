@@ -9,7 +9,6 @@ import (
 	errors "errors"
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	http "net/http"
 	strings "strings"
 )
@@ -93,7 +92,7 @@ func (UnimplementedUserDataServiceHandler) UserData(context.Context, *connect_go
 // HorseDataServiceClient is a client for the spec.v1.HorseDataService service.
 type HorseDataServiceClient interface {
 	HorseData(context.Context, *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error)
-	AllHorseData(context.Context, *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error)
+	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
 }
 
 // NewHorseDataServiceClient constructs a client for the spec.v1.HorseDataService service. By
@@ -111,7 +110,7 @@ func NewHorseDataServiceClient(httpClient connect_go.HTTPClient, baseURL string,
 			baseURL+"/spec.v1.HorseDataService/HorseData",
 			opts...,
 		),
-		allHorseData: connect_go.NewClient[emptypb.Empty, v1.AllHorseDataResponse](
+		allHorseData: connect_go.NewClient[v1.AllHorseDataRequest, v1.AllHorseDataResponse](
 			httpClient,
 			baseURL+"/spec.v1.HorseDataService/AllHorseData",
 			opts...,
@@ -122,7 +121,7 @@ func NewHorseDataServiceClient(httpClient connect_go.HTTPClient, baseURL string,
 // horseDataServiceClient implements HorseDataServiceClient.
 type horseDataServiceClient struct {
 	horseData    *connect_go.Client[v1.HorseDataRequest, v1.HorseDataResponse]
-	allHorseData *connect_go.Client[emptypb.Empty, v1.AllHorseDataResponse]
+	allHorseData *connect_go.Client[v1.AllHorseDataRequest, v1.AllHorseDataResponse]
 }
 
 // HorseData calls spec.v1.HorseDataService.HorseData.
@@ -131,14 +130,14 @@ func (c *horseDataServiceClient) HorseData(ctx context.Context, req *connect_go.
 }
 
 // AllHorseData calls spec.v1.HorseDataService.AllHorseData.
-func (c *horseDataServiceClient) AllHorseData(ctx context.Context, req *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
+func (c *horseDataServiceClient) AllHorseData(ctx context.Context, req *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
 	return c.allHorseData.CallUnary(ctx, req)
 }
 
 // HorseDataServiceHandler is an implementation of the spec.v1.HorseDataService service.
 type HorseDataServiceHandler interface {
 	HorseData(context.Context, *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error)
-	AllHorseData(context.Context, *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error)
+	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
 }
 
 // NewHorseDataServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -168,7 +167,7 @@ func (UnimplementedHorseDataServiceHandler) HorseData(context.Context, *connect_
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.HorseDataService.HorseData is not implemented"))
 }
 
-func (UnimplementedHorseDataServiceHandler) AllHorseData(context.Context, *connect_go.Request[emptypb.Empty]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
+func (UnimplementedHorseDataServiceHandler) AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.HorseDataService.AllHorseData is not implemented"))
 }
 
