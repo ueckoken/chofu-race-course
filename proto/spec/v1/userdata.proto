@@ -33,7 +33,7 @@ message History {
 }
 
 message HorseDetail {
-  string: name = 1;
+  string name = 1;
   string owner = 2;
   uint64 wins = 3;
   uint64 matches = 4;
