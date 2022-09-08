@@ -7,6 +7,8 @@ import {AllHorseDataRequest, AllHorseDataResponse, HorseDataRequest, HorseDataRe
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
+ * ユーザのデータをやり取りする
+ *
  * @generated from service spec.v1.UserDataService
  */
 export const UserDataService = {

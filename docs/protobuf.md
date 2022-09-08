@@ -257,7 +257,7 @@
 <a name="spec-v1-UserDataService"></a>
 
 ### UserDataService
-
+ユーザのデータをやり取りする
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
