@@ -78,12 +78,12 @@ message RaceDetail {
   uint64 id = 1;
   string description = 2;
   uint64 order = 3;
-  bool isFinished = 4;
+  bool is_finished = 4;
   repeated Member member = 5;
   Result result = 6;
   google.protobuf.Timestamp start = 7;
-  google.protobuf.Timestamp voteBegin = 8;
-  google.protobuf.Timestamp voteEnd = 9;
+  google.protobuf.Timestamp vote_begin = 8;
+  google.protobuf.Timestamp vote_end = 9;
 }
 message RangeRaceDataRequest {
   // 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。
