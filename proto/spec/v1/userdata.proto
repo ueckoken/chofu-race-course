@@ -1,0 +1,16 @@
+syntax = "proto3";
+package spec.v1;
+option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
+
+service UserDataService {
+  rpc UserData(UserDataRequest) returns (UserDataResponse){}
+}
+
+message User {}
+message UserDataRequest {
+  User user = 1;
+}
+
+message UserDataResponse {
+  User user = 1;
+}
