@@ -3,8 +3,9 @@ name: compile_buf
 on:
   push:
     paths:
-      - ./.github/workflows/*.yaml
-      - ./proto/**
+      - .github/workflows/*.yaml
+      - .github/workflows/*.yml
+      - proto/**
     branches-ignore:
       - main
 
