@@ -5,15 +5,15 @@ import "google/protobuf/timestamp.proto";
 
 // ユーザのデータをやり取りするサービス
 service UserDataService {
-  // 
   rpc UserData(UserDataRequest) returns (UserDataResponse) {}
 }
 // ユーザを表現する型
 message User {
-  // ユーザID。このIDのみstringで入れる
+  // ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
 message UserDataRequest {
+  // ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
   string user_id = 1;
 }
 message UserDataResponse {
@@ -30,9 +30,13 @@ message Horse {
   string name = 2;
 }
 
+// 出走履歴のそれぞれ
 message History {
+  // 出走したレース
   Race race = 1;
+  // TODO: 分からん。誰か書いて。
   uint64 order = 2;
+  // 順位。最も早くゴールしたときに1。
   uint64 result = 3;
 }
 
@@ -42,7 +46,7 @@ message HorseDetail {
   uint64 wins = 3;
   uint64 matches = 4;
   optional uint64 next = 5;
-  repeated History history = 6;
+  repeated History histories = 6;
 }
 
 message HorseDataRequest {

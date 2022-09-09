@@ -66,14 +66,14 @@
 <a name="spec-v1-History"></a>
 
 ### History
-
+出走履歴のそれぞれ
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| race | [Race](#spec-v1-Race) |  |  |
-| order | [uint64](#uint64) |  |  |
-| result | [uint64](#uint64) |  |  |
+| race | [Race](#spec-v1-Race) |  | 出走したレース |
+| order | [uint64](#uint64) |  | TODO: 分からん。誰か書いて。 |
+| result | [uint64](#uint64) |  | 順位。最も早くゴールしたときに1。 |
 
 
 
@@ -139,7 +139,7 @@
 | wins | [uint64](#uint64) |  |  |
 | matches | [uint64](#uint64) |  |  |
 | next | [uint64](#uint64) | optional |  |
-| history | [History](#spec-v1-History) | repeated |  |
+| histories | [History](#spec-v1-History) | repeated |  |
 
 
 
@@ -292,7 +292,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  | ユーザID。このIDのみstringで入れる |
+| id | [string](#string) |  | ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。 |
 
 
 
@@ -307,7 +307,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  |  |
+| user_id | [string](#string) |  | ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。 |
 
 
 

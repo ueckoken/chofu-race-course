@@ -1,0 +1,13 @@
+フロント:
+  - backend/internal/**/*
+バック:
+  - backend/external/**/*
+ci-cd:
+  - .github/**/*
+documentation:
+  - README.md
+  - '**/docs/**/*.md'
+PB:
+  - './proto/**'
+  - 'buf.gen.yaml'
+  - 'buf.work.yaml'

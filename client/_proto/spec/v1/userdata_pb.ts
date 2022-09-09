@@ -13,7 +13,7 @@ import {Message, proto3, protoInt64, Timestamp} from "@bufbuild/protobuf";
  */
 export class User extends Message<User> {
   /**
-   * ユーザID。このIDのみstringで入れる
+   * ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
    *
    * @generated from field: string id = 1;
    */
@@ -52,6 +52,8 @@ export class User extends Message<User> {
  */
 export class UserDataRequest extends Message<UserDataRequest> {
   /**
+   * ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
+   *
    * @generated from field: string user_id = 1;
    */
   userId = "";
@@ -165,20 +167,28 @@ export class Horse extends Message<Horse> {
 }
 
 /**
+ * 出走履歴のそれぞれ
+ *
  * @generated from message spec.v1.History
  */
 export class History extends Message<History> {
   /**
+   * 出走したレース
+   *
    * @generated from field: spec.v1.Race race = 1;
    */
   race?: Race;
 
   /**
+   * TODO: 分からん。誰か書いて。
+   *
    * @generated from field: uint64 order = 2;
    */
   order = protoInt64.zero;
 
   /**
+   * 順位。最も早くゴールしたときに1。
+   *
    * @generated from field: uint64 result = 3;
    */
   result = protoInt64.zero;
@@ -243,9 +253,9 @@ export class HorseDetail extends Message<HorseDetail> {
   next?: bigint;
 
   /**
-   * @generated from field: repeated spec.v1.History history = 6;
+   * @generated from field: repeated spec.v1.History histories = 6;
    */
-  history: History[] = [];
+  histories: History[] = [];
 
   constructor(data?: PartialMessage<HorseDetail>) {
     super();
@@ -260,7 +270,7 @@ export class HorseDetail extends Message<HorseDetail> {
     { no: 3, name: "wins", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
     { no: 4, name: "matches", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
     { no: 5, name: "next", kind: "scalar", T: 4 /* ScalarType.UINT64 */, opt: true },
-    { no: 6, name: "history", kind: "message", T: History, repeated: true },
+    { no: 6, name: "histories", kind: "message", T: History, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail {

@@ -15,8 +15,6 @@ export const UserDataService = {
   typeName: "spec.v1.UserDataService",
   methods: {
     /**
-     *
-     *
      * @generated from rpc spec.v1.UserDataService.UserData
      */
     userData: {
