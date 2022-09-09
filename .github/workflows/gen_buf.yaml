@@ -32,6 +32,10 @@ jobs:
         id: yarn-cache-dir-path
         run: |
           echo "::set-output name=dir::$(yarn cache dir)"
+      - run: |
+          cd client 
+          corepack enable
+          corepack prepare yarn@stable --activate
       - uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -41,8 +45,6 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: |
           cd client 
-          corepack enable
-          corepack prepare yarn@stable --activate
           yarn install --immutable --immutable-cache
       - run: buf generate
       - name: Add & Commit
