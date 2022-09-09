@@ -36,5 +36,9 @@ jobs:
           corepack prepare yarn@stable --activate
           yarn install --immutable --immutable-cache
       - run: buf generate
+
+      # Workaround to avoid Post Use step failures. See: https://github.com/actions/setup-node/issues/317
+      - run: mkdir -p /home/runner/.cache/yarn/v6
+        continue-on-error: true
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9.1.0
