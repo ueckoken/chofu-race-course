@@ -6,14 +6,19 @@
 - [spec/v1/userdata.proto](#spec_v1_userdata-proto)
     - [AllHorseDataRequest](#spec-v1-AllHorseDataRequest)
     - [AllHorseDataResponse](#spec-v1-AllHorseDataResponse)
+    - [History](#spec-v1-History)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
+    - [HorseDetail](#spec-v1-HorseDetail)
+    - [Member](#spec-v1-Member)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
+    - [RaceDetail](#spec-v1-RaceDetail)
     - [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest)
     - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
+    - [Result](#spec-v1-Result)
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
@@ -52,6 +57,23 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | horses | [Horse](#spec-v1-Horse) | repeated |  |
+
+
+
+
+
+
+<a name="spec-v1-History"></a>
+
+### History
+出走履歴のそれぞれ
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| race | [Race](#spec-v1-Race) |  | 出走したレース |
+| order | [uint64](#uint64) |  | TODO: 分からん。誰か書いて。 |
+| result | [uint64](#uint64) |  | 順位。最も早くゴールしたときに1。 |
 
 
 
@@ -97,7 +119,46 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| horse | [HorseDetail](#spec-v1-HorseDetail) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-HorseDetail"></a>
+
+### HorseDetail
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| owner | [string](#string) |  |  |
+| wins | [uint64](#uint64) |  |  |
+| matches | [uint64](#uint64) |  |  |
+| next | [uint64](#uint64) | optional |  |
+| histories | [History](#spec-v1-History) | repeated |  |
+
+
+
+
+
+
+<a name="spec-v1-Member"></a>
+
+### Member
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order | [uint64](#uint64) |  |  |
+| result | [uint64](#uint64) |  |  |
 | horse | [Horse](#spec-v1-Horse) |  |  |
+| odds | [double](#double) |  |  |
+| popularity | [uint64](#uint64) |  |  |
 
 
 
@@ -114,6 +175,8 @@
 | ----- | ---- | ----- | ----------- |
 | id | [uint64](#uint64) |  |  |
 | name | [string](#string) |  |  |
+| order | [uint64](#uint64) |  |  |
+| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 
@@ -143,7 +206,30 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| race | [Race](#spec-v1-Race) |  |  |
+| race | [RaceDetail](#spec-v1-RaceDetail) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-RaceDetail"></a>
+
+### RaceDetail
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint64](#uint64) |  |  |
+| description | [string](#string) |  |  |
+| order | [uint64](#uint64) |  |  |
+| is_finished | [bool](#bool) |  |  |
+| member | [Member](#spec-v1-Member) | repeated |  |
+| result | [Result](#spec-v1-Result) |  |  |
+| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| vote_begin | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| vote_end | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 
@@ -181,6 +267,23 @@
 
 
 
+<a name="spec-v1-Result"></a>
+
+### Result
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| horse | [Horse](#spec-v1-Horse) |  |  |
+| order | [uint64](#uint64) |  |  |
+| return | [uint64](#uint64) |  |  |
+
+
+
+
+
+
 <a name="spec-v1-User"></a>
 
 ### User
@@ -189,7 +292,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  | ユーザID。このIDのみstringで入れる |
+| id | [string](#string) |  | ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。 |
 
 
 
@@ -204,7 +307,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  |  |
+| user_id | [string](#string) |  | ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。 |
 
 
 
