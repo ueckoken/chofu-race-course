@@ -28,7 +28,7 @@ const RacePage: FC<{}> = () => {
     return (
         <>
             <h2>レース一覧</h2>
-            <table border="true">
+            <table>
                 <thead>
                     <tr>
                         <th>年月日</th>

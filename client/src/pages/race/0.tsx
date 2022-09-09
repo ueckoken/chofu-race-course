@@ -50,7 +50,7 @@ const RaceDetailPage: FC<{}> = () => {
             <p>{raceData.description}</p>
             <p>{`${UNIXTimeToHHmm(raceData.stert)}発走`}</p>
             <h3>出走馬</h3>
-            <table border="true">
+            <table>
                 <tr>
                     <th>着順</th>
                     <th>馬番</th>
