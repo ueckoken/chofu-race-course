@@ -26,8 +26,15 @@ jobs:
           go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@v0.4.0
           go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
       - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+          cache-dependency-path: client/yarn.lock
       - run: |
-          cd client && yarn install --immutable --immutable-cache
+          cd client 
+          corepack enable
+          corepack prepare yarn@stable --activate
+          yarn install --immutable --immutable-cache
       - run: buf generate
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9.1.0
