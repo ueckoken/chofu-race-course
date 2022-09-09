@@ -23,7 +23,7 @@ const TopPage: FC<{}> = () => {
         <>
             <h2>トップページ</h2>
             <h3>今日のレース</h3>
-            <table border="true">
+            <table>
                 <thead>
                     <tr>
                         <th>競争</th>

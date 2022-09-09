@@ -56,7 +56,7 @@ const HorseDetailPage: FC<{}> = () => {
                 </dd>
             </dl>
             <h3>出走レース</h3>
-            <table border="true">
+            <table>
                 <thead>
                     <tr>
                         <th>年月日</th>
