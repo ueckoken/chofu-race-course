@@ -9,11 +9,11 @@ service UserDataService {
 }
 // ユーザを表現する型
 message User {
-  // ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
+  // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
 message UserDataRequest {
-  // ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
+  // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string user_id = 1;
 }
 message UserDataResponse {
@@ -26,7 +26,7 @@ service HorseDataService {
 }
 
 message Horse {
-  uint64 id = 1;
+  uint32 id = 1;
   string name = 2;
 }
 
@@ -35,22 +35,22 @@ message History {
   // 出走したレース
   Race race = 1;
   // TODO: 分からん。誰か書いて。
-  uint64 order = 2;
+  uint32 order = 2;
   // 順位。最も早くゴールしたときに1。
-  uint64 result = 3;
+  uint32 result = 3;
 }
 
 message HorseDetail {
   string name = 1;
   string owner = 2;
-  uint64 wins = 3;
-  uint64 matches = 4;
-  optional uint64 next = 5;
+  uint32 wins = 3;
+  uint32 matches = 4;
+  optional uint32 next = 5;
   repeated History histories = 6;
 }
 
 message HorseDataRequest {
-  uint64 id = 1;
+  uint32 id = 1;
 }
 message HorseDataResponse {
   HorseDetail horse = 1;
@@ -65,27 +65,27 @@ service RaceDataService {
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse){}
 }
 message Race {
-  uint64 id = 1;
+  uint32 id = 1;
   string name = 2;
-  uint64 order = 3;
+  uint32 order = 3;
   google.protobuf.Timestamp start = 4;
 }
 message Member {
-  uint64 order = 1;
-  uint64 result = 2;
+  uint32 order = 1;
+  uint32 result = 2;
   Horse horse = 3;
   double odds = 4;
-  uint64 popularity = 5;
+  uint32 popularity = 5;
 }
 message Result {
   Horse horse = 1;
-  uint64 order = 2;
-  uint64 return = 3;
+  uint32 order = 2;
+  uint32 return = 3;
 }
 message RaceDetail {
-  uint64 id = 1;
+  uint32 id = 1;
   string description = 2;
-  uint64 order = 3;
+  uint32 order = 3;
   bool is_finished = 4;
   repeated Member member = 5;
   Result result = 6;
@@ -103,7 +103,7 @@ message RangeRaceDataResponse {
   repeated Race races = 1;
 }
 message RaceDataRequest{
-  uint64 race_id = 1;
+  uint32 race_id = 1;
 }
 message RaceDataResponse{
   RaceDetail race = 1;
