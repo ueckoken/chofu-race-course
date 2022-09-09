@@ -34,6 +34,7 @@ jobs:
           cd client 
           corepack enable
           corepack prepare yarn@stable --activate
+          yarn --version
           yarn install --immutable --immutable-cache
           yarn config set cache-folder /home/runner/.cache/yarn/v6
       - run: buf generate
