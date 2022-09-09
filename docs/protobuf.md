@@ -72,8 +72,8 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
-| order | [uint64](#uint64) |  | TODO: 分からん。誰か書いて。 |
-| result | [uint64](#uint64) |  | 順位。最も早くゴールしたときに1。 |
+| order | [uint32](#uint32) |  | TODO: 分からん。誰か書いて。 |
+| result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
 
 
 
@@ -88,7 +88,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint64](#uint64) |  |  |
+| id | [uint32](#uint32) |  |  |
 | name | [string](#string) |  |  |
 
 
@@ -104,7 +104,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint64](#uint64) |  |  |
+| id | [uint32](#uint32) |  |  |
 
 
 
@@ -136,9 +136,9 @@
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | owner | [string](#string) |  |  |
-| wins | [uint64](#uint64) |  |  |
-| matches | [uint64](#uint64) |  |  |
-| next | [uint64](#uint64) | optional |  |
+| wins | [uint32](#uint32) |  |  |
+| matches | [uint32](#uint32) |  |  |
+| next | [uint32](#uint32) | optional |  |
 | histories | [History](#spec-v1-History) | repeated |  |
 
 
@@ -154,11 +154,11 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| order | [uint64](#uint64) |  |  |
-| result | [uint64](#uint64) |  |  |
+| order | [uint32](#uint32) |  |  |
+| result | [uint32](#uint32) |  |  |
 | horse | [Horse](#spec-v1-Horse) |  |  |
 | odds | [double](#double) |  |  |
-| popularity | [uint64](#uint64) |  |  |
+| popularity | [uint32](#uint32) |  |  |
 
 
 
@@ -173,9 +173,9 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint64](#uint64) |  |  |
+| id | [uint32](#uint32) |  |  |
 | name | [string](#string) |  |  |
-| order | [uint64](#uint64) |  |  |
+| order | [uint32](#uint32) |  |  |
 | start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
@@ -191,7 +191,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| race_id | [uint64](#uint64) |  |  |
+| race_id | [uint32](#uint32) |  |  |
 
 
 
@@ -221,9 +221,9 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint64](#uint64) |  |  |
+| id | [uint32](#uint32) |  |  |
 | description | [string](#string) |  |  |
-| order | [uint64](#uint64) |  |  |
+| order | [uint32](#uint32) |  |  |
 | is_finished | [bool](#bool) |  |  |
 | member | [Member](#spec-v1-Member) | repeated |  |
 | result | [Result](#spec-v1-Result) |  |  |
@@ -276,8 +276,8 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | horse | [Horse](#spec-v1-Horse) |  |  |
-| order | [uint64](#uint64) |  |  |
-| return | [uint64](#uint64) |  |  |
+| order | [uint32](#uint32) |  |  |
+| return | [uint32](#uint32) |  |  |
 
 
 
@@ -292,7 +292,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  | ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。 |
+| id | [string](#string) |  | ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。 |
 
 
 
@@ -307,7 +307,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  | ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。 |
+| user_id | [string](#string) |  | ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。 |
 
 
 
