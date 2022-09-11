@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, HorseDataRequest, HorseDataResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, UserDataRequest, UserDataResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -15,12 +15,25 @@ export const UserDataService = {
   typeName: "spec.v1.UserDataService",
   methods: {
     /**
+     * UserIdからUser情報を取得する
+     *
      * @generated from rpc spec.v1.UserDataService.UserData
      */
     userData: {
       name: "UserData",
       I: UserDataRequest,
       O: UserDataResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * 新規Userを作成する
+     *
+     * @generated from rpc spec.v1.UserDataService.CreateUser
+     */
+    createUser: {
+      name: "CreateUser",
+      I: CreateUserRequest,
+      O: CreateUserResponse,
       kind: MethodKind.Unary,
     },
   }
@@ -75,6 +88,24 @@ export const RaceDataService = {
       name: "RaceData",
       I: RaceDataRequest,
       O: RaceDataResponse,
+      kind: MethodKind.Unary,
+    },
+  }
+} as const;
+
+/**
+ * @generated from service spec.v1.VoteService
+ */
+export const VoteService = {
+  typeName: "spec.v1.VoteService",
+  methods: {
+    /**
+     * @generated from rpc spec.v1.VoteService.Vote
+     */
+    vote: {
+      name: "Vote",
+      I: VoteRequest,
+      O: VoteResponse,
       kind: MethodKind.Unary,
     },
   }
