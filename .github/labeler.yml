@@ -1,7 +1,7 @@
 frontend:
-  - backend/internal/**/*
+  - client/**/*
 backend:
-  - backend/external/**/*
+  - go/**/*
 ci-cd:
   - .github/**/*
 documentation:
