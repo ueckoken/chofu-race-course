@@ -6,6 +6,7 @@ on:
       - .github/workflows/*.yaml
       - .github/workflows/*.yml
       - client/**
+      - proto/**/*.proto
 
 jobs:
   build:
