@@ -27,11 +27,16 @@ const (
 	HorseDataServiceName = "spec.v1.HorseDataService"
 	// RaceDataServiceName is the fully-qualified name of the RaceDataService service.
 	RaceDataServiceName = "spec.v1.RaceDataService"
+	// VoteServiceName is the fully-qualified name of the VoteService service.
+	VoteServiceName = "spec.v1.VoteService"
 )
 
 // UserDataServiceClient is a client for the spec.v1.UserDataService service.
 type UserDataServiceClient interface {
+	// UserIdからUser情報を取得する
 	UserData(context.Context, *connect_go.Request[v1.UserDataRequest]) (*connect_go.Response[v1.UserDataResponse], error)
+	// 新規Userを作成する
+	CreateUser(context.Context, *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error)
 }
 
 // NewUserDataServiceClient constructs a client for the spec.v1.UserDataService service. By default,
@@ -49,12 +54,18 @@ func NewUserDataServiceClient(httpClient connect_go.HTTPClient, baseURL string, 
 			baseURL+"/spec.v1.UserDataService/UserData",
 			opts...,
 		),
+		createUser: connect_go.NewClient[v1.CreateUserRequest, v1.CreateUserResponse](
+			httpClient,
+			baseURL+"/spec.v1.UserDataService/CreateUser",
+			opts...,
+		),
 	}
 }
 
 // userDataServiceClient implements UserDataServiceClient.
 type userDataServiceClient struct {
-	userData *connect_go.Client[v1.UserDataRequest, v1.UserDataResponse]
+	userData   *connect_go.Client[v1.UserDataRequest, v1.UserDataResponse]
+	createUser *connect_go.Client[v1.CreateUserRequest, v1.CreateUserResponse]
 }
 
 // UserData calls spec.v1.UserDataService.UserData.
@@ -62,9 +73,17 @@ func (c *userDataServiceClient) UserData(ctx context.Context, req *connect_go.Re
 	return c.userData.CallUnary(ctx, req)
 }
 
+// CreateUser calls spec.v1.UserDataService.CreateUser.
+func (c *userDataServiceClient) CreateUser(ctx context.Context, req *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error) {
+	return c.createUser.CallUnary(ctx, req)
+}
+
 // UserDataServiceHandler is an implementation of the spec.v1.UserDataService service.
 type UserDataServiceHandler interface {
+	// UserIdからUser情報を取得する
 	UserData(context.Context, *connect_go.Request[v1.UserDataRequest]) (*connect_go.Response[v1.UserDataResponse], error)
+	// 新規Userを作成する
+	CreateUser(context.Context, *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error)
 }
 
 // NewUserDataServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -79,6 +98,11 @@ func NewUserDataServiceHandler(svc UserDataServiceHandler, opts ...connect_go.Ha
 		svc.UserData,
 		opts...,
 	))
+	mux.Handle("/spec.v1.UserDataService/CreateUser", connect_go.NewUnaryHandler(
+		"/spec.v1.UserDataService/CreateUser",
+		svc.CreateUser,
+		opts...,
+	))
 	return "/spec.v1.UserDataService/", mux
 }
 
@@ -87,6 +111,10 @@ type UnimplementedUserDataServiceHandler struct{}
 
 func (UnimplementedUserDataServiceHandler) UserData(context.Context, *connect_go.Request[v1.UserDataRequest]) (*connect_go.Response[v1.UserDataResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.UserDataService.UserData is not implemented"))
+}
+
+func (UnimplementedUserDataServiceHandler) CreateUser(context.Context, *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.UserDataService.CreateUser is not implemented"))
 }
 
 // HorseDataServiceClient is a client for the spec.v1.HorseDataService service.
@@ -251,4 +279,64 @@ func (UnimplementedRaceDataServiceHandler) RangeRaceData(context.Context, *conne
 
 func (UnimplementedRaceDataServiceHandler) RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.RaceData is not implemented"))
+}
+
+// VoteServiceClient is a client for the spec.v1.VoteService service.
+type VoteServiceClient interface {
+	Vote(context.Context, *connect_go.Request[v1.VoteRequest]) (*connect_go.Response[v1.VoteResponse], error)
+}
+
+// NewVoteServiceClient constructs a client for the spec.v1.VoteService service. By default, it uses
+// the Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and sends
+// uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or
+// connect.WithGRPCWeb() options.
+//
+// The URL supplied here should be the base URL for the Connect or gRPC server (for example,
+// http://api.acme.com or https://acme.com/grpc).
+func NewVoteServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) VoteServiceClient {
+	baseURL = strings.TrimRight(baseURL, "/")
+	return &voteServiceClient{
+		vote: connect_go.NewClient[v1.VoteRequest, v1.VoteResponse](
+			httpClient,
+			baseURL+"/spec.v1.VoteService/Vote",
+			opts...,
+		),
+	}
+}
+
+// voteServiceClient implements VoteServiceClient.
+type voteServiceClient struct {
+	vote *connect_go.Client[v1.VoteRequest, v1.VoteResponse]
+}
+
+// Vote calls spec.v1.VoteService.Vote.
+func (c *voteServiceClient) Vote(ctx context.Context, req *connect_go.Request[v1.VoteRequest]) (*connect_go.Response[v1.VoteResponse], error) {
+	return c.vote.CallUnary(ctx, req)
+}
+
+// VoteServiceHandler is an implementation of the spec.v1.VoteService service.
+type VoteServiceHandler interface {
+	Vote(context.Context, *connect_go.Request[v1.VoteRequest]) (*connect_go.Response[v1.VoteResponse], error)
+}
+
+// NewVoteServiceHandler builds an HTTP handler from the service implementation. It returns the path
+// on which to mount the handler and the handler itself.
+//
+// By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
+// and JSON codecs. They also support gzip compression.
+func NewVoteServiceHandler(svc VoteServiceHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
+	mux := http.NewServeMux()
+	mux.Handle("/spec.v1.VoteService/Vote", connect_go.NewUnaryHandler(
+		"/spec.v1.VoteService/Vote",
+		svc.Vote,
+		opts...,
+	))
+	return "/spec.v1.VoteService/", mux
+}
+
+// UnimplementedVoteServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedVoteServiceHandler struct{}
+
+func (UnimplementedVoteServiceHandler) Vote(context.Context, *connect_go.Request[v1.VoteRequest]) (*connect_go.Response[v1.VoteResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.VoteService.Vote is not implemented"))
 }

@@ -5,7 +5,10 @@ import "google/protobuf/timestamp.proto";
 
 // ユーザのデータをやり取りするサービス
 service UserDataService {
+  // UserIdからUser情報を取得する
   rpc UserData(UserDataRequest) returns (UserDataResponse) {}
+  // 新規Userを作成する
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 }
 // ユーザを表現する型
 message User {
@@ -16,9 +19,10 @@ message UserDataRequest {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
-message UserDataResponse {
-  User user = 1;
-}
+message UserDataResponse { User user = 1; }
+
+message CreateUserRequest { User user = 1; }
+message CreateUserResponse {}
 
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
@@ -26,8 +30,20 @@ service HorseDataService {
 }
 message Horse {
   uint32 id = 1;
+  // 馬の名前
   string name = 2;
 }
+
+// 出走履歴のそれぞれのレコード
+message History {
+  // 出走したレース
+  Race race = 1;
+  // TODO: 分からん。誰か書いて。
+  uint32 order = 2;
+  // 順位。最も早くゴールしたときに1。
+  uint32 result = 3;
+}
+
 message HorseDetail {
   string name = 1;
   string owner = 2;
@@ -55,13 +71,11 @@ message HorseDataResponse {
   HorseDetail horse = 1;
 }
 message AllHorseDataRequest {}
-message AllHorseDataResponse {
-  repeated Horse horses = 1;
-}
+message AllHorseDataResponse { repeated Horse horses = 1; }
 
 service RaceDataService {
-  rpc RangeRaceData(RangeRaceDataRequest) returns (RangeRaceDataResponse){}
-  rpc RaceData(RaceDataRequest) returns (RaceDataResponse){}
+  rpc RangeRaceData(RangeRaceDataRequest) returns (RangeRaceDataResponse) {}
+  rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
 }
 message Race {
   uint32 id = 1;
@@ -98,6 +112,17 @@ message RangeRaceDataRequest {
   // 指定した時間を含む、指定した時間までのデータを取得する。指定しなかったときは取得できる最新まで取得する。
   optional google.protobuf.Timestamp end = 2;
 }
-message RangeRaceDataResponse {
-  repeated Race races = 1;
+message RangeRaceDataResponse { repeated Race races = 1; }
+message RaceDataRequest { uint32 race_id = 1; }
+message RaceDataResponse { RaceDetail race = 1; }
+
+service VoteService {
+  rpc Vote(VoteRequest) returns (VoteResponse) {}
 }
+message VoteRequest {
+  // 投票するレースのID
+  uint32 race = 1;
+  // 投票する馬の馬番
+  uint32 horse = 2;
+}
+message VoteResponse {}
