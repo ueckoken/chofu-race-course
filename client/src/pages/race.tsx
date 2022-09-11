@@ -1,28 +1,10 @@
 import { FC } from "react";
 import Link from "next/link";
-import { UNIXTimeToYYYYMMDD } from "../util/time";
-import { RaceData } from "../types/api";
+import { dateToYYYYMMDD } from "../util/time";
+import { RangeRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
+import { Timestamp } from "@bufbuild/protobuf";
 
-const raceDatas: RaceData[] = [
-    {
-        name: "レース1",
-        id: 0,
-        order: 1,
-        start: 1664591400000,
-    },
-    {
-        name: "レース2",
-        id: 1,
-        order: 2,
-        start: 1664593200000,
-    },
-    {
-        name: "レース1",
-        id: 2,
-        order: 1,
-        start: 1664677800000,
-    },
-];
+const res = new RangeRaceDataResponse();
 
 const RacePage: FC<{}> = () => {
     return (
@@ -37,9 +19,9 @@ const RacePage: FC<{}> = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {raceDatas.map((raceData: RaceData) => (
+                    {res.races.map((raceData) => (
                         <tr key={`race${raceData.id}`}>
-                            <td>{UNIXTimeToYYYYMMDD(raceData.start)}</td>
+                            <td>{dateToYYYYMMDD(raceData.start!.toDate())}</td>
                             <td>{raceData.order}</td>
                             <td>
                                 <Link href={`/race/${raceData.id}`}>

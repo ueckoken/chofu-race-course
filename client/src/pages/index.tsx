@@ -1,22 +1,15 @@
 import { FC } from "react";
 import Link from "next/link";
-import { UNIXTimeToHHmm } from "../util/time";
-import { RaceData } from "../types/api";
+import {
+    createConnectTransport,
+    createPromiseClient,
+} from "@bufbuild/connect-web";
+import type { PartialMessage, Timestamp } from "@bufbuild/protobuf";
+import { RaceDataService } from "../../_proto/spec/v1/userdata_connectweb";
+import { RangeRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
+import { dateToHHmm } from "../util/time";
 
-const raceDatas: RaceData[] = [
-    {
-        name: "レース1",
-        id: 0,
-        order: 1,
-        start: 1664591400000,
-    },
-    {
-        name: "レース2",
-        id: 1,
-        order: 2,
-        start: 1664593200000,
-    },
-];
+const res = new RangeRaceDataResponse();
 
 const TopPage: FC<{}> = () => {
     return (
@@ -32,7 +25,7 @@ const TopPage: FC<{}> = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {raceDatas.map((raceData: RaceData) => (
+                    {res.races.map((raceData) => (
                         <tr key={`race${raceData.id}`}>
                             <td>{raceData.order}</td>
                             <td>
@@ -40,7 +33,7 @@ const TopPage: FC<{}> = () => {
                                     <a>{raceData.name}</a>
                                 </Link>
                             </td>
-                            <td>{UNIXTimeToHHmm(raceData.start)}</td>
+                            <td>{dateToHHmm(raceData.start!.toDate())}</td>
                         </tr>
                     ))}
                 </tbody>

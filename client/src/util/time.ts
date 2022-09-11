@@ -1,12 +1,10 @@
-const UNIXTimeToHHmm = (UNIXTime: number): string => {
-    const date = new Date(UNIXTime);
+const dateToHHmm = (date: Date): string => {
     const h = date.getHours();
     const m = date.getMinutes();
     const HHmm = `${h}:${("" + m).padStart(2, "0")}`;
     return HHmm;
 };
-const UNIXTimeToYYYYMMDD = (UNIXTime: number): string => {
-    const date = new Date(UNIXTime);
+const dateToYYYYMMDD = (date: Date): string => {
     const y = date.getFullYear();
     const m = date.getMonth() + 1;
     const d = date.getDate();
@@ -14,4 +12,4 @@ const UNIXTimeToYYYYMMDD = (UNIXTime: number): string => {
     return YYYYMMDD;
 };
 
-export { UNIXTimeToHHmm, UNIXTimeToYYYYMMDD };
+export { dateToHHmm, dateToYYYYMMDD };

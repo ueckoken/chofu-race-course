@@ -1,39 +1,14 @@
 import { FC } from "react";
 import Link from "next/link";
-import { HorseDetailData } from "../../types/api";
-import { UNIXTimeToYYYYMMDD } from "../../util/time";
+import { HorseDataResponse, Race } from "../../../_proto/spec/v1/userdata_pb";
+import { dateToYYYYMMDD } from "../../util/time";
+import { Timestamp } from "@bufbuild/protobuf";
 
-const horseData: HorseDetailData = {
-    name: "タロー",
-    owner: "工研太郎",
-    wins: 1,
-    matches: 2,
-    next: null,
-    history: [
-        {
-            race: {
-                name: "レース1",
-                id: 0,
-                order: 1,
-                start: 0,
-            },
-            popularity: 1,
-            result: 1,
-        },
-        {
-            race: {
-                name: "レース1",
-                id: 2,
-                order: 1,
-                start: 0,
-            },
-            popularity: 1,
-            result: 3,
-        },
-    ],
-};
+const res = new HorseDataResponse();
+const horseData = res.horse;
 
 const HorseDetailPage: FC<{}> = () => {
+    if (!horseData) return <p>存在しないデータです。</p>;
     return (
         <>
             <h2>{horseData.name}</h2>
@@ -66,15 +41,15 @@ const HorseDetailPage: FC<{}> = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {horseData.history.map((e) => (
+                    {horseData.histories.map((e) => (
                         <tr>
-                            <td>{UNIXTimeToYYYYMMDD(e.race.start)}</td>
+                            <td>{dateToYYYYMMDD(e.race!.start!.toDate())}</td>
                             <td>
-                                <Link href={`/race/${e.race.id}`}>
-                                    <a>{e.race.name}</a>
+                                <Link href={`/race/${e.race!.id}`}>
+                                    <a>{e.race!.name}</a>
                                 </Link>
                             </td>
-                            <td>{e.popularity}</td>
+                            <td>{/*e.popularity*/}</td>
                             <td>{e.result}</td>
                         </tr>
                     ))}

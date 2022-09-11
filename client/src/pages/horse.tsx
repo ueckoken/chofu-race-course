@@ -1,24 +1,15 @@
 import { FC } from "react";
 import Link from "next/link";
-import { HorseData } from "../types/api";
+import { AllHorseDataResponse } from "../../_proto/spec/v1/userdata_pb";
 
-const horseDatas: HorseData[] = [
-    {
-        name: "タロー",
-        id: 0,
-    },
-    {
-        name: "ジロー",
-        id: 1,
-    },
-];
+const res = new AllHorseDataResponse();
 
 const HorsePage: FC<{}> = () => {
     return (
         <>
             <h2>競争馬一覧</h2>
             <ul>
-                {horseDatas.map((horseData: HorseData) => (
+                {res.horses.map((horseData) => (
                     <li key={`race${horseData.id}`}>
                         <Link href={`horse/${horseData.id}`}>
                             <a>{horseData.name}</a>

@@ -45,7 +45,7 @@ message HorseDetail {
   string owner = 2;
   uint32 wins = 3;
   uint32 matches = 4;
-  optional uint32 next = 5;
+  optional Race next = 5;
   repeated History histories = 6;
 }
 
@@ -84,14 +84,15 @@ message Result {
 }
 message RaceDetail {
   uint32 id = 1;
-  string description = 2;
-  uint32 order = 3;
-  bool is_finished = 4;
-  repeated Member member = 5;
-  Result result = 6;
-  google.protobuf.Timestamp start = 7;
-  google.protobuf.Timestamp vote_begin = 8;
-  google.protobuf.Timestamp vote_end = 9;
+  string name = 2;
+  string description = 3;
+  uint32 order = 4;
+  bool is_finished = 5;
+  repeated Member member = 6;
+  Result result = 7;
+  google.protobuf.Timestamp start = 8;
+  google.protobuf.Timestamp vote_begin = 9;
+  google.protobuf.Timestamp vote_end = 10;
 }
 message RangeRaceDataRequest {
   // 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。
