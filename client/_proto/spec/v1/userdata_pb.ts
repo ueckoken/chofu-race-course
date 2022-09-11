@@ -248,9 +248,9 @@ export class HorseDetail extends Message<HorseDetail> {
   matches = 0;
 
   /**
-   * @generated from field: optional uint32 next = 5;
+   * @generated from field: optional spec.v1.Race next = 5;
    */
-  next?: number;
+  next?: Race;
 
   /**
    * @generated from field: repeated spec.v1.History histories = 6;
@@ -269,7 +269,7 @@ export class HorseDetail extends Message<HorseDetail> {
     { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 4, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 5, name: "next", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+    { no: 5, name: "next", kind: "message", T: Race, opt: true },
     { no: 6, name: "histories", kind: "message", T: History, repeated: true },
   ]);
 
@@ -607,42 +607,47 @@ export class RaceDetail extends Message<RaceDetail> {
   id = 0;
 
   /**
-   * @generated from field: string description = 2;
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string description = 3;
    */
   description = "";
 
   /**
-   * @generated from field: uint32 order = 3;
+   * @generated from field: uint32 order = 4;
    */
   order = 0;
 
   /**
-   * @generated from field: bool is_finished = 4;
+   * @generated from field: bool is_finished = 5;
    */
   isFinished = false;
 
   /**
-   * @generated from field: repeated spec.v1.Member member = 5;
+   * @generated from field: repeated spec.v1.Member member = 6;
    */
   member: Member[] = [];
 
   /**
-   * @generated from field: spec.v1.Result result = 6;
+   * @generated from field: spec.v1.Result result = 7;
    */
   result?: Result;
 
   /**
-   * @generated from field: google.protobuf.Timestamp start = 7;
+   * @generated from field: google.protobuf.Timestamp start = 8;
    */
   start?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp vote_begin = 8;
+   * @generated from field: google.protobuf.Timestamp vote_begin = 9;
    */
   voteBegin?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp vote_end = 9;
+   * @generated from field: google.protobuf.Timestamp vote_end = 10;
    */
   voteEnd?: Timestamp;
 
@@ -655,14 +660,15 @@ export class RaceDetail extends Message<RaceDetail> {
   static readonly typeName = "spec.v1.RaceDetail";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 4, name: "is_finished", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 5, name: "member", kind: "message", T: Member, repeated: true },
-    { no: 6, name: "result", kind: "message", T: Result },
-    { no: 7, name: "start", kind: "message", T: Timestamp },
-    { no: 8, name: "vote_begin", kind: "message", T: Timestamp },
-    { no: 9, name: "vote_end", kind: "message", T: Timestamp },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "is_finished", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "member", kind: "message", T: Member, repeated: true },
+    { no: 7, name: "result", kind: "message", T: Result },
+    { no: 8, name: "start", kind: "message", T: Timestamp },
+    { no: 9, name: "vote_begin", kind: "message", T: Timestamp },
+    { no: 10, name: "vote_end", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDetail {

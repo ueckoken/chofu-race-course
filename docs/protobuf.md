@@ -138,7 +138,7 @@
 | owner | [string](#string) |  |  |
 | wins | [uint32](#uint32) |  |  |
 | matches | [uint32](#uint32) |  |  |
-| next | [uint32](#uint32) | optional |  |
+| next | [Race](#spec-v1-Race) | optional |  |
 | histories | [History](#spec-v1-History) | repeated |  |
 
 
@@ -222,6 +222,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [uint32](#uint32) |  |  |
+| name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | order | [uint32](#uint32) |  |  |
 | is_finished | [bool](#bool) |  |  |
