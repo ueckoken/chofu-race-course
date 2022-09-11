@@ -2,8 +2,9 @@ package storage
 
 import (
 	"errors"
-	"github.com/ueckoken/chofu-race-course/go/pkg/store"
 	"sync"
+
+	"github.com/ueckoken/chofu-race-course/go/pkg/store"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 )
