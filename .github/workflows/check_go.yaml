@@ -2,6 +2,9 @@ name: check_go
 
 on:
   push:
+    paths:
+      - ./go/**
+      - "!./proto/**.proto"
   workflow_call:
   workflow_dispatch:
 
@@ -19,5 +22,6 @@ jobs:
         with:
           version: v1.49.0
           working-directory: ./go
+          skip-cache: true
       - run: go test -v ./...
         working-directory: ./go
