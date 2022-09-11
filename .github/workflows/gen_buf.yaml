@@ -32,7 +32,7 @@ jobs:
           corepack prepare yarn@stable --activate
         working-directory: ./client
       - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: yarn-cache 
         with:
           path: ./client/.yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
