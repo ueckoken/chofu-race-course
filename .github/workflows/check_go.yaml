@@ -6,7 +6,6 @@ on:
       - .github/workflows/*.yaml
       - .github/workflows/*.yml
       - go/**
-      - proto/**/*.proto
   workflow_call:
 
 jobs:
