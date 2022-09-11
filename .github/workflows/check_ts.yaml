@@ -2,8 +2,6 @@ name: check_ts
 
 on:
   push:
-    paths:
-      - client/**
   workflow_call:
   workflow_dispatch:
 

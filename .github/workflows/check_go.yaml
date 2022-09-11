@@ -2,8 +2,6 @@ name: check_go
 
 on:
   push:
-    paths:
-      - go/**
   workflow_call:
   workflow_dispatch:
 
