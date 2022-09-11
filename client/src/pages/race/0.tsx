@@ -21,9 +21,8 @@ const RaceDetailPage: FC<{}> = () => {
                     <th>オッズ</th>
                     <th>人気</th>
                 </tr>
-                {raceData!.member.map((e) => (
+                {raceData!.members.map((e) => (
                     <tr>
-                        <td>{e.result}</td>
                         <td>{e.order}</td>
                         <td>
                             <Link href={`/horse/${e.horse!.id}`}>
@@ -37,12 +36,6 @@ const RaceDetailPage: FC<{}> = () => {
                     </tr>
                 ))}
             </table>
-            <h3>払い戻し</h3>
-            <p>
-                {`${raceData!.result!.order} ${raceData!.result!.horse!.name} ${
-                    raceData!.result!.return
-                }KEN`}
-            </p>
         </>
     );
 };
