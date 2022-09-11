@@ -16,9 +16,19 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-          cache-dependency-path: client/yarn.lock
-      - run: yarn install
+      - run: |
+          corepack enable
+          corepack prepare yarn@stable --activate
         working-directory: ./client
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ./client/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - run: yarn install --immutable --immutable-cache
+        working-directory: ./client
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
       - run: yarn run check
         working-directory: ./client
