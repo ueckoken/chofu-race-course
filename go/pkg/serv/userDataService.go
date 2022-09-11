@@ -28,7 +28,7 @@ func (s *Server) UserData(
 	ctx context.Context,
 	req *connectGo.Request[v1.UserDataRequest],
 ) (*connectGo.Response[v1.UserDataResponse], error) {
-	user, err := s.store.GetById(req.Msg.UserId)
+	user, err := s.store.GetById(req.Msg.GetId())
 	if err != nil {
 		return nil, err
 	}
