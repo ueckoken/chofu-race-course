@@ -6,6 +6,8 @@
 - [spec/v1/userdata.proto](#spec_v1_userdata-proto)
     - [AllHorseDataRequest](#spec-v1-AllHorseDataRequest)
     - [AllHorseDataResponse](#spec-v1-AllHorseDataResponse)
+    - [CreateUserRequest](#spec-v1-CreateUserRequest)
+    - [CreateUserResponse](#spec-v1-CreateUserResponse)
     - [History](#spec-v1-History)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
@@ -22,10 +24,13 @@
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
+    - [VoteRequest](#spec-v1-VoteRequest)
+    - [VoteResponse](#spec-v1-VoteResponse)
   
     - [HorseDataService](#spec-v1-HorseDataService)
     - [RaceDataService](#spec-v1-RaceDataService)
     - [UserDataService](#spec-v1-UserDataService)
+    - [VoteService](#spec-v1-VoteService)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -63,6 +68,31 @@
 
 
 
+<a name="spec-v1-CreateUserRequest"></a>
+
+### CreateUserRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#spec-v1-User) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-CreateUserResponse"></a>
+
+### CreateUserResponse
+
+
+
+
+
+
+
 <a name="spec-v1-History"></a>
 
 ### History
@@ -89,7 +119,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [uint32](#uint32) |  |  |
-| name | [string](#string) |  |  |
+| name | [string](#string) |  | 馬の名前 |
 
 
 
@@ -329,6 +359,32 @@
 
 
 
+
+<a name="spec-v1-VoteRequest"></a>
+
+### VoteRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| race | [uint32](#uint32) |  | 投票するレースのID |
+| horse | [uint32](#uint32) |  | 投票する馬の馬番 |
+
+
+
+
+
+
+<a name="spec-v1-VoteResponse"></a>
+
+### VoteResponse
+
+
+
+
+
+
  
 
  
@@ -365,7 +421,18 @@
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| UserData | [UserDataRequest](#spec-v1-UserDataRequest) | [UserDataResponse](#spec-v1-UserDataResponse) |  |
+| UserData | [UserDataRequest](#spec-v1-UserDataRequest) | [UserDataResponse](#spec-v1-UserDataResponse) | UserIdからUser情報を取得する |
+| CreateUser | [CreateUserRequest](#spec-v1-CreateUserRequest) | [CreateUserResponse](#spec-v1-CreateUserResponse) | 新規Userを作成する |
+
+
+<a name="spec-v1-VoteService"></a>
+
+### VoteService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| Vote | [VoteRequest](#spec-v1-VoteRequest) | [VoteResponse](#spec-v1-VoteResponse) |  |
 
  
 

@@ -124,6 +124,74 @@ export class UserDataResponse extends Message<UserDataResponse> {
 }
 
 /**
+ * @generated from message spec.v1.CreateUserRequest
+ */
+export class CreateUserRequest extends Message<CreateUserRequest> {
+  /**
+   * @generated from field: spec.v1.User user = 1;
+   */
+  user?: User;
+
+  constructor(data?: PartialMessage<CreateUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.CreateUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user", kind: "message", T: User },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateUserRequest {
+    return new CreateUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateUserRequest {
+    return new CreateUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateUserRequest {
+    return new CreateUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateUserRequest | PlainMessage<CreateUserRequest> | undefined, b: CreateUserRequest | PlainMessage<CreateUserRequest> | undefined): boolean {
+    return proto3.util.equals(CreateUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.CreateUserResponse
+ */
+export class CreateUserResponse extends Message<CreateUserResponse> {
+  constructor(data?: PartialMessage<CreateUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.CreateUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateUserResponse {
+    return new CreateUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateUserResponse {
+    return new CreateUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateUserResponse {
+    return new CreateUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateUserResponse | PlainMessage<CreateUserResponse> | undefined, b: CreateUserResponse | PlainMessage<CreateUserResponse> | undefined): boolean {
+    return proto3.util.equals(CreateUserResponse, a, b);
+  }
+}
+
+/**
  * @generated from message spec.v1.Horse
  */
 export class Horse extends Message<Horse> {
@@ -133,6 +201,8 @@ export class Horse extends Message<Horse> {
   id = 0;
 
   /**
+   * 馬の名前
+   *
    * @generated from field: string name = 2;
    */
   name = "";
@@ -843,6 +913,84 @@ export class RaceDataResponse extends Message<RaceDataResponse> {
 
   static equals(a: RaceDataResponse | PlainMessage<RaceDataResponse> | undefined, b: RaceDataResponse | PlainMessage<RaceDataResponse> | undefined): boolean {
     return proto3.util.equals(RaceDataResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.VoteRequest
+ */
+export class VoteRequest extends Message<VoteRequest> {
+  /**
+   * 投票するレースのID
+   *
+   * @generated from field: uint32 race = 1;
+   */
+  race = 0;
+
+  /**
+   * 投票する馬の馬番
+   *
+   * @generated from field: uint32 horse = 2;
+   */
+  horse = 0;
+
+  constructor(data?: PartialMessage<VoteRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.VoteRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "race", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "horse", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VoteRequest {
+    return new VoteRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VoteRequest {
+    return new VoteRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VoteRequest {
+    return new VoteRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VoteRequest | PlainMessage<VoteRequest> | undefined, b: VoteRequest | PlainMessage<VoteRequest> | undefined): boolean {
+    return proto3.util.equals(VoteRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.VoteResponse
+ */
+export class VoteResponse extends Message<VoteResponse> {
+  constructor(data?: PartialMessage<VoteResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.VoteResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VoteResponse {
+    return new VoteResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VoteResponse {
+    return new VoteResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VoteResponse {
+    return new VoteResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VoteResponse | PlainMessage<VoteResponse> | undefined, b: VoteResponse | PlainMessage<VoteResponse> | undefined): boolean {
+    return proto3.util.equals(VoteResponse, a, b);
   }
 }
 
