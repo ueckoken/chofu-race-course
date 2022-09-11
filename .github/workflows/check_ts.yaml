@@ -3,8 +3,6 @@ name: check_ts
 on:
   push:
     paths:
-      - .github/workflows/*.yaml
-      - .github/workflows/*.yml
       - client/**
   workflow_call:
   workflow_dispatch:

@@ -3,8 +3,6 @@ name: check_go
 on:
   push:
     paths:
-      - .github/workflows/*.yaml
-      - .github/workflows/*.yml
       - go/**
   workflow_call:
   workflow_dispatch:
