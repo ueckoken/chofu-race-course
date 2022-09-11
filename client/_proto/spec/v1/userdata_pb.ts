@@ -54,9 +54,9 @@ export class UserDataRequest extends Message<UserDataRequest> {
   /**
    * ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
    *
-   * @generated from field: string user_id = 1;
+   * @generated from field: string id = 1;
    */
-  userId = "";
+  id = "";
 
   constructor(data?: PartialMessage<UserDataRequest>) {
     super();
@@ -66,7 +66,7 @@ export class UserDataRequest extends Message<UserDataRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.UserDataRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "user_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserDataRequest {
@@ -167,63 +167,6 @@ export class Horse extends Message<Horse> {
 }
 
 /**
- * 出走履歴のそれぞれ
- *
- * @generated from message spec.v1.History
- */
-export class History extends Message<History> {
-  /**
-   * 出走したレース
-   *
-   * @generated from field: spec.v1.Race race = 1;
-   */
-  race?: Race;
-
-  /**
-   * TODO: 分からん。誰か書いて。
-   *
-   * @generated from field: uint32 order = 2;
-   */
-  order = 0;
-
-  /**
-   * 順位。最も早くゴールしたときに1。
-   *
-   * @generated from field: uint32 result = 3;
-   */
-  result = 0;
-
-  constructor(data?: PartialMessage<History>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "spec.v1.History";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "race", kind: "message", T: Race },
-    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "result", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): History {
-    return new History().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): History {
-    return new History().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): History {
-    return new History().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: History | PlainMessage<History> | undefined, b: History | PlainMessage<History> | undefined): boolean {
-    return proto3.util.equals(History, a, b);
-  }
-}
-
-/**
  * @generated from message spec.v1.HorseDetail
  */
 export class HorseDetail extends Message<HorseDetail> {
@@ -238,24 +181,30 @@ export class HorseDetail extends Message<HorseDetail> {
   owner = "";
 
   /**
+   * 勝利数
+   *
    * @generated from field: uint32 wins = 3;
    */
   wins = 0;
 
   /**
+   * 試合数
+   *
    * @generated from field: uint32 matches = 4;
    */
   matches = 0;
 
   /**
+   * 次走、未定ならnull
+   *
    * @generated from field: optional spec.v1.Race next = 5;
    */
   next?: Race;
 
   /**
-   * @generated from field: repeated spec.v1.History histories = 6;
+   * @generated from field: repeated spec.v1.HorseDetail.History histories = 6;
    */
-  histories: History[] = [];
+  histories: HorseDetail_History[] = [];
 
   constructor(data?: PartialMessage<HorseDetail>) {
     super();
@@ -270,7 +219,7 @@ export class HorseDetail extends Message<HorseDetail> {
     { no: 3, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 4, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 5, name: "next", kind: "message", T: Race, opt: true },
-    { no: 6, name: "histories", kind: "message", T: History, repeated: true },
+    { no: 6, name: "histories", kind: "message", T: HorseDetail_History, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail {
@@ -287,6 +236,63 @@ export class HorseDetail extends Message<HorseDetail> {
 
   static equals(a: HorseDetail | PlainMessage<HorseDetail> | undefined, b: HorseDetail | PlainMessage<HorseDetail> | undefined): boolean {
     return proto3.util.equals(HorseDetail, a, b);
+  }
+}
+
+/**
+ * 出走履歴のそれぞれ
+ *
+ * @generated from message spec.v1.HorseDetail.History
+ */
+export class HorseDetail_History extends Message<HorseDetail_History> {
+  /**
+   * 出走したレース
+   *
+   * @generated from field: spec.v1.Race race = 1;
+   */
+  race?: Race;
+
+  /**
+   * その日の何番目のレースか
+   *
+   * @generated from field: uint32 order = 2;
+   */
+  order = 0;
+
+  /**
+   * 順位。最も早くゴールしたときに1。
+   *
+   * @generated from field: uint32 result = 3;
+   */
+  result = 0;
+
+  constructor(data?: PartialMessage<HorseDetail_History>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.HorseDetail.History";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "race", kind: "message", T: Race },
+    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "result", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail_History {
+    return new HorseDetail_History().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HorseDetail_History {
+    return new HorseDetail_History().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HorseDetail_History {
+    return new HorseDetail_History().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HorseDetail_History | PlainMessage<HorseDetail_History> | undefined, b: HorseDetail_History | PlainMessage<HorseDetail_History> | undefined): boolean {
+    return proto3.util.equals(HorseDetail_History, a, b);
   }
 }
 
@@ -456,6 +462,11 @@ export class Race extends Message<Race> {
    */
   start?: Timestamp;
 
+  /**
+   * @generated from field: bool is_finished = 5;
+   */
+  isFinished = false;
+
   constructor(data?: PartialMessage<Race>) {
     super();
     proto3.util.initPartial(data, this);
@@ -468,6 +479,7 @@ export class Race extends Message<Race> {
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 4, name: "start", kind: "message", T: Timestamp },
+    { no: 5, name: "is_finished", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Race {
@@ -484,116 +496,6 @@ export class Race extends Message<Race> {
 
   static equals(a: Race | PlainMessage<Race> | undefined, b: Race | PlainMessage<Race> | undefined): boolean {
     return proto3.util.equals(Race, a, b);
-  }
-}
-
-/**
- * @generated from message spec.v1.Member
- */
-export class Member extends Message<Member> {
-  /**
-   * @generated from field: uint32 order = 1;
-   */
-  order = 0;
-
-  /**
-   * @generated from field: uint32 result = 2;
-   */
-  result = 0;
-
-  /**
-   * @generated from field: spec.v1.Horse horse = 3;
-   */
-  horse?: Horse;
-
-  /**
-   * @generated from field: double odds = 4;
-   */
-  odds = 0;
-
-  /**
-   * @generated from field: uint32 popularity = 5;
-   */
-  popularity = 0;
-
-  constructor(data?: PartialMessage<Member>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "spec.v1.Member";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 2, name: "result", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "horse", kind: "message", T: Horse },
-    { no: 4, name: "odds", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
-    { no: 5, name: "popularity", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Member {
-    return new Member().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Member {
-    return new Member().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Member {
-    return new Member().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Member | PlainMessage<Member> | undefined, b: Member | PlainMessage<Member> | undefined): boolean {
-    return proto3.util.equals(Member, a, b);
-  }
-}
-
-/**
- * @generated from message spec.v1.Result
- */
-export class Result extends Message<Result> {
-  /**
-   * @generated from field: spec.v1.Horse horse = 1;
-   */
-  horse?: Horse;
-
-  /**
-   * @generated from field: uint32 order = 2;
-   */
-  order = 0;
-
-  /**
-   * @generated from field: uint32 return = 3;
-   */
-  return = 0;
-
-  constructor(data?: PartialMessage<Result>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "spec.v1.Result";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "horse", kind: "message", T: Horse },
-    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "return", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Result {
-    return new Result().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Result {
-    return new Result().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Result {
-    return new Result().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Result | PlainMessage<Result> | undefined, b: Result | PlainMessage<Result> | undefined): boolean {
-    return proto3.util.equals(Result, a, b);
   }
 }
 
@@ -622,32 +524,22 @@ export class RaceDetail extends Message<RaceDetail> {
   order = 0;
 
   /**
-   * @generated from field: bool is_finished = 5;
+   * @generated from field: repeated spec.v1.RaceDetail.Member members = 5;
    */
-  isFinished = false;
+  members: RaceDetail_Member[] = [];
 
   /**
-   * @generated from field: repeated spec.v1.Member member = 6;
-   */
-  member: Member[] = [];
-
-  /**
-   * @generated from field: spec.v1.Result result = 7;
-   */
-  result?: Result;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp start = 8;
+   * @generated from field: google.protobuf.Timestamp start = 6;
    */
   start?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp vote_begin = 9;
+   * @generated from field: google.protobuf.Timestamp vote_begin = 7;
    */
   voteBegin?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp vote_end = 10;
+   * @generated from field: google.protobuf.Timestamp vote_end = 8;
    */
   voteEnd?: Timestamp;
 
@@ -663,12 +555,10 @@ export class RaceDetail extends Message<RaceDetail> {
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 5, name: "is_finished", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "member", kind: "message", T: Member, repeated: true },
-    { no: 7, name: "result", kind: "message", T: Result },
-    { no: 8, name: "start", kind: "message", T: Timestamp },
-    { no: 9, name: "vote_begin", kind: "message", T: Timestamp },
-    { no: 10, name: "vote_end", kind: "message", T: Timestamp },
+    { no: 5, name: "members", kind: "message", T: RaceDetail_Member, repeated: true },
+    { no: 6, name: "start", kind: "message", T: Timestamp },
+    { no: 7, name: "vote_begin", kind: "message", T: Timestamp },
+    { no: 8, name: "vote_end", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDetail {
@@ -685,6 +575,135 @@ export class RaceDetail extends Message<RaceDetail> {
 
   static equals(a: RaceDetail | PlainMessage<RaceDetail> | undefined, b: RaceDetail | PlainMessage<RaceDetail> | undefined): boolean {
     return proto3.util.equals(RaceDetail, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.RaceDetail.Member
+ */
+export class RaceDetail_Member extends Message<RaceDetail_Member> {
+  /**
+   * @generated from field: uint32 order = 1;
+   */
+  order = 0;
+
+  /**
+   * @generated from field: spec.v1.Horse horse = 2;
+   */
+  horse?: Horse;
+
+  /**
+   * @generated from field: double odds = 3;
+   */
+  odds = 0;
+
+  /**
+   * @generated from field: uint32 popularity = 4;
+   */
+  popularity = 0;
+
+  constructor(data?: PartialMessage<RaceDetail_Member>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RaceDetail.Member";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "horse", kind: "message", T: Horse },
+    { no: 3, name: "odds", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "popularity", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDetail_Member {
+    return new RaceDetail_Member().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceDetail_Member {
+    return new RaceDetail_Member().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceDetail_Member {
+    return new RaceDetail_Member().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RaceDetail_Member | PlainMessage<RaceDetail_Member> | undefined, b: RaceDetail_Member | PlainMessage<RaceDetail_Member> | undefined): boolean {
+    return proto3.util.equals(RaceDetail_Member, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.RaceDataRequest
+ */
+export class RaceDataRequest extends Message<RaceDataRequest> {
+  /**
+   * @generated from field: uint32 id = 1;
+   */
+  id = 0;
+
+  constructor(data?: PartialMessage<RaceDataRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RaceDataRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDataRequest {
+    return new RaceDataRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceDataRequest {
+    return new RaceDataRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceDataRequest {
+    return new RaceDataRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RaceDataRequest | PlainMessage<RaceDataRequest> | undefined, b: RaceDataRequest | PlainMessage<RaceDataRequest> | undefined): boolean {
+    return proto3.util.equals(RaceDataRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.RaceDataResponse
+ */
+export class RaceDataResponse extends Message<RaceDataResponse> {
+  /**
+   * @generated from field: spec.v1.RaceDetail race = 1;
+   */
+  race?: RaceDetail;
+
+  constructor(data?: PartialMessage<RaceDataResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RaceDataResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "race", kind: "message", T: RaceDetail },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDataResponse {
+    return new RaceDataResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceDataResponse {
+    return new RaceDataResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceDataResponse {
+    return new RaceDataResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RaceDataResponse | PlainMessage<RaceDataResponse> | undefined, b: RaceDataResponse | PlainMessage<RaceDataResponse> | undefined): boolean {
+    return proto3.util.equals(RaceDataResponse, a, b);
   }
 }
 
@@ -769,80 +788,6 @@ export class RangeRaceDataResponse extends Message<RangeRaceDataResponse> {
 
   static equals(a: RangeRaceDataResponse | PlainMessage<RangeRaceDataResponse> | undefined, b: RangeRaceDataResponse | PlainMessage<RangeRaceDataResponse> | undefined): boolean {
     return proto3.util.equals(RangeRaceDataResponse, a, b);
-  }
-}
-
-/**
- * @generated from message spec.v1.RaceDataRequest
- */
-export class RaceDataRequest extends Message<RaceDataRequest> {
-  /**
-   * @generated from field: uint32 race_id = 1;
-   */
-  raceId = 0;
-
-  constructor(data?: PartialMessage<RaceDataRequest>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "spec.v1.RaceDataRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "race_id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDataRequest {
-    return new RaceDataRequest().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceDataRequest {
-    return new RaceDataRequest().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceDataRequest {
-    return new RaceDataRequest().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: RaceDataRequest | PlainMessage<RaceDataRequest> | undefined, b: RaceDataRequest | PlainMessage<RaceDataRequest> | undefined): boolean {
-    return proto3.util.equals(RaceDataRequest, a, b);
-  }
-}
-
-/**
- * @generated from message spec.v1.RaceDataResponse
- */
-export class RaceDataResponse extends Message<RaceDataResponse> {
-  /**
-   * @generated from field: spec.v1.RaceDetail race = 1;
-   */
-  race?: RaceDetail;
-
-  constructor(data?: PartialMessage<RaceDataResponse>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "spec.v1.RaceDataResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "race", kind: "message", T: RaceDetail },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDataResponse {
-    return new RaceDataResponse().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceDataResponse {
-    return new RaceDataResponse().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceDataResponse {
-    return new RaceDataResponse().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: RaceDataResponse | PlainMessage<RaceDataResponse> | undefined, b: RaceDataResponse | PlainMessage<RaceDataResponse> | undefined): boolean {
-    return proto3.util.equals(RaceDataResponse, a, b);
   }
 }
 
