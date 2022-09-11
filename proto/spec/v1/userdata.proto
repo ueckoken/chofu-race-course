@@ -14,7 +14,7 @@ message User {
 }
 message UserDataRequest {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
-  string user_id = 1;
+  string id = 1;
 }
 message UserDataResponse {
   User user = 1;
@@ -24,31 +24,30 @@ service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
   rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
 }
-
 message Horse {
   uint32 id = 1;
   string name = 2;
 }
-
-// 出走履歴のそれぞれ
-message History {
-  // 出走したレース
-  Race race = 1;
-  // TODO: 分からん。誰か書いて。
-  uint32 order = 2;
-  // 順位。最も早くゴールしたときに1。
-  uint32 result = 3;
-}
-
 message HorseDetail {
   string name = 1;
   string owner = 2;
+  // 勝利数
   uint32 wins = 3;
+  // 試合数
   uint32 matches = 4;
+  // 次走、未定ならnull
   optional Race next = 5;
+  // 出走履歴のそれぞれ
+  message History {
+    // 出走したレース
+    Race race = 1;
+    // その日の何番目のレースか
+    uint32 order = 2;
+    // 順位。最も早くゴールしたときに1。
+    uint32 result = 3;
+  }
   repeated History histories = 6;
 }
-
 message HorseDataRequest {
   uint32 id = 1;
 }
@@ -69,30 +68,29 @@ message Race {
   string name = 2;
   uint32 order = 3;
   google.protobuf.Timestamp start = 4;
-}
-message Member {
-  uint32 order = 1;
-  uint32 result = 2;
-  Horse horse = 3;
-  double odds = 4;
-  uint32 popularity = 5;
-}
-message Result {
-  Horse horse = 1;
-  uint32 order = 2;
-  uint32 return = 3;
+  bool isFinished = 5;
 }
 message RaceDetail {
   uint32 id = 1;
   string name = 2;
   string description = 3;
   uint32 order = 4;
-  bool is_finished = 5;
-  repeated Member member = 6;
-  Result result = 7;
-  google.protobuf.Timestamp start = 8;
-  google.protobuf.Timestamp vote_begin = 9;
-  google.protobuf.Timestamp vote_end = 10;
+  message Member {
+    uint32 order = 1;
+    Horse horse = 2;
+    double odds = 3;
+    uint32 popularity = 4;
+  }
+  repeated Member members = 5;
+  google.protobuf.Timestamp start = 6;
+  google.protobuf.Timestamp vote_begin = 7;
+  google.protobuf.Timestamp vote_end = 8;
+}
+message RaceDataRequest{
+  uint32 id = 1;
+}
+message RaceDataResponse{
+  RaceDetail race = 1;
 }
 message RangeRaceDataRequest {
   // 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。
@@ -102,10 +100,4 @@ message RangeRaceDataRequest {
 }
 message RangeRaceDataResponse {
   repeated Race races = 1;
-}
-message RaceDataRequest{
-  uint32 race_id = 1;
-}
-message RaceDataResponse{
-  RaceDetail race = 1;
 }
