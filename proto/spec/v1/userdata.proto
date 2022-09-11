@@ -68,7 +68,7 @@ message Race {
   string name = 2;
   uint32 order = 3;
   google.protobuf.Timestamp start = 4;
-  bool isFinished = 5;
+  bool is_finished = 5;
 }
 message RaceDetail {
   uint32 id = 1;
