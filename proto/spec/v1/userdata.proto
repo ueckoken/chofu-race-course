@@ -113,8 +113,6 @@ message RangeRaceDataRequest {
   optional google.protobuf.Timestamp end = 2;
 }
 message RangeRaceDataResponse { repeated Race races = 1; }
-message RaceDataRequest { uint32 race_id = 1; }
-message RaceDataResponse { RaceDetail race = 1; }
 
 service VoteService {
   rpc Vote(VoteRequest) returns (VoteResponse) {}
