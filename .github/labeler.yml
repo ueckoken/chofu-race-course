@@ -1,6 +1,6 @@
-フロント:
+front:
   - backend/internal/**/*
-バック:
+end:
   - backend/external/**/*
 ci-cd:
   - .github/**/*
