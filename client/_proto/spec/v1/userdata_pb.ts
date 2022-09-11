@@ -4,7 +4,7 @@
 /* @ts-nocheck */
 
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
-import {Message, proto3, protoInt64, Timestamp} from "@bufbuild/protobuf";
+import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
 
 /**
  * ユーザを表現する型
@@ -13,7 +13,7 @@ import {Message, proto3, protoInt64, Timestamp} from "@bufbuild/protobuf";
  */
 export class User extends Message<User> {
   /**
-   * ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
+   * ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
    *
    * @generated from field: string id = 1;
    */
@@ -52,7 +52,7 @@ export class User extends Message<User> {
  */
 export class UserDataRequest extends Message<UserDataRequest> {
   /**
-   * ユーザID。他のIDはuint64であるが、ユーザIDのみJWTを使う都合上string。
+   * ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
    *
    * @generated from field: string user_id = 1;
    */
@@ -128,9 +128,9 @@ export class UserDataResponse extends Message<UserDataResponse> {
  */
 export class Horse extends Message<Horse> {
   /**
-   * @generated from field: uint64 id = 1;
+   * @generated from field: uint32 id = 1;
    */
-  id = protoInt64.zero;
+  id = 0;
 
   /**
    * @generated from field: string name = 2;
@@ -145,7 +145,7 @@ export class Horse extends Message<Horse> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.Horse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
@@ -182,16 +182,16 @@ export class History extends Message<History> {
   /**
    * TODO: 分からん。誰か書いて。
    *
-   * @generated from field: uint64 order = 2;
+   * @generated from field: uint32 order = 2;
    */
-  order = protoInt64.zero;
+  order = 0;
 
   /**
    * 順位。最も早くゴールしたときに1。
    *
-   * @generated from field: uint64 result = 3;
+   * @generated from field: uint32 result = 3;
    */
-  result = protoInt64.zero;
+  result = 0;
 
   constructor(data?: PartialMessage<History>) {
     super();
@@ -202,8 +202,8 @@ export class History extends Message<History> {
   static readonly typeName = "spec.v1.History";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "race", kind: "message", T: Race },
-    { no: 2, name: "order", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "result", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "result", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): History {
@@ -238,19 +238,19 @@ export class HorseDetail extends Message<HorseDetail> {
   owner = "";
 
   /**
-   * @generated from field: uint64 wins = 3;
+   * @generated from field: uint32 wins = 3;
    */
-  wins = protoInt64.zero;
+  wins = 0;
 
   /**
-   * @generated from field: uint64 matches = 4;
+   * @generated from field: uint32 matches = 4;
    */
-  matches = protoInt64.zero;
+  matches = 0;
 
   /**
-   * @generated from field: optional uint64 next = 5;
+   * @generated from field: optional spec.v1.Race next = 5;
    */
-  next?: bigint;
+  next?: Race;
 
   /**
    * @generated from field: repeated spec.v1.History histories = 6;
@@ -267,9 +267,9 @@ export class HorseDetail extends Message<HorseDetail> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "wins", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 4, name: "matches", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 5, name: "next", kind: "scalar", T: 4 /* ScalarType.UINT64 */, opt: true },
+    { no: 3, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "next", kind: "message", T: Race, opt: true },
     { no: 6, name: "histories", kind: "message", T: History, repeated: true },
   ]);
 
@@ -295,9 +295,9 @@ export class HorseDetail extends Message<HorseDetail> {
  */
 export class HorseDataRequest extends Message<HorseDataRequest> {
   /**
-   * @generated from field: uint64 id = 1;
+   * @generated from field: uint32 id = 1;
    */
-  id = protoInt64.zero;
+  id = 0;
 
   constructor(data?: PartialMessage<HorseDataRequest>) {
     super();
@@ -307,7 +307,7 @@ export class HorseDataRequest extends Message<HorseDataRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.HorseDataRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDataRequest {
@@ -437,9 +437,9 @@ export class AllHorseDataResponse extends Message<AllHorseDataResponse> {
  */
 export class Race extends Message<Race> {
   /**
-   * @generated from field: uint64 id = 1;
+   * @generated from field: uint32 id = 1;
    */
-  id = protoInt64.zero;
+  id = 0;
 
   /**
    * @generated from field: string name = 2;
@@ -447,9 +447,9 @@ export class Race extends Message<Race> {
   name = "";
 
   /**
-   * @generated from field: uint64 order = 3;
+   * @generated from field: uint32 order = 3;
    */
-  order = protoInt64.zero;
+  order = 0;
 
   /**
    * @generated from field: google.protobuf.Timestamp start = 4;
@@ -464,9 +464,9 @@ export class Race extends Message<Race> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.Race";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "order", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 4, name: "start", kind: "message", T: Timestamp },
   ]);
 
@@ -492,14 +492,14 @@ export class Race extends Message<Race> {
  */
 export class Member extends Message<Member> {
   /**
-   * @generated from field: uint64 order = 1;
+   * @generated from field: uint32 order = 1;
    */
-  order = protoInt64.zero;
+  order = 0;
 
   /**
-   * @generated from field: uint64 result = 2;
+   * @generated from field: uint32 result = 2;
    */
-  result = protoInt64.zero;
+  result = 0;
 
   /**
    * @generated from field: spec.v1.Horse horse = 3;
@@ -512,9 +512,9 @@ export class Member extends Message<Member> {
   odds = 0;
 
   /**
-   * @generated from field: uint64 popularity = 5;
+   * @generated from field: uint32 popularity = 5;
    */
-  popularity = protoInt64.zero;
+  popularity = 0;
 
   constructor(data?: PartialMessage<Member>) {
     super();
@@ -524,11 +524,11 @@ export class Member extends Message<Member> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.Member";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "order", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "result", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "result", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 3, name: "horse", kind: "message", T: Horse },
     { no: 4, name: "odds", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
-    { no: 5, name: "popularity", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "popularity", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Member {
@@ -558,14 +558,14 @@ export class Result extends Message<Result> {
   horse?: Horse;
 
   /**
-   * @generated from field: uint64 order = 2;
+   * @generated from field: uint32 order = 2;
    */
-  order = protoInt64.zero;
+  order = 0;
 
   /**
-   * @generated from field: uint64 return = 3;
+   * @generated from field: uint32 return = 3;
    */
-  return = protoInt64.zero;
+  return = 0;
 
   constructor(data?: PartialMessage<Result>) {
     super();
@@ -576,8 +576,8 @@ export class Result extends Message<Result> {
   static readonly typeName = "spec.v1.Result";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "horse", kind: "message", T: Horse },
-    { no: 2, name: "order", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 3, name: "return", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "return", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Result {
@@ -602,47 +602,52 @@ export class Result extends Message<Result> {
  */
 export class RaceDetail extends Message<RaceDetail> {
   /**
-   * @generated from field: uint64 id = 1;
+   * @generated from field: uint32 id = 1;
    */
-  id = protoInt64.zero;
+  id = 0;
 
   /**
-   * @generated from field: string description = 2;
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string description = 3;
    */
   description = "";
 
   /**
-   * @generated from field: uint64 order = 3;
+   * @generated from field: uint32 order = 4;
    */
-  order = protoInt64.zero;
+  order = 0;
 
   /**
-   * @generated from field: bool is_finished = 4;
+   * @generated from field: bool is_finished = 5;
    */
   isFinished = false;
 
   /**
-   * @generated from field: repeated spec.v1.Member member = 5;
+   * @generated from field: repeated spec.v1.Member member = 6;
    */
   member: Member[] = [];
 
   /**
-   * @generated from field: spec.v1.Result result = 6;
+   * @generated from field: spec.v1.Result result = 7;
    */
   result?: Result;
 
   /**
-   * @generated from field: google.protobuf.Timestamp start = 7;
+   * @generated from field: google.protobuf.Timestamp start = 8;
    */
   start?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp vote_begin = 8;
+   * @generated from field: google.protobuf.Timestamp vote_begin = 9;
    */
   voteBegin?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp vote_end = 9;
+   * @generated from field: google.protobuf.Timestamp vote_end = 10;
    */
   voteEnd?: Timestamp;
 
@@ -654,15 +659,16 @@ export class RaceDetail extends Message<RaceDetail> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.RaceDetail";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "order", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
-    { no: 4, name: "is_finished", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 5, name: "member", kind: "message", T: Member, repeated: true },
-    { no: 6, name: "result", kind: "message", T: Result },
-    { no: 7, name: "start", kind: "message", T: Timestamp },
-    { no: 8, name: "vote_begin", kind: "message", T: Timestamp },
-    { no: 9, name: "vote_end", kind: "message", T: Timestamp },
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "is_finished", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "member", kind: "message", T: Member, repeated: true },
+    { no: 7, name: "result", kind: "message", T: Result },
+    { no: 8, name: "start", kind: "message", T: Timestamp },
+    { no: 9, name: "vote_begin", kind: "message", T: Timestamp },
+    { no: 10, name: "vote_end", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDetail {
@@ -771,9 +777,9 @@ export class RangeRaceDataResponse extends Message<RangeRaceDataResponse> {
  */
 export class RaceDataRequest extends Message<RaceDataRequest> {
   /**
-   * @generated from field: uint64 race_id = 1;
+   * @generated from field: uint32 race_id = 1;
    */
-  raceId = protoInt64.zero;
+  raceId = 0;
 
   constructor(data?: PartialMessage<RaceDataRequest>) {
     super();
@@ -783,7 +789,7 @@ export class RaceDataRequest extends Message<RaceDataRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.RaceDataRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "race_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 1, name: "race_id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDataRequest {
