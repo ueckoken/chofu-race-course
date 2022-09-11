@@ -35,7 +35,7 @@ message Horse {
   string name = 2;
 }
 
-// 出走履歴
+// 出走履歴のそれぞれのレコード
 message History {
   // 出走したレース
   Race race = 1;
