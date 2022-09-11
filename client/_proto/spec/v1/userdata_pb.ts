@@ -237,7 +237,7 @@ export class Horse extends Message<Horse> {
 }
 
 /**
- * 出走履歴のそれぞれ
+ * 出走履歴
  *
  * @generated from message spec.v1.History
  */

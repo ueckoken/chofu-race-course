@@ -306,7 +306,7 @@ func (x *Horse) GetName() string {
 	return ""
 }
 
-// 出走履歴のそれぞれ
+// 出走履歴
 type History struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
