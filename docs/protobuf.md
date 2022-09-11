@@ -96,7 +96,7 @@
 <a name="spec-v1-History"></a>
 
 ### History
-出走履歴
+出走履歴のそれぞれのレコード
 
 
 | Field | Type | Label | Description |
