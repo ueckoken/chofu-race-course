@@ -5,12 +5,17 @@ import (
 	"net/http"
 
 	"github.com/ueckoken/chofu-race-course/go/internal"
+	envConfig "github.com/ueckoken/chofu-race-course/go/pkg/config"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
 
 func main() {
-	route, err := internal.NewRoute()
+	env, err := envConfig.Parse()
+	if err != nil {
+		log.Fatal(err)
+	}
+	route, err := internal.NewRoute(env.DataDir)
 	if err != nil {
 		log.Fatal(err)
 	}
