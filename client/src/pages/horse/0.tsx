@@ -1,8 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
-import { HorseDataResponse, Race } from "../../../_proto/spec/v1/userdata_pb";
-import { dateToYYYYMMDD } from "../../util/time";
-import { Timestamp } from "@bufbuild/protobuf";
+import { HorseDataResponse } from "../../../_proto/spec/v1/userdata_pb";
+import { dateToYYYYMMDD } from "../../util/time";\
 
 const res = new HorseDataResponse();
 const horseData = res.horse;
@@ -11,7 +10,7 @@ const HorseDetailPage: FC<{}> = () => {
     if (!horseData) return <p>存在しないデータです。</p>;
     return (
         <>
-            <h2>{horseData.name}</h2>
+            <h2>{horseData!.data!.name}</h2>
             <dl>
                 <dt>馬主</dt>
                 <dd>{horseData.owner}</dd>
