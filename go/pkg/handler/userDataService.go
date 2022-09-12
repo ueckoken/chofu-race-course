@@ -1,4 +1,4 @@
-package serv
+package handler
 
 import (
 	"context"
@@ -11,20 +11,20 @@ import (
 	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
 )
 
-type Server struct {
+type User struct {
 	v1connect.UnimplementedUserDataServiceHandler
 	store store.User
 }
 
-func NewServer(store store.User) (*Server, error) {
+func NewUserServer(store store.User) (*User, error) {
 	w, err := storage.NewWriter("hoge")
 	if err != nil {
 		return nil, err
 	}
-	return &Server{store: w}, nil
+	return &User{store: w}, nil
 }
 
-func (s *Server) UserData(
+func (s *User) UserData(
 	ctx context.Context,
 	req *connectGo.Request[v1.UserDataRequest],
 ) (*connectGo.Response[v1.UserDataResponse], error) {
