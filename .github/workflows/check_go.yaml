@@ -3,11 +3,10 @@ name: check_go
 on:
   push:
     paths:
-      - .github/workflows/*.yaml
-      - .github/workflows/*.yml
-      - go/**
-      - proto/**/*.proto
+      - "go/**"
+      - "!./proto/**.proto"
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,5 +22,6 @@ jobs:
         with:
           version: v1.49.0
           working-directory: ./go
+          skip-cache: true
       - run: go test -v ./...
         working-directory: ./go

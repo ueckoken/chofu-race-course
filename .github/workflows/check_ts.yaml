@@ -3,11 +3,10 @@ name: check_ts
 on:
   push:
     paths:
-      - .github/workflows/*.yaml
-      - .github/workflows/*.yml
-      - client/**
-      - proto/**/*.proto
+      - "client/**"
+      - "!./proto/**.proto"
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   build:

@@ -9,9 +9,9 @@ const raceData = res.race;
 const RaceDetailPage: FC<{}> = () => {
     return (
         <>
-            <h2>{`第${raceData!.order}競争 ${raceData!.name}`}</h2>
+            <h2>{`第${raceData!.data!.order}競争 ${raceData!.data!.name}`}</h2>
             <p>{raceData!.description}</p>
-            <p>{`${dateToHHmm(raceData!.start!.toDate())}発走`}</p>
+            <p>{`${dateToHHmm(raceData!.data!.start!.toDate())}発走`}</p>
             <h3>出走馬</h3>
             <table>
                 <tr>
@@ -21,9 +21,8 @@ const RaceDetailPage: FC<{}> = () => {
                     <th>オッズ</th>
                     <th>人気</th>
                 </tr>
-                {raceData!.member.map((e) => (
+                {raceData!.members.map((e) => (
                     <tr>
-                        <td>{e.result}</td>
                         <td>{e.order}</td>
                         <td>
                             <Link href={`/horse/${e.horse!.id}`}>
@@ -37,12 +36,6 @@ const RaceDetailPage: FC<{}> = () => {
                     </tr>
                 ))}
             </table>
-            <h3>払い戻し</h3>
-            <p>
-                {`${raceData!.result!.order} ${raceData!.result!.horse!.name} ${
-                    raceData!.result!.return
-                }KEN`}
-            </p>
         </>
     );
 };

@@ -2,7 +2,6 @@ import { FC } from "react";
 import Link from "next/link";
 import { dateToYYYYMMDD } from "../util/time";
 import { RangeRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
-import { Timestamp } from "@bufbuild/protobuf";
 
 const res = new RangeRaceDataResponse();
 

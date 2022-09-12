@@ -8,19 +8,18 @@
     - [AllHorseDataResponse](#spec-v1-AllHorseDataResponse)
     - [CreateUserRequest](#spec-v1-CreateUserRequest)
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
-    - [History](#spec-v1-History)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
     - [HorseDetail](#spec-v1-HorseDetail)
-    - [Member](#spec-v1-Member)
+    - [HorseDetail.History](#spec-v1-HorseDetail-History)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
     - [RaceDetail](#spec-v1-RaceDetail)
+    - [RaceDetail.Member](#spec-v1-RaceDetail-Member)
     - [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest)
     - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
-    - [Result](#spec-v1-Result)
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
@@ -93,23 +92,6 @@
 
 
 
-<a name="spec-v1-History"></a>
-
-### History
-出走履歴のそれぞれのレコード
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| race | [Race](#spec-v1-Race) |  | 出走したレース |
-| order | [uint32](#uint32) |  | TODO: 分からん。誰か書いて。 |
-| result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
-
-
-
-
-
-
 <a name="spec-v1-Horse"></a>
 
 ### Horse
@@ -164,31 +146,29 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
+| data | [Horse](#spec-v1-Horse) |  |  |
 | owner | [string](#string) |  |  |
-| wins | [uint32](#uint32) |  |  |
-| matches | [uint32](#uint32) |  |  |
-| next | [Race](#spec-v1-Race) | optional |  |
-| histories | [History](#spec-v1-History) | repeated |  |
+| wins | [uint32](#uint32) |  | 勝利数 |
+| matches | [uint32](#uint32) |  | 試合数 |
+| next | [Race](#spec-v1-Race) | optional | 次走、未定ならnull |
+| histories | [HorseDetail.History](#spec-v1-HorseDetail-History) | repeated |  |
 
 
 
 
 
 
-<a name="spec-v1-Member"></a>
+<a name="spec-v1-HorseDetail-History"></a>
 
-### Member
-
+### HorseDetail.History
+出走履歴のそれぞれ
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| order | [uint32](#uint32) |  |  |
-| result | [uint32](#uint32) |  |  |
-| horse | [Horse](#spec-v1-Horse) |  |  |
-| odds | [double](#double) |  |  |
-| popularity | [uint32](#uint32) |  |  |
+| race | [Race](#spec-v1-Race) |  | 出走したレース |
+| order | [uint32](#uint32) |  | その日の何番目のレースか |
+| result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
 
 
 
@@ -207,6 +187,7 @@
 | name | [string](#string) |  |  |
 | order | [uint32](#uint32) |  |  |
 | start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| is_finished | [bool](#bool) |  |  |
 
 
 
@@ -221,7 +202,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| race_id | [uint32](#uint32) |  |  |
+| id | [uint32](#uint32) |  |  |
 
 
 
@@ -251,16 +232,29 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint32](#uint32) |  |  |
-| name | [string](#string) |  |  |
+| data | [Race](#spec-v1-Race) |  |  |
 | description | [string](#string) |  |  |
-| order | [uint32](#uint32) |  |  |
-| is_finished | [bool](#bool) |  |  |
-| member | [Member](#spec-v1-Member) | repeated |  |
-| result | [Result](#spec-v1-Result) |  |  |
-| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated |  |
 | vote_begin | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 | vote_end | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-RaceDetail-Member"></a>
+
+### RaceDetail.Member
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order | [uint32](#uint32) |  |  |
+| horse | [Horse](#spec-v1-Horse) |  |  |
+| odds | [double](#double) |  |  |
+| popularity | [uint32](#uint32) |  |  |
 
 
 
@@ -298,23 +292,6 @@
 
 
 
-<a name="spec-v1-Result"></a>
-
-### Result
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| horse | [Horse](#spec-v1-Horse) |  |  |
-| order | [uint32](#uint32) |  |  |
-| return | [uint32](#uint32) |  |  |
-
-
-
-
-
-
 <a name="spec-v1-User"></a>
 
 ### User
@@ -338,7 +315,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_id | [string](#string) |  | ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。 |
+| id | [string](#string) |  | ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。 |
 
 
 
