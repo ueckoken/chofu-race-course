@@ -19,6 +19,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+  log.Println("go server is started")
 	err = http.ListenAndServe(
 		"localhost:8080",
 		h2c.NewHandler(route, &http2.Server{}),

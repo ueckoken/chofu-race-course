@@ -1,4 +1,4 @@
-FROM golang:1.19 as builder
+FROM golang:1.19 AS builder
 
 WORKDIR /app
 ENV CGO_ENABLED=0
@@ -9,7 +9,7 @@ RUN go mod download
 COPY . ./
 RUN go build -o app ./
 
-FROM gcr.io/distroless/static-debian11:nonroot
+FROM gcr.io/distroless/static-debian11:nonroot AS runner
 
-COPY --from=builder /app/app /app
+COPY --from=builder --chown=nonroot:nonroot /app/app /app
 CMD ["/app"]
