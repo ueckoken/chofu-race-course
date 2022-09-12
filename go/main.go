@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/ueckoken/chofu-race-course/go/internal"
-	envConfig "github.com/ueckoken/chofu-race-course/go/pkg/config"
+	envConfig "github.com/ueckoken/chofu-race-course/go/pkg/envConfig"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
