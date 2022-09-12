@@ -20,7 +20,6 @@ message UserDataRequest {
   string id = 1;
 }
 message UserDataResponse { User user = 1; }
-
 message CreateUserRequest { User user = 1; }
 message CreateUserResponse {}
 
@@ -33,19 +32,8 @@ message Horse {
   // 馬の名前
   string name = 2;
 }
-
-// 出走履歴のそれぞれのレコード
-message History {
-  // 出走したレース
-  Race race = 1;
-  // TODO: 分からん。誰か書いて。
-  uint32 order = 2;
-  // 順位。最も早くゴールしたときに1。
-  uint32 result = 3;
-}
-
 message HorseDetail {
-  string name = 1;
+  Horse data = 1;
   string owner = 2;
   // 勝利数
   uint32 wins = 3;
@@ -85,20 +73,17 @@ message Race {
   bool is_finished = 5;
 }
 message RaceDetail {
-  uint32 id = 1;
-  string name = 2;
-  string description = 3;
-  uint32 order = 4;
+  Race data = 1;
+  string description = 2;
   message Member {
     uint32 order = 1;
     Horse horse = 2;
     double odds = 3;
-    uint32 popularity = 4;
+    uint32 popularity = 3;
   }
-  repeated Member members = 5;
-  google.protobuf.Timestamp start = 6;
-  google.protobuf.Timestamp vote_begin = 7;
-  google.protobuf.Timestamp vote_end = 8;
+  repeated Member members = 4;
+  google.protobuf.Timestamp vote_begin = 5;
+  google.protobuf.Timestamp vote_end = 6;
 }
 message RaceDataRequest{
   uint32 id = 1;
