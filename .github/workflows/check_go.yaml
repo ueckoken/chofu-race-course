@@ -3,7 +3,7 @@ name: check_go
 on:
   push:
     paths:
-      - ./go/**
+      - "go/**"
       - "!./proto/**.proto"
   workflow_call:
   workflow_dispatch:
