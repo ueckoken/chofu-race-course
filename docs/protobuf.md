@@ -8,7 +8,6 @@
     - [AllHorseDataResponse](#spec-v1-AllHorseDataResponse)
     - [CreateUserRequest](#spec-v1-CreateUserRequest)
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
-    - [History](#spec-v1-History)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
@@ -93,23 +92,6 @@
 
 
 
-<a name="spec-v1-History"></a>
-
-### History
-出走履歴のそれぞれのレコード
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| race | [Race](#spec-v1-Race) |  | 出走したレース |
-| order | [uint32](#uint32) |  | TODO: 分からん。誰か書いて。 |
-| result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
-
-
-
-
-
-
 <a name="spec-v1-Horse"></a>
 
 ### Horse
@@ -164,7 +146,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
+| data | [Horse](#spec-v1-Horse) |  |  |
 | owner | [string](#string) |  |  |
 | wins | [uint32](#uint32) |  | 勝利数 |
 | matches | [uint32](#uint32) |  | 試合数 |
@@ -250,12 +232,9 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint32](#uint32) |  |  |
-| name | [string](#string) |  |  |
+| data | [Race](#spec-v1-Race) |  |  |
 | description | [string](#string) |  |  |
-| order | [uint32](#uint32) |  |  |
 | members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated |  |
-| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 | vote_begin | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 | vote_end | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 

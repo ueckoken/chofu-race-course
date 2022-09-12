@@ -237,70 +237,13 @@ export class Horse extends Message<Horse> {
 }
 
 /**
- * 出走履歴のそれぞれのレコード
- *
- * @generated from message spec.v1.History
- */
-export class History extends Message<History> {
-  /**
-   * 出走したレース
-   *
-   * @generated from field: spec.v1.Race race = 1;
-   */
-  race?: Race;
-
-  /**
-   * TODO: 分からん。誰か書いて。
-   *
-   * @generated from field: uint32 order = 2;
-   */
-  order = 0;
-
-  /**
-   * 順位。最も早くゴールしたときに1。
-   *
-   * @generated from field: uint32 result = 3;
-   */
-  result = 0;
-
-  constructor(data?: PartialMessage<History>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "spec.v1.History";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "race", kind: "message", T: Race },
-    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "result", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): History {
-    return new History().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): History {
-    return new History().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): History {
-    return new History().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: History | PlainMessage<History> | undefined, b: History | PlainMessage<History> | undefined): boolean {
-    return proto3.util.equals(History, a, b);
-  }
-}
-
-/**
  * @generated from message spec.v1.HorseDetail
  */
 export class HorseDetail extends Message<HorseDetail> {
   /**
-   * @generated from field: string name = 1;
+   * @generated from field: spec.v1.Horse data = 1;
    */
-  name = "";
+  data?: Horse;
 
   /**
    * @generated from field: string owner = 2;
@@ -341,7 +284,7 @@ export class HorseDetail extends Message<HorseDetail> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.HorseDetail";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "data", kind: "message", T: Horse },
     { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 4, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
@@ -631,42 +574,27 @@ export class Race extends Message<Race> {
  */
 export class RaceDetail extends Message<RaceDetail> {
   /**
-   * @generated from field: uint32 id = 1;
+   * @generated from field: spec.v1.Race data = 1;
    */
-  id = 0;
+  data?: Race;
 
   /**
-   * @generated from field: string name = 2;
-   */
-  name = "";
-
-  /**
-   * @generated from field: string description = 3;
+   * @generated from field: string description = 2;
    */
   description = "";
 
   /**
-   * @generated from field: uint32 order = 4;
-   */
-  order = 0;
-
-  /**
-   * @generated from field: repeated spec.v1.RaceDetail.Member members = 5;
+   * @generated from field: repeated spec.v1.RaceDetail.Member members = 4;
    */
   members: RaceDetail_Member[] = [];
 
   /**
-   * @generated from field: google.protobuf.Timestamp start = 6;
-   */
-  start?: Timestamp;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp vote_begin = 7;
+   * @generated from field: google.protobuf.Timestamp vote_begin = 5;
    */
   voteBegin?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp vote_end = 8;
+   * @generated from field: google.protobuf.Timestamp vote_end = 6;
    */
   voteEnd?: Timestamp;
 
@@ -678,14 +606,11 @@ export class RaceDetail extends Message<RaceDetail> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.RaceDetail";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 5, name: "members", kind: "message", T: RaceDetail_Member, repeated: true },
-    { no: 6, name: "start", kind: "message", T: Timestamp },
-    { no: 7, name: "vote_begin", kind: "message", T: Timestamp },
-    { no: 8, name: "vote_end", kind: "message", T: Timestamp },
+    { no: 1, name: "data", kind: "message", T: Race },
+    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "members", kind: "message", T: RaceDetail_Member, repeated: true },
+    { no: 5, name: "vote_begin", kind: "message", T: Timestamp },
+    { no: 6, name: "vote_end", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDetail {
