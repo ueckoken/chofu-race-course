@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import { HorseDataResponse } from "../../../_proto/spec/v1/userdata_pb";
-import { dateToYYYYMMDD } from "../../util/time";\
+import { dateToYYYYMMDD } from "../../util/time";
 
 const res = new HorseDataResponse();
 const horseData = res.horse;
