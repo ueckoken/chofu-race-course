@@ -79,7 +79,7 @@ message RaceDetail {
     uint32 order = 1;
     Horse horse = 2;
     double odds = 3;
-    uint32 popularity = 3;
+    uint32 popularity = 4;
   }
   repeated Member members = 4;
   google.protobuf.Timestamp vote_begin = 5;
