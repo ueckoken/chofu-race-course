@@ -5,7 +5,8 @@ import (
 )
 
 type envVars struct {
-	DataDir string `env:"DATADIR"`
+	DataDir    string `env:"DATADIR"`
+	ListenAddr string `env:"LISTEN_ADDR"`
 }
 
 func Parse() (*envVars, error) {

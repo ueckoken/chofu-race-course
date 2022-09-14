@@ -5,14 +5,14 @@ import (
 	"path"
 
 	"github.com/ueckoken/chofu-race-course/go/pkg/handler"
-	"github.com/ueckoken/chofu-race-course/go/pkg/storage"
+	"github.com/ueckoken/chofu-race-course/go/pkg/file"
 
 	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
 )
 
 func NewRoute(dataDir string) (*http.ServeMux, error) {
 	mux := http.NewServeMux()
-	userWriter, err := storage.NewWriter(path.Join(dataDir, "user"))
+	userWriter, err := file.NewUserFile(path.Join(dataDir, "user"))
 	if err != nil {
 		return nil, err
 	}
