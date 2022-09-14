@@ -26,6 +26,7 @@ message CreateUserResponse {}
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
   rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
+  rpc RegisterHorse(RegisterHorseRequest) returns (RegisterHorseResponse) {}
 }
 message Horse {
   uint32 id = 1;
