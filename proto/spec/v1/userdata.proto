@@ -60,6 +60,12 @@ message HorseDataResponse {
 }
 message AllHorseDataRequest {}
 message AllHorseDataResponse { repeated Horse horses = 1; }
+// HorseDetailの初期値 id: id++, wins; 0, matches: 0, next: null, histories: []
+message registerHorseRequest {
+  string id = 1;
+  string owner = 2;
+}
+message registerHorseResponse {}
 
 service RaceDataService {
   rpc RangeRaceData(RangeRaceDataRequest) returns (RangeRaceDataResponse) {}
