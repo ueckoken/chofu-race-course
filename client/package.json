@@ -1,4 +1,6 @@
 {
+  "name": "client",
+  "packageManager": "yarn@3.2.3",
   "devDependencies": {
     "@bufbuild/protoc-gen-connect-web": "0.2.1",
     "@bufbuild/protoc-gen-es": "0.1.1"
@@ -7,7 +9,7 @@
     "@bufbuild/connect-web": "0.2.1",
     "@bufbuild/protobuf": "0.1.1",
     "@types/node": "18.7.16",
-    "@types/react": "18.0.19",
+    "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "next": "12.3.0",
     "prettier": "2.7.1",
