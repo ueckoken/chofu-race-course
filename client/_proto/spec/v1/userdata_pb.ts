@@ -515,11 +515,13 @@ export class AllHorseDataResponse extends Message<AllHorseDataResponse> {
  */
 export class RegisterHorseRequest extends Message<RegisterHorseRequest> {
   /**
-   * @generated from field: string id = 1;
+   * @generated from field: string name = 1;
    */
-  id = "";
+  name = "";
 
   /**
+   * 所有者名
+   *
    * @generated from field: string owner = 2;
    */
   owner = "";
@@ -532,7 +534,7 @@ export class RegisterHorseRequest extends Message<RegisterHorseRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.RegisterHorseRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 

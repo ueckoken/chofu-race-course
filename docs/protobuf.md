@@ -302,8 +302,8 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
-| owner | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| owner | [string](#string) |  | 所有者名 |
 
 
 
