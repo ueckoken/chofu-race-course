@@ -34,3 +34,5 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
       - run: yarn run check
         working-directory: ./client
+      - run: yarn run lint
+        working-directory: ./client
