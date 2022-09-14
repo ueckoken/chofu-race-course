@@ -7,7 +7,6 @@ import (
 	"sync"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
-	"github.com/ueckoken/chofu-race-course/go/pkg/store"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -17,7 +16,6 @@ type User struct {
 	mu       *sync.Mutex
 }
 
-var _ store.User = (*User)(nil)
 var notFound = errors.New("record not found")
 
 func NewUserFile(path string) (*User, error) {
