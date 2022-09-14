@@ -1,4 +1,4 @@
-package storage
+package file
 
 import (
 	"bufio"
@@ -12,19 +12,19 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-type Writer struct {
+type User struct {
 	filePath string
 	mu       *sync.Mutex
 }
 
-var _ store.User = (*Writer)(nil)
+var _ store.User = (*User)(nil)
 var notFound = errors.New("record not found")
 
-func NewWriter(path string) (*Writer, error) {
-	return &Writer{filePath: path, mu: &sync.Mutex{}}, nil
+func NewUserFile(path string) (*User, error) {
+	return &User{filePath: path, mu: &sync.Mutex{}}, nil
 }
 
-func (w *Writer) Create(u *v1.User) error {
+func (w *User) Create(u *v1.User) error {
 	if _, err := w.GetById(u.GetId()); err != nil {
 		return err
 	}
@@ -44,7 +44,7 @@ func (w *Writer) Create(u *v1.User) error {
 }
 
 // GetById は与えたIDを持つUserを返す。存在しないときはErrorを返す。
-func (w *Writer) GetById(id string) (*v1.User, error) {
+func (w *User) GetById(id string) (*v1.User, error) {
 	us, err := w.readFromFile()
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (w *Writer) GetById(id string) (*v1.User, error) {
 	return nil, notFound
 }
 
-func (w *Writer) readFromFile() ([]*v1.User, error) {
+func (w *User) readFromFile() ([]*v1.User, error) {
 	us := make([]*v1.User, 1)
 	w.mu.Lock()
 	defer w.mu.Unlock()
