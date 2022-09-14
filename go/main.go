@@ -19,8 +19,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	addr := "localhost:8080"
+	log.Printf("listening in %s", addr)
 	err = http.ListenAndServe(
-		"localhost:8080",
+		addr,
 		h2c.NewHandler(route, &http2.Server{}),
 	)
 	if err != nil {
