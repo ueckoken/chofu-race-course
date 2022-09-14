@@ -72,7 +72,8 @@ message AllHorseDataResponse {
 }
 // HorseDetailの初期値 id: id++, wins; 0, matches: 0, next: null, histories: []
 message RegisterHorseRequest {
-  string id = 1;
+  string name = 1;
+  // 所有者名
   string owner = 2;
 }
 message RegisterHorseResponse {}
