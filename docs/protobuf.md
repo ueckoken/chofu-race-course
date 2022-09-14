@@ -20,6 +20,8 @@
     - [RaceDetail.Member](#spec-v1-RaceDetail-Member)
     - [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest)
     - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
+    - [RegisterHorseRequest](#spec-v1-RegisterHorseRequest)
+    - [RegisterHorseResponse](#spec-v1-RegisterHorseResponse)
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
@@ -286,6 +288,32 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | races | [Race](#spec-v1-Race) | repeated |  |
+
+
+
+
+
+
+<a name="spec-v1-RegisterHorseRequest"></a>
+
+### RegisterHorseRequest
+HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histories: []
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| owner | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-RegisterHorseResponse"></a>
+
+### RegisterHorseResponse
+
 
 
 

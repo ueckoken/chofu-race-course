@@ -509,6 +509,82 @@ export class AllHorseDataResponse extends Message<AllHorseDataResponse> {
 }
 
 /**
+ * HorseDetailの初期値 id: id++, wins; 0, matches: 0, next: null, histories: []
+ *
+ * @generated from message spec.v1.RegisterHorseRequest
+ */
+export class RegisterHorseRequest extends Message<RegisterHorseRequest> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string owner = 2;
+   */
+  owner = "";
+
+  constructor(data?: PartialMessage<RegisterHorseRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RegisterHorseRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterHorseRequest {
+    return new RegisterHorseRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterHorseRequest {
+    return new RegisterHorseRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterHorseRequest {
+    return new RegisterHorseRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterHorseRequest | PlainMessage<RegisterHorseRequest> | undefined, b: RegisterHorseRequest | PlainMessage<RegisterHorseRequest> | undefined): boolean {
+    return proto3.util.equals(RegisterHorseRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.RegisterHorseResponse
+ */
+export class RegisterHorseResponse extends Message<RegisterHorseResponse> {
+  constructor(data?: PartialMessage<RegisterHorseResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RegisterHorseResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterHorseResponse {
+    return new RegisterHorseResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterHorseResponse {
+    return new RegisterHorseResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterHorseResponse {
+    return new RegisterHorseResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterHorseResponse | PlainMessage<RegisterHorseResponse> | undefined, b: RegisterHorseResponse | PlainMessage<RegisterHorseResponse> | undefined): boolean {
+    return proto3.util.equals(RegisterHorseResponse, a, b);
+  }
+}
+
+/**
  * @generated from message spec.v1.Race
  */
 export class Race extends Message<Race> {
