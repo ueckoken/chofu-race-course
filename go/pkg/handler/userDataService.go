@@ -17,8 +17,6 @@ type User struct {
 }
 
 func NewUserServer(store store.User) (*User, error) {
-	// ここでNewWriter作るのは何となく違う気がする。多分NewWriterを中で呼ぶNewUserModelみたいなのを置くべき
-	// そいつにCreateUserとかさせましょう
 	w, err := file.NewUserFile("hoge")
 	if err != nil {
 		return nil, err
@@ -44,3 +42,4 @@ func (s *User) CreateUser(ctx context.Context, req *connectGo.Request[v1.CreateU
 	}
 	return &connectGo.Response[v1.CreateUserResponse]{Msg: &v1.CreateUserResponse{}}, nil
 }
+
