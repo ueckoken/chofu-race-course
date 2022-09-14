@@ -3,7 +3,11 @@
   "packageManager": "yarn@3.2.3",
   "devDependencies": {
     "@bufbuild/protoc-gen-connect-web": "0.2.1",
-    "@bufbuild/protoc-gen-es": "0.1.1"
+    "@bufbuild/protoc-gen-es": "0.1.1",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react": "latest"
   },
   "dependencies": {
     "@bufbuild/connect-web": "0.2.1",
@@ -22,6 +26,7 @@
     "dev": "next dev",
     "check": "tsc --noEmit",
     "prettier": "prettier --write \"./src/**/*.{ts,tsx,scss}\" --tab-width 4",
-    "build": "next build"
+    "build": "next build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\""
   }
 }
