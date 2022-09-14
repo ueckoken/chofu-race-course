@@ -1,7 +1,10 @@
 syntax = "proto3";
+
 package spec.v1;
-option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
+
 import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
 
 // ユーザのデータをやり取りするサービス
 service UserDataService {
@@ -19,13 +22,18 @@ message UserDataRequest {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
-message UserDataResponse { User user = 1; }
-message CreateUserRequest { User user = 1; }
+message UserDataResponse {
+  User user = 1;
+}
+message CreateUserRequest {
+  User user = 1;
+}
 message CreateUserResponse {}
 
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
   rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
+  rpc RegisterHorse(RegisterHorseRequest) returns (RegisterHorseResponse) {}
 }
 message Horse {
   uint32 id = 1;
@@ -59,7 +67,16 @@ message HorseDataResponse {
   HorseDetail horse = 1;
 }
 message AllHorseDataRequest {}
-message AllHorseDataResponse { repeated Horse horses = 1; }
+message AllHorseDataResponse {
+  repeated Horse horses = 1;
+}
+// HorseDetailの初期値 id: id++, wins; 0, matches: 0, next: null, histories: []
+message RegisterHorseRequest {
+  string name = 1;
+  // 所有者名
+  string owner = 2;
+}
+message RegisterHorseResponse {}
 
 service RaceDataService {
   rpc RangeRaceData(RangeRaceDataRequest) returns (RangeRaceDataResponse) {}
@@ -85,10 +102,10 @@ message RaceDetail {
   google.protobuf.Timestamp vote_begin = 5;
   google.protobuf.Timestamp vote_end = 6;
 }
-message RaceDataRequest{
+message RaceDataRequest {
   uint32 id = 1;
 }
-message RaceDataResponse{
+message RaceDataResponse {
   RaceDetail race = 1;
 }
 message RangeRaceDataRequest {
@@ -97,7 +114,9 @@ message RangeRaceDataRequest {
   // 指定した時間を含む、指定した時間までのデータを取得する。指定しなかったときは取得できる最新まで取得する。
   optional google.protobuf.Timestamp end = 2;
 }
-message RangeRaceDataResponse { repeated Race races = 1; }
+message RangeRaceDataResponse {
+  repeated Race races = 1;
+}
 
 service VoteService {
   rpc Vote(VoteRequest) returns (VoteResponse) {}
