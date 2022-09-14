@@ -19,7 +19,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("listen in %s\n", env.ListenAddr)
+	log.Printf("listening in %s\n", env.ListenAddr)
 	err = http.ListenAndServe(
 		env.ListenAddr,
 		h2c.NewHandler(route, &http2.Server{}),
