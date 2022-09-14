@@ -21,7 +21,17 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/no-non-null-assertion": "off"
+        "@typescript-eslint/no-non-null-assertion": "off",
+        // https://github.com/typescript-eslint/typescript-eslint/issues/2063#issuecomment-675156492
+        "@typescript-eslint/ban-types": [
+            "error",
+            {
+                "extendDefaults": true,
+                "types": {
+                    "{}": false
+                }
+            }
+        ]
     },
     "settings": {
         "react": {
