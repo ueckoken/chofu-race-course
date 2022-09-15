@@ -22,6 +22,8 @@
     - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
     - [RegisterHorseRequest](#spec-v1-RegisterHorseRequest)
     - [RegisterHorseResponse](#spec-v1-RegisterHorseResponse)
+    - [RegisterRaceRequest](#spec-v1-RegisterRaceRequest)
+    - [RegisterRaceResponse](#spec-v1-RegisterRaceResponse)
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
@@ -320,6 +322,34 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 
 
 
+<a name="spec-v1-RegisterRaceRequest"></a>
+
+### RegisterRaceRequest
+RaceDetailの初期値 id: id&#43;&#43;,is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| order | [uint32](#uint32) |  | その日の何番目のレースか |
+| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | 出走時刻 |
+| description | [string](#string) |  | コースなどの詳細説明 |
+
+
+
+
+
+
+<a name="spec-v1-RegisterRaceResponse"></a>
+
+### RegisterRaceResponse
+
+
+
+
+
+
+
 <a name="spec-v1-User"></a>
 
 ### User
@@ -418,6 +448,7 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 | ----------- | ------------ | ------------- | ------------|
 | RangeRaceData | [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest) | [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
+| RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) |  |
 
 
 <a name="spec-v1-UserDataService"></a>

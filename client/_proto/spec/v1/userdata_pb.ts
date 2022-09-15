@@ -922,6 +922,100 @@ export class RangeRaceDataResponse extends Message<RangeRaceDataResponse> {
 }
 
 /**
+ * RaceDetailの初期値 id: id++,is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+ *
+ * @generated from message spec.v1.RegisterRaceRequest
+ */
+export class RegisterRaceRequest extends Message<RegisterRaceRequest> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * その日の何番目のレースか
+   *
+   * @generated from field: uint32 order = 2;
+   */
+  order = 0;
+
+  /**
+   * 出走時刻
+   *
+   * @generated from field: google.protobuf.Timestamp start = 3;
+   */
+  start?: Timestamp;
+
+  /**
+   * コースなどの詳細説明
+   *
+   * @generated from field: string description = 4;
+   */
+  description = "";
+
+  constructor(data?: PartialMessage<RegisterRaceRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RegisterRaceRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "start", kind: "message", T: Timestamp },
+    { no: 4, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterRaceRequest {
+    return new RegisterRaceRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterRaceRequest {
+    return new RegisterRaceRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterRaceRequest {
+    return new RegisterRaceRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterRaceRequest | PlainMessage<RegisterRaceRequest> | undefined, b: RegisterRaceRequest | PlainMessage<RegisterRaceRequest> | undefined): boolean {
+    return proto3.util.equals(RegisterRaceRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.RegisterRaceResponse
+ */
+export class RegisterRaceResponse extends Message<RegisterRaceResponse> {
+  constructor(data?: PartialMessage<RegisterRaceResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RegisterRaceResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterRaceResponse {
+    return new RegisterRaceResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterRaceResponse {
+    return new RegisterRaceResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterRaceResponse {
+    return new RegisterRaceResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterRaceResponse | PlainMessage<RegisterRaceResponse> | undefined, b: RegisterRaceResponse | PlainMessage<RegisterRaceResponse> | undefined): boolean {
+    return proto3.util.equals(RegisterRaceResponse, a, b);
+  }
+}
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export class VoteRequest extends Message<VoteRequest> {

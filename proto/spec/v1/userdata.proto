@@ -81,6 +81,7 @@ message RegisterHorseResponse {}
 service RaceDataService {
   rpc RangeRaceData(RangeRaceDataRequest) returns (RangeRaceDataResponse) {}
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
+  rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
 }
 message Race {
   uint32 id = 1;
@@ -117,6 +118,17 @@ message RangeRaceDataRequest {
 message RangeRaceDataResponse {
   repeated Race races = 1;
 }
+// RaceDetailの初期値 id: id++,is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+message RegisterRaceRequest {
+  string name = 1;
+  // その日の何番目のレースか
+  uint32 order = 2;
+  // 出走時刻
+  google.protobuf.Timestamp start = 3;
+  // コースなどの詳細説明
+  string description = 4;
+}
+message RegisterRaceResponse {}
 
 service VoteService {
   rpc Vote(VoteRequest) returns (VoteResponse) {}

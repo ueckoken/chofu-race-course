@@ -225,6 +225,7 @@ func (UnimplementedHorseDataServiceHandler) RegisterHorse(context.Context, *conn
 type RaceDataServiceClient interface {
 	RangeRaceData(context.Context, *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error)
 	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
+	RegisterRace(context.Context, *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error)
 }
 
 // NewRaceDataServiceClient constructs a client for the spec.v1.RaceDataService service. By default,
@@ -247,6 +248,11 @@ func NewRaceDataServiceClient(httpClient connect_go.HTTPClient, baseURL string, 
 			baseURL+"/spec.v1.RaceDataService/RaceData",
 			opts...,
 		),
+		registerRace: connect_go.NewClient[v1.RegisterRaceRequest, v1.RegisterRaceResponse](
+			httpClient,
+			baseURL+"/spec.v1.RaceDataService/RegisterRace",
+			opts...,
+		),
 	}
 }
 
@@ -254,6 +260,7 @@ func NewRaceDataServiceClient(httpClient connect_go.HTTPClient, baseURL string, 
 type raceDataServiceClient struct {
 	rangeRaceData *connect_go.Client[v1.RangeRaceDataRequest, v1.RangeRaceDataResponse]
 	raceData      *connect_go.Client[v1.RaceDataRequest, v1.RaceDataResponse]
+	registerRace  *connect_go.Client[v1.RegisterRaceRequest, v1.RegisterRaceResponse]
 }
 
 // RangeRaceData calls spec.v1.RaceDataService.RangeRaceData.
@@ -266,10 +273,16 @@ func (c *raceDataServiceClient) RaceData(ctx context.Context, req *connect_go.Re
 	return c.raceData.CallUnary(ctx, req)
 }
 
+// RegisterRace calls spec.v1.RaceDataService.RegisterRace.
+func (c *raceDataServiceClient) RegisterRace(ctx context.Context, req *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error) {
+	return c.registerRace.CallUnary(ctx, req)
+}
+
 // RaceDataServiceHandler is an implementation of the spec.v1.RaceDataService service.
 type RaceDataServiceHandler interface {
 	RangeRaceData(context.Context, *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error)
 	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
+	RegisterRace(context.Context, *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error)
 }
 
 // NewRaceDataServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -289,6 +302,11 @@ func NewRaceDataServiceHandler(svc RaceDataServiceHandler, opts ...connect_go.Ha
 		svc.RaceData,
 		opts...,
 	))
+	mux.Handle("/spec.v1.RaceDataService/RegisterRace", connect_go.NewUnaryHandler(
+		"/spec.v1.RaceDataService/RegisterRace",
+		svc.RegisterRace,
+		opts...,
+	))
 	return "/spec.v1.RaceDataService/", mux
 }
 
@@ -301,6 +319,10 @@ func (UnimplementedRaceDataServiceHandler) RangeRaceData(context.Context, *conne
 
 func (UnimplementedRaceDataServiceHandler) RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.RaceData is not implemented"))
+}
+
+func (UnimplementedRaceDataServiceHandler) RegisterRace(context.Context, *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.RegisterRace is not implemented"))
 }
 
 // VoteServiceClient is a client for the spec.v1.VoteService service.
