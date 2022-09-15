@@ -22,7 +22,7 @@ const RaceDetailPage: FC<{}> = () => {
                     <th>人気</th>
                 </tr>
                 {raceData!.members.map((e) => (
-                    <tr>
+                    <tr key={e.horse!.id}>
                         <td>{e.order}</td>
                         <td>
                             <Link href={`/horse/${e.horse!.id}`}>
