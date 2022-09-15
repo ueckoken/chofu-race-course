@@ -20,6 +20,7 @@ jobs:
       #     corepack enable
       #     corepack prepare yarn@stable --activate
       #   working-directory: ./client
+      - run: yarn --version
       - uses: actions/cache@v3
         id: yarn-cache
         with:
@@ -27,9 +28,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - run: |
-          yarn --version
-          yarn install --immutable
+      - run: yarn install --immutable
         working-directory: ./client
         if: steps.yarn-cache.outputs.cache-hit != 'true'
       - run: yarn run check
