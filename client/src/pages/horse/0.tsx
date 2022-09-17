@@ -41,7 +41,7 @@ const HorseDetailPage: FC<{}> = () => {
                 </thead>
                 <tbody>
                     {horseData.histories.map((e) => (
-                        <tr key={e.race!.id}>
+                        <tr key={`race${e.race!.id}`}>
                             <td>{dateToYYYYMMDD(e.race!.start!.toDate())}</td>
                             <td>
                                 <Link href={`/race/${e.race!.id}`}>
