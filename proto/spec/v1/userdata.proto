@@ -51,7 +51,7 @@ message HorseDetail {
       IMAGE_TYPE_GIF = 3;
     }
     // 拡張子
-    Image_type type = 1;
+    ImageType type = 1;
     // base64形式
     bytes data = 2;
   }
