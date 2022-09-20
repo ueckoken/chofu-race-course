@@ -322,9 +322,9 @@ export class HorseDetail_Image extends Message<HorseDetail_Image> {
   /**
    * 拡張子
    *
-   * @generated from field: string type = 1;
+   * @generated from field: spec.v1.HorseDetail.Image.ImageType type = 1;
    */
-  type = "";
+  type = HorseDetail_Image_ImageType.UNSPECIFIED;
 
   /**
    * base64形式
@@ -341,7 +341,7 @@ export class HorseDetail_Image extends Message<HorseDetail_Image> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.HorseDetail.Image";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(HorseDetail_Image_ImageType) },
     { no: 2, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
   ]);
 
@@ -361,6 +361,38 @@ export class HorseDetail_Image extends Message<HorseDetail_Image> {
     return proto3.util.equals(HorseDetail_Image, a, b);
   }
 }
+
+/**
+ * @generated from enum spec.v1.HorseDetail.Image.ImageType
+ */
+export enum HorseDetail_Image_ImageType {
+  /**
+   * @generated from enum value: IMAGE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_PNG = 1;
+   */
+  PNG = 1,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_JPEG = 2;
+   */
+  JPEG = 2,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_GIF = 3;
+   */
+  GIF = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(HorseDetail_Image_ImageType)
+proto3.util.setEnumType(HorseDetail_Image_ImageType, "spec.v1.HorseDetail.Image.ImageType", [
+  { no: 0, name: "IMAGE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "IMAGE_TYPE_PNG" },
+  { no: 2, name: "IMAGE_TYPE_JPEG" },
+  { no: 3, name: "IMAGE_TYPE_GIF" },
+]);
 
 /**
  * 出走履歴のそれぞれ

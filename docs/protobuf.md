@@ -31,6 +31,8 @@
     - [VoteRequest](#spec-v1-VoteRequest)
     - [VoteResponse](#spec-v1-VoteResponse)
   
+    - [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType)
+  
     - [HorseDataService](#spec-v1-HorseDataService)
     - [RaceDataService](#spec-v1-RaceDataService)
     - [UserDataService](#spec-v1-UserDataService)
@@ -189,7 +191,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| type | [string](#string) |  | 拡張子 |
+| type | [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType) |  | 拡張子 |
 | data | [bytes](#bytes) |  | base64形式 |
 
 
@@ -439,6 +441,20 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 
 
  
+
+
+<a name="spec-v1-HorseDetail-Image-ImageType"></a>
+
+### HorseDetail.Image.ImageType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| IMAGE_TYPE_UNSPECIFIED | 0 |  |
+| IMAGE_TYPE_PNG | 1 |  |
+| IMAGE_TYPE_JPEG | 2 |  |
+| IMAGE_TYPE_GIF | 3 |  |
+
 
  
 
