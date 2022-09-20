@@ -47,7 +47,7 @@ message HorseDetail {
     // 拡張子
     string type = 1;
     // base64形式
-    byts data = 2;
+    bytes data = 2;
   }
   optional Image image = 3;
   // 勝利数
