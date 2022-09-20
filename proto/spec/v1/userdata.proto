@@ -44,8 +44,14 @@ message HorseDetail {
   Horse data = 1;
   string owner = 2;
   message Image {
+    enum Image_type {
+      UNKNOWN = 0;
+      PNG = 1;
+      JPEG = 2;
+      GIF = 3;
+    }
     // 拡張子
-    string type = 1;
+    Image_type type = 1;
     // base64形式
     bytes data = 2;
   }
