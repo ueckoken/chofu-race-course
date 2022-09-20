@@ -44,11 +44,11 @@ message HorseDetail {
   Horse data = 1;
   string owner = 2;
   message Image {
-    enum Image_type {
-      UNKNOWN = 0;
-      PNG = 1;
-      JPEG = 2;
-      GIF = 3;
+    enum ImageType {
+      IMAGE_TYPE_UNKNOWN = 0;
+      IMAGE_TYPE_PNG = 1;
+      IMAGE_TYPE_JPEG = 2;
+      IMAGE_TYPE_GIF = 3;
     }
     // 拡張子
     Image_type type = 1;
