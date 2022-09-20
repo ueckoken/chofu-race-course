@@ -13,6 +13,7 @@
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
     - [HorseDetail](#spec-v1-HorseDetail)
     - [HorseDetail.History](#spec-v1-HorseDetail-History)
+    - [HorseDetail.Image](#spec-v1-HorseDetail-Image)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
@@ -152,6 +153,7 @@
 | ----- | ---- | ----- | ----------- |
 | data | [Horse](#spec-v1-Horse) |  |  |
 | owner | [string](#string) |  |  |
+| image | [HorseDetail.Image](#spec-v1-HorseDetail-Image) | optional |  |
 | wins | [uint32](#uint32) |  | 勝利数 |
 | matches | [uint32](#uint32) |  | 試合数 |
 | next | [Race](#spec-v1-Race) | optional | 次走、未定ならnull |
@@ -173,6 +175,22 @@
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
 | result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
+
+
+
+
+
+
+<a name="spec-v1-HorseDetail-Image"></a>
+
+### HorseDetail.Image
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| type | [string](#string) |  | 拡張子 |
+| data | [bytes](#bytes) |  | base64形式 |
 
 
 
@@ -299,7 +317,7 @@
 <a name="spec-v1-RegisterHorseRequest"></a>
 
 ### RegisterHorseRequest
-HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histories: []
+HorseDetailの初期値 id: id&#43;&#43;, image: null, wins: 0, matches: 0, next: null, histories: []
 
 
 | Field | Type | Label | Description |
@@ -325,7 +343,7 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 <a name="spec-v1-RegisterRaceRequest"></a>
 
 ### RegisterRaceRequest
-RaceDetailの初期値 id: id&#43;&#43;,is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
 
 
 | Field | Type | Label | Description |
