@@ -45,7 +45,7 @@ message HorseDetail {
   string owner = 2;
   message Image {
     enum ImageType {
-      IMAGE_TYPE_UNKNOWN = 0;
+      IMAGE_TYPE_UNSPECIFIED = 0;
       IMAGE_TYPE_PNG = 1;
       IMAGE_TYPE_JPEG = 2;
       IMAGE_TYPE_GIF = 3;
