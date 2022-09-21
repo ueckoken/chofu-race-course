@@ -2,7 +2,7 @@ name: check_ts
 
 on:
   push:
-   paths-ignore:
+    paths-ignore:
       - "./proto/**.proto"
   workflow_call:
   workflow_dispatch:
