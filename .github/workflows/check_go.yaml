@@ -2,8 +2,8 @@ name: check_go
 
 on:
   push:
-    paths:
-      - "!./proto/**.proto"
+    paths-ignore:
+      - "./proto/**.proto"
   workflow_call:
   workflow_dispatch:
 
