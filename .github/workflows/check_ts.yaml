@@ -3,7 +3,6 @@ name: check_ts
 on:
   push:
     paths:
-      - "client/**"
       - "!./proto/**.proto"
   workflow_call:
   workflow_dispatch:
