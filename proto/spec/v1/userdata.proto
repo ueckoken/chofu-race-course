@@ -43,12 +43,25 @@ message Horse {
 message HorseDetail {
   Horse data = 1;
   string owner = 2;
+  message Image {
+    enum ImageType {
+      IMAGE_TYPE_UNSPECIFIED = 0;
+      IMAGE_TYPE_PNG = 1;
+      IMAGE_TYPE_JPEG = 2;
+      IMAGE_TYPE_GIF = 3;
+    }
+    // 拡張子
+    ImageType type = 1;
+    // base64形式
+    bytes data = 2;
+  }
+  optional Image image = 3;
   // 勝利数
-  uint32 wins = 3;
+  uint32 wins = 4;
   // 試合数
-  uint32 matches = 4;
+  uint32 matches = 5;
   // 次走、未定ならnull
-  optional Race next = 5;
+  optional Race next = 6;
   // 出走履歴のそれぞれ
   message History {
     // 出走したレース
@@ -58,7 +71,7 @@ message HorseDetail {
     // 順位。最も早くゴールしたときに1。
     uint32 result = 3;
   }
-  repeated History histories = 6;
+  repeated History histories = 7;
 }
 message HorseDataRequest {
   uint32 id = 1;
@@ -70,7 +83,7 @@ message AllHorseDataRequest {}
 message AllHorseDataResponse {
   repeated Horse horses = 1;
 }
-// HorseDetailの初期値 id: id++, wins; 0, matches: 0, next: null, histories: []
+// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
 message RegisterHorseRequest {
   string name = 1;
   // 所有者名
@@ -118,7 +131,7 @@ message RangeRaceDataRequest {
 message RangeRaceDataResponse {
   repeated Race races = 1;
 }
-// RaceDetailの初期値 id: id++,is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+// RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
 message RegisterRaceRequest {
   string name = 1;
   // その日の何番目のレースか
