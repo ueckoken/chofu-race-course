@@ -4,10 +4,8 @@
   "devDependencies": {
     "@bufbuild/protoc-gen-connect-web": "0.2.1",
     "@bufbuild/protoc-gen-es": "0.1.1",
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest",
-    "eslint": "latest",
-    "eslint-plugin-react": "latest"
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.0"
   },
   "dependencies": {
     "@bufbuild/connect-web": "0.2.1",
@@ -27,6 +25,6 @@
     "check": "tsc --noEmit",
     "prettier": "prettier --write \"./src/**/*.{ts,tsx,scss}\" --tab-width 4",
     "build": "next build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\""
+    "lint": "next lint"
   }
 }
