@@ -251,28 +251,33 @@ export class HorseDetail extends Message<HorseDetail> {
   owner = "";
 
   /**
+   * @generated from field: optional spec.v1.HorseDetail.Image image = 3;
+   */
+  image?: HorseDetail_Image;
+
+  /**
    * 勝利数
    *
-   * @generated from field: uint32 wins = 3;
+   * @generated from field: uint32 wins = 4;
    */
   wins = 0;
 
   /**
    * 試合数
    *
-   * @generated from field: uint32 matches = 4;
+   * @generated from field: uint32 matches = 5;
    */
   matches = 0;
 
   /**
    * 次走、未定ならnull
    *
-   * @generated from field: optional spec.v1.Race next = 5;
+   * @generated from field: optional spec.v1.Race next = 6;
    */
   next?: Race;
 
   /**
-   * @generated from field: repeated spec.v1.HorseDetail.History histories = 6;
+   * @generated from field: repeated spec.v1.HorseDetail.History histories = 7;
    */
   histories: HorseDetail_History[] = [];
 
@@ -286,10 +291,11 @@ export class HorseDetail extends Message<HorseDetail> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "data", kind: "message", T: Horse },
     { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 4, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 5, name: "next", kind: "message", T: Race, opt: true },
-    { no: 6, name: "histories", kind: "message", T: HorseDetail_History, repeated: true },
+    { no: 3, name: "image", kind: "message", T: HorseDetail_Image, opt: true },
+    { no: 4, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "next", kind: "message", T: Race, opt: true },
+    { no: 7, name: "histories", kind: "message", T: HorseDetail_History, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail {
@@ -308,6 +314,85 @@ export class HorseDetail extends Message<HorseDetail> {
     return proto3.util.equals(HorseDetail, a, b);
   }
 }
+
+/**
+ * @generated from message spec.v1.HorseDetail.Image
+ */
+export class HorseDetail_Image extends Message<HorseDetail_Image> {
+  /**
+   * 拡張子
+   *
+   * @generated from field: spec.v1.HorseDetail.Image.ImageType type = 1;
+   */
+  type = HorseDetail_Image_ImageType.UNSPECIFIED;
+
+  /**
+   * base64形式
+   *
+   * @generated from field: bytes data = 2;
+   */
+  data = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<HorseDetail_Image>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.HorseDetail.Image";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(HorseDetail_Image_ImageType) },
+    { no: 2, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail_Image {
+    return new HorseDetail_Image().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HorseDetail_Image {
+    return new HorseDetail_Image().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HorseDetail_Image {
+    return new HorseDetail_Image().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HorseDetail_Image | PlainMessage<HorseDetail_Image> | undefined, b: HorseDetail_Image | PlainMessage<HorseDetail_Image> | undefined): boolean {
+    return proto3.util.equals(HorseDetail_Image, a, b);
+  }
+}
+
+/**
+ * @generated from enum spec.v1.HorseDetail.Image.ImageType
+ */
+export enum HorseDetail_Image_ImageType {
+  /**
+   * @generated from enum value: IMAGE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_PNG = 1;
+   */
+  PNG = 1,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_JPEG = 2;
+   */
+  JPEG = 2,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_GIF = 3;
+   */
+  GIF = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(HorseDetail_Image_ImageType)
+proto3.util.setEnumType(HorseDetail_Image_ImageType, "spec.v1.HorseDetail.Image.ImageType", [
+  { no: 0, name: "IMAGE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "IMAGE_TYPE_PNG" },
+  { no: 2, name: "IMAGE_TYPE_JPEG" },
+  { no: 3, name: "IMAGE_TYPE_GIF" },
+]);
 
 /**
  * 出走履歴のそれぞれ
@@ -509,7 +594,7 @@ export class AllHorseDataResponse extends Message<AllHorseDataResponse> {
 }
 
 /**
- * HorseDetailの初期値 id: id++, wins; 0, matches: 0, next: null, histories: []
+ * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
  *
  * @generated from message spec.v1.RegisterHorseRequest
  */
@@ -922,7 +1007,7 @@ export class RangeRaceDataResponse extends Message<RangeRaceDataResponse> {
 }
 
 /**
- * RaceDetailの初期値 id: id++,is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+ * RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
  *
  * @generated from message spec.v1.RegisterRaceRequest
  */
