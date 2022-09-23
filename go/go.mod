@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/bufbuild/connect-go v0.4.0
 	github.com/caarlos0/env/v6 v6.10.1
-	golang.org/x/net v0.0.0-20220920203100-d0c6ba3f52d9
+	golang.org/x/net v0.0.0-20220923203811-8be639271d50
 	google.golang.org/protobuf v1.28.1
 )
 
