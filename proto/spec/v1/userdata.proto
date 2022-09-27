@@ -69,7 +69,7 @@ message HorseDetail {
     // その日の何番目のレースか
     uint32 order = 2;
     // 順位。最も早くゴールしたときに1。
-    uint32 result = 3;
+    RaceDetail.Member.NoteType result = 3;
   }
   repeated History histories = 7;
 }
@@ -107,10 +107,18 @@ message RaceDetail {
   Race data = 1;
   string description = 2;
   message Member {
-    uint32 order = 1;
-    Horse horse = 2;
-    double odds = 3;
-    uint32 popularity = 4;
+    oneof order_oneof {
+      uint32 order = 1;
+      enum NoteType {
+        NOTE_TYPE_UNSPECIFIED = 0;
+        NOTE_TYPE_CANCEL = 1;
+        NOTE_TYPE_GIVEUP = 2;
+      }
+      NoteType note = 2;
+    }
+    Horse horse = 3;
+    double odds = 4;
+    uint32 popularity = 5;
   }
   repeated Member members = 4;
   google.protobuf.Timestamp vote_begin = 5;
