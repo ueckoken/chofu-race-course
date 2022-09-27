@@ -415,6 +415,8 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
   order = 0;
 
   /**
+   * 順位
+   *
    * @generated from field: spec.v1.RaceOrder result = 3;
    */
   result?: RaceOrder;

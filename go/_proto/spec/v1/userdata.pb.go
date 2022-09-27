@@ -1493,7 +1493,8 @@ type HorseDetail_History struct {
 	// 出走したレース
 	Race *Race `protobuf:"bytes,1,opt,name=race,proto3" json:"race,omitempty"`
 	// その日の何番目のレースか
-	Order  uint32     `protobuf:"varint,2,opt,name=order,proto3" json:"order,omitempty"`
+	Order uint32 `protobuf:"varint,2,opt,name=order,proto3" json:"order,omitempty"`
+	// 順位
 	Result *RaceOrder `protobuf:"bytes,3,opt,name=result,proto3" json:"result,omitempty"`
 }
 

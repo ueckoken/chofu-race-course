@@ -178,7 +178,7 @@
 | ----- | ---- | ----- | ----------- |
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
-| result | [RaceOrder](#spec-v1-RaceOrder) |  |  |
+| result | [RaceOrder](#spec-v1-RaceOrder) |  | 順位 |
 
 
 
