@@ -2,7 +2,12 @@ name: check_go
 
 on:
   workflow_call:
-  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'checkout commit hash'
+        required: false
+        default: ${{ github.sha }}
+        type: string
 
 defaults:
   run:
@@ -11,6 +16,9 @@ jobs:
   check:
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.sha }}
       - uses: actions/setup-go@v3
         with:
           go-version-file: "go/go.mod"
