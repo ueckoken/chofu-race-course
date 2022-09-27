@@ -68,6 +68,7 @@ message HorseDetail {
     Race race = 1;
     // その日の何番目のレースか
     uint32 order = 2;
+    // 順位
     RaceOrder result = 3;
   }
   repeated History histories = 7;

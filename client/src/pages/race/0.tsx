@@ -2,6 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import { RaceDataResponse } from "../../../_proto/spec/v1/userdata_pb";
 import { dateToHHmm } from "../../util/time";
+import { raceOrderToString } from "../../util/util";
 
 const res = new RaceDataResponse();
 const raceData = res.race;
@@ -23,7 +24,7 @@ const RaceDetailPage: FC<{}> = () => {
                 </tr>
                 {raceData!.members.map((e) => (
                     <tr key={`horse${e.horse!.id}`}>
-                        <td>{e.order}</td>
+                        <td>{raceOrderToString(e.order!)}</td>
                         <td>
                             <Link href={`/horse/${e.horse!.id}`}>
                                 <a>{e.horse!.name}</a>
