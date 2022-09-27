@@ -20,6 +20,7 @@ jobs:
           go-version-file: "go/go.mod"
           cache: true
           cache-dependency-path: go/go.sum
+          working-directory: go
       - uses: golangci/golangci-lint-action@v3
         with:
           version: v1.49.0
