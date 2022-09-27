@@ -3,13 +3,13 @@ module github.com/ueckoken/chofu-race-course/go
 go 1.19
 
 require (
-	github.com/bufbuild/connect-go v0.4.0
-	golang.org/x/net v0.0.0-20220909164309-bea034e7d591
+	github.com/bufbuild/connect-go v0.5.0
+	github.com/caarlos0/env/v6 v6.10.1
+	golang.org/x/net v0.0.0-20220926192436-02166a98028e
 	google.golang.org/protobuf v1.28.1
 )
 
 require (
-	github.com/caarlos0/env/v6 v6.10.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/objx v0.4.0 // indirect

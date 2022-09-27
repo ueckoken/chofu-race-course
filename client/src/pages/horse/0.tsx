@@ -2,6 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import { HorseDataResponse } from "../../../_proto/spec/v1/userdata_pb";
 import { dateToYYYYMMDD } from "../../util/time";
+import { raceOrderToString } from "../../util/util";
 
 const res = new HorseDataResponse();
 const horseData = res.horse;
@@ -41,7 +42,7 @@ const HorseDetailPage: FC<{}> = () => {
                 </thead>
                 <tbody>
                     {horseData.histories.map((e) => (
-                        <tr>
+                        <tr key={`race${e.race!.id}`}>
                             <td>{dateToYYYYMMDD(e.race!.start!.toDate())}</td>
                             <td>
                                 <Link href={`/race/${e.race!.id}`}>
@@ -49,7 +50,7 @@ const HorseDetailPage: FC<{}> = () => {
                                 </Link>
                             </td>
                             <td>{/*e.popularity*/}</td>
-                            <td>{e.result}</td>
+                            <td>{raceOrderToString(e.result!)}</td>
                         </tr>
                     ))}
                 </tbody>

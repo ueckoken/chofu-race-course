@@ -13,21 +13,28 @@
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
     - [HorseDetail](#spec-v1-HorseDetail)
     - [HorseDetail.History](#spec-v1-HorseDetail-History)
+    - [HorseDetail.Image](#spec-v1-HorseDetail-Image)
     - [JWT](#spec-v1-JWT)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
     - [RaceDetail](#spec-v1-RaceDetail)
     - [RaceDetail.Member](#spec-v1-RaceDetail-Member)
+    - [RaceOrder](#spec-v1-RaceOrder)
     - [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest)
     - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
     - [RegisterHorseRequest](#spec-v1-RegisterHorseRequest)
     - [RegisterHorseResponse](#spec-v1-RegisterHorseResponse)
+    - [RegisterRaceRequest](#spec-v1-RegisterRaceRequest)
+    - [RegisterRaceResponse](#spec-v1-RegisterRaceResponse)
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
     - [VoteRequest](#spec-v1-VoteRequest)
     - [VoteResponse](#spec-v1-VoteResponse)
+  
+    - [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType)
+    - [RaceOrder.NoteType](#spec-v1-RaceOrder-NoteType)
   
     - [HorseDataService](#spec-v1-HorseDataService)
     - [RaceDataService](#spec-v1-RaceDataService)
@@ -152,6 +159,7 @@
 | ----- | ---- | ----- | ----------- |
 | data | [Horse](#spec-v1-Horse) |  |  |
 | owner | [string](#string) |  |  |
+| image | [HorseDetail.Image](#spec-v1-HorseDetail-Image) | optional |  |
 | wins | [uint32](#uint32) |  | 勝利数 |
 | matches | [uint32](#uint32) |  | 試合数 |
 | next | [Race](#spec-v1-Race) | optional | 次走、未定ならnull |
@@ -172,7 +180,23 @@
 | ----- | ---- | ----- | ----------- |
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
-| result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
+| result | [RaceOrder](#spec-v1-RaceOrder) |  | 順位 |
+
+
+
+
+
+
+<a name="spec-v1-HorseDetail-Image"></a>
+
+### HorseDetail.Image
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| type | [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType) |  | 拡張子 |
+| data | [bytes](#bytes) |  | base64形式 |
 
 
 
@@ -270,10 +294,26 @@ JWTトークン
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| order | [uint32](#uint32) |  |  |
+| order | [RaceOrder](#spec-v1-RaceOrder) |  |  |
 | horse | [Horse](#spec-v1-Horse) |  |  |
 | odds | [double](#double) |  |  |
 | popularity | [uint32](#uint32) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-RaceOrder"></a>
+
+### RaceOrder
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
+| note | [RaceOrder.NoteType](#spec-v1-RaceOrder-NoteType) |  |  |
 
 
 
@@ -314,7 +354,7 @@ JWTトークン
 <a name="spec-v1-RegisterHorseRequest"></a>
 
 ### RegisterHorseRequest
-HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histories: []
+HorseDetailの初期値 id: id&#43;&#43;, image: null, wins: 0, matches: 0, next: null, histories: []
 
 
 | Field | Type | Label | Description |
@@ -330,6 +370,34 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 <a name="spec-v1-RegisterHorseResponse"></a>
 
 ### RegisterHorseResponse
+
+
+
+
+
+
+
+<a name="spec-v1-RegisterRaceRequest"></a>
+
+### RegisterRaceRequest
+RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| order | [uint32](#uint32) |  | その日の何番目のレースか |
+| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | 出走時刻 |
+| description | [string](#string) |  | コースなどの詳細説明 |
+
+
+
+
+
+
+<a name="spec-v1-RegisterRaceResponse"></a>
+
+### RegisterRaceResponse
 
 
 
@@ -409,6 +477,33 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 
  
 
+
+<a name="spec-v1-HorseDetail-Image-ImageType"></a>
+
+### HorseDetail.Image.ImageType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| IMAGE_TYPE_UNSPECIFIED | 0 |  |
+| IMAGE_TYPE_PNG | 1 |  |
+| IMAGE_TYPE_JPEG | 2 |  |
+| IMAGE_TYPE_GIF | 3 |  |
+
+
+
+<a name="spec-v1-RaceOrder-NoteType"></a>
+
+### RaceOrder.NoteType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| NOTE_TYPE_UNSPECIFIED | 0 |  |
+| NOTE_TYPE_CANCEL | 1 | 出走取消 |
+| NOTE_TYPE_GIVEUP | 2 | 競争中止 |
+
+
  
 
  
@@ -435,6 +530,7 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 | ----------- | ------------ | ------------- | ------------|
 | RangeRaceData | [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest) | [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
+| RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) |  |
 
 
 <a name="spec-v1-UserDataService"></a>

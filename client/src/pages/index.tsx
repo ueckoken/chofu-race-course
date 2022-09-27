@@ -1,11 +1,5 @@
 import { FC } from "react";
 import Link from "next/link";
-import {
-    createConnectTransport,
-    createPromiseClient,
-} from "@bufbuild/connect-web";
-import type { PartialMessage, Timestamp } from "@bufbuild/protobuf";
-import { RaceDataService } from "../../_proto/spec/v1/userdata_connectweb";
 import { RangeRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
 import { dateToHHmm } from "../util/time";
 

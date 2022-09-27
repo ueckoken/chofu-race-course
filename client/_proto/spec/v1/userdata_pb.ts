@@ -296,28 +296,33 @@ export class HorseDetail extends Message<HorseDetail> {
   owner = "";
 
   /**
+   * @generated from field: optional spec.v1.HorseDetail.Image image = 3;
+   */
+  image?: HorseDetail_Image;
+
+  /**
    * 勝利数
    *
-   * @generated from field: uint32 wins = 3;
+   * @generated from field: uint32 wins = 4;
    */
   wins = 0;
 
   /**
    * 試合数
    *
-   * @generated from field: uint32 matches = 4;
+   * @generated from field: uint32 matches = 5;
    */
   matches = 0;
 
   /**
    * 次走、未定ならnull
    *
-   * @generated from field: optional spec.v1.Race next = 5;
+   * @generated from field: optional spec.v1.Race next = 6;
    */
   next?: Race;
 
   /**
-   * @generated from field: repeated spec.v1.HorseDetail.History histories = 6;
+   * @generated from field: repeated spec.v1.HorseDetail.History histories = 7;
    */
   histories: HorseDetail_History[] = [];
 
@@ -331,10 +336,11 @@ export class HorseDetail extends Message<HorseDetail> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "data", kind: "message", T: Horse },
     { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 4, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 5, name: "next", kind: "message", T: Race, opt: true },
-    { no: 6, name: "histories", kind: "message", T: HorseDetail_History, repeated: true },
+    { no: 3, name: "image", kind: "message", T: HorseDetail_Image, opt: true },
+    { no: 4, name: "wins", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "matches", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "next", kind: "message", T: Race, opt: true },
+    { no: 7, name: "histories", kind: "message", T: HorseDetail_History, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail {
@@ -353,6 +359,85 @@ export class HorseDetail extends Message<HorseDetail> {
     return proto3.util.equals(HorseDetail, a, b);
   }
 }
+
+/**
+ * @generated from message spec.v1.HorseDetail.Image
+ */
+export class HorseDetail_Image extends Message<HorseDetail_Image> {
+  /**
+   * 拡張子
+   *
+   * @generated from field: spec.v1.HorseDetail.Image.ImageType type = 1;
+   */
+  type = HorseDetail_Image_ImageType.UNSPECIFIED;
+
+  /**
+   * base64形式
+   *
+   * @generated from field: bytes data = 2;
+   */
+  data = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<HorseDetail_Image>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.HorseDetail.Image";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(HorseDetail_Image_ImageType) },
+    { no: 2, name: "data", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail_Image {
+    return new HorseDetail_Image().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HorseDetail_Image {
+    return new HorseDetail_Image().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HorseDetail_Image {
+    return new HorseDetail_Image().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HorseDetail_Image | PlainMessage<HorseDetail_Image> | undefined, b: HorseDetail_Image | PlainMessage<HorseDetail_Image> | undefined): boolean {
+    return proto3.util.equals(HorseDetail_Image, a, b);
+  }
+}
+
+/**
+ * @generated from enum spec.v1.HorseDetail.Image.ImageType
+ */
+export enum HorseDetail_Image_ImageType {
+  /**
+   * @generated from enum value: IMAGE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_PNG = 1;
+   */
+  PNG = 1,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_JPEG = 2;
+   */
+  JPEG = 2,
+
+  /**
+   * @generated from enum value: IMAGE_TYPE_GIF = 3;
+   */
+  GIF = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(HorseDetail_Image_ImageType)
+proto3.util.setEnumType(HorseDetail_Image_ImageType, "spec.v1.HorseDetail.Image.ImageType", [
+  { no: 0, name: "IMAGE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "IMAGE_TYPE_PNG" },
+  { no: 2, name: "IMAGE_TYPE_JPEG" },
+  { no: 3, name: "IMAGE_TYPE_GIF" },
+]);
 
 /**
  * 出走履歴のそれぞれ
@@ -375,11 +460,11 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
   order = 0;
 
   /**
-   * 順位。最も早くゴールしたときに1。
+   * 順位
    *
-   * @generated from field: uint32 result = 3;
+   * @generated from field: spec.v1.RaceOrder result = 3;
    */
-  result = 0;
+  result?: RaceOrder;
 
   constructor(data?: PartialMessage<HorseDetail_History>) {
     super();
@@ -391,7 +476,7 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "race", kind: "message", T: Race },
     { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "result", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "result", kind: "message", T: RaceOrder },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail_History {
@@ -554,7 +639,7 @@ export class AllHorseDataResponse extends Message<AllHorseDataResponse> {
 }
 
 /**
- * HorseDetailの初期値 id: id++, wins; 0, matches: 0, next: null, histories: []
+ * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
  *
  * @generated from message spec.v1.RegisterHorseRequest
  */
@@ -693,6 +778,88 @@ export class Race extends Message<Race> {
 }
 
 /**
+ * @generated from message spec.v1.RaceOrder
+ */
+export class RaceOrder extends Message<RaceOrder> {
+  /**
+   * @generated from oneof spec.v1.RaceOrder.order_oneof
+   */
+  orderOneof: {
+    /**
+     * 順位。最も早くゴールしたときに1。
+     *
+     * @generated from field: uint32 order = 1;
+     */
+    value: number;
+    case: "order";
+  } | {
+    /**
+     * @generated from field: spec.v1.RaceOrder.NoteType note = 2;
+     */
+    value: RaceOrder_NoteType;
+    case: "note";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<RaceOrder>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RaceOrder";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */, oneof: "order_oneof" },
+    { no: 2, name: "note", kind: "enum", T: proto3.getEnumType(RaceOrder_NoteType), oneof: "order_oneof" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceOrder {
+    return new RaceOrder().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceOrder {
+    return new RaceOrder().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceOrder {
+    return new RaceOrder().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RaceOrder | PlainMessage<RaceOrder> | undefined, b: RaceOrder | PlainMessage<RaceOrder> | undefined): boolean {
+    return proto3.util.equals(RaceOrder, a, b);
+  }
+}
+
+/**
+ * @generated from enum spec.v1.RaceOrder.NoteType
+ */
+export enum RaceOrder_NoteType {
+  /**
+   * @generated from enum value: NOTE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * 出走取消
+   *
+   * @generated from enum value: NOTE_TYPE_CANCEL = 1;
+   */
+  CANCEL = 1,
+
+  /**
+   * 競争中止
+   *
+   * @generated from enum value: NOTE_TYPE_GIVEUP = 2;
+   */
+  GIVEUP = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(RaceOrder_NoteType)
+proto3.util.setEnumType(RaceOrder_NoteType, "spec.v1.RaceOrder.NoteType", [
+  { no: 0, name: "NOTE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "NOTE_TYPE_CANCEL" },
+  { no: 2, name: "NOTE_TYPE_GIVEUP" },
+]);
+
+/**
  * @generated from message spec.v1.RaceDetail
  */
 export class RaceDetail extends Message<RaceDetail> {
@@ -758,9 +925,9 @@ export class RaceDetail extends Message<RaceDetail> {
  */
 export class RaceDetail_Member extends Message<RaceDetail_Member> {
   /**
-   * @generated from field: uint32 order = 1;
+   * @generated from field: spec.v1.RaceOrder order = 1;
    */
-  order = 0;
+  order?: RaceOrder;
 
   /**
    * @generated from field: spec.v1.Horse horse = 2;
@@ -785,7 +952,7 @@ export class RaceDetail_Member extends Message<RaceDetail_Member> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.RaceDetail.Member";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 1, name: "order", kind: "message", T: RaceOrder },
     { no: 2, name: "horse", kind: "message", T: Horse },
     { no: 3, name: "odds", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
     { no: 4, name: "popularity", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
@@ -963,6 +1130,100 @@ export class RangeRaceDataResponse extends Message<RangeRaceDataResponse> {
 
   static equals(a: RangeRaceDataResponse | PlainMessage<RangeRaceDataResponse> | undefined, b: RangeRaceDataResponse | PlainMessage<RangeRaceDataResponse> | undefined): boolean {
     return proto3.util.equals(RangeRaceDataResponse, a, b);
+  }
+}
+
+/**
+ * RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+ *
+ * @generated from message spec.v1.RegisterRaceRequest
+ */
+export class RegisterRaceRequest extends Message<RegisterRaceRequest> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * その日の何番目のレースか
+   *
+   * @generated from field: uint32 order = 2;
+   */
+  order = 0;
+
+  /**
+   * 出走時刻
+   *
+   * @generated from field: google.protobuf.Timestamp start = 3;
+   */
+  start?: Timestamp;
+
+  /**
+   * コースなどの詳細説明
+   *
+   * @generated from field: string description = 4;
+   */
+  description = "";
+
+  constructor(data?: PartialMessage<RegisterRaceRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RegisterRaceRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "start", kind: "message", T: Timestamp },
+    { no: 4, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterRaceRequest {
+    return new RegisterRaceRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterRaceRequest {
+    return new RegisterRaceRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterRaceRequest {
+    return new RegisterRaceRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterRaceRequest | PlainMessage<RegisterRaceRequest> | undefined, b: RegisterRaceRequest | PlainMessage<RegisterRaceRequest> | undefined): boolean {
+    return proto3.util.equals(RegisterRaceRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message spec.v1.RegisterRaceResponse
+ */
+export class RegisterRaceResponse extends Message<RegisterRaceResponse> {
+  constructor(data?: PartialMessage<RegisterRaceResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RegisterRaceResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterRaceResponse {
+    return new RegisterRaceResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterRaceResponse {
+    return new RegisterRaceResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterRaceResponse {
+    return new RegisterRaceResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterRaceResponse | PlainMessage<RegisterRaceResponse> | undefined, b: RegisterRaceResponse | PlainMessage<RegisterRaceResponse> | undefined): boolean {
+    return proto3.util.equals(RegisterRaceResponse, a, b);
   }
 }
 
