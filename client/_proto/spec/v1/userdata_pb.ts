@@ -87,6 +87,45 @@ export class UserDataRequest extends Message<UserDataRequest> {
 }
 
 /**
+ * JWTトークン
+ *
+ * @generated from message spec.v1.JWT
+ */
+export class JWT extends Message<JWT> {
+  /**
+   * @generated from field: string token = 1;
+   */
+  token = "";
+
+  constructor(data?: PartialMessage<JWT>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.JWT";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JWT {
+    return new JWT().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JWT {
+    return new JWT().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JWT {
+    return new JWT().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JWT | PlainMessage<JWT> | undefined, b: JWT | PlainMessage<JWT> | undefined): boolean {
+    return proto3.util.equals(JWT, a, b);
+  }
+}
+
+/**
  * @generated from message spec.v1.UserDataResponse
  */
 export class UserDataResponse extends Message<UserDataResponse> {
@@ -128,7 +167,8 @@ export class UserDataResponse extends Message<UserDataResponse> {
  */
 export class CreateUserRequest extends Message<CreateUserRequest> {
   /**
-   * @generated from field: spec.v1.User user = 1;
+   * @generated from field: spec.v1.User user = 1 [deprecated = true];
+   * @deprecated
    */
   user?: User;
 
@@ -164,6 +204,16 @@ export class CreateUserRequest extends Message<CreateUserRequest> {
  * @generated from message spec.v1.CreateUserResponse
  */
 export class CreateUserResponse extends Message<CreateUserResponse> {
+  /**
+   * @generated from field: spec.v1.User user = 1;
+   */
+  user?: User;
+
+  /**
+   * @generated from field: spec.v1.JWT jwt = 2;
+   */
+  jwt?: JWT;
+
   constructor(data?: PartialMessage<CreateUserResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -172,6 +222,8 @@ export class CreateUserResponse extends Message<CreateUserResponse> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.CreateUserResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user", kind: "message", T: User },
+    { no: 2, name: "jwt", kind: "message", T: JWT },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateUserResponse {

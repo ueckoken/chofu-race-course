@@ -8,7 +8,7 @@ option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
 
 // ユーザのデータをやり取りするサービス
 service UserDataService {
-  // UserIdからUser情報を取得する
+  // 要ユーザ認証: UserIdからUser情報を取得する
   rpc UserData(UserDataRequest) returns (UserDataResponse) {}
   // 新規Userを作成する
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
@@ -22,13 +22,20 @@ message UserDataRequest {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
+//JWTトークン
+message JWT {
+  string token = 1;
+}
 message UserDataResponse {
   User user = 1;
 }
 message CreateUserRequest {
-  User user = 1;
+  User user = 1 [deprecated = true];
 }
-message CreateUserResponse {}
+message CreateUserResponse {
+  User user = 1;
+  JWT jwt = 2;
+}
 
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
@@ -158,6 +165,7 @@ message RegisterRaceRequest {
 message RegisterRaceResponse {}
 
 service VoteService {
+  // 要ユーザ認証: 投票する
   rpc Vote(VoteRequest) returns (VoteResponse) {}
 }
 message VoteRequest {

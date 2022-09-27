@@ -14,6 +14,7 @@
     - [HorseDetail](#spec-v1-HorseDetail)
     - [HorseDetail.History](#spec-v1-HorseDetail-History)
     - [HorseDetail.Image](#spec-v1-HorseDetail-Image)
+    - [JWT](#spec-v1-JWT)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
@@ -84,7 +85,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user | [User](#spec-v1-User) |  |  |
+| user | [User](#spec-v1-User) |  | **Deprecated.**  |
 
 
 
@@ -95,6 +96,12 @@
 
 ### CreateUserResponse
 
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#spec-v1-User) |  |  |
+| jwt | [JWT](#spec-v1-JWT) |  |  |
 
 
 
@@ -195,6 +202,21 @@
 | ----- | ---- | ----- | ----------- |
 | type | [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType) |  | 拡張子 |
 | data | [bytes](#bytes) |  | base64形式 |
+
+
+
+
+
+
+<a name="spec-v1-JWT"></a>
+
+### JWT
+JWTトークン
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| token | [string](#string) |  |  |
 
 
 
@@ -523,7 +545,7 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| UserData | [UserDataRequest](#spec-v1-UserDataRequest) | [UserDataResponse](#spec-v1-UserDataResponse) | UserIdからUser情報を取得する |
+| UserData | [UserDataRequest](#spec-v1-UserDataRequest) | [UserDataResponse](#spec-v1-UserDataResponse) | 要ユーザ認証: UserIdからUser情報を取得する |
 | CreateUser | [CreateUserRequest](#spec-v1-CreateUserRequest) | [CreateUserResponse](#spec-v1-CreateUserResponse) | 新規Userを作成する |
 
 
@@ -534,7 +556,7 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Vote | [VoteRequest](#spec-v1-VoteRequest) | [VoteResponse](#spec-v1-VoteResponse) |  |
+| Vote | [VoteRequest](#spec-v1-VoteRequest) | [VoteResponse](#spec-v1-VoteResponse) | 要ユーザ認証: 投票する |
 
  
 

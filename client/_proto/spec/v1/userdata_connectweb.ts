@@ -15,7 +15,7 @@ export const UserDataService = {
   typeName: "spec.v1.UserDataService",
   methods: {
     /**
-     * UserIdからUser情報を取得する
+     * 要ユーザ認証: UserIdからUser情報を取得する
      *
      * @generated from rpc spec.v1.UserDataService.UserData
      */
@@ -118,6 +118,8 @@ export const VoteService = {
   typeName: "spec.v1.VoteService",
   methods: {
     /**
+     * 要ユーザ認証: 投票する
+     *
      * @generated from rpc spec.v1.VoteService.Vote
      */
     vote: {
