@@ -32,6 +32,7 @@
     - [VoteResponse](#spec-v1-VoteResponse)
   
     - [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType)
+    - [RaceDetail.Member.NoteType](#spec-v1-RaceDetail-Member-NoteType)
   
     - [HorseDataService](#spec-v1-HorseDataService)
     - [RaceDataService](#spec-v1-RaceDataService)
@@ -176,7 +177,7 @@
 | ----- | ---- | ----- | ----------- |
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
-| result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
+| result | [RaceDetail.Member.NoteType](#spec-v1-RaceDetail-Member-NoteType) |  | 順位。最も早くゴールしたときに1。 |
 
 
 
@@ -276,6 +277,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | order | [uint32](#uint32) |  |  |
+| note | [RaceDetail.Member.NoteType](#spec-v1-RaceDetail-Member-NoteType) |  |  |
 | horse | [Horse](#spec-v1-Horse) |  |  |
 | odds | [double](#double) |  |  |
 | popularity | [uint32](#uint32) |  |  |
@@ -454,6 +456,19 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 | IMAGE_TYPE_PNG | 1 |  |
 | IMAGE_TYPE_JPEG | 2 |  |
 | IMAGE_TYPE_GIF | 3 |  |
+
+
+
+<a name="spec-v1-RaceDetail-Member-NoteType"></a>
+
+### RaceDetail.Member.NoteType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| NOTE_TYPE_UNSPECIFIED | 0 |  |
+| NOTE_TYPE_CANCEL | 1 |  |
+| NOTE_TYPE_GIVEUP | 2 |  |
 
 
  
