@@ -109,7 +109,9 @@ message RaceDetail {
   message Member {
     enum NoteType {
       NOTE_TYPE_UNSPECIFIED = 0;
+      // 出走取消
       NOTE_TYPE_CANCEL = 1;
+      // 競争中止
       NOTE_TYPE_GIVEUP = 2;
     }
     oneof order_oneof {
