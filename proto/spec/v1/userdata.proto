@@ -29,7 +29,9 @@ message JWT {
 message UserDataResponse {
   User user = 1;
 }
-message CreateUserRequest {}
+message CreateUserRequest {
+  User user = 1 [deprecated = true];
+}
 message CreateUserResponse {
   User user = 1;
   JWT jwt = 2;
