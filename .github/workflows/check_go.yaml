@@ -1,9 +1,6 @@
 name: check_go
 
 on:
-  push:
-    paths-ignore:
-      - "./proto/**.proto"
   workflow_call:
   workflow_dispatch:
 
@@ -11,10 +8,9 @@ defaults:
   run:
     working-directory: ./go
 jobs:
-  build:
+  check:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
           go-version-file: "go/go.mod"

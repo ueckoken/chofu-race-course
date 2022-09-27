@@ -1,9 +1,6 @@
 name: check_ts
 
 on:
-  push:
-    paths-ignore:
-      - "./proto/**.proto"
   workflow_call:
   workflow_dispatch:
 
@@ -11,10 +8,9 @@ defaults:
   run:
     working-directory: ./client
 jobs:
-  build:
+  check:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
