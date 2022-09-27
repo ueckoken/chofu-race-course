@@ -50,8 +50,8 @@ jobs:
         with:
           default_author: github_actions
   check_go:
-    uses: .github/workflows/check_go.yaml
+    uses: ./.github/workflows/check_go.yaml
     needs: build
   check_ts:
-    uses: .github/workflows/check_ts.yaml
+    uses: ./.github/workflows/check_ts.yaml
     needs: build
