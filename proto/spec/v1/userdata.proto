@@ -107,13 +107,13 @@ message RaceDetail {
   Race data = 1;
   string description = 2;
   message Member {
+    enum NoteType {
+      NOTE_TYPE_UNSPECIFIED = 0;
+      NOTE_TYPE_CANCEL = 1;
+      NOTE_TYPE_GIVEUP = 2;
+    }
     oneof order_oneof {
       uint32 order = 1;
-      enum NoteType {
-        NOTE_TYPE_UNSPECIFIED = 0;
-        NOTE_TYPE_CANCEL = 1;
-        NOTE_TYPE_GIVEUP = 2;
-      }
       NoteType note = 2;
     }
     Horse horse = 3;
