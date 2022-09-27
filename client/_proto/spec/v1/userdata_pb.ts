@@ -417,9 +417,9 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
   /**
    * 順位。最も早くゴールしたときに1。
    *
-   * @generated from field: spec.v1.RaceDetail.Member.NoteType result = 3;
+   * @generated from field: spec.v1.RaceOrder result = 3;
    */
-  result = RaceDetail_Member_NoteType.UNSPECIFIED;
+  result?: RaceOrder;
 
   constructor(data?: PartialMessage<HorseDetail_History>) {
     super();
@@ -431,7 +431,7 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "race", kind: "message", T: Race },
     { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 3, name: "result", kind: "enum", T: proto3.getEnumType(RaceDetail_Member_NoteType) },
+    { no: 3, name: "result", kind: "message", T: RaceOrder },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetail_History {
@@ -733,6 +733,86 @@ export class Race extends Message<Race> {
 }
 
 /**
+ * @generated from message spec.v1.RaceOrder
+ */
+export class RaceOrder extends Message<RaceOrder> {
+  /**
+   * @generated from oneof spec.v1.RaceOrder.order_oneof
+   */
+  orderOneof: {
+    /**
+     * @generated from field: uint32 order = 1;
+     */
+    value: number;
+    case: "order";
+  } | {
+    /**
+     * @generated from field: spec.v1.RaceOrder.NoteType note = 2;
+     */
+    value: RaceOrder_NoteType;
+    case: "note";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<RaceOrder>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.RaceOrder";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */, oneof: "order_oneof" },
+    { no: 2, name: "note", kind: "enum", T: proto3.getEnumType(RaceOrder_NoteType), oneof: "order_oneof" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceOrder {
+    return new RaceOrder().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceOrder {
+    return new RaceOrder().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceOrder {
+    return new RaceOrder().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RaceOrder | PlainMessage<RaceOrder> | undefined, b: RaceOrder | PlainMessage<RaceOrder> | undefined): boolean {
+    return proto3.util.equals(RaceOrder, a, b);
+  }
+}
+
+/**
+ * @generated from enum spec.v1.RaceOrder.NoteType
+ */
+export enum RaceOrder_NoteType {
+  /**
+   * @generated from enum value: NOTE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * 出走取消
+   *
+   * @generated from enum value: NOTE_TYPE_CANCEL = 1;
+   */
+  CANCEL = 1,
+
+  /**
+   * 競争中止
+   *
+   * @generated from enum value: NOTE_TYPE_GIVEUP = 2;
+   */
+  GIVEUP = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(RaceOrder_NoteType)
+proto3.util.setEnumType(RaceOrder_NoteType, "spec.v1.RaceOrder.NoteType", [
+  { no: 0, name: "NOTE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "NOTE_TYPE_CANCEL" },
+  { no: 2, name: "NOTE_TYPE_GIVEUP" },
+]);
+
+/**
  * @generated from message spec.v1.RaceDetail
  */
 export class RaceDetail extends Message<RaceDetail> {
@@ -798,34 +878,22 @@ export class RaceDetail extends Message<RaceDetail> {
  */
 export class RaceDetail_Member extends Message<RaceDetail_Member> {
   /**
-   * @generated from oneof spec.v1.RaceDetail.Member.order_oneof
+   * @generated from field: spec.v1.RaceOrder order = 1;
    */
-  orderOneof: {
-    /**
-     * @generated from field: uint32 order = 1;
-     */
-    value: number;
-    case: "order";
-  } | {
-    /**
-     * @generated from field: spec.v1.RaceDetail.Member.NoteType note = 2;
-     */
-    value: RaceDetail_Member_NoteType;
-    case: "note";
-  } | { case: undefined; value?: undefined } = { case: undefined };
+  order?: RaceOrder;
 
   /**
-   * @generated from field: spec.v1.Horse horse = 3;
+   * @generated from field: spec.v1.Horse horse = 2;
    */
   horse?: Horse;
 
   /**
-   * @generated from field: double odds = 4;
+   * @generated from field: double odds = 3;
    */
   odds = 0;
 
   /**
-   * @generated from field: uint32 popularity = 5;
+   * @generated from field: uint32 popularity = 4;
    */
   popularity = 0;
 
@@ -837,11 +905,10 @@ export class RaceDetail_Member extends Message<RaceDetail_Member> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.RaceDetail.Member";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */, oneof: "order_oneof" },
-    { no: 2, name: "note", kind: "enum", T: proto3.getEnumType(RaceDetail_Member_NoteType), oneof: "order_oneof" },
-    { no: 3, name: "horse", kind: "message", T: Horse },
-    { no: 4, name: "odds", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
-    { no: 5, name: "popularity", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 1, name: "order", kind: "message", T: RaceOrder },
+    { no: 2, name: "horse", kind: "message", T: Horse },
+    { no: 3, name: "odds", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "popularity", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDetail_Member {
@@ -860,36 +927,6 @@ export class RaceDetail_Member extends Message<RaceDetail_Member> {
     return proto3.util.equals(RaceDetail_Member, a, b);
   }
 }
-
-/**
- * @generated from enum spec.v1.RaceDetail.Member.NoteType
- */
-export enum RaceDetail_Member_NoteType {
-  /**
-   * @generated from enum value: NOTE_TYPE_UNSPECIFIED = 0;
-   */
-  UNSPECIFIED = 0,
-
-  /**
-   * 出走取消
-   *
-   * @generated from enum value: NOTE_TYPE_CANCEL = 1;
-   */
-  CANCEL = 1,
-
-  /**
-   * 競争中止
-   *
-   * @generated from enum value: NOTE_TYPE_GIVEUP = 2;
-   */
-  GIVEUP = 2,
-}
-// Retrieve enum metadata with: proto3.getEnumType(RaceDetail_Member_NoteType)
-proto3.util.setEnumType(RaceDetail_Member_NoteType, "spec.v1.RaceDetail.Member.NoteType", [
-  { no: 0, name: "NOTE_TYPE_UNSPECIFIED" },
-  { no: 1, name: "NOTE_TYPE_CANCEL" },
-  { no: 2, name: "NOTE_TYPE_GIVEUP" },
-]);
 
 /**
  * @generated from message spec.v1.RaceDataRequest
