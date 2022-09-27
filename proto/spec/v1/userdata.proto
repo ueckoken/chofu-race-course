@@ -29,8 +29,7 @@ message JWT {
 message UserDataResponse {
   User user = 1;
 }
-message CreateUserRequest {
-}
+message CreateUserRequest {}
 message CreateUserResponse {
   User user = 1;
   JWT jwt = 2;

@@ -13,6 +13,7 @@
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
     - [HorseDetail](#spec-v1-HorseDetail)
     - [HorseDetail.History](#spec-v1-HorseDetail-History)
+    - [JWT](#spec-v1-JWT)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
@@ -75,11 +76,6 @@
 
 
 
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user | [User](#spec-v1-User) |  |  |
-
-
 
 
 
@@ -88,6 +84,12 @@
 
 ### CreateUserResponse
 
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#spec-v1-User) |  |  |
+| jwt | [JWT](#spec-v1-JWT) |  |  |
 
 
 
@@ -171,6 +173,21 @@
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
 | result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
+
+
+
+
+
+
+<a name="spec-v1-JWT"></a>
+
+### JWT
+JWTトークン
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| token | [string](#string) |  |  |
 
 
 
@@ -427,7 +444,7 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| UserData | [UserDataRequest](#spec-v1-UserDataRequest) | [UserDataResponse](#spec-v1-UserDataResponse) | UserIdからUser情報を取得する |
+| UserData | [UserDataRequest](#spec-v1-UserDataRequest) | [UserDataResponse](#spec-v1-UserDataResponse) | 要ユーザ認証: UserIdからUser情報を取得する |
 | CreateUser | [CreateUserRequest](#spec-v1-CreateUserRequest) | [CreateUserResponse](#spec-v1-CreateUserResponse) | 新規Userを作成する |
 
 
@@ -438,7 +455,7 @@ HorseDetailの初期値 id: id&#43;&#43;, wins; 0, matches: 0, next: null, histo
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Vote | [VoteRequest](#spec-v1-VoteRequest) | [VoteResponse](#spec-v1-VoteResponse) |  |
+| Vote | [VoteRequest](#spec-v1-VoteRequest) | [VoteResponse](#spec-v1-VoteResponse) | 要ユーザ認証: 投票する |
 
  
 

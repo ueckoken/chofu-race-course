@@ -33,7 +33,7 @@ const (
 
 // UserDataServiceClient is a client for the spec.v1.UserDataService service.
 type UserDataServiceClient interface {
-	// UserIdからUser情報を取得する
+	// 要ユーザ認証: UserIdからUser情報を取得する
 	UserData(context.Context, *connect_go.Request[v1.UserDataRequest]) (*connect_go.Response[v1.UserDataResponse], error)
 	// 新規Userを作成する
 	CreateUser(context.Context, *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error)
@@ -80,7 +80,7 @@ func (c *userDataServiceClient) CreateUser(ctx context.Context, req *connect_go.
 
 // UserDataServiceHandler is an implementation of the spec.v1.UserDataService service.
 type UserDataServiceHandler interface {
-	// UserIdからUser情報を取得する
+	// 要ユーザ認証: UserIdからUser情報を取得する
 	UserData(context.Context, *connect_go.Request[v1.UserDataRequest]) (*connect_go.Response[v1.UserDataResponse], error)
 	// 新規Userを作成する
 	CreateUser(context.Context, *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error)
@@ -305,6 +305,7 @@ func (UnimplementedRaceDataServiceHandler) RaceData(context.Context, *connect_go
 
 // VoteServiceClient is a client for the spec.v1.VoteService service.
 type VoteServiceClient interface {
+	// 要ユーザ認証: 投票する
 	Vote(context.Context, *connect_go.Request[v1.VoteRequest]) (*connect_go.Response[v1.VoteResponse], error)
 }
 
@@ -338,6 +339,7 @@ func (c *voteServiceClient) Vote(ctx context.Context, req *connect_go.Request[v1
 
 // VoteServiceHandler is an implementation of the spec.v1.VoteService service.
 type VoteServiceHandler interface {
+	// 要ユーザ認証: 投票する
 	Vote(context.Context, *connect_go.Request[v1.VoteRequest]) (*connect_go.Response[v1.VoteResponse], error)
 }
 
