@@ -83,6 +83,11 @@
 
 
 
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user | [User](#spec-v1-User) |  | **Deprecated.**  |
+
+
 
 
 

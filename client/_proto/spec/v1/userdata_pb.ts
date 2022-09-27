@@ -166,6 +166,12 @@ export class UserDataResponse extends Message<UserDataResponse> {
  * @generated from message spec.v1.CreateUserRequest
  */
 export class CreateUserRequest extends Message<CreateUserRequest> {
+  /**
+   * @generated from field: spec.v1.User user = 1 [deprecated = true];
+   * @deprecated
+   */
+  user?: User;
+
   constructor(data?: PartialMessage<CreateUserRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -174,6 +180,7 @@ export class CreateUserRequest extends Message<CreateUserRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.CreateUserRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user", kind: "message", T: User },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateUserRequest {
