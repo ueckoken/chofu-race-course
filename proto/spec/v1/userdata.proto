@@ -68,8 +68,8 @@ message HorseDetail {
     Race race = 1;
     // その日の何番目のレースか
     uint32 order = 2;
-    // 順位。最も早くゴールしたときに1。
-    uint32 result = 3;
+    // 順位
+    RaceOrder result = 3;
   }
   repeated History histories = 7;
 }
@@ -103,11 +103,25 @@ message Race {
   google.protobuf.Timestamp start = 4;
   bool is_finished = 5;
 }
+message RaceOrder {
+  enum NoteType {
+    NOTE_TYPE_UNSPECIFIED = 0;
+    // 出走取消
+    NOTE_TYPE_CANCEL = 1;
+    // 競争中止
+    NOTE_TYPE_GIVEUP = 2;
+  }
+  oneof order_oneof {
+    // 順位。最も早くゴールしたときに1。
+    uint32 order = 1;
+    NoteType note = 2;
+  }
+}
 message RaceDetail {
   Race data = 1;
   string description = 2;
   message Member {
-    uint32 order = 1;
+    RaceOrder order = 1;
     Horse horse = 2;
     double odds = 3;
     uint32 popularity = 4;

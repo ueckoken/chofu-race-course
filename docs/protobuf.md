@@ -19,6 +19,7 @@
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
     - [RaceDetail](#spec-v1-RaceDetail)
     - [RaceDetail.Member](#spec-v1-RaceDetail-Member)
+    - [RaceOrder](#spec-v1-RaceOrder)
     - [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest)
     - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
     - [RegisterHorseRequest](#spec-v1-RegisterHorseRequest)
@@ -32,6 +33,7 @@
     - [VoteResponse](#spec-v1-VoteResponse)
   
     - [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType)
+    - [RaceOrder.NoteType](#spec-v1-RaceOrder-NoteType)
   
     - [HorseDataService](#spec-v1-HorseDataService)
     - [RaceDataService](#spec-v1-RaceDataService)
@@ -176,7 +178,7 @@
 | ----- | ---- | ----- | ----------- |
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
-| result | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
+| result | [RaceOrder](#spec-v1-RaceOrder) |  | 順位 |
 
 
 
@@ -275,10 +277,26 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| order | [uint32](#uint32) |  |  |
+| order | [RaceOrder](#spec-v1-RaceOrder) |  |  |
 | horse | [Horse](#spec-v1-Horse) |  |  |
 | odds | [double](#double) |  |  |
 | popularity | [uint32](#uint32) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-RaceOrder"></a>
+
+### RaceOrder
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
+| note | [RaceOrder.NoteType](#spec-v1-RaceOrder-NoteType) |  |  |
 
 
 
@@ -454,6 +472,19 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 | IMAGE_TYPE_PNG | 1 |  |
 | IMAGE_TYPE_JPEG | 2 |  |
 | IMAGE_TYPE_GIF | 3 |  |
+
+
+
+<a name="spec-v1-RaceOrder-NoteType"></a>
+
+### RaceOrder.NoteType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| NOTE_TYPE_UNSPECIFIED | 0 |  |
+| NOTE_TYPE_CANCEL | 1 | 出走取消 |
+| NOTE_TYPE_GIVEUP | 2 | 競争中止 |
 
 
  
