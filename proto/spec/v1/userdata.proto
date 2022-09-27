@@ -68,7 +68,6 @@ message HorseDetail {
     Race race = 1;
     // その日の何番目のレースか
     uint32 order = 2;
-    // 順位。最も早くゴールしたときに1。
     RaceOrder result = 3;
   }
   repeated History histories = 7;
@@ -112,6 +111,7 @@ message RaceOrder {
     NOTE_TYPE_GIVEUP = 2;
   }
   oneof order_oneof {
+    // 順位。最も早くゴールしたときに1。
     uint32 order = 1;
     NoteType note = 2;
   }
