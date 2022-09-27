@@ -415,8 +415,6 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
   order = 0;
 
   /**
-   * 順位。最も早くゴールしたときに1。
-   *
    * @generated from field: spec.v1.RaceOrder result = 3;
    */
   result?: RaceOrder;
@@ -741,6 +739,8 @@ export class RaceOrder extends Message<RaceOrder> {
    */
   orderOneof: {
     /**
+     * 順位。最も早くゴールしたときに1。
+     *
      * @generated from field: uint32 order = 1;
      */
     value: number;

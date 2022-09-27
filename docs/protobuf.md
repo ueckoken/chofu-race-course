@@ -178,7 +178,7 @@
 | ----- | ---- | ----- | ----------- |
 | race | [Race](#spec-v1-Race) |  | 出走したレース |
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
-| result | [RaceOrder](#spec-v1-RaceOrder) |  | 順位。最も早くゴールしたときに1。 |
+| result | [RaceOrder](#spec-v1-RaceOrder) |  |  |
 
 
 
@@ -295,7 +295,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| order | [uint32](#uint32) |  |  |
+| order | [uint32](#uint32) |  | 順位。最も早くゴールしたときに1。 |
 | note | [RaceOrder.NoteType](#spec-v1-RaceOrder-NoteType) |  |  |
 
 
