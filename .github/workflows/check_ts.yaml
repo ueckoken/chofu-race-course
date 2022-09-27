@@ -7,6 +7,9 @@ on:
   workflow_call:
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: ./client
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -18,7 +21,6 @@ jobs:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-        working-directory: ./client
       - uses: actions/cache@v3
         id: yarn-cache
         with:
@@ -27,8 +29,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn install --immutable
-        working-directory: ./client
       - run: yarn run check
-        working-directory: ./client
       - run: yarn run lint
-        working-directory: ./client
