@@ -871,11 +871,15 @@ export enum RaceDetail_Member_NoteType {
   UNSPECIFIED = 0,
 
   /**
+   * 出走取消
+   *
    * @generated from enum value: NOTE_TYPE_CANCEL = 1;
    */
   CANCEL = 1,
 
   /**
+   * 競争中止
+   *
    * @generated from enum value: NOTE_TYPE_GIVEUP = 2;
    */
   GIVEUP = 2,

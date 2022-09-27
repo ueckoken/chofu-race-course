@@ -467,8 +467,8 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | NOTE_TYPE_UNSPECIFIED | 0 |  |
-| NOTE_TYPE_CANCEL | 1 |  |
-| NOTE_TYPE_GIVEUP | 2 |  |
+| NOTE_TYPE_CANCEL | 1 | 出走取消 |
+| NOTE_TYPE_GIVEUP | 2 | 競争中止 |
 
 
  

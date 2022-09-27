@@ -77,8 +77,10 @@ type RaceDetail_Member_NoteType int32
 
 const (
 	RaceDetail_Member_NOTE_TYPE_UNSPECIFIED RaceDetail_Member_NoteType = 0
-	RaceDetail_Member_NOTE_TYPE_CANCEL      RaceDetail_Member_NoteType = 1
-	RaceDetail_Member_NOTE_TYPE_GIVEUP      RaceDetail_Member_NoteType = 2
+	// 出走取消
+	RaceDetail_Member_NOTE_TYPE_CANCEL RaceDetail_Member_NoteType = 1
+	// 競争中止
+	RaceDetail_Member_NOTE_TYPE_GIVEUP RaceDetail_Member_NoteType = 2
 )
 
 // Enum value maps for RaceDetail_Member_NoteType.
