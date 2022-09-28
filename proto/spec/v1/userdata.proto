@@ -18,8 +18,7 @@ message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
-message UserDataRequest {
-}
+message UserDataRequest {}
 //JWTトークン
 message JWT {
   string token = 1;

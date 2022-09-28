@@ -431,11 +431,6 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 
 
 
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  | ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。 |
-
-
 
 
 

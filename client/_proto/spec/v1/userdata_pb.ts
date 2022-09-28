@@ -51,13 +51,6 @@ export class User extends Message<User> {
  * @generated from message spec.v1.UserDataRequest
  */
 export class UserDataRequest extends Message<UserDataRequest> {
-  /**
-   * ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
-   *
-   * @generated from field: string id = 1;
-   */
-  id = "";
-
   constructor(data?: PartialMessage<UserDataRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -66,7 +59,6 @@ export class UserDataRequest extends Message<UserDataRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.UserDataRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserDataRequest {
