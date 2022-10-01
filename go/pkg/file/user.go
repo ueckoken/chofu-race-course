@@ -15,8 +15,9 @@ type User struct {
 	filePath string
 	mu       *sync.Mutex
 }
+type NotFound error
 
-var notFound = errors.New("record not found")
+var notFound NotFound = errors.New("record not found")
 
 func NewUserFile(path string) (*User, error) {
 	return &User{filePath: path, mu: &sync.Mutex{}}, nil

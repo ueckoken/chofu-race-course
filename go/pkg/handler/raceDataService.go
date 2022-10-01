@@ -17,6 +17,7 @@ type Horse struct {
 
 type HorseStore interface {
 	Create(h *v1.HorseDetail) error
+	GetAll() ([]*v1.HorseDetail, error)
 	GetById(id uint32) (*v1.HorseDetail, error)
 }
 
@@ -29,13 +30,30 @@ func NewHorseServer(store HorseStore) (*Horse, error) {
 	return &Horse{store: w}, nil
 }
 
-func (h *Horse) HorseData(ctx context.Context, req *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, nil)
+func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error) {
+	hd, err := h.store.GetById(req.Msg.GetId())
+	if err != nil {
+		switch err.(type) {
+		case file.NotFound:
+			return nil, connect_go.NewError(connect_go.CodeNotFound, err)
+		default:
+			return nil, connect_go.NewError(connect_go.CodeInternal, err)
+		}
+	}
+	return &connect_go.Response[v1.HorseDataResponse]{Msg: &v1.HorseDataResponse{Horse: hd}}, nil
 }
-func (h *Horse) AllHorseData(ctx context.Context, req *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, nil)
+func (h *Horse) AllHorseData(_ context.Context, req *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
+	records, err := h.store.GetAll()
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	hs := []*v1.Horse{}
+	for _, hd := range records {
+		hs = append(hs, horseDetail2horse(hd))
+	}
+	return &connect_go.Response[v1.AllHorseDataResponse]{Msg: &v1.AllHorseDataResponse{Horses: hs}}, nil
 }
-func (h *Horse) RegisterHorse(ctx context.Context, req *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error) {
+func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error) {
 	if req.Msg.GetOwner() == "" {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("you must fill Owner field with not default value"))
 	}
@@ -60,4 +78,8 @@ func (h *Horse) RegisterHorse(ctx context.Context, req *connect_go.Request[v1.Re
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	return &connect_go.Response[v1.RegisterHorseResponse]{Msg: &v1.RegisterHorseResponse{}}, nil
+}
+
+func horseDetail2horse(hd *v1.HorseDetail) *v1.Horse {
+	return &v1.Horse{Id: hd.Data.GetId(), Name: hd.Data.GetName()}
 }

@@ -36,9 +36,12 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 	_, err = f.Write(append(b, '\n'))
 	return err
 }
+func (w *Horse) GetAll() ([]*v1.HorseDetail, error) {
+	return w.readFromFile()
+}
 
 func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
-	hs, err := w.readFromFile()
+	hs, err := w.GetAll()
 	if err != nil {
 		return nil, err
 	}
