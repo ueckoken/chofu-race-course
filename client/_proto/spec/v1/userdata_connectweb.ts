@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
