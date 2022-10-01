@@ -51,6 +51,11 @@ export class User extends Message<User> {
  * @generated from message spec.v1.UserDataRequest
  */
 export class UserDataRequest extends Message<UserDataRequest> {
+  /**
+   * @generated from field: spec.v1.JWT jwt = 1;
+   */
+  jwt?: JWT;
+
   constructor(data?: PartialMessage<UserDataRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -59,6 +64,7 @@ export class UserDataRequest extends Message<UserDataRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.UserDataRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "jwt", kind: "message", T: JWT },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserDataRequest {
@@ -1244,6 +1250,11 @@ export class VoteRequest extends Message<VoteRequest> {
    */
   horse = 0;
 
+  /**
+   * @generated from field: spec.v1.JWT jwt = 3;
+   */
+  jwt?: JWT;
+
   constructor(data?: PartialMessage<VoteRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1254,6 +1265,7 @@ export class VoteRequest extends Message<VoteRequest> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "race", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "horse", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "jwt", kind: "message", T: JWT },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VoteRequest {

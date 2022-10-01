@@ -177,6 +177,8 @@ type UserDataRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Jwt *JWT `protobuf:"bytes,1,opt,name=jwt,proto3" json:"jwt,omitempty"`
 }
 
 func (x *UserDataRequest) Reset() {
@@ -209,6 +211,13 @@ func (x *UserDataRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use UserDataRequest.ProtoReflect.Descriptor instead.
 func (*UserDataRequest) Descriptor() ([]byte, []int) {
 	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *UserDataRequest) GetJwt() *JWT {
+	if x != nil {
+		return x.Jwt
+	}
+	return nil
 }
 
 // JWTトークン
@@ -1398,6 +1407,7 @@ type VoteRequest struct {
 	Race uint32 `protobuf:"varint,1,opt,name=race,proto3" json:"race,omitempty"`
 	// 投票する馬の馬番
 	Horse uint32 `protobuf:"varint,2,opt,name=horse,proto3" json:"horse,omitempty"`
+	Jwt   *JWT   `protobuf:"bytes,3,opt,name=jwt,proto3" json:"jwt,omitempty"`
 }
 
 func (x *VoteRequest) Reset() {
@@ -1444,6 +1454,13 @@ func (x *VoteRequest) GetHorse() uint32 {
 		return x.Horse
 	}
 	return 0
+}
+
+func (x *VoteRequest) GetJwt() *JWT {
+	if x != nil {
+		return x.Jwt
+	}
+	return nil
 }
 
 type VoteResponse struct {
@@ -1687,8 +1704,10 @@ var file_spec_v1_userdata_proto_rawDesc = []byte{
 	0x31, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
 	0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x22, 0x16, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x11, 0x0a, 0x0f, 0x55, 0x73,
-	0x65, 0x72, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x1b, 0x0a,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x31, 0x0a, 0x0f, 0x55, 0x73,
+	0x65, 0x72, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1e, 0x0a,
+	0x03, 0x6a, 0x77, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x70, 0x65,
+	0x63, 0x2e, 0x76, 0x31, 0x2e, 0x4a, 0x57, 0x54, 0x52, 0x03, 0x6a, 0x77, 0x74, 0x22, 0x1b, 0x0a,
 	0x03, 0x4a, 0x57, 0x54, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x35, 0x0a, 0x10, 0x55, 0x73,
 	0x65, 0x72, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21,
@@ -1836,11 +1855,13 @@ var file_spec_v1_userdata_proto_rawDesc = []byte{
 	0x74, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
 	0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
 	0x69, 0x6f, 0x6e, 0x22, 0x16, 0x0a, 0x14, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x52,
-	0x61, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x37, 0x0a, 0x0b, 0x56,
+	0x61, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x57, 0x0a, 0x0b, 0x56,
 	0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x72, 0x61,
 	0x63, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x72, 0x61, 0x63, 0x65, 0x12, 0x14,
 	0x0a, 0x05, 0x68, 0x6f, 0x72, 0x73, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x05, 0x68,
-	0x6f, 0x72, 0x73, 0x65, 0x22, 0x0e, 0x0a, 0x0c, 0x56, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x72, 0x73, 0x65, 0x12, 0x1e, 0x0a, 0x03, 0x6a, 0x77, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x4a, 0x57, 0x54, 0x52,
+	0x03, 0x6a, 0x77, 0x74, 0x22, 0x0e, 0x0a, 0x0c, 0x56, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70,
 	0x6f, 0x6e, 0x73, 0x65, 0x32, 0x9d, 0x01, 0x0a, 0x0f, 0x55, 0x73, 0x65, 0x72, 0x44, 0x61, 0x74,
 	0x61, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x41, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72,
 	0x44, 0x61, 0x74, 0x61, 0x12, 0x18, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x55,
@@ -1942,55 +1963,57 @@ var file_spec_v1_userdata_proto_goTypes = []interface{}{
 	(*timestamppb.Timestamp)(nil),    // 30: google.protobuf.Timestamp
 }
 var file_spec_v1_userdata_proto_depIdxs = []int32{
-	2,  // 0: spec.v1.UserDataResponse.user:type_name -> spec.v1.User
-	2,  // 1: spec.v1.CreateUserRequest.user:type_name -> spec.v1.User
-	2,  // 2: spec.v1.CreateUserResponse.user:type_name -> spec.v1.User
-	4,  // 3: spec.v1.CreateUserResponse.jwt:type_name -> spec.v1.JWT
-	8,  // 4: spec.v1.HorseDetail.data:type_name -> spec.v1.Horse
-	27, // 5: spec.v1.HorseDetail.image:type_name -> spec.v1.HorseDetail.Image
-	16, // 6: spec.v1.HorseDetail.next:type_name -> spec.v1.Race
-	28, // 7: spec.v1.HorseDetail.histories:type_name -> spec.v1.HorseDetail.History
-	9,  // 8: spec.v1.HorseDataResponse.horse:type_name -> spec.v1.HorseDetail
-	8,  // 9: spec.v1.AllHorseDataResponse.horses:type_name -> spec.v1.Horse
-	30, // 10: spec.v1.Race.start:type_name -> google.protobuf.Timestamp
-	1,  // 11: spec.v1.RaceOrder.note:type_name -> spec.v1.RaceOrder.NoteType
-	16, // 12: spec.v1.RaceDetail.data:type_name -> spec.v1.Race
-	29, // 13: spec.v1.RaceDetail.members:type_name -> spec.v1.RaceDetail.Member
-	30, // 14: spec.v1.RaceDetail.vote_begin:type_name -> google.protobuf.Timestamp
-	30, // 15: spec.v1.RaceDetail.vote_end:type_name -> google.protobuf.Timestamp
-	18, // 16: spec.v1.RaceDataResponse.race:type_name -> spec.v1.RaceDetail
-	30, // 17: spec.v1.RangeRaceDataRequest.begin:type_name -> google.protobuf.Timestamp
-	30, // 18: spec.v1.RangeRaceDataRequest.end:type_name -> google.protobuf.Timestamp
-	16, // 19: spec.v1.RangeRaceDataResponse.races:type_name -> spec.v1.Race
-	30, // 20: spec.v1.RegisterRaceRequest.start:type_name -> google.protobuf.Timestamp
-	0,  // 21: spec.v1.HorseDetail.Image.type:type_name -> spec.v1.HorseDetail.Image.ImageType
-	16, // 22: spec.v1.HorseDetail.History.race:type_name -> spec.v1.Race
-	17, // 23: spec.v1.HorseDetail.History.result:type_name -> spec.v1.RaceOrder
-	17, // 24: spec.v1.RaceDetail.Member.order:type_name -> spec.v1.RaceOrder
-	8,  // 25: spec.v1.RaceDetail.Member.horse:type_name -> spec.v1.Horse
-	3,  // 26: spec.v1.UserDataService.UserData:input_type -> spec.v1.UserDataRequest
-	6,  // 27: spec.v1.UserDataService.CreateUser:input_type -> spec.v1.CreateUserRequest
-	10, // 28: spec.v1.HorseDataService.HorseData:input_type -> spec.v1.HorseDataRequest
-	12, // 29: spec.v1.HorseDataService.AllHorseData:input_type -> spec.v1.AllHorseDataRequest
-	14, // 30: spec.v1.HorseDataService.RegisterHorse:input_type -> spec.v1.RegisterHorseRequest
-	21, // 31: spec.v1.RaceDataService.RangeRaceData:input_type -> spec.v1.RangeRaceDataRequest
-	19, // 32: spec.v1.RaceDataService.RaceData:input_type -> spec.v1.RaceDataRequest
-	23, // 33: spec.v1.RaceDataService.RegisterRace:input_type -> spec.v1.RegisterRaceRequest
-	25, // 34: spec.v1.VoteService.Vote:input_type -> spec.v1.VoteRequest
-	5,  // 35: spec.v1.UserDataService.UserData:output_type -> spec.v1.UserDataResponse
-	7,  // 36: spec.v1.UserDataService.CreateUser:output_type -> spec.v1.CreateUserResponse
-	11, // 37: spec.v1.HorseDataService.HorseData:output_type -> spec.v1.HorseDataResponse
-	13, // 38: spec.v1.HorseDataService.AllHorseData:output_type -> spec.v1.AllHorseDataResponse
-	15, // 39: spec.v1.HorseDataService.RegisterHorse:output_type -> spec.v1.RegisterHorseResponse
-	22, // 40: spec.v1.RaceDataService.RangeRaceData:output_type -> spec.v1.RangeRaceDataResponse
-	20, // 41: spec.v1.RaceDataService.RaceData:output_type -> spec.v1.RaceDataResponse
-	24, // 42: spec.v1.RaceDataService.RegisterRace:output_type -> spec.v1.RegisterRaceResponse
-	26, // 43: spec.v1.VoteService.Vote:output_type -> spec.v1.VoteResponse
-	35, // [35:44] is the sub-list for method output_type
-	26, // [26:35] is the sub-list for method input_type
-	26, // [26:26] is the sub-list for extension type_name
-	26, // [26:26] is the sub-list for extension extendee
-	0,  // [0:26] is the sub-list for field type_name
+	4,  // 0: spec.v1.UserDataRequest.jwt:type_name -> spec.v1.JWT
+	2,  // 1: spec.v1.UserDataResponse.user:type_name -> spec.v1.User
+	2,  // 2: spec.v1.CreateUserRequest.user:type_name -> spec.v1.User
+	2,  // 3: spec.v1.CreateUserResponse.user:type_name -> spec.v1.User
+	4,  // 4: spec.v1.CreateUserResponse.jwt:type_name -> spec.v1.JWT
+	8,  // 5: spec.v1.HorseDetail.data:type_name -> spec.v1.Horse
+	27, // 6: spec.v1.HorseDetail.image:type_name -> spec.v1.HorseDetail.Image
+	16, // 7: spec.v1.HorseDetail.next:type_name -> spec.v1.Race
+	28, // 8: spec.v1.HorseDetail.histories:type_name -> spec.v1.HorseDetail.History
+	9,  // 9: spec.v1.HorseDataResponse.horse:type_name -> spec.v1.HorseDetail
+	8,  // 10: spec.v1.AllHorseDataResponse.horses:type_name -> spec.v1.Horse
+	30, // 11: spec.v1.Race.start:type_name -> google.protobuf.Timestamp
+	1,  // 12: spec.v1.RaceOrder.note:type_name -> spec.v1.RaceOrder.NoteType
+	16, // 13: spec.v1.RaceDetail.data:type_name -> spec.v1.Race
+	29, // 14: spec.v1.RaceDetail.members:type_name -> spec.v1.RaceDetail.Member
+	30, // 15: spec.v1.RaceDetail.vote_begin:type_name -> google.protobuf.Timestamp
+	30, // 16: spec.v1.RaceDetail.vote_end:type_name -> google.protobuf.Timestamp
+	18, // 17: spec.v1.RaceDataResponse.race:type_name -> spec.v1.RaceDetail
+	30, // 18: spec.v1.RangeRaceDataRequest.begin:type_name -> google.protobuf.Timestamp
+	30, // 19: spec.v1.RangeRaceDataRequest.end:type_name -> google.protobuf.Timestamp
+	16, // 20: spec.v1.RangeRaceDataResponse.races:type_name -> spec.v1.Race
+	30, // 21: spec.v1.RegisterRaceRequest.start:type_name -> google.protobuf.Timestamp
+	4,  // 22: spec.v1.VoteRequest.jwt:type_name -> spec.v1.JWT
+	0,  // 23: spec.v1.HorseDetail.Image.type:type_name -> spec.v1.HorseDetail.Image.ImageType
+	16, // 24: spec.v1.HorseDetail.History.race:type_name -> spec.v1.Race
+	17, // 25: spec.v1.HorseDetail.History.result:type_name -> spec.v1.RaceOrder
+	17, // 26: spec.v1.RaceDetail.Member.order:type_name -> spec.v1.RaceOrder
+	8,  // 27: spec.v1.RaceDetail.Member.horse:type_name -> spec.v1.Horse
+	3,  // 28: spec.v1.UserDataService.UserData:input_type -> spec.v1.UserDataRequest
+	6,  // 29: spec.v1.UserDataService.CreateUser:input_type -> spec.v1.CreateUserRequest
+	10, // 30: spec.v1.HorseDataService.HorseData:input_type -> spec.v1.HorseDataRequest
+	12, // 31: spec.v1.HorseDataService.AllHorseData:input_type -> spec.v1.AllHorseDataRequest
+	14, // 32: spec.v1.HorseDataService.RegisterHorse:input_type -> spec.v1.RegisterHorseRequest
+	21, // 33: spec.v1.RaceDataService.RangeRaceData:input_type -> spec.v1.RangeRaceDataRequest
+	19, // 34: spec.v1.RaceDataService.RaceData:input_type -> spec.v1.RaceDataRequest
+	23, // 35: spec.v1.RaceDataService.RegisterRace:input_type -> spec.v1.RegisterRaceRequest
+	25, // 36: spec.v1.VoteService.Vote:input_type -> spec.v1.VoteRequest
+	5,  // 37: spec.v1.UserDataService.UserData:output_type -> spec.v1.UserDataResponse
+	7,  // 38: spec.v1.UserDataService.CreateUser:output_type -> spec.v1.CreateUserResponse
+	11, // 39: spec.v1.HorseDataService.HorseData:output_type -> spec.v1.HorseDataResponse
+	13, // 40: spec.v1.HorseDataService.AllHorseData:output_type -> spec.v1.AllHorseDataResponse
+	15, // 41: spec.v1.HorseDataService.RegisterHorse:output_type -> spec.v1.RegisterHorseResponse
+	22, // 42: spec.v1.RaceDataService.RangeRaceData:output_type -> spec.v1.RangeRaceDataResponse
+	20, // 43: spec.v1.RaceDataService.RaceData:output_type -> spec.v1.RaceDataResponse
+	24, // 44: spec.v1.RaceDataService.RegisterRace:output_type -> spec.v1.RegisterRaceResponse
+	26, // 45: spec.v1.VoteService.Vote:output_type -> spec.v1.VoteResponse
+	37, // [37:46] is the sub-list for method output_type
+	28, // [28:37] is the sub-list for method input_type
+	28, // [28:28] is the sub-list for extension type_name
+	28, // [28:28] is the sub-list for extension extendee
+	0,  // [0:28] is the sub-list for field type_name
 }
 
 func init() { file_spec_v1_userdata_proto_init() }

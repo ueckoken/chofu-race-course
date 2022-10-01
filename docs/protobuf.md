@@ -431,6 +431,11 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 
 
 
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| jwt | [JWT](#spec-v1-JWT) |  |  |
+
+
 
 
 
@@ -460,6 +465,7 @@ RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_b
 | ----- | ---- | ----- | ----------- |
 | race | [uint32](#uint32) |  | 投票するレースのID |
 | horse | [uint32](#uint32) |  | 投票する馬の馬番 |
+| jwt | [JWT](#spec-v1-JWT) |  |  |
 
 
 
