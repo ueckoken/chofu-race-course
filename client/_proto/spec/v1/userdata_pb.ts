@@ -506,9 +506,9 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
  */
 export class HorseDetails extends Message<HorseDetails> {
   /**
-   * @generated from field: repeated spec.v1.HorseDetail HorseDetails = 1;
+   * @generated from field: repeated spec.v1.HorseDetail horse_details = 1;
    */
-  HorseDetails: HorseDetail[] = [];
+  horseDetails: HorseDetail[] = [];
 
   constructor(data?: PartialMessage<HorseDetails>) {
     super();
@@ -518,7 +518,7 @@ export class HorseDetails extends Message<HorseDetails> {
   static readonly runtime = proto3;
   static readonly typeName = "spec.v1.HorseDetails";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "HorseDetails", kind: "message", T: HorseDetail, repeated: true },
+    { no: 1, name: "horse_details", kind: "message", T: HorseDetail, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetails {
@@ -683,8 +683,7 @@ export class AllHorseDataResponse extends Message<AllHorseDataResponse> {
 }
 
 /**
- * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
- * histories: []
+ * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
  *
  * @generated from message spec.v1.RegisterHorseRequest
  */

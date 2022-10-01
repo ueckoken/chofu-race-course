@@ -217,7 +217,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| HorseDetails | [HorseDetail](#spec-v1-HorseDetail) | repeated |  |
+| horse_details | [HorseDetail](#spec-v1-HorseDetail) | repeated |  |
 
 
 
@@ -375,8 +375,7 @@ JWTトークン
 <a name="spec-v1-RegisterHorseRequest"></a>
 
 ### RegisterHorseRequest
-HorseDetailの初期値 id: id&#43;&#43;, image: null, wins: 0, matches: 0, next: null,
-histories: []
+HorseDetailの初期値 id: id&#43;&#43;, image: null, wins: 0, matches: 0, next: null, histories: []
 
 
 | Field | Type | Label | Description |
