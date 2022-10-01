@@ -18,19 +18,11 @@ message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
-message UserDataRequest {
-  JWT jwt = 1;
-}
-//JWTトークン
-message JWT {
-  string token = 1;
-}
-message UserDataResponse {
-  User user = 1;
-}
-message CreateUserRequest {
-  User user = 1 [deprecated = true];
-}
+message UserDataRequest { JWT jwt = 1; }
+// JWTトークン
+message JWT { string token = 1; }
+message UserDataResponse { User user = 1; }
+message CreateUserRequest { User user = 1 [ deprecated = true ]; }
 message CreateUserResponse {
   User user = 1;
   JWT jwt = 2;
@@ -79,17 +71,14 @@ message HorseDetail {
   }
   repeated History histories = 7;
 }
-message HorseDataRequest {
-  uint32 id = 1;
-}
-message HorseDataResponse {
-  HorseDetail horse = 1;
-}
+
+message HorseDetails { repeated HorseDetail HorseDetails = 1; }
+message HorseDataRequest { uint32 id = 1; }
+message HorseDataResponse { HorseDetail horse = 1; }
 message AllHorseDataRequest {}
-message AllHorseDataResponse {
-  repeated Horse horses = 1;
-}
-// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
+message AllHorseDataResponse { repeated Horse horses = 1; }
+// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
+// histories: []
 message RegisterHorseRequest {
   string name = 1;
   // 所有者名
@@ -136,22 +125,17 @@ message RaceDetail {
   google.protobuf.Timestamp vote_begin = 5;
   google.protobuf.Timestamp vote_end = 6;
 }
-message RaceDataRequest {
-  uint32 id = 1;
-}
-message RaceDataResponse {
-  RaceDetail race = 1;
-}
+message RaceDataRequest { uint32 id = 1; }
+message RaceDataResponse { RaceDetail race = 1; }
 message RangeRaceDataRequest {
   // 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。
   optional google.protobuf.Timestamp begin = 1;
   // 指定した時間を含む、指定した時間までのデータを取得する。指定しなかったときは取得できる最新まで取得する。
   optional google.protobuf.Timestamp end = 2;
 }
-message RangeRaceDataResponse {
-  repeated Race races = 1;
-}
-// RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+message RangeRaceDataResponse { repeated Race races = 1; }
+// RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin:
+// start - n, vote_end: start - m
 message RegisterRaceRequest {
   string name = 1;
   // その日の何番目のレースか

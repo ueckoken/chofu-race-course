@@ -1,7 +1,6 @@
 package file
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"sort"
@@ -31,9 +30,12 @@ func NewHorseFile(path string) (*Horse, error) {
 
 // Create は新しい馬を登録します。hの中にあるIDがデフォルト値(=0)の時は新しいIDを付与します。
 func (w *Horse) Create(h *v1.HorseDetail) error {
-	h, err := w.GetById(h.GetData().GetId())
-	if h != nil || err != notFound {
+	existedHorse, err := w.GetById(h.GetData().GetId())
+	if existedHorse != nil {
 		return fmt.Errorf("record already existed")
+	}
+	if err != nil && err != notFound {
+		return err
 	}
 	if h.GetData().GetId() == 0 {
 		id, err := w.supplyNewId()
@@ -42,22 +44,32 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 		}
 		h.Data.Id = id
 	}
+	oldRecs, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	appended := append(oldRecs, h)
 	w.mu.Lock()
 	defer w.mu.Unlock()
-	f, err := os.OpenFile(w.filePath, os.O_APPEND, 0644)
+	f, err := os.Create(w.filePath)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
-	b, err := proto.Marshal(h)
+	b, err := proto.Marshal(&v1.HorseDetails{HorseDetails: appended})
 	if err != nil {
 		return err
 	}
-	_, err = f.Write(append(b, '\n'))
+	_, err = f.Write(b)
 	return err
 }
 func (w *Horse) GetAll() ([]*v1.HorseDetail, error) {
-	return w.readFromFile()
+	rawHds, err := w.readFromFile()
+	if err != nil {
+		return nil, err
+	}
+	hds := make([]*v1.HorseDetail, 0)
+	return append(hds, rawHds.HorseDetails...), nil
 }
 
 func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
@@ -73,24 +85,19 @@ func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
 	return nil, notFound
 }
 
-func (w *Horse) readFromFile() ([]*v1.HorseDetail, error) {
-	hs := make([]*v1.HorseDetail, 1)
+func (w *Horse) readFromFile() (*v1.HorseDetails, error) {
 	w.mu.RLock()
 	defer w.mu.RUnlock()
-	f, err := os.Open(w.filePath)
+	data, err := os.ReadFile(w.filePath)
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
-	sc := bufio.NewScanner(f)
-	for sc.Scan() {
-		h := &v1.HorseDetail{}
-		if err := proto.Unmarshal(sc.Bytes(), h); err != nil {
-			return nil, err
-		}
-		hs = append(hs, h)
+	hds := &v1.HorseDetails{}
+	err = proto.Unmarshal(data, hds)
+	if err != nil {
+		return nil, err
 	}
-	return hs, nil
+	return hds, nil
 }
 
 // supplyNewId はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
