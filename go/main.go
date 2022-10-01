@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/rs/cors"
 	"github.com/ueckoken/chofu-race-course/go/internal"
 	envConfig "github.com/ueckoken/chofu-race-course/go/pkg/envConfig"
 	"golang.org/x/net/http2"
@@ -20,9 +21,15 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("listening in %s\n", env.ListenAddr)
+
+	corsConf := cors.New(cors.Options{
+		//TODO; これらの設定を環境変数で入れられるように
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowCredentials: true,
+	})
 	err = http.ListenAndServe(
 		env.ListenAddr,
-		h2c.NewHandler(route, &http2.Server{}),
+		corsConf.Handler(h2c.NewHandler(route, &http2.Server{})),
 	)
 	if err != nil {
 		log.Fatal(err)
