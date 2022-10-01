@@ -12,12 +12,12 @@ plugins:
     path: ./client/node_modules/.bin/protoc-gen-es
     out: client/_proto
     opt: 
-      - target=ts
+      - target=js+dts
   - name: connect-web
     path: ./client/node_modules/.bin/protoc-gen-connect-web
     out: client/_proto
     opt: 
-      - target=ts
+      - target=js+dts
   - name: doc
     out: docs
     opt: 
