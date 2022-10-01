@@ -76,9 +76,11 @@ message HorseDetails { repeated HorseDetail HorseDetails = 1; }
 message HorseDataRequest { uint32 id = 1; }
 message HorseDataResponse { HorseDetail horse = 1; }
 message AllHorseDataRequest {}
-message AllHorseDataResponse { repeated Horse horses = 1; }
-// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
-// histories: []
+message AllHorseDataResponse {
+  // 登録している馬が1頭もいない場合はエラーではなく[]を返す。
+  repeated Horse horses = 1;
+}
+// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
 message RegisterHorseRequest {
   string name = 1;
   // 所有者名

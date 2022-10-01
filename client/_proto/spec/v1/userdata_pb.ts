@@ -648,6 +648,8 @@ export class AllHorseDataRequest extends Message<AllHorseDataRequest> {
  */
 export class AllHorseDataResponse extends Message<AllHorseDataResponse> {
   /**
+   * 登録している馬が1頭もいない場合はエラーではなく[]を返す。
+   *
    * @generated from field: repeated spec.v1.Horse horses = 1;
    */
   horses: Horse[] = [];
