@@ -87,6 +87,7 @@ message HorseDataResponse {
 }
 message AllHorseDataRequest {}
 message AllHorseDataResponse {
+  // 登録している馬が1頭もいない場合はエラーではなく[]を返す。
   repeated Horse horses = 1;
 }
 // HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
