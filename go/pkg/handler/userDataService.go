@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ueckoken/chofu-race-course/go/pkg/file"
-
 	connectGo "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
@@ -26,11 +24,7 @@ type UserStore interface {
 }
 
 func NewUserServer(store UserStore, issuer authorizer.JWTIssuer) (*User, error) {
-	w, err := file.NewUserFile("hoge")
-	if err != nil {
-		return nil, err
-	}
-	return &User{store: w, auth: issuer}, nil
+	return &User{store: store, auth: issuer}, nil
 }
 
 func (s *User) UserData(ctx context.Context, req *connectGo.Request[v1.UserDataRequest]) (*connectGo.Response[v1.UserDataResponse], error) {

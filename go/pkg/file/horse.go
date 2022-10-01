@@ -15,7 +15,18 @@ type Horse struct {
 }
 
 func NewHorseFile(path string) (*Horse, error) {
-	return &Horse{filePath: path, mu: &sync.Mutex{}}, nil
+	w := &Horse{filePath: path, mu: &sync.Mutex{}}
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	_, err := os.Stat(w.filePath)
+	if err != nil {
+		f, err := os.Create(w.filePath)
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+	}
+	return w, nil
 }
 
 func (w *Horse) Create(h *v1.HorseDetail) error {

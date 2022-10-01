@@ -27,5 +27,15 @@ func NewRoute(dataDir string) (*http.ServeMux, error) {
 		return nil, err
 	}
 	mux.Handle(v1connect.NewUserDataServiceHandler(u))
+
+	horseWriter, err := file.NewHorseFile(path.Join(dataDir, "horse"))
+	if err != nil {
+		return nil, err
+	}
+	h, err := handler.NewHorseServer(horseWriter)
+	if err != nil {
+		return nil, err
+	}
+	mux.Handle(v1connect.NewHorseDataServiceHandler(h))
 	return mux, nil
 }

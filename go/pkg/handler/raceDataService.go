@@ -22,12 +22,7 @@ type HorseStore interface {
 }
 
 func NewHorseServer(store HorseStore) (*Horse, error) {
-	//TODO horseFileのパスをどこかから挿入できるようにする
-	w, err := file.NewHorseFile("horse")
-	if err != nil {
-		return nil, err
-	}
-	return &Horse{store: w}, nil
+	return &Horse{store: store}, nil
 }
 
 func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error) {
@@ -72,7 +67,7 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 		Wins:      0,
 		Matches:   0,
 		Next:      nil,
-		Histories: nil,
+		Histories: []*v1.HorseDetail_History{},
 	}
 	if err := h.store.Create(&hd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)

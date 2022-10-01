@@ -9,7 +9,7 @@ RUN go mod download
 COPY . ./
 RUN go build -o app ./
 
-FROM gcr.io/distroless/static-debian11:nonroot AS runner
-
+# FROM gcr.io/distroless/static-debian11:nonroot AS runner
+FROM gcr.io/distroless/static-debian11:debug-nonroot AS runner
 COPY --from=builder --chown=nonroot:nonroot /app/app /app
-CMD ["/app"]
+ENTRYPOINT ["/app"]
