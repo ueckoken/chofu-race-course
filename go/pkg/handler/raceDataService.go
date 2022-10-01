@@ -55,11 +55,9 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 	if req.Msg.GetName() == "" {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("you must fill Name field with not default value"))
 	}
-	// TODO: IDのオートインクリメントについて考える
-	var id uint32 = 1
 	hd := v1.HorseDetail{
 		Data: &v1.Horse{
-			Id:   id,
+			Id:   0,
 			Name: req.Msg.GetName(),
 		},
 		Owner:     req.Msg.GetOwner(),
