@@ -4,7 +4,7 @@ import (
 	"crypto/ed25519"
 	"crypto/rand"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"time"
 
@@ -52,7 +52,7 @@ func loadPrivKey(path string) (*ed25519.PrivateKey, error) {
 		return nil, fmt.Errorf("failed to create jwt private key file, err=%w", err)
 	}
 	defer f.Close()
-	p, err := ioutil.ReadAll(f)
+	p, err := io.ReadAll(f)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read private key although private key file already exists, err=%w", err)
 	}

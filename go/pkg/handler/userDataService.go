@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"crypto/rand"
 	"fmt"
 	"log"
 
@@ -50,7 +51,12 @@ func (s *User) UserData(ctx context.Context, req *connectGo.Request[v1.UserDataR
 }
 
 func (u *User) CreateUser(ctx context.Context, req *connectGo.Request[v1.CreateUserRequest]) (*connectGo.Response[v1.CreateUserResponse], error) {
-	err := u.store.Create(req.Msg.User)
+	buf := make([]byte, 8)
+	if _, err := rand.Read(buf); err != nil {
+		log.Printf("failed to generate random userid, err=%s\n", err)
+		return nil, fmt.Errorf("username generation error")
+	}
+	err := u.store.Create(&v1.User{Id: fmt.Sprintf("%x", buf)})
 	if err != nil {
 		return nil, connectGo.NewError(connectGo.CodeInvalidArgument, err)
 	}
