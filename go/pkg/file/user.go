@@ -2,7 +2,6 @@ package file
 
 import (
 	"bufio"
-	"errors"
 	"os"
 	"sync"
 
@@ -16,10 +15,21 @@ type User struct {
 	mu       *sync.Mutex
 }
 
-var notFound = errors.New("record not found")
-
 func NewUserFile(path string) (*User, error) {
-	return &User{filePath: path, mu: &sync.Mutex{}}, nil
+	w := &User{filePath: path, mu: &sync.Mutex{}}
+
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	_, err := os.Stat(w.filePath)
+	if err != nil {
+		f, err := os.Create(w.filePath)
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+	}
+
+	return w, nil
 }
 
 func (w *User) Create(u *v1.User) error {

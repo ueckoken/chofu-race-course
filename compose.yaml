@@ -4,3 +4,24 @@ services:
       context: go
     ports:
       - "8080:8080"
+    volumes:
+      - type: volume
+        source: dbData
+        target: /data
+        volume:
+          nocopy: true
+    environment:
+      DATADIR: "/data"
+      LISTEN_ADDR: ":8080"
+    depends_on:
+      - "volume-owner"
+  volume-owner:
+    build:
+      context: dockerfiles
+      dockerfile: Dockerfile.VolumeChown
+    volumes:
+      - type: volume
+        source: dbData
+        target: /app
+volumes:
+  dbData:

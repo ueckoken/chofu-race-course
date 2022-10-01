@@ -14,6 +14,7 @@
     - [HorseDetail](#spec-v1-HorseDetail)
     - [HorseDetail.History](#spec-v1-HorseDetail-History)
     - [HorseDetail.Image](#spec-v1-HorseDetail-Image)
+    - [HorseDetails](#spec-v1-HorseDetails)
     - [JWT](#spec-v1-JWT)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
@@ -208,6 +209,21 @@
 
 
 
+<a name="spec-v1-HorseDetails"></a>
+
+### HorseDetails
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| horse_details | [HorseDetail](#spec-v1-HorseDetail) | repeated |  |
+
+
+
+
+
+
 <a name="spec-v1-JWT"></a>
 
 ### JWT
@@ -385,7 +401,8 @@ HorseDetailの初期値 id: id&#43;&#43;, image: null, wins: 0, matches: 0, next
 <a name="spec-v1-RegisterRaceRequest"></a>
 
 ### RegisterRaceRequest
-RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+RaceDetailの初期値 id: id&#43;&#43;, is_finished: false, members: [], vote_begin:
+start - n, vote_end: start - m
 
 
 | Field | Type | Label | Description |

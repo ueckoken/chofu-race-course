@@ -502,6 +502,43 @@ export class HorseDetail_History extends Message<HorseDetail_History> {
 }
 
 /**
+ * @generated from message spec.v1.HorseDetails
+ */
+export class HorseDetails extends Message<HorseDetails> {
+  /**
+   * @generated from field: repeated spec.v1.HorseDetail horse_details = 1;
+   */
+  horseDetails: HorseDetail[] = [];
+
+  constructor(data?: PartialMessage<HorseDetails>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "spec.v1.HorseDetails";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "horse_details", kind: "message", T: HorseDetail, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HorseDetails {
+    return new HorseDetails().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): HorseDetails {
+    return new HorseDetails().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): HorseDetails {
+    return new HorseDetails().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: HorseDetails | PlainMessage<HorseDetails> | undefined, b: HorseDetails | PlainMessage<HorseDetails> | undefined): boolean {
+    return proto3.util.equals(HorseDetails, a, b);
+  }
+}
+
+/**
  * @generated from message spec.v1.HorseDataRequest
  */
 export class HorseDataRequest extends Message<HorseDataRequest> {
@@ -1141,7 +1178,8 @@ export class RangeRaceDataResponse extends Message<RangeRaceDataResponse> {
 }
 
 /**
- * RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+ * RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin:
+ * start - n, vote_end: start - m
  *
  * @generated from message spec.v1.RegisterRaceRequest
  */

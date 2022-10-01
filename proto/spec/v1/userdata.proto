@@ -21,7 +21,7 @@ message User {
 message UserDataRequest {
   JWT jwt = 1;
 }
-//JWTトークン
+// JWTトークン
 message JWT {
   string token = 1;
 }
@@ -78,6 +78,10 @@ message HorseDetail {
     RaceOrder result = 3;
   }
   repeated History histories = 7;
+}
+
+message HorseDetails {
+  repeated HorseDetail horse_details = 1;
 }
 message HorseDataRequest {
   uint32 id = 1;
@@ -152,7 +156,8 @@ message RangeRaceDataRequest {
 message RangeRaceDataResponse {
   repeated Race races = 1;
 }
-// RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin: start - n, vote_end: start - m
+// RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin:
+// start - n, vote_end: start - m
 message RegisterRaceRequest {
   string name = 1;
   // その日の何番目のレースか
