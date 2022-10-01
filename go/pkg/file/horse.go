@@ -2,7 +2,9 @@ package file
 
 import (
 	"bufio"
+	"fmt"
 	"os"
+	"sort"
 	"sync"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
@@ -11,27 +13,34 @@ import (
 
 type Horse struct {
 	filePath string
-	mu       *sync.Mutex
+	mu       *sync.RWMutex
 }
 
 func NewHorseFile(path string) (*Horse, error) {
-	w := &Horse{filePath: path, mu: &sync.Mutex{}}
+	w := &Horse{
+		filePath: path,
+		mu:       &sync.RWMutex{},
+	}
 	w.mu.Lock()
 	defer w.mu.Unlock()
-	_, err := os.Stat(w.filePath)
-	if err != nil {
-		f, err := os.Create(w.filePath)
-		if err != nil {
-			return nil, err
-		}
-		defer f.Close()
+	if err := createFileIfNotExist(w.filePath); err != nil {
+		return nil, err
 	}
 	return w, nil
 }
 
+// Create は新しい馬を登録します。hの中にあるIDがデフォルト値(=0)の時は新しいIDを付与します。
 func (w *Horse) Create(h *v1.HorseDetail) error {
-	if _, err := w.GetById(h.GetData().GetId()); err != nil {
-		return err
+	h, err := w.GetById(h.GetData().GetId())
+	if h != nil || err != notFound {
+		return fmt.Errorf("record already existed")
+	}
+	if h.GetData().GetId() == 0 {
+		id, err := w.supplyNewId()
+		if err != nil {
+			return err
+		}
+		h.Data.Id = id
 	}
 	w.mu.Lock()
 	defer w.mu.Unlock()
@@ -42,7 +51,7 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 	defer f.Close()
 	b, err := proto.Marshal(h)
 	if err != nil {
-		return nil
+		return err
 	}
 	_, err = f.Write(append(b, '\n'))
 	return err
@@ -66,8 +75,8 @@ func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
 
 func (w *Horse) readFromFile() ([]*v1.HorseDetail, error) {
 	hs := make([]*v1.HorseDetail, 1)
-	w.mu.Lock()
-	defer w.mu.Unlock()
+	w.mu.RLock()
+	defer w.mu.RUnlock()
 	f, err := os.Open(w.filePath)
 	if err != nil {
 		return nil, err
@@ -82,4 +91,21 @@ func (w *Horse) readFromFile() ([]*v1.HorseDetail, error) {
 		hs = append(hs, h)
 	}
 	return hs, nil
+}
+
+// supplyNewId はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
+func (w *Horse) supplyNewId() (uint32, error) {
+	hds, err := w.GetAll()
+	if err != nil {
+		return 0, err
+	}
+	// レコードが存在しないときは1を返す。idは1スタート
+	if len(hds) < 1 {
+		return 1, nil
+	}
+	// hdsを降順にソート
+	sort.Slice(hds, func(i, j int) bool {
+		return hds[i].GetData().GetId() > hds[j].GetData().GetId()
+	})
+	return hds[0].GetData().GetId() + 1, nil
 }
