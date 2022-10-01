@@ -6,9 +6,7 @@ import { AllHorseDataResponse } from "../../_proto/spec/v1/userdata_pb";
 
 const HorsePage: FC<{}> = () => {
     const client = useClient(HorseDataService);
-    const [data, setData] = useState<AllHorseDataResponse>(
-        new AllHorseDataResponse()
-    );
+    const [data, setData] = useState<AllHorseDataResponse | null>(null);
     useEffect(() => {
         client.allHorseData({}).then((res) => setData(res));
     }, []);
@@ -16,15 +14,19 @@ const HorsePage: FC<{}> = () => {
     return (
         <>
             <h2>競争馬一覧</h2>
-            <ul>
-                {data.horses.map((horseData) => (
-                    <li key={`race${horseData.id}`}>
-                        <Link href={`horse/${horseData.id}`}>
-                            <a>{horseData.name}</a>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+            {data ? (
+                <ul>
+                    {data.horses.map((horseData) => (
+                        <li key={`race${horseData.id}`}>
+                            <Link href={`horse/${horseData.id}`}>
+                                <a>{horseData.name}</a>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>読み込み中です。</p>
+            )}
         </>
     );
 };
