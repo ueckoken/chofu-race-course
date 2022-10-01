@@ -710,7 +710,7 @@ type AllHorseDataResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// 登録している馬が1頭もいない場合は[]を返す。
+	// 登録している馬が1頭もいない場合はエラーではなく[]を返す。
 	Horses []*Horse `protobuf:"bytes,1,rep,name=horses,proto3" json:"horses,omitempty"`
 }
 

@@ -70,7 +70,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| horses | [Horse](#spec-v1-Horse) | repeated | 登録している馬が1頭もいない場合は[]を返す。 |
+| horses | [Horse](#spec-v1-Horse) | repeated | 登録している馬が1頭もいない場合はエラーではなく[]を返す。 |
 
 
 
