@@ -19,8 +19,7 @@ message User {
   string id = 1;
 }
 message UserDataRequest {
-  // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
-  string id = 1;
+  JWT jwt = 1;
 }
 //JWTトークン
 message JWT {
@@ -173,5 +172,6 @@ message VoteRequest {
   uint32 race = 1;
   // 投票する馬の馬番
   uint32 horse = 2;
+  JWT jwt = 3;
 }
 message VoteResponse {}
