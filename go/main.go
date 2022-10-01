@@ -24,7 +24,7 @@ func main() {
 
 	corsConf := cors.New(cors.Options{
 		//TODO; これらの設定を環境変数で入れられるように
-		AllowedOrigins:   []string{"http://localhost:3000"},
+    AllowedOrigins:   []string{"http://localhost:3000","http://localhost:8080"},
 		AllowCredentials: true,
 	})
 	err = http.ListenAndServe(
