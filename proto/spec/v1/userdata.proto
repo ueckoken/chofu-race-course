@@ -72,7 +72,7 @@ message HorseDetail {
   repeated History histories = 7;
 }
 
-message HorseDetails { repeated HorseDetail HorseDetails = 1; }
+message HorseDetails { repeated HorseDetail horse_details = 1; }
 message HorseDataRequest { uint32 id = 1; }
 message HorseDataResponse { HorseDetail horse = 1; }
 message AllHorseDataRequest {}
