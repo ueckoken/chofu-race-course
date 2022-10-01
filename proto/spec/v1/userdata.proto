@@ -40,7 +40,8 @@ service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
   rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
   rpc RegisterHorse(RegisterHorseRequest) returns (RegisterHorseResponse) {}
-} message Horse {
+}
+message Horse {
   uint32 id = 1;
   // 馬の名前
   string name = 2;
