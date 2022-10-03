@@ -8,6 +8,7 @@ const res = new RaceDataResponse();
 const raceData = res.race;
 
 const RaceDetailPage: FC<{}> = () => {
+    if (!raceData) return <p>存在しないデータです。</p>;
     return (
         <>
             <h2>{`第${raceData!.data!.order}競争 ${raceData!.data!.name}`}</h2>
