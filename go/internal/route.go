@@ -3,7 +3,9 @@ package internal
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"path"
+	"time"
 
 	"github.com/ueckoken/chofu-race-course/go/pkg/authorizer"
 	"github.com/ueckoken/chofu-race-course/go/pkg/file"
@@ -22,7 +24,8 @@ func NewRoute(dataDir string) (*http.ServeMux, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize authorizer, err=%w", err)
 	}
-	u, err := handler.NewUserServer(userWriter, a)
+	ad, err := authorizer.NewAdminAuthorizer("adminprivatekey", os.Getenv("PASSWORD"), 30*24*time.Hour)
+	u, err := handler.NewUserServer(userWriter, a, ad)
 	if err != nil {
 		return nil, err
 	}
@@ -32,7 +35,7 @@ func NewRoute(dataDir string) (*http.ServeMux, error) {
 	if err != nil {
 		return nil, err
 	}
-	h, err := handler.NewHorseServer(horseWriter)
+	h, err := handler.NewHorseServer(horseWriter, ad)
 	if err != nil {
 		return nil, err
 	}

@@ -7,12 +7,14 @@ import (
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
+	"github.com/ueckoken/chofu-race-course/go/pkg/authorizer"
 	"github.com/ueckoken/chofu-race-course/go/pkg/file"
 )
 
 type Horse struct {
 	v1connect.UnimplementedHorseDataServiceHandler
-	store HorseStore
+	store     HorseStore
+	adminAuth authorizer.AdminAuthorizer
 }
 
 type HorseStore interface {
@@ -21,8 +23,8 @@ type HorseStore interface {
 	GetById(id uint32) (*v1.HorseDetail, error)
 }
 
-func NewHorseServer(store HorseStore) (*Horse, error) {
-	return &Horse{store: store}, nil
+func NewHorseServer(store HorseStore, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
+	return &Horse{store: store, adminAuth: adminauth}, nil
 }
 
 func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error) {
@@ -49,6 +51,13 @@ func (h *Horse) AllHorseData(_ context.Context, req *connect_go.Request[v1.AllHo
 	return &connect_go.Response[v1.AllHorseDataResponse]{Msg: &v1.AllHorseDataResponse{Horses: hs}}, nil
 }
 func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error) {
+	_, ok, err := h.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, err)
+	}
+	if !ok {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, fmt.Errorf("invalid jwt, maybe expired"))
+	}
 	if req.Msg.GetOwner() == "" {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("you must fill Owner field with not default value"))
 	}
