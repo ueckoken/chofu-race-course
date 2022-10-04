@@ -25,6 +25,9 @@ func NewRoute(dataDir string) (*http.ServeMux, error) {
 		return nil, fmt.Errorf("failed to initialize authorizer, err=%w", err)
 	}
 	ad, err := authorizer.NewAdminAuthorizer("adminprivatekey", os.Getenv("PASSWORD"), 30*24*time.Hour)
+	if err != nil {
+		return nil, fmt.Errorf("failed to generate admin authorizer, err=%w", err)
+	}
 	u, err := handler.NewUserServer(userWriter, a, ad)
 	if err != nil {
 		return nil, err
