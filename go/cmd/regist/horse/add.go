@@ -1,4 +1,4 @@
-package horseregist
+package horse
 
 import (
 	"context"
