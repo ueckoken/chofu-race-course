@@ -5,11 +5,11 @@ import (
 	"flag"
 
 	"github.com/google/subcommands"
-	horseregist "github.com/ueckoken/chofu-race-course/go/cmd/horseRegist"
+	"github.com/ueckoken/chofu-race-course/go/cmd/regist/horse"
 )
 
 func main() {
-	subcommands.Register(&horseregist.Regist{}, "")
+	subcommands.Register(&horse.Regist{}, "")
 	flag.Parse()
 
 	ctx := context.Background()
