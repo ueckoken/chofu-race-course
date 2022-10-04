@@ -108,6 +108,8 @@ message RegisterHorseRequest {
   string name = 1;
   // 所有者名
   string owner = 2;
+  //admin JWT
+  JWT admin_jwt = 3;
 }
 message RegisterHorseResponse {}
 
@@ -176,6 +178,8 @@ message RegisterRaceRequest {
   google.protobuf.Timestamp start = 3;
   // コースなどの詳細説明
   string description = 4;
+  //admin JWT
+  JWT admin_jwt = 5;
 }
 message RegisterRaceResponse {}
 
