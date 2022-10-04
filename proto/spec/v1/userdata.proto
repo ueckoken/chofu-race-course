@@ -41,7 +41,7 @@ message LoginAsAdminRequest {
   string password = 1;
 }
 message LoginAsAdminResponse {
-  JWT adminJwt = 3;
+  JWT admin_jwt = 3;
 }
 
 service HorseDataService {
