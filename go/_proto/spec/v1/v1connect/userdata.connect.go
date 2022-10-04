@@ -37,6 +37,8 @@ type UserDataServiceClient interface {
 	UserData(context.Context, *connect_go.Request[v1.UserDataRequest]) (*connect_go.Response[v1.UserDataResponse], error)
 	// 新規Userを作成する
 	CreateUser(context.Context, *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error)
+	// 管理者としてログインを試みる
+	LoginAsAdmin(context.Context, *connect_go.Request[v1.LoginAsAdminRequest]) (*connect_go.Response[v1.LoginAsAdminResponse], error)
 }
 
 // NewUserDataServiceClient constructs a client for the spec.v1.UserDataService service. By default,
@@ -59,13 +61,19 @@ func NewUserDataServiceClient(httpClient connect_go.HTTPClient, baseURL string, 
 			baseURL+"/spec.v1.UserDataService/CreateUser",
 			opts...,
 		),
+		loginAsAdmin: connect_go.NewClient[v1.LoginAsAdminRequest, v1.LoginAsAdminResponse](
+			httpClient,
+			baseURL+"/spec.v1.UserDataService/LoginAsAdmin",
+			opts...,
+		),
 	}
 }
 
 // userDataServiceClient implements UserDataServiceClient.
 type userDataServiceClient struct {
-	userData   *connect_go.Client[v1.UserDataRequest, v1.UserDataResponse]
-	createUser *connect_go.Client[v1.CreateUserRequest, v1.CreateUserResponse]
+	userData     *connect_go.Client[v1.UserDataRequest, v1.UserDataResponse]
+	createUser   *connect_go.Client[v1.CreateUserRequest, v1.CreateUserResponse]
+	loginAsAdmin *connect_go.Client[v1.LoginAsAdminRequest, v1.LoginAsAdminResponse]
 }
 
 // UserData calls spec.v1.UserDataService.UserData.
@@ -78,12 +86,19 @@ func (c *userDataServiceClient) CreateUser(ctx context.Context, req *connect_go.
 	return c.createUser.CallUnary(ctx, req)
 }
 
+// LoginAsAdmin calls spec.v1.UserDataService.LoginAsAdmin.
+func (c *userDataServiceClient) LoginAsAdmin(ctx context.Context, req *connect_go.Request[v1.LoginAsAdminRequest]) (*connect_go.Response[v1.LoginAsAdminResponse], error) {
+	return c.loginAsAdmin.CallUnary(ctx, req)
+}
+
 // UserDataServiceHandler is an implementation of the spec.v1.UserDataService service.
 type UserDataServiceHandler interface {
 	// 要ユーザ認証: UserIdからUser情報を取得する
 	UserData(context.Context, *connect_go.Request[v1.UserDataRequest]) (*connect_go.Response[v1.UserDataResponse], error)
 	// 新規Userを作成する
 	CreateUser(context.Context, *connect_go.Request[v1.CreateUserRequest]) (*connect_go.Response[v1.CreateUserResponse], error)
+	// 管理者としてログインを試みる
+	LoginAsAdmin(context.Context, *connect_go.Request[v1.LoginAsAdminRequest]) (*connect_go.Response[v1.LoginAsAdminResponse], error)
 }
 
 // NewUserDataServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -103,6 +118,11 @@ func NewUserDataServiceHandler(svc UserDataServiceHandler, opts ...connect_go.Ha
 		svc.CreateUser,
 		opts...,
 	))
+	mux.Handle("/spec.v1.UserDataService/LoginAsAdmin", connect_go.NewUnaryHandler(
+		"/spec.v1.UserDataService/LoginAsAdmin",
+		svc.LoginAsAdmin,
+		opts...,
+	))
 	return "/spec.v1.UserDataService/", mux
 }
 
@@ -117,10 +137,15 @@ func (UnimplementedUserDataServiceHandler) CreateUser(context.Context, *connect_
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.UserDataService.CreateUser is not implemented"))
 }
 
+func (UnimplementedUserDataServiceHandler) LoginAsAdmin(context.Context, *connect_go.Request[v1.LoginAsAdminRequest]) (*connect_go.Response[v1.LoginAsAdminResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.UserDataService.LoginAsAdmin is not implemented"))
+}
+
 // HorseDataServiceClient is a client for the spec.v1.HorseDataService service.
 type HorseDataServiceClient interface {
 	HorseData(context.Context, *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error)
 	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
+	// 要Admin認証
 	RegisterHorse(context.Context, *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error)
 }
 
@@ -178,6 +203,7 @@ func (c *horseDataServiceClient) RegisterHorse(ctx context.Context, req *connect
 type HorseDataServiceHandler interface {
 	HorseData(context.Context, *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error)
 	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
+	// 要Admin認証
 	RegisterHorse(context.Context, *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error)
 }
 
@@ -225,6 +251,7 @@ func (UnimplementedHorseDataServiceHandler) RegisterHorse(context.Context, *conn
 type RaceDataServiceClient interface {
 	RangeRaceData(context.Context, *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error)
 	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
+	// 要Admin認証
 	RegisterRace(context.Context, *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error)
 }
 
@@ -282,6 +309,7 @@ func (c *raceDataServiceClient) RegisterRace(ctx context.Context, req *connect_g
 type RaceDataServiceHandler interface {
 	RangeRaceData(context.Context, *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error)
 	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
+	// 要Admin認証
 	RegisterRace(context.Context, *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error)
 }
 

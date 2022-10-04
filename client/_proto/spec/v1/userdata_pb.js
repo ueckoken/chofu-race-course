@@ -71,6 +71,26 @@ export const CreateUserResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message spec.v1.LoginAsAdminRequest
+ */
+export const LoginAsAdminRequest = proto3.makeMessageType(
+  "spec.v1.LoginAsAdminRequest",
+  () => [
+    { no: 1, name: "password", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message spec.v1.LoginAsAdminResponse
+ */
+export const LoginAsAdminResponse = proto3.makeMessageType(
+  "spec.v1.LoginAsAdminResponse",
+  () => [
+    { no: 3, name: "admin_jwt", kind: "message", T: JWT },
+  ],
+);
+
+/**
  * @generated from message spec.v1.Horse
  */
 export const Horse = proto3.makeMessageType(
