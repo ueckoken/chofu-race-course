@@ -24,5 +24,5 @@ COPY --from=builder --chown=nonroot:nonroot /app/.next/static ./.next/static
 EXPOSE 3000
 
 ENV PORT 3000
-
+USER nonroot
 CMD ["server.js"]
