@@ -20,6 +20,9 @@ message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1;
 }
+message Users {
+  repeated User users = 1;
+}
 message UserDataRequest {
   JWT jwt = 1;
 }
