@@ -16,6 +16,8 @@
     - [HorseDetail.Image](#spec-v1-HorseDetail-Image)
     - [HorseDetails](#spec-v1-HorseDetails)
     - [JWT](#spec-v1-JWT)
+    - [LoginAsAdminRequest](#spec-v1-LoginAsAdminRequest)
+    - [LoginAsAdminResponse](#spec-v1-LoginAsAdminResponse)
     - [Race](#spec-v1-Race)
     - [RaceDataRequest](#spec-v1-RaceDataRequest)
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
@@ -239,6 +241,36 @@ JWTトークン
 
 
 
+<a name="spec-v1-LoginAsAdminRequest"></a>
+
+### LoginAsAdminRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| password | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-LoginAsAdminResponse"></a>
+
+### LoginAsAdminResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| admin_jwt | [JWT](#spec-v1-JWT) |  |  |
+
+
+
+
+
+
 <a name="spec-v1-Race"></a>
 
 ### Race
@@ -382,6 +414,7 @@ HorseDetailの初期値 id: id&#43;&#43;, image: null, wins: 0, matches: 0, next
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | owner | [string](#string) |  | 所有者名 |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 
 
@@ -411,6 +444,7 @@ start - n, vote_end: start - m
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
 | start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | 出走時刻 |
 | description | [string](#string) |  | コースなどの詳細説明 |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 
 
@@ -541,7 +575,7 @@ start - n, vote_end: start - m
 | ----------- | ------------ | ------------- | ------------|
 | HorseData | [HorseDataRequest](#spec-v1-HorseDataRequest) | [HorseDataResponse](#spec-v1-HorseDataResponse) |  |
 | AllHorseData | [AllHorseDataRequest](#spec-v1-AllHorseDataRequest) | [AllHorseDataResponse](#spec-v1-AllHorseDataResponse) |  |
-| RegisterHorse | [RegisterHorseRequest](#spec-v1-RegisterHorseRequest) | [RegisterHorseResponse](#spec-v1-RegisterHorseResponse) |  |
+| RegisterHorse | [RegisterHorseRequest](#spec-v1-RegisterHorseRequest) | [RegisterHorseResponse](#spec-v1-RegisterHorseResponse) | 要Admin認証 |
 
 
 <a name="spec-v1-RaceDataService"></a>
@@ -553,7 +587,7 @@ start - n, vote_end: start - m
 | ----------- | ------------ | ------------- | ------------|
 | RangeRaceData | [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest) | [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
-| RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) |  |
+| RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
 
 
 <a name="spec-v1-UserDataService"></a>
@@ -565,6 +599,7 @@ start - n, vote_end: start - m
 | ----------- | ------------ | ------------- | ------------|
 | UserData | [UserDataRequest](#spec-v1-UserDataRequest) | [UserDataResponse](#spec-v1-UserDataResponse) | 要ユーザ認証: UserIdからUser情報を取得する |
 | CreateUser | [CreateUserRequest](#spec-v1-CreateUserRequest) | [CreateUserResponse](#spec-v1-CreateUserResponse) | 新規Userを作成する |
+| LoginAsAdmin | [LoginAsAdminRequest](#spec-v1-LoginAsAdminRequest) | [LoginAsAdminResponse](#spec-v1-LoginAsAdminResponse) | 管理者としてログインを試みる |
 
 
 <a name="spec-v1-VoteService"></a>

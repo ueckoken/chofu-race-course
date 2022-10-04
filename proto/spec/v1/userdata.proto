@@ -12,6 +12,8 @@ service UserDataService {
   rpc UserData(UserDataRequest) returns (UserDataResponse) {}
   // 新規Userを作成する
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  // 管理者としてログインを試みる
+  rpc LoginAsAdmin(LoginAsAdminRequest) returns (LoginAsAdminResponse) {}
 }
 // ユーザを表現する型
 message User {
@@ -35,10 +37,17 @@ message CreateUserResponse {
   User user = 1;
   JWT jwt = 2;
 }
+message LoginAsAdminRequest {
+  string password = 1;
+}
+message LoginAsAdminResponse {
+  JWT admin_jwt = 3;
+}
 
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
   rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
+  //要Admin認証
   rpc RegisterHorse(RegisterHorseRequest) returns (RegisterHorseResponse) {}
 }
 message Horse {
@@ -99,12 +108,15 @@ message RegisterHorseRequest {
   string name = 1;
   // 所有者名
   string owner = 2;
+  //admin JWT
+  JWT admin_jwt = 3;
 }
 message RegisterHorseResponse {}
 
 service RaceDataService {
   rpc RangeRaceData(RangeRaceDataRequest) returns (RangeRaceDataResponse) {}
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
+  //要Admin認証
   rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
 }
 message Race {
@@ -166,6 +178,8 @@ message RegisterRaceRequest {
   google.protobuf.Timestamp start = 3;
   // コースなどの詳細説明
   string description = 4;
+  //admin JWT
+  JWT admin_jwt = 5;
 }
 message RegisterRaceResponse {}
 

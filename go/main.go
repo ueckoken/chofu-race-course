@@ -6,7 +6,7 @@ import (
 
 	"github.com/rs/cors"
 	"github.com/ueckoken/chofu-race-course/go/internal"
-	envConfig "github.com/ueckoken/chofu-race-course/go/pkg/envConfig"
+	"github.com/ueckoken/chofu-race-course/go/pkg/envConfig"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	route, err := internal.NewRoute(env.DataDir)
+	route, err := internal.NewRoute(env)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -24,7 +24,7 @@ func main() {
 
 	corsConf := cors.New(cors.Options{
 		//TODO; これらの設定を環境変数で入れられるように
-    AllowedOrigins:   []string{"http://localhost:3000","http://localhost:8080"},
+		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:8080"},
 		AllowCredentials: true,
 	})
 	err = http.ListenAndServe(

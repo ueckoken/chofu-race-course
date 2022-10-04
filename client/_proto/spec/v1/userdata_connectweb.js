@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -36,6 +36,17 @@ export const UserDataService = {
       O: CreateUserResponse,
       kind: MethodKind.Unary,
     },
+    /**
+     * 管理者としてログインを試みる
+     *
+     * @generated from rpc spec.v1.UserDataService.LoginAsAdmin
+     */
+    loginAsAdmin: {
+      name: "LoginAsAdmin",
+      I: LoginAsAdminRequest,
+      O: LoginAsAdminResponse,
+      kind: MethodKind.Unary,
+    },
   }
 };
 
@@ -64,6 +75,8 @@ export const HorseDataService = {
       kind: MethodKind.Unary,
     },
     /**
+     * 要Admin認証
+     *
      * @generated from rpc spec.v1.HorseDataService.RegisterHorse
      */
     registerHorse: {
@@ -100,6 +113,8 @@ export const RaceDataService = {
       kind: MethodKind.Unary,
     },
     /**
+     * 要Admin認証
+     *
      * @generated from rpc spec.v1.RaceDataService.RegisterRace
      */
     registerRace: {

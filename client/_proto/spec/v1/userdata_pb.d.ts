@@ -163,6 +163,54 @@ export declare class CreateUserResponse extends Message<CreateUserResponse> {
 }
 
 /**
+ * @generated from message spec.v1.LoginAsAdminRequest
+ */
+export declare class LoginAsAdminRequest extends Message<LoginAsAdminRequest> {
+  /**
+   * @generated from field: string password = 1;
+   */
+  password: string;
+
+  constructor(data?: PartialMessage<LoginAsAdminRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.LoginAsAdminRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LoginAsAdminRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LoginAsAdminRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LoginAsAdminRequest;
+
+  static equals(a: LoginAsAdminRequest | PlainMessage<LoginAsAdminRequest> | undefined, b: LoginAsAdminRequest | PlainMessage<LoginAsAdminRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message spec.v1.LoginAsAdminResponse
+ */
+export declare class LoginAsAdminResponse extends Message<LoginAsAdminResponse> {
+  /**
+   * @generated from field: spec.v1.JWT admin_jwt = 3;
+   */
+  adminJwt?: JWT;
+
+  constructor(data?: PartialMessage<LoginAsAdminResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.LoginAsAdminResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LoginAsAdminResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LoginAsAdminResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LoginAsAdminResponse;
+
+  static equals(a: LoginAsAdminResponse | PlainMessage<LoginAsAdminResponse> | undefined, b: LoginAsAdminResponse | PlainMessage<LoginAsAdminResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message spec.v1.Horse
  */
 export declare class Horse extends Message<Horse> {
@@ -487,6 +535,13 @@ export declare class RegisterHorseRequest extends Message<RegisterHorseRequest> 
    * @generated from field: string owner = 2;
    */
   owner: string;
+
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 3;
+   */
+  adminJwt?: JWT;
 
   constructor(data?: PartialMessage<RegisterHorseRequest>);
 
@@ -848,6 +903,13 @@ export declare class RegisterRaceRequest extends Message<RegisterRaceRequest> {
    * @generated from field: string description = 4;
    */
   description: string;
+
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 5;
+   */
+  adminJwt?: JWT;
 
   constructor(data?: PartialMessage<RegisterRaceRequest>);
 
