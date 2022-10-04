@@ -6,13 +6,11 @@ import (
 
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
-	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
 	"github.com/ueckoken/chofu-race-course/go/pkg/authorizer"
 	"github.com/ueckoken/chofu-race-course/go/pkg/file"
 )
 
 type Horse struct {
-	v1connect.UnimplementedHorseDataServiceHandler
 	store     HorseStore
 	adminAuth authorizer.AdminAuthorizer
 }
