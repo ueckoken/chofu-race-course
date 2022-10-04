@@ -11,22 +11,19 @@ const HorsePage: FC<{}> = () => {
         client.allHorseData({}).then((res) => setData(res));
     }, []);
 
+    if (!data) return <p>読み込み中です。</p>;
     return (
         <>
             <h2>競争馬一覧</h2>
-            {data ? (
-                <ul>
-                    {data.horses.map((horseData) => (
-                        <li key={`race${horseData.id}`}>
-                            <Link href={`horse/${horseData.id}`}>
-                                <a>{horseData.name}</a>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>読み込み中です。</p>
-            )}
+            <ul>
+                {data.horses.map((horseData) => (
+                    <li key={`race${horseData.id}`}>
+                        <Link href={`horse/${horseData.id}`}>
+                            <a>{horseData.name}</a>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </>
     );
 };

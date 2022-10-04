@@ -1,14 +1,22 @@
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useClient } from "../../util/use-client";
 import { HorseDataResponse } from "../../../_proto/spec/v1/userdata_pb";
+import { HorseDataService } from "../../../_proto/spec/v1/userdata_connectweb";
 import { dateToYYYYMMDD } from "../../util/time";
 import { raceOrderToString } from "../../util/util";
 
-const res = new HorseDataResponse();
-const horseData = res.horse;
-
 const HorseDetailPage: FC<{}> = () => {
-    if (!horseData) return <p>存在しないデータです。</p>;
+    const router = useRouter();
+    const { id } = router.query;
+    const client = useClient(HorseDataService);
+    const [data, setData] = useState<HorseDataResponse | null>(null);
+    useEffect(() => {
+        client.horseData({ id: +id! }).then((res) => setData(res));
+    }, []);
+    if (!data) return <p>読み込み中です。</p>;
+    const horseData = data.horse!;
     return (
         <>
             <h2>{horseData!.data!.name}</h2>
