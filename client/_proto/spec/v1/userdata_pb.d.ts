@@ -536,6 +536,13 @@ export declare class RegisterHorseRequest extends Message<RegisterHorseRequest> 
    */
   owner: string;
 
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 3;
+   */
+  adminJwt?: JWT;
+
   constructor(data?: PartialMessage<RegisterHorseRequest>);
 
   static readonly runtime: typeof proto3;
@@ -896,6 +903,13 @@ export declare class RegisterRaceRequest extends Message<RegisterRaceRequest> {
    * @generated from field: string description = 4;
    */
   description: string;
+
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 5;
+   */
+  adminJwt?: JWT;
 
   constructor(data?: PartialMessage<RegisterRaceRequest>);
 

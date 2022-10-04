@@ -414,6 +414,7 @@ HorseDetailの初期値 id: id&#43;&#43;, image: null, wins: 0, matches: 0, next
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | owner | [string](#string) |  | 所有者名 |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 
 
@@ -443,6 +444,7 @@ start - n, vote_end: start - m
 | order | [uint32](#uint32) |  | その日の何番目のレースか |
 | start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | 出走時刻 |
 | description | [string](#string) |  | コースなどの詳細説明 |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 
 

@@ -215,6 +215,7 @@ export const RegisterHorseRequest = proto3.makeMessageType(
   () => [
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "admin_jwt", kind: "message", T: JWT },
   ],
 );
 
@@ -345,6 +346,7 @@ export const RegisterRaceRequest = proto3.makeMessageType(
     { no: 2, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 3, name: "start", kind: "message", T: Timestamp },
     { no: 4, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "admin_jwt", kind: "message", T: JWT },
   ],
 );
 
