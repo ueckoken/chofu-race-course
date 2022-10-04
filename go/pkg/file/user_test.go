@@ -1,7 +1,7 @@
 package file_test
 
 import (
-	"path"
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -12,7 +12,7 @@ import (
 )
 
 func TestUserFlow(t *testing.T) {
-	u, err := file.NewUserFile(path.Join(t.TempDir(), "user-test"))
+	u, err := file.NewUserFile(filepath.Join(t.TempDir(), "user-test"))
 	assert.NoError(t, err)
 	require.NotNil(t, u)
 	assert.Implements(t, (*handler.UserStore)(nil), u)
