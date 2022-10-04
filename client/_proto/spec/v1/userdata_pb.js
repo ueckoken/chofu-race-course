@@ -293,6 +293,16 @@ export const RaceDetail_Member = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message spec.v1.RaceDetails
+ */
+export const RaceDetails = proto3.makeMessageType(
+  "spec.v1.RaceDetails",
+  () => [
+    { no: 1, name: "race_details", kind: "message", T: RaceDetail, repeated: true },
+  ],
+);
+
+/**
  * @generated from message spec.v1.RaceDataRequest
  */
 export const RaceDataRequest = proto3.makeMessageType(

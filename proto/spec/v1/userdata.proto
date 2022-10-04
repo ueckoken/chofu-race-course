@@ -155,8 +155,8 @@ message RaceDetail {
 }
 
 message RaceDetails {
-    repeated RaceDetail race_details = 1;
-  }
+  repeated RaceDetail race_details = 1;
+}
 message RaceDataRequest {
   uint32 id = 1;
 }
