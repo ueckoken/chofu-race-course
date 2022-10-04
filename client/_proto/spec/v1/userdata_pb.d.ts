@@ -35,6 +35,30 @@ export declare class User extends Message<User> {
 }
 
 /**
+ * @generated from message spec.v1.Users
+ */
+export declare class Users extends Message<Users> {
+  /**
+   * @generated from field: repeated spec.v1.User users = 1;
+   */
+  users: User[];
+
+  constructor(data?: PartialMessage<Users>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.Users";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Users;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Users;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Users;
+
+  static equals(a: Users | PlainMessage<Users> | undefined, b: Users | PlainMessage<Users> | undefined): boolean;
+}
+
+/**
  * @generated from message spec.v1.UserDataRequest
  */
 export declare class UserDataRequest extends Message<UserDataRequest> {
