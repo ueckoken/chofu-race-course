@@ -79,7 +79,7 @@ func NewJWTIssuer(path string, generalExpiry time.Duration) (*KeyPairED25519, er
 	if err != nil {
 		return nil, fmt.Errorf("failed to load private key, err=%w", err)
 	}
-	k := &KeyPairED25519{issuerName: "generalUser", ttl: generalExpiry, privkey: *ep, pubkey: ed25519.PublicKey(*ep)}
+	k := &KeyPairED25519{issuerName: "generalUser", ttl: generalExpiry, privkey: *ep, pubkey: ep.Public().(ed25519.PublicKey)}
 	return k, nil
 }
 
