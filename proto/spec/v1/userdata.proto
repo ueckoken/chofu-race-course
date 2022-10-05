@@ -60,7 +60,7 @@ service HorseDataService {
 message Horse {
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
   // 馬の名前
-  string name = 2 [(validate.rules).string.pattern = "\\p{Katakana}{2,9}"];
+  string name = 2 [(validate.rules).string.pattern = "^\\p{Katakana}{2,9}$"];
 }
 message HorseDetail {
   Horse data = 1 [(validate.rules).message.required = true];
@@ -122,7 +122,7 @@ message AllHorseDataResponse {
 // HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
 // histories: []
 message RegisterHorseRequest {
-  string name = 1 [(validate.rules).string.pattern = "\\p{Katakana}{2,9}"];
+  string name = 1 [(validate.rules).string.pattern = "^\\p{Katakana}{2,9}$"];
   // 所有者名
   string owner = 2 [(validate.rules).string = {
     min_len: 2,

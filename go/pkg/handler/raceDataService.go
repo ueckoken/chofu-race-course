@@ -60,6 +60,9 @@ func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.Regist
 	if !ok {
 		return nil, connect_go.NewError(connect_go.CodePermissionDenied, fmt.Errorf("invalid jwt, maybe expired"))
 	}
+	if err := req.Msg.ValidateAll(); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
+	}
 	rd := &v1.RaceDetail{
 		Data: &v1.Race{
 			Id:         0,
@@ -74,8 +77,7 @@ func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.Regist
 		VoteBegin: req.Msg.GetStart(),
 		VoteEnd:   req.Msg.GetStart(),
 	}
-	err = r.store.Create(rd)
-	if err != nil {
+	if err := r.store.Create(rd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	return &connect_go.Response[v1.RegisterRaceResponse]{Msg: &v1.RegisterRaceResponse{}}, nil

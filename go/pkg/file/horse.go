@@ -1,6 +1,7 @@
 package file
 
 import (
+	"fmt"
 	"os"
 	"sort"
 	"sync"
@@ -29,6 +30,9 @@ func NewHorseFile(path string) (*Horse, error) {
 
 // Create は新しい馬を登録します。hの中にあるIDがデフォルト値(=0)の時は新しいIDを付与します。
 func (w *Horse) Create(h *v1.HorseDetail) error {
+	if h == nil {
+		return fmt.Errorf("h is nil")
+	}
 	existedHorse, err := w.GetById(h.GetData().GetId())
 	if existedHorse != nil {
 		return recordDupricate
@@ -36,12 +40,15 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 	if err != nil && err != notFound {
 		return err
 	}
-	if h.GetData().GetId() == 0 {
+	if h.GetData().GetId() == 0 && h.GetData() != nil {
 		id, err := w.supplyNewId()
 		if err != nil {
 			return err
 		}
 		h.Data.Id = id
+	}
+	if err := h.ValidateAll(); err != nil {
+		return err
 	}
 	oldRecs, err := w.GetAll()
 	if err != nil {

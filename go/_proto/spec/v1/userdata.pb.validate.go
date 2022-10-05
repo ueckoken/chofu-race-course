@@ -1195,7 +1195,7 @@ func (m *Horse) validate(all bool) error {
 	if !_Horse_Name_Pattern.MatchString(m.GetName()) {
 		err := HorseValidationError{
 			field:  "Name",
-			reason: "value does not match regex pattern \"\\\\p{Katakana}{2,9}\"",
+			reason: "value does not match regex pattern \"^\\\\p{Katakana}{2,9}$\"",
 		}
 		if !all {
 			return err
@@ -1280,7 +1280,7 @@ var _ interface {
 	ErrorName() string
 } = HorseValidationError{}
 
-var _Horse_Name_Pattern = regexp.MustCompile("\\p{Katakana}{2,9}")
+var _Horse_Name_Pattern = regexp.MustCompile("^\\p{Katakana}{2,9}$")
 
 // Validate checks the field values on HorseDetail with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -2174,7 +2174,7 @@ func (m *RegisterHorseRequest) validate(all bool) error {
 	if !_RegisterHorseRequest_Name_Pattern.MatchString(m.GetName()) {
 		err := RegisterHorseRequestValidationError{
 			field:  "Name",
-			reason: "value does not match regex pattern \"\\\\p{Katakana}{2,9}\"",
+			reason: "value does not match regex pattern \"^\\\\p{Katakana}{2,9}$\"",
 		}
 		if !all {
 			return err
@@ -2313,7 +2313,7 @@ var _ interface {
 	ErrorName() string
 } = RegisterHorseRequestValidationError{}
 
-var _RegisterHorseRequest_Name_Pattern = regexp.MustCompile("\\p{Katakana}{2,9}")
+var _RegisterHorseRequest_Name_Pattern = regexp.MustCompile("^\\p{Katakana}{2,9}$")
 
 // Validate checks the field values on RegisterHorseResponse with the rules
 // defined in the proto definition for this message. If any rules are
