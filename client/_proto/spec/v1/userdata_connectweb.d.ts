@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -95,12 +95,12 @@ export declare const RaceDataService: {
   readonly typeName: "spec.v1.RaceDataService",
   readonly methods: {
     /**
-     * @generated from rpc spec.v1.RaceDataService.RangeRaceData
+     * @generated from rpc spec.v1.RaceDataService.AllRaceData
      */
-    readonly rangeRaceData: {
-      readonly name: "RangeRaceData",
-      readonly I: typeof RangeRaceDataRequest,
-      readonly O: typeof RangeRaceDataResponse,
+    readonly allRaceData: {
+      readonly name: "AllRaceData",
+      readonly I: typeof AllRaceDataRequest,
+      readonly O: typeof AllRaceDataResponse,
       readonly kind: MethodKind.Unary,
     },
     /**

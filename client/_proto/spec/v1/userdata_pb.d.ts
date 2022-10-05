@@ -862,60 +862,46 @@ export declare class RaceDataResponse extends Message<RaceDataResponse> {
 }
 
 /**
- * @generated from message spec.v1.RangeRaceDataRequest
+ * @generated from message spec.v1.AllRaceDataRequest
  */
-export declare class RangeRaceDataRequest extends Message<RangeRaceDataRequest> {
-  /**
-   * 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。
-   *
-   * @generated from field: optional google.protobuf.Timestamp begin = 1;
-   */
-  begin?: Timestamp;
-
-  /**
-   * 指定した時間を含む、指定した時間までのデータを取得する。指定しなかったときは取得できる最新まで取得する。
-   *
-   * @generated from field: optional google.protobuf.Timestamp end = 2;
-   */
-  end?: Timestamp;
-
-  constructor(data?: PartialMessage<RangeRaceDataRequest>);
+export declare class AllRaceDataRequest extends Message<AllRaceDataRequest> {
+  constructor(data?: PartialMessage<AllRaceDataRequest>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "spec.v1.RangeRaceDataRequest";
+  static readonly typeName = "spec.v1.AllRaceDataRequest";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RangeRaceDataRequest;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AllRaceDataRequest;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RangeRaceDataRequest;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AllRaceDataRequest;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RangeRaceDataRequest;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AllRaceDataRequest;
 
-  static equals(a: RangeRaceDataRequest | PlainMessage<RangeRaceDataRequest> | undefined, b: RangeRaceDataRequest | PlainMessage<RangeRaceDataRequest> | undefined): boolean;
+  static equals(a: AllRaceDataRequest | PlainMessage<AllRaceDataRequest> | undefined, b: AllRaceDataRequest | PlainMessage<AllRaceDataRequest> | undefined): boolean;
 }
 
 /**
- * @generated from message spec.v1.RangeRaceDataResponse
+ * @generated from message spec.v1.AllRaceDataResponse
  */
-export declare class RangeRaceDataResponse extends Message<RangeRaceDataResponse> {
+export declare class AllRaceDataResponse extends Message<AllRaceDataResponse> {
   /**
    * @generated from field: repeated spec.v1.Race races = 1;
    */
   races: Race[];
 
-  constructor(data?: PartialMessage<RangeRaceDataResponse>);
+  constructor(data?: PartialMessage<AllRaceDataResponse>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "spec.v1.RangeRaceDataResponse";
+  static readonly typeName = "spec.v1.AllRaceDataResponse";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RangeRaceDataResponse;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AllRaceDataResponse;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RangeRaceDataResponse;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AllRaceDataResponse;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RangeRaceDataResponse;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AllRaceDataResponse;
 
-  static equals(a: RangeRaceDataResponse | PlainMessage<RangeRaceDataResponse> | undefined, b: RangeRaceDataResponse | PlainMessage<RangeRaceDataResponse> | undefined): boolean;
+  static equals(a: AllRaceDataResponse | PlainMessage<AllRaceDataResponse> | undefined, b: AllRaceDataResponse | PlainMessage<AllRaceDataResponse> | undefined): boolean;
 }
 
 /**
