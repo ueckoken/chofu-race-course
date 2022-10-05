@@ -58,11 +58,8 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 	if !ok {
 		return nil, connect_go.NewError(connect_go.CodePermissionDenied, fmt.Errorf("invalid jwt, maybe expired"))
 	}
-	if req.Msg.GetOwner() == "" {
-		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("you must fill Owner field with not default value"))
-	}
-	if req.Msg.GetName() == "" {
-		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("you must fill Name field with not default value"))
+	if err := req.Msg.ValidateAll(); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
 	hd := v1.HorseDetail{
 		Data: &v1.Horse{
