@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"os"
 	"sort"
 	"sync"
@@ -32,7 +31,7 @@ func NewHorseFile(path string) (*Horse, error) {
 func (w *Horse) Create(h *v1.HorseDetail) error {
 	existedHorse, err := w.GetById(h.GetData().GetId())
 	if existedHorse != nil {
-		return fmt.Errorf("record already existed")
+		return recordDupricate
 	}
 	if err != nil && err != notFound {
 		return err

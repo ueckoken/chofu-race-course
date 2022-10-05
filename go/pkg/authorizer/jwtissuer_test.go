@@ -3,6 +3,7 @@ package authorizer
 import (
 	"bytes"
 	"crypto/ed25519"
+	"path/filepath"
 	"testing"
 	"time"
 )
@@ -12,7 +13,7 @@ func TestSaveAndLoad(t *testing.T) {
 	if err != nil {
 		t.Errorf("failed to create new ed25519 keypair, err=%s", err)
 	}
-	path := "test-priv"
+	path := filepath.Join(t.TempDir(), "test-priv")
 	if err := savePrivKey(k.privkey, path); err != nil {
 		t.Errorf("failed to save private key, err=%s", err)
 	}

@@ -6,8 +6,10 @@ import (
 )
 
 type NotFound error
+type DupricateRecord error
 
 var notFound NotFound = errors.New("record not found")
+var recordDupricate DupricateRecord = errors.New("already exist record with your id")
 
 func createFileIfNotExist(path string) error {
 	_, err := os.Stat(path)
@@ -18,5 +20,5 @@ func createFileIfNotExist(path string) error {
 		}
 		defer f.Close()
 	}
-  return nil
+	return nil
 }

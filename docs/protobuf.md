@@ -33,6 +33,7 @@
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
+    - [Users](#spec-v1-Users)
     - [VoteRequest](#spec-v1-VoteRequest)
     - [VoteResponse](#spec-v1-VoteResponse)
   
@@ -500,6 +501,21 @@ start - n, vote_end: start - m
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | user | [User](#spec-v1-User) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-Users"></a>
+
+### Users
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| users | [User](#spec-v1-User) | repeated |  |
 
 
 
