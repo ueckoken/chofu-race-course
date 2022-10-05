@@ -9,7 +9,7 @@ import {
 
 // This transport is going to be used throughout the app
 const transport = createConnectTransport({
-    baseUrl: "http://localhost:8080",
+    baseUrl: process.env.NEXT_PUBLIC_ENDPOINT!,
 });
 
 /**
