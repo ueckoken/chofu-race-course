@@ -19,7 +19,10 @@ service UserDataService {
 // ユーザを表現する型
 message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
-  string id = 1 [(validate.rules).string = {min_bytes: 16, max_bytes: 1024}];
+  string id = 1 [(validate.rules).string = {
+    min_bytes: 16,
+    max_bytes: 1024
+  }];
 }
 message UserDataRequest {
   JWT jwt = 1;

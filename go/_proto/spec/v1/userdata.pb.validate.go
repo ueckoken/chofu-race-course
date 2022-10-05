@@ -56,7 +56,16 @@ func (m *User) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if l := len(m.GetId()); l < 16 || l > 1024 {
+		err := UserValidationError{
+			field:  "Id",
+			reason: "value length must be between 16 and 1024 bytes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UserMultiError(errors)
