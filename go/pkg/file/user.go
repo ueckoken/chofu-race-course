@@ -1,7 +1,6 @@
 package file
 
 import (
-	"bufio"
 	"os"
 	"sync"
 
@@ -12,11 +11,11 @@ import (
 
 type User struct {
 	filePath string
-	mu       *sync.Mutex
+	mu       *sync.RWMutex
 }
 
 func NewUserFile(path string) (*User, error) {
-	w := &User{filePath: path, mu: &sync.Mutex{}}
+	w := &User{filePath: path, mu: &sync.RWMutex{}}
 
 	w.mu.Lock()
 	defer w.mu.Unlock()
@@ -33,27 +32,36 @@ func NewUserFile(path string) (*User, error) {
 }
 
 func (w *User) Create(u *v1.User) error {
-	if _, err := w.GetById(u.GetId()); err != nil {
+	userInRec, err := w.GetById(u.GetId())
+	if userInRec != nil {
+		return recordDupricate
+	}
+	if err != nil && err != notFound {
 		return err
 	}
+	oldRecs, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	newRecs := append(oldRecs, u)
 	w.mu.Lock()
 	defer w.mu.Unlock()
-	f, err := os.OpenFile(w.filePath, os.O_APPEND, 0644)
+	f, err := os.Create(w.filePath)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
-	b, err := proto.Marshal(u)
+	b, err := proto.Marshal(&v1.Users{Users: newRecs})
 	if err != nil {
-		return nil
+		return err
 	}
-	_, err = f.Write(append(b, '\n'))
+	_, err = f.Write(b)
 	return err
 }
 
 // GetById は与えたIDを持つUserを返す。存在しないときはErrorを返す。
 func (w *User) GetById(id string) (*v1.User, error) {
-	us, err := w.readFromFile()
+	us, err := w.GetAll()
 	if err != nil {
 		return nil, err
 	}
@@ -65,22 +73,20 @@ func (w *User) GetById(id string) (*v1.User, error) {
 	return nil, notFound
 }
 
+func (w *User) GetAll() ([]*v1.User, error) {
+	return w.readFromFile()
+}
 func (w *User) readFromFile() ([]*v1.User, error) {
-	us := make([]*v1.User, 1)
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	f, err := os.Open(w.filePath)
+	w.mu.RLock()
+	defer w.mu.RUnlock()
+	bin, err := os.ReadFile(w.filePath)
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
-	sc := bufio.NewScanner(f)
-	for sc.Scan() {
-		u := &v1.User{}
-		if err := proto.Unmarshal(sc.Bytes(), u); err != nil {
-			return nil, err
-		}
-		us = append(us, u)
+	us := &v1.Users{}
+	err = proto.Unmarshal(bin, us)
+	if err != nil {
+		return nil, err
 	}
-	return us, nil
+	return us.GetUsers(), nil
 }

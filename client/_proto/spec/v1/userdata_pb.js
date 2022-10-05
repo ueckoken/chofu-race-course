@@ -18,6 +18,16 @@ export const User = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message spec.v1.Users
+ */
+export const Users = proto3.makeMessageType(
+  "spec.v1.Users",
+  () => [
+    { no: 1, name: "users", kind: "message", T: User, repeated: true },
+  ],
+);
+
+/**
  * @generated from message spec.v1.UserDataRequest
  */
 export const UserDataRequest = proto3.makeMessageType(
@@ -54,9 +64,7 @@ export const UserDataResponse = proto3.makeMessageType(
  */
 export const CreateUserRequest = proto3.makeMessageType(
   "spec.v1.CreateUserRequest",
-  () => [
-    { no: 1, name: "user", kind: "message", T: User },
-  ],
+  [],
 );
 
 /**
@@ -206,7 +214,8 @@ export const AllHorseDataResponse = proto3.makeMessageType(
 );
 
 /**
- * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
+ * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
+ * histories: []
  *
  * @generated from message spec.v1.RegisterHorseRequest
  */
