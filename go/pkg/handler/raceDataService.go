@@ -62,7 +62,6 @@ func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.Regist
 	}
 	rd := &v1.RaceDetail{
 		Data: &v1.Race{
-			// TODO: IDをオートインクリメントする仕組みをStoreに実装する
 			Id:         0,
 			Name:       req.Msg.GetName(),
 			Order:      req.Msg.GetOrder(),
@@ -71,12 +70,10 @@ func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.Regist
 		},
 		Description: req.Msg.GetDescription(),
 		Members:     []*v1.RaceDetail_Member{},
-		//  vote_begin: start - n, vote_end: start - m
-		// TODO; implement me
-		VoteBegin: nil,
-		VoteEnd:   nil,
+		// TODO; vote_begin, vote_endは仮実装のためにstartと同じ値を入れている(#106)
+		VoteBegin: req.Msg.GetStart(),
+		VoteEnd:   req.Msg.GetStart(),
 	}
-	// TODO; userDetailのバリデータを挟む （Storeに実装したほうがいいのかな？）
 	err = r.store.Create(rd)
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
