@@ -32,6 +32,9 @@ func NewUserFile(path string) (*User, error) {
 }
 
 func (w *User) Create(u *v1.User) error {
+	if err := u.ValidateAll(); err != nil {
+		return err
+	}
 	userInRec, err := w.GetById(u.GetId())
 	if userInRec != nil {
 		return recordDupricate
