@@ -18,5 +18,5 @@ func createFileIfNotExist(path string) error {
 		}
 		defer f.Close()
 	}
-  return nil
+	return nil
 }
