@@ -3,7 +3,7 @@ package internal
 import (
 	"fmt"
 	"net/http"
-	"path"
+	"path/filepath"
 	"time"
 
 	"github.com/ueckoken/chofu-race-course/go/pkg/authorizer"
@@ -16,7 +16,7 @@ import (
 
 func NewRoute(conf *envConfig.EnvVar) (*http.ServeMux, error) {
 	mux := http.NewServeMux()
-	userWriter, err := file.NewUserFile(path.Join(conf.DataDir, "user"))
+	userWriter, err := file.NewUserFile(filepath.Join(conf.DataDir, "user"))
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func NewRoute(conf *envConfig.EnvVar) (*http.ServeMux, error) {
 	}
 	mux.Handle(v1connect.NewUserDataServiceHandler(u))
 
-	horseWriter, err := file.NewHorseFile(path.Join(conf.DataDir, "horse"))
+	horseWriter, err := file.NewHorseFile(filepath.Join(conf.DataDir, "horse"))
 	if err != nil {
 		return nil, err
 	}

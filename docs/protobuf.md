@@ -33,6 +33,7 @@
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
+    - [Users](#spec-v1-Users)
     - [VoteRequest](#spec-v1-VoteRequest)
     - [VoteResponse](#spec-v1-VoteResponse)
   
@@ -84,11 +85,6 @@
 
 ### CreateUserRequest
 
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user | [User](#spec-v1-User) |  | **Deprecated.**  |
 
 
 
@@ -171,7 +167,7 @@
 | wins | [uint32](#uint32) |  | 勝利数 |
 | matches | [uint32](#uint32) |  | 試合数 |
 | next | [Race](#spec-v1-Race) | optional | 次走、未定ならnull |
-| histories | [HorseDetail.History](#spec-v1-HorseDetail-History) | repeated |  |
+| histories | [HorseDetail.History](#spec-v1-HorseDetail-History) | repeated | レース出走履歴 |
 
 
 
@@ -281,7 +277,7 @@ JWTトークン
 | ----- | ---- | ----- | ----------- |
 | id | [uint32](#uint32) |  |  |
 | name | [string](#string) |  |  |
-| order | [uint32](#uint32) |  |  |
+| order | [uint32](#uint32) |  | 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。 |
 | start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 | is_finished | [bool](#bool) |  |  |
 
@@ -501,6 +497,21 @@ start - n, vote_end: start - m
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | user | [User](#spec-v1-User) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-Users"></a>
+
+### Users
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| users | [User](#spec-v1-User) | repeated |  |
 
 
 

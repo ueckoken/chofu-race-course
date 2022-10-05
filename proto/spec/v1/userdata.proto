@@ -24,6 +24,9 @@ message User {
     max_bytes: 1024,
   }];
 }
+message Users {
+  repeated User users = 1;
+}
 message UserDataRequest {
   JWT jwt = 1 [(validate.rules).message.required = true];
 }

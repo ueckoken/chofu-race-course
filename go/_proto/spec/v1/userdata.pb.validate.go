@@ -144,6 +144,138 @@ var _ interface {
 	ErrorName() string
 } = UserValidationError{}
 
+// Validate checks the field values on Users with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Users) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Users with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in UsersMultiError, or nil if none found.
+func (m *Users) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Users) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetUsers() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UsersValidationError{
+						field:  fmt.Sprintf("Users[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UsersValidationError{
+						field:  fmt.Sprintf("Users[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UsersValidationError{
+					field:  fmt.Sprintf("Users[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UsersMultiError(errors)
+	}
+
+	return nil
+}
+
+// UsersMultiError is an error wrapping multiple validation errors returned by
+// Users.ValidateAll() if the designated constraints aren't met.
+type UsersMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UsersMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UsersMultiError) AllErrors() []error { return m }
+
+// UsersValidationError is the validation error returned by Users.Validate if
+// the designated constraints aren't met.
+type UsersValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UsersValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UsersValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UsersValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UsersValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UsersValidationError) ErrorName() string { return "UsersValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UsersValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUsers.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UsersValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UsersValidationError{}
+
 // Validate checks the field values on UserDataRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -165,6 +297,17 @@ func (m *UserDataRequest) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if m.GetJwt() == nil {
+		err := UserDataRequestValidationError{
+			field:  "Jwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetJwt()).(type) {
@@ -294,7 +437,16 @@ func (m *JWT) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Token
+	if utf8.RuneCountInString(m.GetToken()) < 1 {
+		err := JWTValidationError{
+			field:  "Token",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return JWTMultiError(errors)
@@ -523,35 +675,6 @@ func (m *CreateUserRequest) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetUser()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CreateUserRequestValidationError{
-					field:  "User",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, CreateUserRequestValidationError{
-					field:  "User",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CreateUserRequestValidationError{
-				field:  "User",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
 
 	if len(errors) > 0 {
 		return CreateUserRequestMultiError(errors)
@@ -815,7 +938,16 @@ func (m *LoginAsAdminRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Password
+	if len(m.GetPassword()) < 1 {
+		err := LoginAsAdminRequestValidationError{
+			field:  "Password",
+			reason: "value length must be at least 1 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return LoginAsAdminRequestMultiError(errors)
@@ -1049,9 +1181,27 @@ func (m *Horse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if m.GetId() < 1 {
+		err := HorseValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Name
+	if !_Horse_Name_Pattern.MatchString(m.GetName()) {
+		err := HorseValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"\\\\p{Katakana}{2,9}\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return HorseMultiError(errors)
@@ -1130,6 +1280,8 @@ var _ interface {
 	ErrorName() string
 } = HorseValidationError{}
 
+var _Horse_Name_Pattern = regexp.MustCompile("\\p{Katakana}{2,9}")
+
 // Validate checks the field values on HorseDetail with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1151,6 +1303,17 @@ func (m *HorseDetail) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if m.GetData() == nil {
+		err := HorseDetailValidationError{
+			field:  "Data",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetData()).(type) {
@@ -1181,7 +1344,16 @@ func (m *HorseDetail) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Owner
+	if l := utf8.RuneCountInString(m.GetOwner()); l < 2 || l > 256 {
+		err := HorseDetailValidationError{
+			field:  "Owner",
+			reason: "value length must be between 2 and 256 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Wins
 
@@ -1519,7 +1691,16 @@ func (m *HorseDataRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if m.GetId() < 1 {
+		err := HorseDataRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return HorseDataRequestMultiError(errors)
@@ -1990,9 +2171,38 @@ func (m *RegisterHorseRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
+	if !_RegisterHorseRequest_Name_Pattern.MatchString(m.GetName()) {
+		err := RegisterHorseRequestValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"\\\\p{Katakana}{2,9}\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Owner
+	if l := utf8.RuneCountInString(m.GetOwner()); l < 2 || l > 256 {
+		err := RegisterHorseRequestValidationError{
+			field:  "Owner",
+			reason: "value length must be between 2 and 256 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAdminJwt() == nil {
+		err := RegisterHorseRequestValidationError{
+			field:  "AdminJwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetAdminJwt()).(type) {
@@ -2102,6 +2312,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RegisterHorseRequestValidationError{}
+
+var _RegisterHorseRequest_Name_Pattern = regexp.MustCompile("\\p{Katakana}{2,9}")
 
 // Validate checks the field values on RegisterHorseResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2226,39 +2438,48 @@ func (m *Race) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
-
-	// no validation rules for Name
-
-	// no validation rules for Order
-
-	if all {
-		switch v := interface{}(m.GetStart()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RaceValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RaceValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
+	if m.GetId() < 1 {
+		err := RaceValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
 		}
-	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RaceValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
+		if !all {
+			return err
 		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := RaceValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetOrder() < 1 {
+		err := RaceValidationError{
+			field:  "Order",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetStart() == nil {
+		err := RaceValidationError{
+			field:  "Start",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for IsFinished
@@ -2365,10 +2586,51 @@ func (m *RaceOrder) validate(all bool) error {
 	switch m.OrderOneof.(type) {
 
 	case *RaceOrder_Order:
-		// no validation rules for Order
+
+		if m.GetOrder() < 1 {
+			err := RaceOrderValidationError{
+				field:  "Order",
+				reason: "value must be greater than or equal to 1",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *RaceOrder_Note:
-		// no validation rules for Note
+
+		if _, ok := _RaceOrder_Note_NotInLookup[m.GetNote()]; ok {
+			err := RaceOrderValidationError{
+				field:  "Note",
+				reason: "value must not be in list [0]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if _, ok := RaceOrder_NoteType_name[int32(m.GetNote())]; !ok {
+			err := RaceOrderValidationError{
+				field:  "Note",
+				reason: "value must be one of the defined enum values",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	default:
+		err := RaceOrderValidationError{
+			field:  "OrderOneof",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 
 	}
 
@@ -2449,6 +2711,10 @@ var _ interface {
 	ErrorName() string
 } = RaceOrderValidationError{}
 
+var _RaceOrder_Note_NotInLookup = map[RaceOrder_NoteType]struct{}{
+	0: {},
+}
+
 // Validate checks the field values on RaceDetail with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -2470,6 +2736,17 @@ func (m *RaceDetail) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if m.GetData() == nil {
+		err := RaceDetailValidationError{
+			field:  "Data",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetData()).(type) {
@@ -2536,62 +2813,26 @@ func (m *RaceDetail) validate(all bool) error {
 
 	}
 
-	if all {
-		switch v := interface{}(m.GetVoteBegin()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RaceDetailValidationError{
-					field:  "VoteBegin",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RaceDetailValidationError{
-					field:  "VoteBegin",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
+	if m.GetVoteBegin() == nil {
+		err := RaceDetailValidationError{
+			field:  "VoteBegin",
+			reason: "value is required",
 		}
-	} else if v, ok := interface{}(m.GetVoteBegin()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RaceDetailValidationError{
-				field:  "VoteBegin",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
+		if !all {
+			return err
 		}
+		errors = append(errors, err)
 	}
 
-	if all {
-		switch v := interface{}(m.GetVoteEnd()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RaceDetailValidationError{
-					field:  "VoteEnd",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RaceDetailValidationError{
-					field:  "VoteEnd",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
+	if m.GetVoteEnd() == nil {
+		err := RaceDetailValidationError{
+			field:  "VoteEnd",
+			reason: "value is required",
 		}
-	} else if v, ok := interface{}(m.GetVoteEnd()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RaceDetailValidationError{
-				field:  "VoteEnd",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
+		if !all {
+			return err
 		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {
@@ -2693,7 +2934,16 @@ func (m *RaceDataRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if m.GetId() < 1 {
+		err := RaceDataRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RaceDataRequestMultiError(errors)
@@ -3228,40 +3478,51 @@ func (m *RegisterRaceRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
-
-	// no validation rules for Order
-
-	if all {
-		switch v := interface{}(m.GetStart()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RegisterRaceRequestValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RegisterRaceRequestValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := RegisterRaceRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
 		}
-	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RegisterRaceRequestValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
+		if !all {
+			return err
 		}
+		errors = append(errors, err)
+	}
+
+	if m.GetOrder() < 1 {
+		err := RegisterRaceRequestValidationError{
+			field:  "Order",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetStart() == nil {
+		err := RegisterRaceRequestValidationError{
+			field:  "Start",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for Description
+
+	if m.GetAdminJwt() == nil {
+		err := RegisterRaceRequestValidationError{
+			field:  "AdminJwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetAdminJwt()).(type) {
@@ -3727,9 +3988,38 @@ func (m *HorseDetail_Image) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Type
+	if _, ok := _HorseDetail_Image_Type_NotInLookup[m.GetType()]; ok {
+		err := HorseDetail_ImageValidationError{
+			field:  "Type",
+			reason: "value must not be in list [0]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Data
+	if _, ok := HorseDetail_Image_ImageType_name[int32(m.GetType())]; !ok {
+		err := HorseDetail_ImageValidationError{
+			field:  "Type",
+			reason: "value must be one of the defined enum values",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetData()) < 1 {
+		err := HorseDetail_ImageValidationError{
+			field:  "Data",
+			reason: "value length must be at least 1 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return HorseDetail_ImageMultiError(errors)
@@ -3811,6 +4101,10 @@ var _ interface {
 	ErrorName() string
 } = HorseDetail_ImageValidationError{}
 
+var _HorseDetail_Image_Type_NotInLookup = map[HorseDetail_Image_ImageType]struct{}{
+	0: {},
+}
+
 // Validate checks the field values on HorseDetail_History with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -3832,6 +4126,17 @@ func (m *HorseDetail_History) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if m.GetRace() == nil {
+		err := HorseDetail_HistoryValidationError{
+			field:  "Race",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetRace()).(type) {
@@ -3862,7 +4167,27 @@ func (m *HorseDetail_History) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Order
+	if m.GetOrder() < 1 {
+		err := HorseDetail_HistoryValidationError{
+			field:  "Order",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetResult() == nil {
+		err := HorseDetail_HistoryValidationError{
+			field:  "Result",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetResult()).(type) {
@@ -3995,6 +4320,17 @@ func (m *RaceDetail_Member) validate(all bool) error {
 
 	var errors []error
 
+	if m.GetOrder() == nil {
+		err := RaceDetail_MemberValidationError{
+			field:  "Order",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if all {
 		switch v := interface{}(m.GetOrder()).(type) {
 		case interface{ ValidateAll() error }:
@@ -4022,6 +4358,17 @@ func (m *RaceDetail_Member) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	if m.GetHorse() == nil {
+		err := RaceDetail_MemberValidationError{
+			field:  "Horse",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if all {
@@ -4053,9 +4400,27 @@ func (m *RaceDetail_Member) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Odds
+	if m.GetOdds() < 1 {
+		err := RaceDetail_MemberValidationError{
+			field:  "Odds",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Popularity
+	if m.GetPopularity() < 1 {
+		err := RaceDetail_MemberValidationError{
+			field:  "Popularity",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RaceDetail_MemberMultiError(errors)
