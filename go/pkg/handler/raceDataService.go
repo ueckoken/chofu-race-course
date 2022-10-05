@@ -3,85 +3,94 @@ package handler
 import (
 	"context"
 	"fmt"
+	"time"
 
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
-	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
 	"github.com/ueckoken/chofu-race-course/go/pkg/authorizer"
-	"github.com/ueckoken/chofu-race-course/go/pkg/file"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-type Horse struct {
-	v1connect.UnimplementedHorseDataServiceHandler
-	store     HorseStore
+type Race struct {
+	store     RaceStore
 	adminAuth authorizer.AdminAuthorizer
 }
 
-type HorseStore interface {
-	Create(h *v1.HorseDetail) error
-	GetAll() ([]*v1.HorseDetail, error)
-	GetById(id uint32) (*v1.HorseDetail, error)
+type RaceStore interface {
+	GetRange(from, to time.Time) ([]*v1.RaceDetail, error)
+	GetById(id uint32) (*v1.RaceDetail, error)
+	Create(*v1.RaceDetail) error
 }
 
-func NewHorseServer(store HorseStore, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
-	return &Horse{store: store, adminAuth: adminauth}, nil
+func NewRaceServer(store RaceStore, adminauth authorizer.AdminAuthorizer) (*Race, error) {
+	return &Race{store: store, adminAuth: adminauth}, nil
 }
 
-func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error) {
-	hd, err := h.store.GetById(req.Msg.GetId())
-	if err != nil {
-		switch err.(type) {
-		case file.NotFound:
-			return nil, connect_go.NewError(connect_go.CodeNotFound, err)
-		default:
-			return nil, connect_go.NewError(connect_go.CodeInternal, err)
+func (r *Race) RangeRaceData(_ context.Context, req *connect_go.Request[v1.RangeRaceDataRequest]) (*connect_go.Response[v1.RangeRaceDataResponse], error) {
+	from := func(t *timestamppb.Timestamp) time.Time {
+		if t == nil {
+			return time.Date(0, 0, 0, 0, 0, 0, 0, time.UTC)
 		}
-	}
-	return &connect_go.Response[v1.HorseDataResponse]{Msg: &v1.HorseDataResponse{Horse: hd}}, nil
-}
-func (h *Horse) AllHorseData(_ context.Context, req *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
-	records, err := h.store.GetAll()
+		return t.AsTime()
+	}(req.Msg.GetBegin())
+	to := func(t *timestamppb.Timestamp) time.Time {
+		if t == nil {
+			return time.Now().UTC()
+		}
+		return t.AsTime()
+	}(req.Msg.GetEnd())
+	races, err := r.store.GetRange(from, to)
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	hs := []*v1.Horse{}
-	for _, hd := range records {
-		hs = append(hs, horseDetail2horse(hd))
-	}
-	return &connect_go.Response[v1.AllHorseDataResponse]{Msg: &v1.AllHorseDataResponse{Horses: hs}}, nil
+	return &connect_go.Response[v1.RangeRaceDataResponse]{Msg: &v1.RangeRaceDataResponse{Races: raceDetails2Races(races)}}, nil
 }
-func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error) {
-	_, ok, err := h.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
+func (r *Race) RaceData(_ context.Context, req *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {
+	rd, err := r.store.GetById(req.Msg.GetId())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	return &connect_go.Response[v1.RaceDataResponse]{Msg: &v1.RaceDataResponse{Race: rd}}, nil
+}
+func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error) {
+	_, ok, err := r.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodePermissionDenied, err)
 	}
 	if !ok {
 		return nil, connect_go.NewError(connect_go.CodePermissionDenied, fmt.Errorf("invalid jwt, maybe expired"))
 	}
-	if req.Msg.GetOwner() == "" {
-		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("you must fill Owner field with not default value"))
-	}
-	if req.Msg.GetName() == "" {
-		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("you must fill Name field with not default value"))
-	}
-	hd := v1.HorseDetail{
-		Data: &v1.Horse{
-			Id:   0,
-			Name: req.Msg.GetName(),
+	rd := &v1.RaceDetail{
+		Data: &v1.Race{
+			Id:         0,
+			Name:       req.Msg.GetName(),
+			Order:      req.Msg.GetOrder(),
+			Start:      req.Msg.GetStart(),
+			IsFinished: false,
 		},
-		Owner:     req.Msg.GetOwner(),
-		Image:     nil,
-		Wins:      0,
-		Matches:   0,
-		Next:      nil,
-		Histories: []*v1.HorseDetail_History{},
+		Description: req.Msg.GetDescription(),
+		Members:     []*v1.RaceDetail_Member{},
+		// TODO; vote_begin, vote_endは仮実装のためにstartと同じ値を入れている(#106)
+		VoteBegin: req.Msg.GetStart(),
+		VoteEnd:   req.Msg.GetStart(),
 	}
-	if err := h.store.Create(&hd); err != nil {
+	err = r.store.Create(rd)
+	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.RegisterHorseResponse]{Msg: &v1.RegisterHorseResponse{}}, nil
+	return &connect_go.Response[v1.RegisterRaceResponse]{Msg: &v1.RegisterRaceResponse{}}, nil
 }
 
-func horseDetail2horse(hd *v1.HorseDetail) *v1.Horse {
-	return &v1.Horse{Id: hd.Data.GetId(), Name: hd.Data.GetName()}
+func raceDetails2Races(rds []*v1.RaceDetail) []*v1.Race {
+	rs := []*v1.Race{}
+	for _, rd := range rds {
+		rs = append(rs, &v1.Race{
+			Id:         rd.GetData().GetId(),
+			Name:       rd.GetData().GetName(),
+			Order:      rd.GetData().GetOrder(),
+			Start:      rd.GetData().GetStart(),
+			IsFinished: rd.GetData().GetIsFinished(),
+		})
+	}
+	return rs
 }

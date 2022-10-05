@@ -23,6 +23,7 @@
     - [RaceDataResponse](#spec-v1-RaceDataResponse)
     - [RaceDetail](#spec-v1-RaceDetail)
     - [RaceDetail.Member](#spec-v1-RaceDetail-Member)
+    - [RaceDetails](#spec-v1-RaceDetails)
     - [RaceOrder](#spec-v1-RaceOrder)
     - [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest)
     - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
@@ -347,6 +348,21 @@ JWTトークン
 | horse | [Horse](#spec-v1-Horse) |  |  |
 | odds | [double](#double) |  |  |
 | popularity | [uint32](#uint32) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-RaceDetails"></a>
+
+### RaceDetails
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| race_details | [RaceDetail](#spec-v1-RaceDetail) | repeated |  |
 
 
 
