@@ -8,17 +8,22 @@ plugins:
     out: go/_proto
     opt:
       - paths=source_relative
+  - name: validate
+    out: go/_proto
+    opt:
+      - lang=go
+      - paths=source_relative
   - name: es
     path: ./client/node_modules/.bin/protoc-gen-es
     out: client/_proto
-    opt: 
+    opt:
       - target=js+dts
   - name: connect-web
     path: ./client/node_modules/.bin/protoc-gen-connect-web
     out: client/_proto
-    opt: 
+    opt:
       - target=js+dts
   - name: doc
     out: docs
-    opt: 
+    opt:
       - markdown,protobuf.md
