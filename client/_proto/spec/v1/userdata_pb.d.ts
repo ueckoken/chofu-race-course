@@ -790,6 +790,30 @@ export declare class RaceDetail_Member extends Message<RaceDetail_Member> {
 }
 
 /**
+ * @generated from message spec.v1.RaceDetails
+ */
+export declare class RaceDetails extends Message<RaceDetails> {
+  /**
+   * @generated from field: repeated spec.v1.RaceDetail race_details = 1;
+   */
+  raceDetails: RaceDetail[];
+
+  constructor(data?: PartialMessage<RaceDetails>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.RaceDetails";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RaceDetails;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RaceDetails;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RaceDetails;
+
+  static equals(a: RaceDetails | PlainMessage<RaceDetails> | undefined, b: RaceDetails | PlainMessage<RaceDetails> | undefined): boolean;
+}
+
+/**
  * @generated from message spec.v1.RaceDataRequest
  */
 export declare class RaceDataRequest extends Message<RaceDataRequest> {

@@ -180,6 +180,10 @@ message RaceDetail {
   google.protobuf.Timestamp vote_begin = 5 [(validate.rules).timestamp.required = true];
   google.protobuf.Timestamp vote_end = 6 [(validate.rules).timestamp.required = true];
 }
+
+message RaceDetails {
+  repeated RaceDetail race_details = 1;
+}
 message RaceDataRequest {
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
 }
