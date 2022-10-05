@@ -54,9 +54,7 @@ export const UserDataResponse = proto3.makeMessageType(
  */
 export const CreateUserRequest = proto3.makeMessageType(
   "spec.v1.CreateUserRequest",
-  () => [
-    { no: 1, name: "user", kind: "message", T: User },
-  ],
+  [],
 );
 
 /**
