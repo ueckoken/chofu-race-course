@@ -9,7 +9,7 @@ require (
 	github.com/google/subcommands v1.2.0
 	github.com/rs/cors v1.8.2
 	github.com/stretchr/testify v1.8.0
-	golang.org/x/net v0.0.0-20220930213112-107f3e3c3b0b
+	golang.org/x/net v0.0.0-20221004154528-8021a29435af
 	google.golang.org/protobuf v1.28.1
 )
 
