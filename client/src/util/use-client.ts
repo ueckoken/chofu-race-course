@@ -9,7 +9,7 @@ import {
 
 // This transport is going to be used throughout the app
 const transport = createConnectTransport({
-    baseUrl: process.env.NEXT_PUBLIC_ENDPOINT!,
+    baseUrl: process.env.NEXT_PUBLIC_API_ENDPOINT!,
 });
 
 /**
