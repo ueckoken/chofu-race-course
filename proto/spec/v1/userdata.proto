@@ -3,6 +3,7 @@ syntax = "proto3";
 package spec.v1;
 
 import "google/protobuf/timestamp.proto";
+import "vendor/protoc-gen-validate/validate.proto";
 
 option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
 
@@ -18,30 +19,33 @@ service UserDataService {
 // ユーザを表現する型
 message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
-  string id = 1;
+  string id = 1 [(validate.rules).string = {
+    min_bytes: 16,
+    max_bytes: 1024,
+  }];
 }
 message Users {
   repeated User users = 1;
 }
 message UserDataRequest {
-  JWT jwt = 1;
+  JWT jwt = 1 [(validate.rules).message.required = true];
 }
 // JWTトークン
 message JWT {
-  string token = 1;
+  string token = 1 [(validate.rules).string = {
+    min_len: 1
+  }];
 }
 message UserDataResponse {
   User user = 1;
 }
-message CreateUserRequest {
-  User user = 1 [deprecated = true];
-}
+message CreateUserRequest {}
 message CreateUserResponse {
   User user = 1;
   JWT jwt = 2;
 }
 message LoginAsAdminRequest {
-  string password = 1;
+  string password = 1 [(validate.rules).string.min_bytes = 1];
 }
 message LoginAsAdminResponse {
   JWT admin_jwt = 3;
@@ -54,13 +58,16 @@ service HorseDataService {
   rpc RegisterHorse(RegisterHorseRequest) returns (RegisterHorseResponse) {}
 }
 message Horse {
-  uint32 id = 1;
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
   // 馬の名前
-  string name = 2;
+  string name = 2 [(validate.rules).string.pattern = "\\p{Katakana}{2,9}"];
 }
 message HorseDetail {
-  Horse data = 1;
-  string owner = 2;
+  Horse data = 1 [(validate.rules).message.required = true];
+  string owner = 2 [(validate.rules).string = {
+    min_len: 2,
+    max_len: 256
+  }];
   message Image {
     enum ImageType {
       IMAGE_TYPE_UNSPECIFIED = 0;
@@ -69,9 +76,14 @@ message HorseDetail {
       IMAGE_TYPE_GIF = 3;
     }
     // 拡張子
-    ImageType type = 1;
+    ImageType type = 1 [(validate.rules).enum = {
+      not_in: [
+        0
+      ],
+      defined_only: true,
+    }];
     // base64形式
-    bytes data = 2;
+    bytes data = 2 [(validate.rules).bytes.min_len = 1];
   }
   optional Image image = 3;
   // 勝利数
@@ -83,12 +95,13 @@ message HorseDetail {
   // 出走履歴のそれぞれ
   message History {
     // 出走したレース
-    Race race = 1;
+    Race race = 1 [(validate.rules).message.required = true];
     // その日の何番目のレースか
-    uint32 order = 2;
+    uint32 order = 2 [(validate.rules).uint32.gte = 1];
     // 順位
-    RaceOrder result = 3;
+    RaceOrder result = 3 [(validate.rules).message.required = true];
   }
+  // レース出走履歴
   repeated History histories = 7;
 }
 
@@ -96,7 +109,7 @@ message HorseDetails {
   repeated HorseDetail horse_details = 1;
 }
 message HorseDataRequest {
-  uint32 id = 1;
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
 }
 message HorseDataResponse {
   HorseDetail horse = 1;
@@ -106,13 +119,17 @@ message AllHorseDataResponse {
   // 登録している馬が1頭もいない場合はエラーではなく[]を返す。
   repeated Horse horses = 1;
 }
-// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
+// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
+// histories: []
 message RegisterHorseRequest {
-  string name = 1;
+  string name = 1 [(validate.rules).string.pattern = "\\p{Katakana}{2,9}"];
   // 所有者名
-  string owner = 2;
-  //admin JWT
-  JWT admin_jwt = 3;
+  string owner = 2 [(validate.rules).string = {
+    min_len: 2,
+    max_len: 256
+  }];
+  // admin JWT
+  JWT admin_jwt = 3 [(validate.rules).message.required = true];
 }
 message RegisterHorseResponse {}
 
@@ -123,10 +140,11 @@ service RaceDataService {
   rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
 }
 message Race {
-  uint32 id = 1;
-  string name = 2;
-  uint32 order = 3;
-  google.protobuf.Timestamp start = 4;
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
+  string name = 2 [(validate.rules).string.min_len = 1];
+  // 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。
+  uint32 order = 3 [(validate.rules).uint32.gte = 1];
+  google.protobuf.Timestamp start = 4 [(validate.rules).timestamp.required = true];
   bool is_finished = 5;
 }
 message RaceOrder {
@@ -138,26 +156,32 @@ message RaceOrder {
     NOTE_TYPE_GIVEUP = 2;
   }
   oneof order_oneof {
+    option (validate.required) = true;
     // 順位。最も早くゴールしたときに1。
-    uint32 order = 1;
-    NoteType note = 2;
+    uint32 order = 1 [(validate.rules).uint32.gte = 1];
+    NoteType note = 2 [(validate.rules).enum = {
+      defined_only: true,
+      not_in: [
+        0
+      ]
+    }];
   }
 }
 message RaceDetail {
-  Race data = 1;
+  Race data = 1 [(validate.rules).message.required = true];
   string description = 2;
   message Member {
-    RaceOrder order = 1;
-    Horse horse = 2;
-    double odds = 3;
-    uint32 popularity = 4;
+    RaceOrder order = 1 [(validate.rules).message.required = true];
+    Horse horse = 2 [(validate.rules).message.required = true];
+    double odds = 3 [(validate.rules).double.gte = 1];
+    uint32 popularity = 4 [(validate.rules).uint32.gte = 1];
   }
   repeated Member members = 4;
-  google.protobuf.Timestamp vote_begin = 5;
-  google.protobuf.Timestamp vote_end = 6;
+  google.protobuf.Timestamp vote_begin = 5 [(validate.rules).timestamp.required = true];
+  google.protobuf.Timestamp vote_end = 6 [(validate.rules).timestamp.required = true];
 }
 message RaceDataRequest {
-  uint32 id = 1;
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
 }
 message RaceDataResponse {
   RaceDetail race = 1;
@@ -174,15 +198,15 @@ message RangeRaceDataResponse {
 // RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin:
 // start - n, vote_end: start - m
 message RegisterRaceRequest {
-  string name = 1;
+  string name = 1 [(validate.rules).string.min_len = 1];
   // その日の何番目のレースか
-  uint32 order = 2;
+  uint32 order = 2 [(validate.rules).uint32.gte = 1];
   // 出走時刻
-  google.protobuf.Timestamp start = 3;
+  google.protobuf.Timestamp start = 3 [(validate.rules).timestamp.required = true];
   // コースなどの詳細説明
   string description = 4;
-  //admin JWT
-  JWT admin_jwt = 5;
+  // admin JWT
+  JWT admin_jwt = 5 [(validate.rules).message.required = true];
 }
 message RegisterRaceResponse {}
 

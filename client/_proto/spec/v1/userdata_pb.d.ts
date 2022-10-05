@@ -136,12 +136,6 @@ export declare class UserDataResponse extends Message<UserDataResponse> {
  * @generated from message spec.v1.CreateUserRequest
  */
 export declare class CreateUserRequest extends Message<CreateUserRequest> {
-  /**
-   * @generated from field: spec.v1.User user = 1 [deprecated = true];
-   * @deprecated
-   */
-  user?: User;
-
   constructor(data?: PartialMessage<CreateUserRequest>);
 
   static readonly runtime: typeof proto3;
@@ -306,6 +300,8 @@ export declare class HorseDetail extends Message<HorseDetail> {
   next?: Race;
 
   /**
+   * レース出走履歴
+   *
    * @generated from field: repeated spec.v1.HorseDetail.History histories = 7;
    */
   histories: HorseDetail_History[];
@@ -543,7 +539,8 @@ export declare class AllHorseDataResponse extends Message<AllHorseDataResponse> 
 }
 
 /**
- * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
+ * HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
+ * histories: []
  *
  * @generated from message spec.v1.RegisterHorseRequest
  */
@@ -616,6 +613,8 @@ export declare class Race extends Message<Race> {
   name: string;
 
   /**
+   * 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。
+   *
    * @generated from field: uint32 order = 3;
    */
   order: number;
