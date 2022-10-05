@@ -3,6 +3,7 @@ syntax = "proto3";
 package spec.v1;
 
 import "google/protobuf/timestamp.proto";
+import "vendor/protoc-gen-validate/validate.proto";
 
 option go_package = "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1";
 
@@ -18,7 +19,7 @@ service UserDataService {
 // ユーザを表現する型
 message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
-  string id = 1;
+  string id = 1 [(validate.rules).string = {min_bytes: 16, max_bytes: 1024}];
 }
 message UserDataRequest {
   JWT jwt = 1;
@@ -103,12 +104,13 @@ message AllHorseDataResponse {
   // 登録している馬が1頭もいない場合はエラーではなく[]を返す。
   repeated Horse horses = 1;
 }
-// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null, histories: []
+// HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
+// histories: []
 message RegisterHorseRequest {
   string name = 1;
   // 所有者名
   string owner = 2;
-  //admin JWT
+  // admin JWT
   JWT admin_jwt = 3;
 }
 message RegisterHorseResponse {}
@@ -178,7 +180,7 @@ message RegisterRaceRequest {
   google.protobuf.Timestamp start = 3;
   // コースなどの詳細説明
   string description = 4;
-  //admin JWT
+  // admin JWT
   JWT admin_jwt = 5;
 }
 message RegisterRaceResponse {}
