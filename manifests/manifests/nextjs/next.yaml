@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: ghcr.io/ueckoken/chofu-race-course-webapp:08e28a5-1665035394
+          image: ghcr.io/ueckoken/chofu-race-course-webapp:08e28a5-1665035404
           ports:
             - containerPort: 3000
 ---
@@ -38,3 +38,21 @@ spec:
     - protocol: TCP
       port: 3000
   type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp
+  namespace: webapp
+spec:
+  rules:
+    - host: kra.azukibar.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp
+                port:
+                  number: 3000
