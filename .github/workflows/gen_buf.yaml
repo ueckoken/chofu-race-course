@@ -59,4 +59,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/check_go.yaml
-        with: ${{ needs.build.outputs.after-commit-ref }}
+        with: 
+          ref: ${{ needs.build.outputs.after-commit-ref }}
