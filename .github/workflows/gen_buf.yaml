@@ -13,8 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    outputs:
-      after-commit-ref: ${{steps.after-commit.outputs.commit_long_sha}}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -49,15 +47,18 @@ jobs:
       - run: buf format -w
       - run: make buf
       - name: Add & Commit
-        id: after-commit
         uses: EndBug/add-and-commit@v9.1.0
         with:
           default_author: github_actions
-  check-go:
-    needs: build
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/check_go.yaml
-        with: 
-          ref: ${{ needs.build.outputs.after-commit-ref }}
+
+      - uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.49.0
+          skip-cache: true
+          working-directory: go
+      - run: go test -v ./...
+        working-directory: go
+      - run: yarn run check
+        working-directory: client
+      - run: yarn run lint
+        working-directory: client
