@@ -1,4 +1,4 @@
-name: Deploy API server
+name: Build API server image and publish
 defaults:
   run:
     working-directory: ./go
@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./go
-          file: Dockerfile
+          file: ./go/Dockerfile
           platforms: linux/amd64
           push: true
           tags: ghcr.io/ueckoken/chofu-race-course-api:${{ env.IMAGE_TAG }}

@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./client
-          file: Dockerfile
+          file: ./client/Dockerfile
           platforms: linux/amd64
           push: true
           tags: ghcr.io/ueckoken/chofu-race-course-webapp:${{ env.IMAGE_TAG }}
