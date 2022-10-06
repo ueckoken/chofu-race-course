@@ -4,8 +4,12 @@ on:
   push:
     paths-ignore:
       - "./proto/**.proto"
-  workflow_call:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        required: false
 
 defaults:
   run:
@@ -15,6 +19,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-go@v3
         with:
           go-version-file: "go/go.mod"
