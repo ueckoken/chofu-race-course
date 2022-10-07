@@ -45,6 +45,8 @@ spec:
                 secretKeyRef:
                   name: api-secret
                   key: adminPassword
+            - name: CORS_ARROWED_ORIGINS
+              value: "https://kra.azukibar.dev"
       volumes:
         - name: database
           persistentVolumeClaim:
