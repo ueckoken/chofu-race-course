@@ -45,6 +45,7 @@ metadata:
   name: webapp
   namespace: webapp
 spec:
+  ingressClassName: nginx
   rules:
     - host: kra.azukibar.dev
       http:

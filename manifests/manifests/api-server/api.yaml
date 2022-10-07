@@ -69,6 +69,7 @@ metadata:
   name: api
   namespace: api
 spec:
+  ingressClassName: nginx
   rules:
     - host: kraapi.azukibar.dev
       http:
