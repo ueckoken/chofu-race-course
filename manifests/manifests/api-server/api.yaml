@@ -29,7 +29,7 @@ spec:
               name: database
       containers:
         - name: api
-          image: ghcr.io/ueckoken/chofu-race-course-api:08e28a5-1665035394 # {"$imagepolicy": "api:api"}
+          image: ghcr.io/ueckoken/chofu-race-course-api:08e28a5-1665035394 # {"$imagepolicy": "flux-system:api"}
           ports:
             - containerPort: 8080
           volumeMounts:
