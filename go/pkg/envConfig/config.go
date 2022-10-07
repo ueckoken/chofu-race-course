@@ -7,9 +7,10 @@ import (
 )
 
 type EnvVar struct {
-	DataDir       string `env:"DATADIR"`
-	ListenAddr    string `env:"LISTEN_ADDR"`
-	AdminPassword string `env:"ADMIN_PASSWORD"`
+	DataDir            string   `env:"DATADIR"`
+	ListenAddr         string   `env:"LISTEN_ADDR" envDefault:"127.0.0.1:8080"`
+	AdminPassword      string   `env:"ADMIN_PASSWORD"`
+	CorsArrowedOrigins []string `env:"CORS_ARROWED_ORIGINS" envSeparator:":"`
 }
 
 func Parse() (*EnvVar, error) {

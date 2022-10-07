@@ -1,0 +1,4 @@
+resources:
+  - ./next.yaml
+  - ./imagepolicy.yaml
+  - ./repository.yaml
