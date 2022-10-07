@@ -1,6 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ]
+  "extends": ["config:base"],
+  "kubernetes": {
+    "fileMatch": [".+\\.ya?ml$"]
+  },
+  "flux": {
+    "fileMatch": [
+      "manifests/flux-system/gotk-components\\.yaml$",
+      "manifests/manifests/.+.ya?ml$"
+    ]
+  }
 }
