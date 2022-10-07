@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: api
+  namespace: api
+spec:
+  image: ghcr.io/ueckoken/chofu-race-course-api
+  interval: 1m0s

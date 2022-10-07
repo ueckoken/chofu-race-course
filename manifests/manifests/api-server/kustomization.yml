@@ -1,2 +1,4 @@
 resources:
   - ./api.yaml
+  - ./repository.yaml
+  - ./imagepolicy.yaml

@@ -2,3 +2,4 @@ resources:
   - api-server
   - nextjs
   - helm
+  - image-automation
