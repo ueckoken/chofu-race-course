@@ -8,6 +8,7 @@ spec:
     spec:
       chart: ingress-nginx
       reconcileStrategy: ChartVersion
+      version: 4.3.0
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
