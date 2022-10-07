@@ -33,7 +33,7 @@ metadata:
   namespace: webapp
 spec:
   selector:
-    app: webapp
+    app: chofu-race-course-webapp
   ports:
     - protocol: TCP
       port: 3000
