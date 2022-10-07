@@ -1,3 +1,4 @@
 resources:
   - api-server
   - nextjs
+  - helm
