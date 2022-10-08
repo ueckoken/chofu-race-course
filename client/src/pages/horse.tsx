@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import { HorseDataService } from "../../_proto/spec/v1/userdata_connectweb";
 import { useClient } from "../util/use-client";
@@ -14,6 +15,9 @@ const HorsePage: FC<{}> = () => {
     if (!data) return <p>読み込み中です。</p>;
     return (
         <>
+            <Head>
+                <title>競争馬一覧 | 調布競馬ポータル</title>
+            </Head>
             <h2>競争馬一覧</h2>
             <ul>
                 {data.horses.map((horseData) => (
