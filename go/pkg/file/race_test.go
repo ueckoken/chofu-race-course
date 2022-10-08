@@ -54,7 +54,7 @@ func TestRaceFlow(t *testing.T) {
 	assert.NotNil(t, rd.GetData())
 	assert.Equal(t, uint32(10), rd.GetData().GetId())
 }
-func TestUpdate(t *testing.T) {
+func TestRaceUpdate(t *testing.T) {
 	r, err := file.NewRaceFile(filepath.Join(t.TempDir(), "update"))
 	require.NotNil(t, r)
 	require.NoError(t, err)
@@ -95,4 +95,52 @@ func TestUpdate(t *testing.T) {
 
 	rds, _ := r.GetAll()
 	assert.Len(t, rds, 1, "レコード数は変化しない")
+}
+func TestRaceDelete(t *testing.T) {
+	r, err := file.NewRaceFile(filepath.Join(t.TempDir(), "delete"))
+	require.NotNil(t, r)
+	require.NoError(t, err)
+	test1 := &v1.RaceDetail{
+		Data: &v1.Race{
+			Id:         1,
+			Name:       "テスト1",
+			Order:      1,
+			Start:      timestamppb.Now(),
+			IsFinished: false,
+		},
+	}
+	test2 := &v1.RaceDetail{
+		Data: &v1.Race{
+			Id:         2,
+			Name:       "テスト2",
+			Order:      1,
+			Start:      timestamppb.Now(),
+			IsFinished: false,
+		},
+	}
+	err = r.Create(test1)
+	require.NoError(t, err)
+	err = r.Create(test2)
+	require.NoError(t, err)
+
+	rs, err := r.GetAll()
+	require.NoError(t, err)
+	require.Len(t, rs, 2)
+
+	err = r.Delete(3)
+	assert.Error(t, err, "存在しないIDを消そうとするとエラー")
+
+	err = r.Delete(2)
+	assert.NoError(t, err, "存在するIDなのでエラー")
+
+	rs, err = r.GetAll()
+	assert.NoError(t, err)
+	assert.Len(t, rs, 1)
+
+	err = r.Delete(1)
+	assert.NoError(t, err)
+
+	rs, err = r.GetAll()
+	assert.NoError(t, err)
+	assert.Len(t, rs, 0)
 }
