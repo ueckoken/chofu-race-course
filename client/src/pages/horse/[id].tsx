@@ -1,8 +1,6 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { createPromiseClient } from "@bufbuild/connect-web";
-import { useClient } from "../../util/use-client";
 import { HorseDataResponse } from "../../../_proto/spec/v1/userdata_pb";
 import { HorseDataService } from "../../../_proto/spec/v1/userdata_connectweb";
 import { dateToYYYYMMDD } from "../../util/time";
