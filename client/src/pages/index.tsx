@@ -12,30 +12,34 @@ const TopPage: FC<{}> = () => {
             <Head>
                 <title>調布競馬ポータル</title>
             </Head>
-            <h2>トップページ</h2>
-            <h3>今日のレース</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>競争</th>
-                        <th>競争名</th>
-                        <th>発走時刻</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {res.races.map((raceData) => (
-                        <tr key={`race${raceData.id}`}>
-                            <td>{raceData.order}</td>
-                            <td>
-                                <Link href={`/race/${raceData.id}`}>
-                                    <a>{raceData.name}</a>
-                                </Link>
-                            </td>
-                            <td>{dateToHHmm(raceData.start!.toDate())}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <h2>開催情報</h2>
+            <p>
+                第1回調布競馬「新馬王戦(
+                <Link href="/special/shinbao">
+                    <a>特設サイト</a>
+                </Link>
+                )」(10月7日から10月28日)
+            </p>
+            <h2>概要</h2>
+            <p>
+                電気通信大学工学研究部内のグループ「工学研究競馬会」が技術の向上や他サークルとの交流を目的に開催しています。
+            </p>
+            <h2>外部リンク</h2>
+            <ul>
+                <li>
+                    <a href="https://twitter.com/ueckoken" target="_blank">
+                        電気通信大学 工学研究部 Twitter
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://www.youtube.com/user/kokenuser"
+                        target="_blank"
+                    >
+                        電気通信大学 工学研究部 YouTube
+                    </a>
+                </li>
+            </ul>
         </>
     );
 };
