@@ -6,6 +6,8 @@
 - [spec/v1/userdata.proto](#spec_v1_userdata-proto)
     - [AllHorseDataRequest](#spec-v1-AllHorseDataRequest)
     - [AllHorseDataResponse](#spec-v1-AllHorseDataResponse)
+    - [AllRaceDataRequest](#spec-v1-AllRaceDataRequest)
+    - [AllRaceDataResponse](#spec-v1-AllRaceDataResponse)
     - [CreateUserRequest](#spec-v1-CreateUserRequest)
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
     - [Horse](#spec-v1-Horse)
@@ -25,8 +27,6 @@
     - [RaceDetail.Member](#spec-v1-RaceDetail-Member)
     - [RaceDetails](#spec-v1-RaceDetails)
     - [RaceOrder](#spec-v1-RaceOrder)
-    - [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest)
-    - [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse)
     - [RegisterHorseRequest](#spec-v1-RegisterHorseRequest)
     - [RegisterHorseResponse](#spec-v1-RegisterHorseResponse)
     - [RegisterRaceRequest](#spec-v1-RegisterRaceRequest)
@@ -76,6 +76,31 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | horses | [Horse](#spec-v1-Horse) | repeated | 登録している馬が1頭もいない場合はエラーではなく[]を返す。 |
+
+
+
+
+
+
+<a name="spec-v1-AllRaceDataRequest"></a>
+
+### AllRaceDataRequest
+
+
+
+
+
+
+
+<a name="spec-v1-AllRaceDataResponse"></a>
+
+### AllRaceDataResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| races | [Race](#spec-v1-Race) | repeated |  |
 
 
 
@@ -385,37 +410,6 @@ JWTトークン
 
 
 
-<a name="spec-v1-RangeRaceDataRequest"></a>
-
-### RangeRaceDataRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| begin | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional | 指定した時間を含む、指定した時間からのデータを取得する。指定しなかったときは0(=1970年1月1日)と見なす。 |
-| end | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional | 指定した時間を含む、指定した時間までのデータを取得する。指定しなかったときは取得できる最新まで取得する。 |
-
-
-
-
-
-
-<a name="spec-v1-RangeRaceDataResponse"></a>
-
-### RangeRaceDataResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| races | [Race](#spec-v1-Race) | repeated |  |
-
-
-
-
-
-
 <a name="spec-v1-RegisterHorseRequest"></a>
 
 ### RegisterHorseRequest
@@ -613,7 +607,7 @@ start - n, vote_end: start - m
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| RangeRaceData | [RangeRaceDataRequest](#spec-v1-RangeRaceDataRequest) | [RangeRaceDataResponse](#spec-v1-RangeRaceDataResponse) |  |
+| AllRaceData | [AllRaceDataRequest](#spec-v1-AllRaceDataRequest) | [AllRaceDataResponse](#spec-v1-AllRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
 | RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
 

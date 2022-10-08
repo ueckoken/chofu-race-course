@@ -28,7 +28,6 @@ func NewRaceFile(path string) (*Race, error) {
 	return w, nil
 }
 
-// GetRange は引数に入れた時間を絞る。出走時間を対象とする。
 func (w *Race) GetAll() ([]*v1.RaceDetail, error) {
 	rds := []*v1.RaceDetail{}
 	rawRds, err := w.readFromFile()

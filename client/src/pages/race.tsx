@@ -1,9 +1,9 @@
 import { FC } from "react";
 import Link from "next/link";
 import { dateToYYYYMMDD } from "../util/time";
-import { RangeRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
+import { AllRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
 
-const res = new RangeRaceDataResponse();
+const res = new AllRaceDataResponse();
 
 const RacePage: FC<{}> = () => {
     return (

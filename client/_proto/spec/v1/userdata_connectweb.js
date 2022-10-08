@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RangeRaceDataRequest, RangeRaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -95,12 +95,12 @@ export const RaceDataService = {
   typeName: "spec.v1.RaceDataService",
   methods: {
     /**
-     * @generated from rpc spec.v1.RaceDataService.RangeRaceData
+     * @generated from rpc spec.v1.RaceDataService.AllRaceData
      */
-    rangeRaceData: {
-      name: "RangeRaceData",
-      I: RangeRaceDataRequest,
-      O: RangeRaceDataResponse,
+    allRaceData: {
+      name: "AllRaceData",
+      I: AllRaceDataRequest,
+      O: AllRaceDataResponse,
       kind: MethodKind.Unary,
     },
     /**
