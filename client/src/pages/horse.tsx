@@ -3,7 +3,7 @@ import Link from "next/link";
 import { createPromiseClient } from "@bufbuild/connect-web";
 import { transport } from "../util/use-client";
 import { HorseDataService } from "../../_proto/spec/v1/userdata_connectweb";
-import { AllHorseDataResponse, Horse } from "../../_proto/spec/v1/userdata_pb";
+import { AllHorseDataResponse } from "../../_proto/spec/v1/userdata_pb";
 import { GetStaticProps } from "next";
 import { JsonValue } from "@bufbuild/protobuf";
 
