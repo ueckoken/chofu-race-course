@@ -20,10 +20,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("listening in %s\n", env.ListenAddr)
+	log.Printf("listening on %s\n", env.ListenAddr)
 
 	corsConf := cors.New(cors.Options{
-		//TODO; これらの設定を環境変数で入れられるように
 		AllowedOrigins:   env.CorsArrowedOrigins,
 		AllowCredentials: true,
 	})
