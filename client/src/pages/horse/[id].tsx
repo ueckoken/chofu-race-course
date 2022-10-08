@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useClient } from "../../util/use-client";
@@ -19,6 +20,9 @@ const HorseDetailPage: FC<{}> = () => {
     const horseData = data.horse!;
     return (
         <>
+            <Head>
+                <title>{`${horseData!.data!.name} | 調布競馬ポータル`}</title>
+            </Head>
             <h2>{horseData!.data!.name}</h2>
             <dl>
                 <dt>馬主</dt>
