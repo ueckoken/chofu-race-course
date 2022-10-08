@@ -1,10 +1,6 @@
 import { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { AllRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
-import { dateToHHmm } from "../util/time";
-
-const res = new AllRaceDataResponse();
 
 const TopPage: FC<{}> = () => {
     return (
