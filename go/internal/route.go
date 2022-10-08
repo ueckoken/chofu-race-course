@@ -43,5 +43,16 @@ func NewRoute(conf *envConfig.EnvVar) (*http.ServeMux, error) {
 		return nil, err
 	}
 	mux.Handle(v1connect.NewHorseDataServiceHandler(h))
+
+	raceWriter, err := file.NewRaceFile(filepath.Join(conf.DataDir, "race"))
+	if err != nil {
+		return nil, err
+	}
+	r, err := handler.NewRaceServer(raceWriter, ad)
+	if err != nil {
+		return nil, err
+	}
+	mux.Handle(v1connect.NewRaceDataServiceHandler(r))
+
 	return mux, nil
 }

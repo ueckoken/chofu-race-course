@@ -3285,108 +3285,42 @@ var _ interface {
 	ErrorName() string
 } = RaceDataResponseValidationError{}
 
-// Validate checks the field values on RangeRaceDataRequest with the rules
+// Validate checks the field values on AllRaceDataRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RangeRaceDataRequest) Validate() error {
+func (m *AllRaceDataRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RangeRaceDataRequest with the rules
+// ValidateAll checks the field values on AllRaceDataRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// RangeRaceDataRequestMultiError, or nil if none found.
-func (m *RangeRaceDataRequest) ValidateAll() error {
+// AllRaceDataRequestMultiError, or nil if none found.
+func (m *AllRaceDataRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RangeRaceDataRequest) validate(all bool) error {
+func (m *AllRaceDataRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if m.Begin != nil {
-
-		if all {
-			switch v := interface{}(m.GetBegin()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, RangeRaceDataRequestValidationError{
-						field:  "Begin",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, RangeRaceDataRequestValidationError{
-						field:  "Begin",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetBegin()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return RangeRaceDataRequestValidationError{
-					field:  "Begin",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if m.End != nil {
-
-		if all {
-			switch v := interface{}(m.GetEnd()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, RangeRaceDataRequestValidationError{
-						field:  "End",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, RangeRaceDataRequestValidationError{
-						field:  "End",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return RangeRaceDataRequestValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	if len(errors) > 0 {
-		return RangeRaceDataRequestMultiError(errors)
+		return AllRaceDataRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// RangeRaceDataRequestMultiError is an error wrapping multiple validation
-// errors returned by RangeRaceDataRequest.ValidateAll() if the designated
-// constraints aren't met.
-type RangeRaceDataRequestMultiError []error
+// AllRaceDataRequestMultiError is an error wrapping multiple validation errors
+// returned by AllRaceDataRequest.ValidateAll() if the designated constraints
+// aren't met.
+type AllRaceDataRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RangeRaceDataRequestMultiError) Error() string {
+func (m AllRaceDataRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -3395,11 +3329,11 @@ func (m RangeRaceDataRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RangeRaceDataRequestMultiError) AllErrors() []error { return m }
+func (m AllRaceDataRequestMultiError) AllErrors() []error { return m }
 
-// RangeRaceDataRequestValidationError is the validation error returned by
-// RangeRaceDataRequest.Validate if the designated constraints aren't met.
-type RangeRaceDataRequestValidationError struct {
+// AllRaceDataRequestValidationError is the validation error returned by
+// AllRaceDataRequest.Validate if the designated constraints aren't met.
+type AllRaceDataRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -3407,24 +3341,24 @@ type RangeRaceDataRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RangeRaceDataRequestValidationError) Field() string { return e.field }
+func (e AllRaceDataRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RangeRaceDataRequestValidationError) Reason() string { return e.reason }
+func (e AllRaceDataRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RangeRaceDataRequestValidationError) Cause() error { return e.cause }
+func (e AllRaceDataRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RangeRaceDataRequestValidationError) Key() bool { return e.key }
+func (e AllRaceDataRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RangeRaceDataRequestValidationError) ErrorName() string {
-	return "RangeRaceDataRequestValidationError"
+func (e AllRaceDataRequestValidationError) ErrorName() string {
+	return "AllRaceDataRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RangeRaceDataRequestValidationError) Error() string {
+func (e AllRaceDataRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -3436,14 +3370,14 @@ func (e RangeRaceDataRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRangeRaceDataRequest.%s: %s%s",
+		"invalid %sAllRaceDataRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RangeRaceDataRequestValidationError{}
+var _ error = AllRaceDataRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -3451,24 +3385,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RangeRaceDataRequestValidationError{}
+} = AllRaceDataRequestValidationError{}
 
-// Validate checks the field values on RangeRaceDataResponse with the rules
+// Validate checks the field values on AllRaceDataResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RangeRaceDataResponse) Validate() error {
+func (m *AllRaceDataResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RangeRaceDataResponse with the rules
+// ValidateAll checks the field values on AllRaceDataResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// RangeRaceDataResponseMultiError, or nil if none found.
-func (m *RangeRaceDataResponse) ValidateAll() error {
+// AllRaceDataResponseMultiError, or nil if none found.
+func (m *AllRaceDataResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RangeRaceDataResponse) validate(all bool) error {
+func (m *AllRaceDataResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -3482,7 +3416,7 @@ func (m *RangeRaceDataResponse) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, RangeRaceDataResponseValidationError{
+					errors = append(errors, AllRaceDataResponseValidationError{
 						field:  fmt.Sprintf("Races[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -3490,7 +3424,7 @@ func (m *RangeRaceDataResponse) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, RangeRaceDataResponseValidationError{
+					errors = append(errors, AllRaceDataResponseValidationError{
 						field:  fmt.Sprintf("Races[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -3499,7 +3433,7 @@ func (m *RangeRaceDataResponse) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return RangeRaceDataResponseValidationError{
+				return AllRaceDataResponseValidationError{
 					field:  fmt.Sprintf("Races[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3510,19 +3444,19 @@ func (m *RangeRaceDataResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return RangeRaceDataResponseMultiError(errors)
+		return AllRaceDataResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// RangeRaceDataResponseMultiError is an error wrapping multiple validation
-// errors returned by RangeRaceDataResponse.ValidateAll() if the designated
+// AllRaceDataResponseMultiError is an error wrapping multiple validation
+// errors returned by AllRaceDataResponse.ValidateAll() if the designated
 // constraints aren't met.
-type RangeRaceDataResponseMultiError []error
+type AllRaceDataResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RangeRaceDataResponseMultiError) Error() string {
+func (m AllRaceDataResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -3531,11 +3465,11 @@ func (m RangeRaceDataResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RangeRaceDataResponseMultiError) AllErrors() []error { return m }
+func (m AllRaceDataResponseMultiError) AllErrors() []error { return m }
 
-// RangeRaceDataResponseValidationError is the validation error returned by
-// RangeRaceDataResponse.Validate if the designated constraints aren't met.
-type RangeRaceDataResponseValidationError struct {
+// AllRaceDataResponseValidationError is the validation error returned by
+// AllRaceDataResponse.Validate if the designated constraints aren't met.
+type AllRaceDataResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -3543,24 +3477,24 @@ type RangeRaceDataResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RangeRaceDataResponseValidationError) Field() string { return e.field }
+func (e AllRaceDataResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RangeRaceDataResponseValidationError) Reason() string { return e.reason }
+func (e AllRaceDataResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RangeRaceDataResponseValidationError) Cause() error { return e.cause }
+func (e AllRaceDataResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RangeRaceDataResponseValidationError) Key() bool { return e.key }
+func (e AllRaceDataResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RangeRaceDataResponseValidationError) ErrorName() string {
-	return "RangeRaceDataResponseValidationError"
+func (e AllRaceDataResponseValidationError) ErrorName() string {
+	return "AllRaceDataResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RangeRaceDataResponseValidationError) Error() string {
+func (e AllRaceDataResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -3572,14 +3506,14 @@ func (e RangeRaceDataResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRangeRaceDataResponse.%s: %s%s",
+		"invalid %sAllRaceDataResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RangeRaceDataResponseValidationError{}
+var _ error = AllRaceDataResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -3587,7 +3521,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RangeRaceDataResponseValidationError{}
+} = AllRaceDataResponseValidationError{}
 
 // Validate checks the field values on RegisterRaceRequest with the rules
 // defined in the proto definition for this message. If any rules are

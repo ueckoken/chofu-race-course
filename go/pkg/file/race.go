@@ -5,7 +5,6 @@ import (
 	"os"
 	"sort"
 	"sync"
-	"time"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 	"google.golang.org/protobuf/proto"
@@ -29,10 +28,6 @@ func NewRaceFile(path string) (*Race, error) {
 	return w, nil
 }
 
-// GetRange は引数に入れた時間を絞る。出走時間を対象とする。
-func (w *Race) GetRange(from, to time.Time) ([]*v1.RaceDetail, error) {
-	return nil, fmt.Errorf("not implemented")
-}
 func (w *Race) GetAll() ([]*v1.RaceDetail, error) {
 	rds := []*v1.RaceDetail{}
 	rawRds, err := w.readFromFile()
