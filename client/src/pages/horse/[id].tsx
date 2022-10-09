@@ -2,7 +2,10 @@ import { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { createPromiseClient } from "@bufbuild/connect-web";
-import { HorseDataResponse } from "../../../_proto/spec/v1/userdata_pb";
+import {
+    HorseDataResponse,
+    HorseDetail_Image_ImageType,
+} from "../../../_proto/spec/v1/userdata_pb";
 import { HorseDataService } from "../../../_proto/spec/v1/userdata_connectweb";
 import { dateToYYYYMMDD } from "../../util/time";
 import { raceOrderToString } from "../../util/util";
@@ -19,6 +22,17 @@ interface Props {
     json: JsonValue;
 }
 
+const imageTypeToString = (type: HorseDetail_Image_ImageType): string => {
+    if (type === HorseDetail_Image_ImageType.GIF) {
+        return "gif";
+    } else if (type === HorseDetail_Image_ImageType.JPEG) {
+        return "jpeg";
+    } else if (type === HorseDetail_Image_ImageType.PNG) {
+        return "png";
+    }
+    throw new Error("不正な拡張子です。");
+};
+
 const HorseDetailPage: FC<Props> = ({ json }) => {
     const data = HorseDataResponse.fromJson(json);
     const horse = data.horse!;
@@ -28,6 +42,19 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
                 <title>{`${horse.data!.name} | 調布競馬ポータル`}</title>
             </Head>
             <h2>{horse.data!.name}</h2>
+            {horse.image ? (
+                <div>
+                    <img
+                        src={`data:image/${imageTypeToString(
+                            horse.image.type
+                        )};base64,${new TextDecoder().decode(
+                            horse.image.data
+                        )}`}
+                    />
+                </div>
+            ) : (
+                ""
+            )}
             <dl>
                 <dt>馬主</dt>
                 <dd>{horse.owner}</dd>

@@ -4,8 +4,23 @@ import {
     HorseDataService,
     UserDataService,
 } from "../../_proto/spec/v1/userdata_connectweb";
-import { HorseDetail_Image, JWT } from "../../_proto/spec/v1/userdata_pb";
+import {
+    HorseDetail_Image,
+    HorseDetail_Image_ImageType,
+    JWT,
+} from "../../_proto/spec/v1/userdata_pb";
 import { transport } from "../util/use-client";
+
+const stringToImageType = (str: string): HorseDetail_Image_ImageType => {
+    if (str === "gif") {
+        return HorseDetail_Image_ImageType.GIF;
+    } else if (str === "jpeg") {
+        return HorseDetail_Image_ImageType.JPEG;
+    } else if (str === "png") {
+        return HorseDetail_Image_ImageType.PNG;
+    }
+    throw new Error();
+};
 
 const AdminPage: FC<{}> = () => {
     const [jwt, setJwt] = useState<JWT | null>(null);
@@ -15,8 +30,9 @@ const AdminPage: FC<{}> = () => {
     const [editHorseId, setEditHorseId] = useState<number>(0);
     const [editHorseName, setEditHorseName] = useState<string>("");
     const [editOwnerName, setEditOwnerName] = useState<string>("");
-    const [editHorseImage, setEditHorseImage] =
-        useState<HorseDetail_Image | null>();
+    const [editHorseImage, setEditHorseImage] = useState<
+        HorseDetail_Image | undefined
+    >(undefined);
 
     const userClient = createPromiseClient(UserDataService, transport);
     const horseClient = createPromiseClient(HorseDataService, transport);
@@ -128,13 +144,35 @@ const AdminPage: FC<{}> = () => {
                 </div>
                 <div>
                     <label>
-                        写真: <input type="file" />
+                        写真:{" "}
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                const file = e.target.files![0];
+                                const reader = new FileReader();
+                                reader.onload = (ev) => {
+                                    const base64 = ev.target!.result! as string;
+                                    console.log(base64);
+                                    const regex =
+                                        /^data:image\/(.+);base64,(.+)/;
+                                    const match = base64.match(regex);
+                                    if (!match) return;
+                                    const [, type, data] = match;
+                                    const img = new HorseDetail_Image();
+                                    img.type = stringToImageType(type);
+                                    img.data = new TextEncoder().encode(data);
+                                    setEditHorseImage(img);
+                                };
+                                reader.readAsDataURL(file);
+                            }}
+                        />
                     </label>
                 </div>
                 <button
                     onClick={() => {
-                        horseClient.editHorse({
+                        console.log({
                             id: editHorseId,
+                            adminJwt: jwt!,
                             name:
                                 editHorseName !== ""
                                     ? editHorseName
@@ -143,7 +181,27 @@ const AdminPage: FC<{}> = () => {
                                 editOwnerName !== ""
                                     ? editOwnerName
                                     : undefined,
+                            image: editHorseImage,
                         });
+                        horseClient
+                            .editHorse({
+                                id: editHorseId,
+                                adminJwt: jwt!,
+                                name:
+                                    editHorseName !== ""
+                                        ? editHorseName
+                                        : undefined,
+                                owner:
+                                    editOwnerName !== ""
+                                        ? editOwnerName
+                                        : undefined,
+                                image: editHorseImage,
+                            })
+                            .then(() => alert("編集完了！"))
+                            .catch((err) => {
+                                console.error(err);
+                                alert("編集失敗......");
+                            });
                     }}
                 >
                     登録
