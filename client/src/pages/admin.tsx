@@ -4,13 +4,20 @@ import {
     HorseDataService,
     UserDataService,
 } from "../../_proto/spec/v1/userdata_connectweb";
-import { JWT } from "../../_proto/spec/v1/userdata_pb";
+import { HorseDetail_Image, JWT } from "../../_proto/spec/v1/userdata_pb";
 import { transport } from "../util/use-client";
 
 const AdminPage: FC<{}> = () => {
     const [jwt, setJwt] = useState<JWT | null>(null);
-    const [horseName, setHorseName] = useState<string>("");
-    const [ownerName, setOwnerName] = useState<string>("");
+    const [registerHorseName, setRegisterHorseName] = useState<string>("");
+    const [registerOwnerName, setRegisterOwnerName] = useState<string>("");
+
+    const [editHorseId, setEditHorseId] = useState<number>(0);
+    const [editHorseName, setEditHorseName] = useState<string>("");
+    const [editOwnerName, setEditOwnerName] = useState<string>("");
+    const [editHorseImage, setEditHorseImage] =
+        useState<HorseDetail_Image | null>();
+
     const userClient = createPromiseClient(UserDataService, transport);
     const horseClient = createPromiseClient(HorseDataService, transport);
     useEffect(() => {
@@ -49,8 +56,10 @@ const AdminPage: FC<{}> = () => {
                         馬名:{" "}
                         <input
                             type="text"
-                            value={horseName}
-                            onChange={(e) => setHorseName(e.target.value)}
+                            value={registerHorseName}
+                            onChange={(e) =>
+                                setRegisterHorseName(e.target.value)
+                            }
                         />
                     </label>
                 </div>
@@ -59,8 +68,10 @@ const AdminPage: FC<{}> = () => {
                         馬主名:{" "}
                         <input
                             type="text"
-                            value={ownerName}
-                            onChange={(e) => setOwnerName(e.target.value)}
+                            value={registerOwnerName}
+                            onChange={(e) =>
+                                setRegisterOwnerName(e.target.value)
+                            }
                         />
                     </label>
                 </div>
@@ -69,10 +80,14 @@ const AdminPage: FC<{}> = () => {
                         horseClient
                             .registerHorse({
                                 adminJwt: jwt!,
-                                name: horseName,
-                                owner: ownerName,
+                                name: registerHorseName,
+                                owner: registerOwnerName,
                             })
                             .then(() => alert("登録完了！"))
+                            .catch((err) => {
+                                console.error(err);
+                                alert("登録失敗......");
+                            })
                     }
                 >
                     登録
@@ -83,17 +98,32 @@ const AdminPage: FC<{}> = () => {
                 <legend>競争馬編集</legend>
                 <div>
                     <label>
-                        id: <input type="number" />
+                        id:{" "}
+                        <input
+                            type="number"
+                            value={editHorseId}
+                            onChange={(e) => setEditHorseId(+e.target.value)}
+                        />
                     </label>
                 </div>
                 <div>
                     <label>
-                        馬名: <input type="text" />
+                        馬名:{" "}
+                        <input
+                            type="text"
+                            value={editHorseName}
+                            onChange={(e) => setEditHorseName(e.target.value)}
+                        />
                     </label>
                 </div>
                 <div>
                     <label>
-                        馬主名: <input type="text" />
+                        馬主名:{" "}
+                        <input
+                            type="text"
+                            value={editOwnerName}
+                            onChange={(e) => setEditOwnerName(e.target.value)}
+                        />
                     </label>
                 </div>
                 <div>
@@ -101,6 +131,23 @@ const AdminPage: FC<{}> = () => {
                         写真: <input type="file" />
                     </label>
                 </div>
+                <button
+                    onClick={() => {
+                        horseClient.editHorse({
+                            id: editHorseId,
+                            name:
+                                editHorseName !== ""
+                                    ? editHorseName
+                                    : undefined,
+                            owner:
+                                editOwnerName !== ""
+                                    ? editOwnerName
+                                    : undefined,
+                        });
+                    }}
+                >
+                    登録
+                </button>
             </fieldset>
         </>
     );
