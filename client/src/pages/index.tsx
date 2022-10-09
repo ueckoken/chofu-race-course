@@ -23,7 +23,11 @@ const TopPage: FC<{}> = () => {
             <h2>外部リンク</h2>
             <ul>
                 <li>
-                    <a href="https://twitter.com/ueckoken" target="_blank">
+                    <a
+                        href="https://twitter.com/ueckoken"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         電気通信大学 工学研究部 Twitter
                     </a>
                 </li>
@@ -31,6 +35,7 @@ const TopPage: FC<{}> = () => {
                     <a
                         href="https://www.youtube.com/user/kokenuser"
                         target="_blank"
+                        rel="noreferrer"
                     >
                         電気通信大学 工学研究部 YouTube
                     </a>
