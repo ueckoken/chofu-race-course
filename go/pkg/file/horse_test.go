@@ -52,7 +52,7 @@ func TestAddNewHorse(t *testing.T) {
 	assert.NoError(t, err)
 
 	hds, err := h.GetAll()
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Len(t, hds.GetHorseDetails(), 1)
 	assert.Equal(t, uint32(1), hds.GetHorseDetails()[0].GetData().GetId(), "ID=0で作成したユーザは自動的にIDをインクリメントする")
 	assert.Equal(t, "ワン", hds.GetHorseDetails()[0].GetData().GetName(), "データが変化しない")
@@ -76,19 +76,19 @@ func TestAddNewHorse(t *testing.T) {
 func TestPersistence(t *testing.T) {
 	d := filepath.Join(t.TempDir(), "testing-horse")
 	h1, err := NewHorseFile(d)
-	assert.Nil(t, err)
+	assert.Error(t, err)
 
 	uma := &v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマ"}, Owner: "オーナー"}
 	err = h1.Create(uma)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	u1, err := h1.GetAll()
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.True(t, proto.Equal(uma, u1.GetHorseDetails()[0]))
 
 	h2, err := NewHorseFile(d)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	u2, err := h2.GetAll()
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.True(t, proto.Equal(uma, u2.GetHorseDetails()[0]))
 }

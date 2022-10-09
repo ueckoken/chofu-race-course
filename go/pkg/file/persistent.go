@@ -24,6 +24,11 @@ func NewPersistentStruct[T proto.Message](filePath string) (*Persistent[T], erro
 		if err := proto.Unmarshal(b, t); err != nil {
 			return nil, fmt.Errorf("failed to unmarshaling, err=%w", err)
 		}
+		return &Persistent[T]{
+			data: t,
+			filemtx: sync.Mutex{},
+			filePath: filePath,
+		}, nil
 	}
 	var t T
 	b, err := proto.Marshal(t)
