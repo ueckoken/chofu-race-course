@@ -8,7 +8,7 @@ import { raceOrderToString } from "../../util/util";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { transport } from "../../util/use-client";
-import { JsonValue } from "@bufbuild/protobuf";
+import { CodeGeneratorResponse_File, JsonValue } from "@bufbuild/protobuf";
 
 interface Params extends ParsedUrlQuery {
     id: string;
@@ -74,7 +74,12 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
     const client = createPromiseClient(HorseDataService, transport);
     const res = await client.allHorseData({});
+    console.log("===(res)===");
+    console.log(res);
     const paths = res.horses.map((horse) => `/horse/${horse.id}`);
+    console.log("===(paths)===");
+    console.log(res);
+    console.log("======");
     return { paths, fallback: false };
 };
 
