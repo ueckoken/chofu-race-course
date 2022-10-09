@@ -89,7 +89,9 @@ func (w *Race) Delete(id uint32) error {
 	oldRecs[len(oldRecs)-1] = nil
 	updatedRecs := oldRecs[:len(oldRecs)-1]
 
-	w.cache.Set(&v1.RaceDetails{RaceDetails: updatedRecs})
+	if err := w.cache.Set(&v1.RaceDetails{RaceDetails: updatedRecs}); err != nil {
+		return fmt.Errorf("failed to set, err=%w", err)
+	}
 	return err
 }
 
