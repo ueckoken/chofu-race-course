@@ -14,41 +14,24 @@ type Persistent[T proto.Message] struct {
 	filePath string
 }
 
-func NewPersistentStruct[T proto.Message](filePath string) (*Persistent[T], error) {
-	if _, err := os.Stat(filePath); os.IsExist(err) {
+func NewPersistentStruct[T proto.Message](filePath string, buf T) (*Persistent[T], error) {
+	if _, err := os.Stat(filePath); !os.IsNotExist(err) {
 		b, err := os.ReadFile(filePath)
 		if err != nil {
 			return nil, fmt.Errorf("failed to read, err=%w", err)
 		}
-		var t T
-		if err := proto.Unmarshal(b, t); err != nil {
+
+		if err := proto.Unmarshal(b, buf); err != nil {
 			return nil, fmt.Errorf("failed to unmarshaling, err=%w", err)
 		}
 		return &Persistent[T]{
-			data: t,
-			filemtx: sync.Mutex{},
+			data:     buf,
+			filemtx:  sync.Mutex{},
 			filePath: filePath,
 		}, nil
 	}
-	var t T
-	b, err := proto.Marshal(t)
-	if err != nil {
-		panic("newHorseCacheStruct: failed to marshal constant value")
-	}
-	f, err := os.Create(filePath)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create file for persistent, err=%w", err)
-	}
-	defer func() {
-		if err := f.Close(); err != nil {
-			fmt.Println("failed to close, err=%w", err)
-		}
-	}()
-	if _, err := f.Write(b); err != nil {
-		return nil, fmt.Errorf("failed to write, err=%w", err)
-	}
 	return &Persistent[T]{
-		data:     t,
+		data:     buf,
 		filemtx:  sync.Mutex{},
 		filePath: filePath,
 	}, nil
@@ -76,6 +59,8 @@ func (h *Persistent[T]) Set(d T) error {
 	if _, err := f.Write(b); err != nil {
 		return fmt.Errorf("failed to write, err=%w", err)
 	}
+	fmt.Println("wrote to", h.filePath, "dat", string(b))
+	fmt.Println("wrote to", h.filePath, "dat", d)
 	return nil
 }
 

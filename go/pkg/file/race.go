@@ -14,7 +14,7 @@ type Race struct {
 
 // NewRaceFile creates something like file for persistent
 func NewRaceFile(path string) (*Race, error) {
-	hc, err := NewPersistentStruct[*v1.RaceDetails](path)
+	hc, err := NewPersistentStruct(path, &v1.RaceDetails{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create horseCacheStruct, err=%w", err)
 	}

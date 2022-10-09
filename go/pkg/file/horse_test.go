@@ -1,6 +1,7 @@
 package file
 
 import (
+	"fmt"
 	"path/filepath"
 	"testing"
 
@@ -74,11 +75,12 @@ func TestAddNewHorse(t *testing.T) {
 }
 
 func TestPersistence(t *testing.T) {
+	fmt.Println("starting ")
 	d := filepath.Join(t.TempDir(), "testing-horse")
 	h1, err := NewHorseFile(d)
 	assert.NoError(t, err)
 
-	uma := &v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマ"}, Owner: "オーナー"}
+	uma := &v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマイチ"}, Owner: "オーナー"}
 	err = h1.Create(uma)
 	assert.NoError(t, err)
 

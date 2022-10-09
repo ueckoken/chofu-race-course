@@ -18,7 +18,6 @@ func TestRaceFlow(t *testing.T) {
 	assert.NoError(t, err)
 	require.NotNil(t, r)
 	assert.Implements(t, (*handler.RaceStore)(nil), r)
-	assert.FileExists(t, path)
 
 	res, err := r.GetById(0)
 	assert.Nil(t, res)

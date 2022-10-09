@@ -14,7 +14,7 @@ type Horse struct {
 
 // NewHorseFile creates something like file for persistent
 func NewHorseFile(path string) (*Horse, error) {
-	hc, err := NewPersistentStruct[*v1.HorseDetails](path)
+	hc, err := NewPersistentStruct(path, &v1.HorseDetails{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create horseCacheStruct, err=%w", err)
 	}
