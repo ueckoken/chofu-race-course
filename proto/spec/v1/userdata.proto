@@ -139,11 +139,8 @@ message RegisterHorseResponse {}
 message EditHorseRequest {
   // 対象を指定するため必須
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
-  optional string name = 2 [(validate.rules).string.pattern = "^\\p{Katakana}(\\p{Katakana}|ー){1,8}$"];
-  optional string owner = 3 [(validate.rules).string = {
-    min_len: 2,
-    max_len: 256
-  }];
+  optional string name = 2;
+  optional string owner = 3;
   optional HorseDetail.Image image = 4;
 }
 message EditHorseResponse {}
