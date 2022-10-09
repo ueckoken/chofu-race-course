@@ -8,7 +8,7 @@ import {
 } from "@bufbuild/connect-web";
 
 // This transport is going to be used throughout the app
-const transport = createConnectTransport({
+export const transport = createConnectTransport({
     baseUrl: process.env.NEXT_PUBLIC_API_ENDPOINT!,
 });
 
