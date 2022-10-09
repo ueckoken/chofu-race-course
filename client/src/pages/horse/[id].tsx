@@ -72,15 +72,15 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-    const client = createPromiseClient(HorseDataService, transport);
-    const res = await client.allHorseData({});
-    console.log("===(res)===");
-    console.log(res);
-    const paths = res.horses.map((horse) => `/horse/${horse.id}`);
-    console.log("===(paths)===");
-    console.log(res);
-    console.log("======");
-    return { paths, fallback: false };
+    try{
+        const client = createPromiseClient(HorseDataService, transport);
+        const res = await client.allHorseData({});
+        const paths = res.horses.map((horse) => `/horse/${horse.id}`);
+        return { paths, fallback: false };
+    }catch(err){
+        console.error(err);
+        throw new Error();
+    }
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
