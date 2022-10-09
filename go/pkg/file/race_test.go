@@ -18,7 +18,6 @@ func TestRaceFlow(t *testing.T) {
 	assert.NoError(t, err)
 	require.NotNil(t, r)
 	assert.Implements(t, (*handler.RaceStore)(nil), r)
-	assert.FileExists(t, path)
 
 	res, err := r.GetById(0)
 	assert.Nil(t, res)
@@ -38,14 +37,14 @@ func TestRaceFlow(t *testing.T) {
 	assert.NoError(t, err, "初めての登録なので衝突せずに登録ができる")
 
 	rds, err := r.GetAll()
-	assert.Len(t, rds, 1, "1件目のレコード")
+	assert.Len(t, rds.GetRaceDetails(), 1, "1件目のレコード")
 	assert.NoError(t, err, "正常に取得できる")
-	assert.Equal(t, uint32(1), rds[0].GetData().GetId(), "ID=0を与えたときはオートインクリメントして追加")
+	assert.Equal(t, uint32(1), rds.GetRaceDetails()[0].GetData().GetId(), "ID=0を与えたときはオートインクリメントして追加")
 
 	err = r.Create(&v1.RaceDetail{Data: &v1.Race{Id: 10, Name: "テスト2", Order: 0}})
 	assert.NoError(t, err)
 	rds, err = r.GetAll()
-	assert.Len(t, rds, 2)
+	assert.Len(t, rds.GetRaceDetails(), 2)
 	assert.NoError(t, err)
 
 	rd, err := r.GetById(10)
@@ -94,7 +93,7 @@ func TestRaceUpdate(t *testing.T) {
 	assert.Equal(t, "更新のテスト", rd.GetData().GetName())
 
 	rds, _ := r.GetAll()
-	assert.Len(t, rds, 1, "レコード数は変化しない")
+	assert.Len(t, rds.GetRaceDetails(), 1, "レコード数は変化しない")
 }
 func TestRaceDelete(t *testing.T) {
 	r, err := file.NewRaceFile(filepath.Join(t.TempDir(), "delete"))
@@ -125,7 +124,7 @@ func TestRaceDelete(t *testing.T) {
 
 	rs, err := r.GetAll()
 	require.NoError(t, err)
-	require.Len(t, rs, 2)
+	require.Len(t, rs.GetRaceDetails(), 2)
 
 	err = r.Delete(3)
 	assert.Error(t, err, "存在しないIDを消そうとするとエラー")
@@ -135,12 +134,12 @@ func TestRaceDelete(t *testing.T) {
 
 	rs, err = r.GetAll()
 	assert.NoError(t, err)
-	assert.Len(t, rs, 1)
+	assert.Len(t, rs.GetRaceDetails(), 1)
 
 	err = r.Delete(1)
 	assert.NoError(t, err)
 
 	rs, err = r.GetAll()
 	assert.NoError(t, err)
-	assert.Len(t, rs, 0)
+	assert.Len(t, rs.GetRaceDetails(), 0)
 }

@@ -1,12 +1,14 @@
 package file
 
 import (
+	"fmt"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
+	"google.golang.org/protobuf/proto"
 )
 
 func TestNewHorseFile(t *testing.T) {
@@ -57,17 +59,17 @@ func TestAddNewHorse(t *testing.T) {
 	assert.NoError(t, err)
 
 	hds, err := h.GetAll()
-	assert.Nil(t, err)
-	assert.Len(t, hds, 1)
-	assert.Equal(t, uint32(1), hds[0].GetData().GetId(), "ID=0で作成したユーザは自動的にIDをインクリメントする")
-	assert.Equal(t, "ワン", hds[0].GetData().GetName(), "データが変化しない")
+	assert.NoError(t, err)
+	assert.Len(t, hds.GetHorseDetails(), 1)
+	assert.Equal(t, uint32(1), hds.GetHorseDetails()[0].GetData().GetId(), "ID=0で作成したユーザは自動的にIDをインクリメントする")
+	assert.Equal(t, "ワン", hds.GetHorseDetails()[0].GetData().GetName(), "データが変化しない")
 
 	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ワン"}, Owner: "オーナー"})
 	assert.NoError(t, err, "同一馬名は弾かない")
 
 	hds, err = h.GetAll()
 	assert.NoError(t, err)
-	assert.Len(t, hds, 2)
+	assert.Len(t, hds.GetHorseDetails(), 2)
 
 	hd, err := h.GetById(2)
 	assert.NoError(t, err)
@@ -76,4 +78,25 @@ func TestAddNewHorse(t *testing.T) {
 
 	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 2, Name: "ツー"}, Owner: "オーナー"})
 	assert.Error(t, err, "IDが重複しているときは登録できない")
+}
+
+func TestPersistence(t *testing.T) {
+	fmt.Println("starting ")
+	d := filepath.Join(t.TempDir(), "testing-horse")
+	h1, err := NewHorseFile(d)
+	assert.NoError(t, err)
+
+	uma := &v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマイチ"}, Owner: "オーナー"}
+	err = h1.Create(uma)
+	assert.NoError(t, err)
+
+	u1, err := h1.GetAll()
+	assert.NoError(t, err)
+	assert.True(t, proto.Equal(uma, u1.GetHorseDetails()[0]))
+
+	h2, err := NewHorseFile(d)
+	assert.NoError(t, err)
+	u2, err := h2.GetAll()
+	assert.NoError(t, err)
+	assert.True(t, proto.Equal(uma, u2.GetHorseDetails()[0]))
 }
