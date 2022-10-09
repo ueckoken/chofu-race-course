@@ -49,6 +49,7 @@ const AdminPage: FC<{}> = () => {
                         馬名:{" "}
                         <input
                             type="text"
+                            value={horseName}
                             onChange={(e) => setHorseName(e.target.value)}
                         />
                     </label>
@@ -58,6 +59,7 @@ const AdminPage: FC<{}> = () => {
                         馬主名:{" "}
                         <input
                             type="text"
+                            value={ownerName}
                             onChange={(e) => setOwnerName(e.target.value)}
                         />
                     </label>
@@ -75,6 +77,30 @@ const AdminPage: FC<{}> = () => {
                 >
                     登録
                 </button>
+            </fieldset>
+
+            <fieldset>
+                <legend>競争馬編集</legend>
+                <div>
+                    <label>
+                        id: <input type="number" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        馬名: <input type="text" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        馬主名: <input type="text" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        写真: <input type="file" />
+                    </label>
+                </div>
             </fieldset>
         </>
     );
