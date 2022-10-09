@@ -100,3 +100,29 @@ func TestPersistence(t *testing.T) {
 	assert.NoError(t, err)
 	assert.True(t, proto.Equal(uma, u2.GetHorseDetails()[0]))
 }
+
+func TestUpdateHorse(t *testing.T) {
+	h, err := NewHorseFile(filepath.Join(t.TempDir(), "test-edit-horse"))
+	require.NotNil(t, h)
+	require.NoError(t, err)
+
+	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 1, Name: "ワン"}, Owner: "オーナー"})
+	require.NoError(t, err)
+
+	err = h.Update(&v1.HorseDetail{Data: &v1.Horse{Id: 1, Name: "ワン"}, Owner: "オーナー"})
+	assert.NoError(t, err, "存在するレコードと相違点が無くてもエラーは返さない")
+
+	hds, err := h.GetAll()
+	assert.NoError(t, err)
+	assert.Len(t, hds.GetHorseDetails(), 1)
+
+	err = h.Update(&v1.HorseDetail{Data: &v1.Horse{Id: 100, Name: "ワン"}, Owner: "オーナー"})
+	assert.Error(t, err, "存在しないIDに対しては更新できない")
+
+	err = h.Update(&v1.HorseDetail{Data: &v1.Horse{Id: 1, Name: "バメイバメイ"}, Owner: "新オーナー"})
+	assert.NoError(t, err, "IDが存在するので変更できる")
+	hd, err := h.GetById(1)
+	assert.NoError(t, err)
+	assert.Equal(t, "新オーナー", hd.GetOwner())
+	assert.Equal(t, "バメイバメイ", hd.GetData().GetName())
+}

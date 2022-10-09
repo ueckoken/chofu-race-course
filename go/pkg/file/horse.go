@@ -73,6 +73,31 @@ func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
 	return nil, notFound
 }
 
+func (w *Horse) Update(newHd *v1.HorseDetail) error {
+	if err := newHd.ValidateAll(); err != nil {
+		return err
+	}
+	hds, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	isExist := false
+	for i, hd := range hds.GetHorseDetails() {
+		if hd.GetData().GetId() == newHd.GetData().GetId() {
+			hds.HorseDetails[i] = newHd
+			isExist = true
+			break
+		}
+	}
+	if !isExist {
+		return notFound
+	}
+	if err := w.cache.Set(&v1.HorseDetails{HorseDetails: hds.GetHorseDetails()}); err != nil {
+		return fmt.Errorf("failed to write, err=%w", err)
+	}
+	return nil
+}
+
 // supplyNewID はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
 func (w *Horse) supplyNewID() (uint32, error) {
 	hds, err := w.GetAll()

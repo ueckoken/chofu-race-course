@@ -22,6 +22,7 @@ type HorseStore interface {
 	Create(h *v1.HorseDetail) error
 	GetAll() (*v1.HorseDetails, error)
 	GetById(id uint32) (*v1.HorseDetail, error)
+	Update(h *v1.HorseDetail) error
 }
 
 func NewHorseServer(store HorseStore, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
@@ -81,6 +82,9 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 	return &connect_go.Response[v1.RegisterHorseResponse]{Msg: &v1.RegisterHorseResponse{}}, nil
 }
 
+func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error) {
+	return nil, nil
+}
 func horseDetail2horse(hd *v1.HorseDetail) *v1.Horse {
 	return &v1.Horse{Id: hd.Data.GetId(), Name: hd.Data.GetName()}
 }

@@ -59,8 +59,6 @@ func (h *Persistent[T]) Set(d T) error {
 	if _, err := f.Write(b); err != nil {
 		return fmt.Errorf("failed to write, err=%w", err)
 	}
-	fmt.Println("wrote to", h.filePath, "dat", string(b))
-	fmt.Println("wrote to", h.filePath, "dat", d)
 	return nil
 }
 
