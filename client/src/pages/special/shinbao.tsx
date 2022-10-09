@@ -16,49 +16,42 @@ const SpecialPage: FC<{}> = () => {
             id: 3,
             point: 2,
         },
-        ,
         {
             order: 2,
             name: "オゼハカイザイダン",
             id: 8,
             point: 2,
         },
-        ,
         {
             order: 2,
             name: "オタクカエルヨー",
             id: 4,
             point: 2,
         },
-        ,
         {
             order: 2,
             name: "サクラモッチリーン",
             id: 7,
             point: 2,
         },
-        ,
         {
             order: 2,
             name: "ネイバオキリコミ",
             id: 2,
             point: 2,
         },
-        ,
         {
             order: 2,
             name: "ハリボテエレジー",
             id: 6,
             point: 2,
         },
-        ,
         {
             order: 2,
             name: "ライラックアロー",
             id: 10,
             point: 2,
         },
-        ,
         {
             order: 2,
             name: "レモナーノナレハテ",
@@ -105,11 +98,11 @@ const SpecialPage: FC<{}> = () => {
                 </thead>
                 <tbody>
                     {data.map((e) => (
-                        <tr key={`horse-${e?.id}`}>
-                            <td>{e?.order}</td>
+                        <tr key={`horse-${e.id}`}>
+                            <td>{e.order}</td>
                             <td>
-                                <Link href={`horse/${e?.id}`}>
-                                    <a>{e?.name}</a>
+                                <Link href={`horse/${e.id}`}>
+                                    <a>{e.name}</a>
                                 </Link>
                             </td>
                             <td>{e?.point}</td>
