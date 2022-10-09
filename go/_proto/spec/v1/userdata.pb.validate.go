@@ -2451,33 +2451,11 @@ func (m *EditHorseRequest) validate(all bool) error {
 	}
 
 	if m.Name != nil {
-
-		if !_EditHorseRequest_Name_Pattern.MatchString(m.GetName()) {
-			err := EditHorseRequestValidationError{
-				field:  "Name",
-				reason: "value does not match regex pattern \"^\\\\p{Katakana}(\\\\p{Katakana}|ー){1,8}$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
+		// no validation rules for Name
 	}
 
 	if m.Owner != nil {
-
-		if l := utf8.RuneCountInString(m.GetOwner()); l < 2 || l > 256 {
-			err := EditHorseRequestValidationError{
-				field:  "Owner",
-				reason: "value length must be between 2 and 256 runes, inclusive",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
+		// no validation rules for Owner
 	}
 
 	if m.Image != nil {
@@ -2590,8 +2568,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = EditHorseRequestValidationError{}
-
-var _EditHorseRequest_Name_Pattern = regexp.MustCompile("^\\p{Katakana}(\\p{Katakana}|ー){1,8}$")
 
 // Validate checks the field values on EditHorseResponse with the rules defined
 // in the proto definition for this message. If any rules are violated, the
