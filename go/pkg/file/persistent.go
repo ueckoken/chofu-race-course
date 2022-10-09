@@ -16,6 +16,14 @@ type Persistent[T proto.Message] struct {
 
 func NewPersistentStruct[T proto.Message](filePath string) (*Persistent[T], error) {
 	if _, err := os.Stat(filePath); os.IsExist(err) {
+		b, err := os.ReadFile(filePath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to read, err=%w", err)
+		}
+		var t T
+		if err := proto.Unmarshal(b, t); err != nil {
+			return nil, fmt.Errorf("failed to unmarshaling, err=%w", err)
+		}
 	}
 	var t T
 	b, err := proto.Marshal(t)
