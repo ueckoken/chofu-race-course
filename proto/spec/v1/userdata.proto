@@ -60,7 +60,7 @@ service HorseDataService {
 message Horse {
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
   // 馬の名前
-  string name = 2 [(validate.rules).string.pattern = "^\\p{Katakana}{2,9}$"];
+  string name = 2 [(validate.rules).string.pattern = "^\\p{Katakana}(\\p{Katakana}|ー){1,8}$"];
 }
 message HorseDetail {
   Horse data = 1 [(validate.rules).message.required = true];

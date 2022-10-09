@@ -40,6 +40,12 @@ func TestCreate(t *testing.T) {
 
 	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマメイウマメイウマメイ"}, Owner: "オーナー"})
 	assert.Error(t, err, "馬名はカタカナ9文字以内である必要がある")
+
+	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマメイーウマメイ"}, Owner: "オーナー"})
+	assert.NoError(t, err, "馬名はカタカナ9文字以内である必要がある。伸ばし棒を許容する")
+
+	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ーウマメイウマメイ"}, Owner: "オーナー"})
+	assert.Error(t, err, "馬名はカタカナ9文字以内である必要がある。伸ばし棒から始まることを許容しない")
 }
 
 func TestAddNewHorse(t *testing.T) {
