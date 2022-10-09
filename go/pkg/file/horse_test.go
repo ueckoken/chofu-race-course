@@ -76,7 +76,7 @@ func TestAddNewHorse(t *testing.T) {
 func TestPersistence(t *testing.T) {
 	d := filepath.Join(t.TempDir(), "testing-horse")
 	h1, err := NewHorseFile(d)
-	assert.Error(t, err)
+	assert.NoError(t, err)
 
 	uma := &v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマ"}, Owner: "オーナー"}
 	err = h1.Create(uma)
