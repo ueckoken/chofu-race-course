@@ -8,6 +8,7 @@ import (
 
 	connectGo "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
+	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
 	"github.com/ueckoken/chofu-race-course/go/pkg/authorizer"
 )
 
@@ -15,6 +16,7 @@ type User struct {
 	store     UserStore
 	auth      authorizer.JWTIssuer
 	adminauth authorizer.AdminAuthorizer
+	v1connect.UnimplementedUserDataServiceHandler
 }
 
 type UserStore interface {
