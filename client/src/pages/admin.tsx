@@ -64,11 +64,13 @@ const AdminPage: FC<{}> = () => {
                 </div>
                 <button
                     onClick={() =>
-                        horseClient.registerHorse({
-                            adminJwt: jwt!,
-                            name: horseName,
-                            owner: ownerName,
-                        })
+                        horseClient
+                            .registerHorse({
+                                adminJwt: jwt!,
+                                name: horseName,
+                                owner: ownerName,
+                            })
+                            .then(() => alert("登録完了！"))
                     }
                 >
                     登録
