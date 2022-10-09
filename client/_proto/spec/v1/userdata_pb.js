@@ -248,6 +248,7 @@ export const EditHorseRequest = proto3.makeMessageType(
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 3, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "image", kind: "message", T: HorseDetail_Image, opt: true },
+    { no: 5, name: "admin_jwt", kind: "message", T: JWT },
   ],
 );
 

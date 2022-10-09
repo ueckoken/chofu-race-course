@@ -147,6 +147,7 @@
 | name | [string](#string) | optional |  |
 | owner | [string](#string) | optional |  |
 | image | [HorseDetail.Image](#spec-v1-HorseDetail-Image) | optional |  |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 
 
