@@ -142,6 +142,8 @@ message EditHorseRequest {
   optional string name = 2;
   optional string owner = 3;
   optional HorseDetail.Image image = 4;
+  // admin JWT
+  JWT admin_jwt = 5 [(validate.rules).message.required = true];
 }
 message EditHorseResponse {}
 

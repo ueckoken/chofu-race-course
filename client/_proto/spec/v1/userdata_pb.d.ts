@@ -626,6 +626,13 @@ export declare class EditHorseRequest extends Message<EditHorseRequest> {
    */
   image?: HorseDetail_Image;
 
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 5;
+   */
+  adminJwt?: JWT;
+
   constructor(data?: PartialMessage<EditHorseRequest>);
 
   static readonly runtime: typeof proto3;
