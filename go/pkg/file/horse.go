@@ -2,30 +2,25 @@ package file
 
 import (
 	"fmt"
-	"os"
 	"sort"
-	"sync"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
-	"google.golang.org/protobuf/proto"
 )
 
+// Horse contains file data and its cache
 type Horse struct {
-	filePath string
-	mu       *sync.RWMutex
+	cache *Persistent[*v1.HorseDetails]
 }
 
+// NewHorseFile creates something like file for persistent
 func NewHorseFile(path string) (*Horse, error) {
-	w := &Horse{
-		filePath: path,
-		mu:       &sync.RWMutex{},
+	hc, err := NewPersistentStruct(path, &v1.HorseDetails{})
+	if err != nil {
+		return nil, fmt.Errorf("failed to create horseCacheStruct, err=%w", err)
 	}
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if err := createFileIfNotExist(w.filePath); err != nil {
-		return nil, err
-	}
-	return w, nil
+	return &Horse{
+		cache: hc,
+	}, nil
 }
 
 // Create は新しい馬を登録します。hの中にあるIDがデフォルト値(=0)の時は新しいIDを付与します。
@@ -41,7 +36,7 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 		return err
 	}
 	if h.GetData().GetId() == 0 && h.GetData() != nil {
-		id, err := w.supplyNewId()
+		id, err := w.supplyNewID()
 		if err != nil {
 			return err
 		}
@@ -54,28 +49,15 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 	if err != nil {
 		return err
 	}
-	appended := append(oldRecs, h)
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	f, err := os.Create(w.filePath)
-	if err != nil {
-		return err
+	appended := append(oldRecs.GetHorseDetails(), h)
+	if err := w.cache.Set(&v1.HorseDetails{HorseDetails: appended}); err != nil {
+		return fmt.Errorf("failed to write, err=%w", err)
 	}
-	defer f.Close()
-	b, err := proto.Marshal(&v1.HorseDetails{HorseDetails: appended})
-	if err != nil {
-		return err
-	}
-	_, err = f.Write(b)
-	return err
+	return nil
 }
-func (w *Horse) GetAll() ([]*v1.HorseDetail, error) {
-	rawHds, err := w.readFromFile()
-	if err != nil {
-		return nil, err
-	}
-	hds := make([]*v1.HorseDetail, 0)
-	return append(hds, rawHds.HorseDetails...), nil
+
+func (w *Horse) GetAll() (*v1.HorseDetails, error) {
+	return w.cache.Get()
 }
 
 func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
@@ -83,7 +65,7 @@ func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
 	if err != nil {
 		return nil, err
 	}
-	for _, h := range hs {
+	for _, h := range hs.GetHorseDetails() {
 		if h.GetData().GetId() == id {
 			return h, nil
 		}
@@ -91,34 +73,19 @@ func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
 	return nil, notFound
 }
 
-func (w *Horse) readFromFile() (*v1.HorseDetails, error) {
-	w.mu.RLock()
-	defer w.mu.RUnlock()
-	data, err := os.ReadFile(w.filePath)
-	if err != nil {
-		return nil, err
-	}
-	hds := &v1.HorseDetails{}
-	err = proto.Unmarshal(data, hds)
-	if err != nil {
-		return nil, err
-	}
-	return hds, nil
-}
-
-// supplyNewId はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
-func (w *Horse) supplyNewId() (uint32, error) {
+// supplyNewID はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
+func (w *Horse) supplyNewID() (uint32, error) {
 	hds, err := w.GetAll()
 	if err != nil {
 		return 0, err
 	}
 	// レコードが存在しないときは1を返す。idは1スタート
-	if len(hds) < 1 {
+	if len(hds.GetHorseDetails()) < 1 {
 		return 1, nil
 	}
 	// hdsを降順にソート
-	sort.Slice(hds, func(i, j int) bool {
-		return hds[i].GetData().GetId() > hds[j].GetData().GetId()
+	sort.Slice(hds.GetHorseDetails(), func(i, j int) bool {
+		return hds.GetHorseDetails()[i].GetData().GetId() > hds.GetHorseDetails()[j].GetData().GetId()
 	})
-	return hds[0].GetData().GetId() + 1, nil
+	return hds.GetHorseDetails()[0].GetData().GetId() + 1, nil
 }

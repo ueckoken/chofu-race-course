@@ -2174,7 +2174,7 @@ func (m *RegisterHorseRequest) validate(all bool) error {
 	if !_RegisterHorseRequest_Name_Pattern.MatchString(m.GetName()) {
 		err := RegisterHorseRequestValidationError{
 			field:  "Name",
-			reason: "value does not match regex pattern \"^\\\\p{Katakana}{2,9}$\"",
+			reason: "value does not match regex pattern \"^\\\\p{Katakana}(\\\\p{Katakana}|ー){1,8}$\"",
 		}
 		if !all {
 			return err
@@ -2313,7 +2313,7 @@ var _ interface {
 	ErrorName() string
 } = RegisterHorseRequestValidationError{}
 
-var _RegisterHorseRequest_Name_Pattern = regexp.MustCompile("^\\p{Katakana}{2,9}$")
+var _RegisterHorseRequest_Name_Pattern = regexp.MustCompile("^\\p{Katakana}(\\p{Katakana}|ー){1,8}$")
 
 // Validate checks the field values on RegisterHorseResponse with the rules
 // defined in the proto definition for this message. If any rules are

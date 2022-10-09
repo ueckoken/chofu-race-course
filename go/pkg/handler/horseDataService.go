@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"fmt"
+	"log"
 
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
@@ -17,7 +18,7 @@ type Horse struct {
 
 type HorseStore interface {
 	Create(h *v1.HorseDetail) error
-	GetAll() ([]*v1.HorseDetail, error)
+	GetAll() (*v1.HorseDetails, error)
 	GetById(id uint32) (*v1.HorseDetail, error)
 }
 
@@ -43,7 +44,7 @@ func (h *Horse) AllHorseData(_ context.Context, req *connect_go.Request[v1.AllHo
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	hs := []*v1.Horse{}
-	for _, hd := range records {
+	for _, hd := range records.GetHorseDetails() {
 		hs = append(hs, horseDetail2horse(hd))
 	}
 	return &connect_go.Response[v1.AllHorseDataResponse]{Msg: &v1.AllHorseDataResponse{Horses: hs}}, nil
@@ -74,6 +75,7 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 	if err := h.store.Create(&hd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
+	log.Printf("add horse successful, %+v", &hd)
 	return &connect_go.Response[v1.RegisterHorseResponse]{Msg: &v1.RegisterHorseResponse{}}, nil
 }
 
