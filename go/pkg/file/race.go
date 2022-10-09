@@ -5,7 +5,6 @@ import (
 	"os"
 	"sort"
 	"sync"
-	"time"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 	"google.golang.org/protobuf/proto"
@@ -29,10 +28,6 @@ func NewRaceFile(path string) (*Race, error) {
 	return w, nil
 }
 
-// GetRange は引数に入れた時間を絞る。出走時間を対象とする。
-func (w *Race) GetRange(from, to time.Time) ([]*v1.RaceDetail, error) {
-	return nil, fmt.Errorf("not implemented")
-}
 func (w *Race) GetAll() ([]*v1.RaceDetail, error) {
 	rds := []*v1.RaceDetail{}
 	rawRds, err := w.readFromFile()
@@ -83,6 +78,77 @@ func (w *Race) Create(rd *v1.RaceDetail) error {
 	}
 	defer f.Close()
 	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: appended})
+	if err != nil {
+		return err
+	}
+	_, err = f.Write(b)
+	return err
+}
+
+func (w *Race) Delete(id uint32) error {
+	oldRecs, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	var deleteId int
+	isExist := false
+	for i, rec := range oldRecs {
+		if rec.GetData().GetId() == id {
+			deleteId = i
+			isExist = true
+			break
+		}
+	}
+	if !isExist {
+		return notFound
+	}
+	oldRecs[deleteId] = oldRecs[len(oldRecs)-1]
+	oldRecs[len(oldRecs)-1] = nil
+	updatedRecs := oldRecs[:len(oldRecs)-1]
+
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	f, err := os.Create(w.filepath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: updatedRecs})
+	if err != nil {
+		return err
+	}
+	_, err = f.Write(b)
+	return err
+}
+
+// Update は *v1.RaceDetail の Data フィールドにある *v1.Race の IDを主キーとして更新します
+func (w *Race) Update(rec *v1.RaceDetail) error {
+	if err := rec.ValidateAll(); err != nil {
+		return err
+	}
+	oldRecs, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	existRec := false
+	id := rec.GetData().GetId()
+	for i, oldRec := range oldRecs {
+		if oldRec.GetData().GetId() == id {
+			existRec = true
+			oldRecs[i] = rec
+			break
+		}
+	}
+	if !existRec {
+		return notFound
+	}
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	f, err := os.Create(w.filepath)
+	if err != nil {
+		return err
+	}
+	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: oldRecs})
 	if err != nil {
 		return err
 	}

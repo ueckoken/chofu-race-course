@@ -14,16 +14,17 @@ services:
       DATADIR: "/data"
       LISTEN_ADDR: ":8080"
       ADMIN_PASSWORD: "password"
+      CORS_ARROWED_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000"
     depends_on:
       - "volume-owner"
   volume-owner:
-    build:
-      context: dockerfiles
-      dockerfile: Dockerfile.VolumeChown
+    image: busybox:1.35
+    command: |
+      chown -R 65532:65532 /data
     volumes:
       - type: volume
         source: dbData
-        target: /app
+        target: /data
   client:
     build:
       context: client

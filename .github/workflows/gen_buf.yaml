@@ -9,6 +9,7 @@ on:
       - buf.*.yaml
     branches-ignore:
       - main
+      - deployment
 
 jobs:
   build:

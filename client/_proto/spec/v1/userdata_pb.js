@@ -332,21 +332,18 @@ export const RaceDataResponse = proto3.makeMessageType(
 );
 
 /**
- * @generated from message spec.v1.RangeRaceDataRequest
+ * @generated from message spec.v1.AllRaceDataRequest
  */
-export const RangeRaceDataRequest = proto3.makeMessageType(
-  "spec.v1.RangeRaceDataRequest",
-  () => [
-    { no: 1, name: "begin", kind: "message", T: Timestamp, opt: true },
-    { no: 2, name: "end", kind: "message", T: Timestamp, opt: true },
-  ],
+export const AllRaceDataRequest = proto3.makeMessageType(
+  "spec.v1.AllRaceDataRequest",
+  [],
 );
 
 /**
- * @generated from message spec.v1.RangeRaceDataResponse
+ * @generated from message spec.v1.AllRaceDataResponse
  */
-export const RangeRaceDataResponse = proto3.makeMessageType(
-  "spec.v1.RangeRaceDataResponse",
+export const AllRaceDataResponse = proto3.makeMessageType(
+  "spec.v1.AllRaceDataResponse",
   () => [
     { no: 1, name: "races", kind: "message", T: Race, repeated: true },
   ],

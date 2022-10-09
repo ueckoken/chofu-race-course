@@ -1,4 +1,0 @@
-FROM ubuntu:22.04
-# https://github.com/GoogleContainerTools/distroless/issues/235#issuecomment-503733486
-# 65532 means nonroot
-CMD ["chown","65532:65532","/app"]

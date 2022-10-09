@@ -1,13 +1,17 @@
 import { FC } from "react";
+import Head from "next/head";
 import Link from "next/link";
-import { RangeRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
+import { AllRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
 import { dateToHHmm } from "../util/time";
 
-const res = new RangeRaceDataResponse();
+const res = new AllRaceDataResponse();
 
 const TopPage: FC<{}> = () => {
     return (
         <>
+            <Head>
+                <title>調布競馬ポータル</title>
+            </Head>
             <h2>トップページ</h2>
             <h3>今日のレース</h3>
             <table>

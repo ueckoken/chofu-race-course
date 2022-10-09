@@ -29,7 +29,7 @@ spec:
               name: database
       containers:
         - name: api
-          image: ghcr.io/ueckoken/chofu-race-course-api:08e28a5-1665035394 # {"$imagepolicy": "api:api"}
+          image: ghcr.io/ueckoken/chofu-race-course-api:cb35ed2-1665152594 # {"$imagepolicy": "flux-system:api"}
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -45,6 +45,8 @@ spec:
                 secretKeyRef:
                   name: api-secret
                   key: adminPassword
+            - name: CORS_ARROWED_ORIGINS
+              value: "https://kra.azukibar.dev"
       volumes:
         - name: database
           persistentVolumeClaim:
@@ -68,8 +70,14 @@ kind: Ingress
 metadata:
   name: api
   namespace: api
+  # annotations:
+  #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - kraapi.azukibar.dev
+      secretName: api-tls
   rules:
     - host: kraapi.azukibar.dev
       http:
