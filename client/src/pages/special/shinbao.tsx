@@ -101,7 +101,7 @@ const SpecialPage: FC<{}> = () => {
                         <tr key={`horse-${e.id}`}>
                             <td>{e.order}</td>
                             <td>
-                                <Link href={`horse/${e.id}`}>
+                                <Link href={`../horse/${e.id}`}>
                                     <a>{e.name}</a>
                                 </Link>
                             </td>
