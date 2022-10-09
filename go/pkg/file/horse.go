@@ -3,6 +3,7 @@ package file
 import (
 	"fmt"
 	"sort"
+	"sync"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 )
@@ -10,6 +11,7 @@ import (
 // Horse contains file data and its cache
 type Horse struct {
 	cache *Persistent[*v1.HorseDetails]
+	mu    *sync.Mutex
 }
 
 // NewHorseFile creates something like file for persistent
@@ -20,6 +22,7 @@ func NewHorseFile(path string) (*Horse, error) {
 	}
 	return &Horse{
 		cache: hc,
+		mu:    &sync.Mutex{},
 	}, nil
 }
 
@@ -45,6 +48,8 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 	if err := h.ValidateAll(); err != nil {
 		return err
 	}
+	w.mu.Lock()
+	defer w.mu.Unlock()
 	oldRecs, err := w.GetAll()
 	if err != nil {
 		return err
@@ -77,6 +82,8 @@ func (w *Horse) Update(newHd *v1.HorseDetail) error {
 	if err := newHd.ValidateAll(); err != nil {
 		return err
 	}
+	w.mu.Lock()
+	defer w.mu.Unlock()
 	hds, err := w.GetAll()
 	if err != nil {
 		return err
