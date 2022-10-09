@@ -70,16 +70,16 @@ func TestAddNewHorse(t *testing.T) {
 
 	hds, err := h.GetAll()
 	assert.Nil(t, err)
-	assert.Len(t, hds, 1)
-	assert.Equal(t, uint32(1), hds[0].GetData().GetId(), "ID=0で作成したユーザは自動的にIDをインクリメントする")
-	assert.Equal(t, "ワン", hds[0].GetData().GetName(), "データが変化しない")
+	assert.Len(t, hds.GetHorseDetails(), 1)
+	assert.Equal(t, uint32(1), hds.GetHorseDetails()[0].GetData().GetId(), "ID=0で作成したユーザは自動的にIDをインクリメントする")
+	assert.Equal(t, "ワン", hds.GetHorseDetails()[0].GetData().GetName(), "データが変化しない")
 
 	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ワン"}, Owner: "オーナー"})
 	assert.NoError(t, err, "同一馬名は弾かない")
 
 	hds, err = h.GetAll()
 	assert.NoError(t, err)
-	assert.Len(t, hds, 2)
+	assert.Len(t, hds.GetHorseDetails(), 2)
 
 	hd, err := h.GetById(2)
 	assert.NoError(t, err)

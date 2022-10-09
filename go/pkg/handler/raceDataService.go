@@ -15,7 +15,7 @@ type Race struct {
 }
 
 type RaceStore interface {
-	GetAll() ([]*v1.RaceDetail, error)
+	GetAll() (*v1.RaceDetails, error)
 	GetById(id uint32) (*v1.RaceDetail, error)
 	Create(*v1.RaceDetail) error
 }
@@ -32,7 +32,7 @@ func (r *Race) AllRaceData(_ context.Context, req *connect_go.Request[v1.AllRace
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.AllRaceDataResponse]{Msg: &v1.AllRaceDataResponse{Races: raceDetails2Races(rds)}}, nil
+	return &connect_go.Response[v1.AllRaceDataResponse]{Msg: &v1.AllRaceDataResponse{Races: raceDetails2Races(rds.GetRaceDetails())}}, nil
 }
 
 func (r *Race) RaceData(_ context.Context, req *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {

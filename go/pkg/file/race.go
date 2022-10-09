@@ -2,46 +2,37 @@ package file
 
 import (
 	"fmt"
-	"os"
 	"sort"
-	"sync"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
-	"google.golang.org/protobuf/proto"
 )
 
+// Race contains file data and its cache
 type Race struct {
-	filepath string
-	mu       *sync.RWMutex
+	cache *Persistent[*v1.RaceDetails]
 }
 
+// NewRaceFile creates something like file for persistent
 func NewRaceFile(path string) (*Race, error) {
-	w := &Race{
-		filepath: path,
-		mu:       &sync.RWMutex{},
+	hc, err := NewPersistentStruct[*v1.RaceDetails](path)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create horseCacheStruct, err=%w", err)
 	}
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if err := createFileIfNotExist(w.filepath); err != nil {
-		return nil, err
-	}
-	return w, nil
+	return &Race{
+		cache: hc,
+	}, nil
 }
 
-func (w *Race) GetAll() ([]*v1.RaceDetail, error) {
-	rds := []*v1.RaceDetail{}
-	rawRds, err := w.readFromFile()
-	if err != nil {
-		return nil, err
-	}
-	return append(rds, rawRds.GetRaceDetails()...), nil
+func (w *Race) GetAll() (*v1.RaceDetails, error) {
+	return w.cache.Get()
 }
+
 func (w *Race) GetById(id uint32) (*v1.RaceDetail, error) {
 	rds, err := w.GetAll()
 	if err != nil {
 		return nil, err
 	}
-	for _, rd := range rds {
+	for _, rd := range rds.GetRaceDetails() {
 		if rd.GetData().GetId() == id {
 			return rd, nil
 		}
@@ -69,27 +60,19 @@ func (w *Race) Create(rd *v1.RaceDetail) error {
 	if err != nil {
 		return err
 	}
-	appended := append(oldRecs, rd)
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	f, err := os.Create(w.filepath)
-	if err != nil {
-		return err
+	appended := append(oldRecs.GetRaceDetails(), rd)
+	if err := w.cache.Set(&v1.RaceDetails{RaceDetails: appended}); err != nil {
+		return fmt.Errorf("failed to write, err=%w", err)
 	}
-	defer f.Close()
-	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: appended})
-	if err != nil {
-		return err
-	}
-	_, err = f.Write(b)
-	return err
+	return nil
 }
 
 func (w *Race) Delete(id uint32) error {
-	oldRecs, err := w.GetAll()
+	oldRecs2, err := w.GetAll()
 	if err != nil {
 		return err
 	}
+	oldRecs := oldRecs2.GetRaceDetails()
 	var deleteId int
 	isExist := false
 	for i, rec := range oldRecs {
@@ -106,18 +89,7 @@ func (w *Race) Delete(id uint32) error {
 	oldRecs[len(oldRecs)-1] = nil
 	updatedRecs := oldRecs[:len(oldRecs)-1]
 
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	f, err := os.Create(w.filepath)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: updatedRecs})
-	if err != nil {
-		return err
-	}
-	_, err = f.Write(b)
+	w.cache.Set(&v1.RaceDetails{RaceDetails: updatedRecs})
 	return err
 }
 
@@ -126,10 +98,11 @@ func (w *Race) Update(rec *v1.RaceDetail) error {
 	if err := rec.ValidateAll(); err != nil {
 		return err
 	}
-	oldRecs, err := w.GetAll()
+	oldRecs2, err := w.GetAll()
 	if err != nil {
 		return err
 	}
+	oldRecs := oldRecs2.GetRaceDetails()
 	existRec := false
 	id := rec.GetData().GetId()
 	for i, oldRec := range oldRecs {
@@ -142,38 +115,16 @@ func (w *Race) Update(rec *v1.RaceDetail) error {
 	if !existRec {
 		return notFound
 	}
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	f, err := os.Create(w.filepath)
-	if err != nil {
+	if err := w.cache.Set(&v1.RaceDetails{RaceDetails: oldRecs}); err != nil {
 		return err
 	}
-	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: oldRecs})
-	if err != nil {
-		return err
-	}
-	_, err = f.Write(b)
-	return err
-}
-
-func (w *Race) readFromFile() (*v1.RaceDetails, error) {
-	w.mu.RLock()
-	defer w.mu.RUnlock()
-	data, err := os.ReadFile(w.filepath)
-	if err != nil {
-		return nil, err
-	}
-	rds := &v1.RaceDetails{}
-	err = proto.Unmarshal(data, rds)
-	if err != nil {
-		return nil, err
-	}
-	return rds, nil
+	return nil
 }
 
 // supplyNewId はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
 func (w *Race) supplyNewId() (uint32, error) {
-	rs, err := w.GetAll()
+	rs2, err := w.GetAll()
+	rs := rs2.GetRaceDetails()
 	if err != nil {
 		return 0, err
 	}
