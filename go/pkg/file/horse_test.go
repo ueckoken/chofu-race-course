@@ -42,6 +42,24 @@ func TestCreate(t *testing.T) {
 	assert.Error(t, err, "馬名はカタカナ9文字以内である必要がある")
 }
 
+func BenchmarkHorseCreate(b *testing.B) {
+	h, _ := NewHorseFile(filepath.Join(b.TempDir(), "test"))
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: uint32(i + 1), Name: "ウマメイ"}, Owner: "ああ"})
+	}
+}
+func BenchmarkHorseGetAll(b *testing.B) {
+	h, _ := NewHorseFile(filepath.Join(b.TempDir(), "test"))
+	for i := 0; i < b.N; i++ {
+		h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: uint32(i + 1), Name: "ウマメイ"}, Owner: "ああ"})
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		h.GetAll()
+	}
+}
+
 func TestAddNewHorse(t *testing.T) {
 	h, err := NewHorseFile(filepath.Join(t.TempDir(), "test-new-horse"))
 	assert.NotNil(t, h)
