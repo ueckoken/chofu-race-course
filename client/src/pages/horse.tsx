@@ -21,13 +21,15 @@ const HorsePage: FC<Props> = ({ json }) => {
             </Head>
             <h2>競争馬一覧</h2>
             <ul>
-                {data!.horses.map((horseData) => (
-                    <li key={`horse${horseData.id}`}>
-                        <Link href={`horse/${horseData.id}`}>
-                            <a>{horseData.name}</a>
-                        </Link>
-                    </li>
-                ))}
+                {data!.horses
+                    .sort((a, b) => a.id - b.id)
+                    .map((horseData) => (
+                        <li key={`horse${horseData.id}`}>
+                            <Link href={`horse/${horseData.id}`}>
+                                <a>{horseData.name}</a>
+                            </Link>
+                        </li>
+                    ))}
             </ul>
         </>
     );
