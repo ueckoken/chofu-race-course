@@ -25,7 +25,7 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
     return (
         <>
             <Head>
-                <title>{`${horseData!.data!.name} | 調布競馬ポータル`}</title>
+                <title>{`${horse.data!.name} | 調布競馬ポータル`}</title>
             </Head>
             <h2>{horse.data!.name}</h2>
             <dl>
