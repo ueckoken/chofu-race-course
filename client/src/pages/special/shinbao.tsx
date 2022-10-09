@@ -1,7 +1,64 @@
 import { FC } from "react";
+import Link from "next/link";
 import Head from "next/head";
 
 const SpecialPage: FC<{}> = () => {
+    const data = [
+        {
+            order: 1,
+            name: "ラズリアンクロス",
+            id: 9,
+            point: 12,
+        },
+        {
+            order: 2,
+            name: "エイシャオラー",
+            id: 3,
+            point: 2,
+        },
+        {
+            order: 2,
+            name: "オゼハカイザイダン",
+            id: 8,
+            point: 2,
+        },
+        {
+            order: 2,
+            name: "オタクカエルヨー",
+            id: 4,
+            point: 2,
+        },
+        {
+            order: 2,
+            name: "サクラモッチリーン",
+            id: 7,
+            point: 2,
+        },
+        {
+            order: 2,
+            name: "ネイバオキリコミ",
+            id: 2,
+            point: 2,
+        },
+        {
+            order: 2,
+            name: "ハリボテエレジー",
+            id: 6,
+            point: 2,
+        },
+        {
+            order: 2,
+            name: "ライラックアロー",
+            id: 10,
+            point: 2,
+        },
+        {
+            order: 2,
+            name: "レモナーノナレハテ",
+            id: 1,
+            point: 2,
+        },
+    ];
     return (
         <>
             <Head>
@@ -40,51 +97,17 @@ const SpecialPage: FC<{}> = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ラズリアンクロス</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>エイシャオラー</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>オゼハカイザイダン</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>オタクカエルヨー</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>サクラモッチリーン</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>ネイバオキリコミ</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>ハリボテエレジー</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>ライラックアロー</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>レモナーノナレハテ</td>
-                        <td>2</td>
-                    </tr>
+                    {data.map((e) => (
+                        <tr key={`horse-${e.id}`}>
+                            <td>{e.order}</td>
+                            <td>
+                                <Link href={`horse/${e.id}`}>
+                                    <a>{e.name}</a>
+                                </Link>
+                            </td>
+                            <td>{e?.point}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
             <p>合計点の平均を得点とする。着順ごとの獲得点は以下の通り。</p>
