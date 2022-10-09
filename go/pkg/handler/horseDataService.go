@@ -83,7 +83,26 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 }
 
 func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error) {
-	return nil, nil
+	if err := req.Msg.ValidateAll(); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
+	}
+	hd, err := h.store.GetById(req.Msg.GetId())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	if req.Msg.GetName() != "" {
+		hd.Data.Name = req.Msg.GetName()
+	}
+	if req.Msg.GetOwner() != "" {
+		hd.Owner = req.Msg.GetOwner()
+	}
+	if req.Msg.GetImage() != nil {
+		hd.Image = req.Msg.GetImage()
+	}
+	if err := h.store.Update(hd); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	return &connect_go.Response[v1.EditHorseResponse]{}, nil
 }
 func horseDetail2horse(hd *v1.HorseDetail) *v1.Horse {
 	return &v1.Horse{Id: hd.Data.GetId(), Name: hd.Data.GetName()}
