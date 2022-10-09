@@ -2,5 +2,5 @@ resources:
   - api-server
   - nextjs
   - helm
-  - image-automation
+  # - image-automation
   - cert-manager

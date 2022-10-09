@@ -70,8 +70,8 @@ kind: Ingress
 metadata:
   name: api
   namespace: api
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  # annotations:
+  #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
   tls:
