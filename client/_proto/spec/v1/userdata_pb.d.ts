@@ -599,6 +599,68 @@ export declare class RegisterHorseResponse extends Message<RegisterHorseResponse
 }
 
 /**
+ * 非nullで渡された値を更新する
+ *
+ * @generated from message spec.v1.EditHorseRequest
+ */
+export declare class EditHorseRequest extends Message<EditHorseRequest> {
+  /**
+   * 対象を指定するため必須
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * @generated from field: optional string name = 2;
+   */
+  name?: string;
+
+  /**
+   * @generated from field: optional string owner = 3;
+   */
+  owner?: string;
+
+  /**
+   * @generated from field: optional spec.v1.HorseDetail.Image image = 4;
+   */
+  image?: HorseDetail_Image;
+
+  constructor(data?: PartialMessage<EditHorseRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.EditHorseRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditHorseRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditHorseRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditHorseRequest;
+
+  static equals(a: EditHorseRequest | PlainMessage<EditHorseRequest> | undefined, b: EditHorseRequest | PlainMessage<EditHorseRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message spec.v1.EditHorseResponse
+ */
+export declare class EditHorseResponse extends Message<EditHorseResponse> {
+  constructor(data?: PartialMessage<EditHorseResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.EditHorseResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditHorseResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditHorseResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditHorseResponse;
+
+  static equals(a: EditHorseResponse | PlainMessage<EditHorseResponse> | undefined, b: EditHorseResponse | PlainMessage<EditHorseResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message spec.v1.Race
  */
 export declare class Race extends Message<Race> {

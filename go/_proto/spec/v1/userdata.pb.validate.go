@@ -2417,6 +2417,284 @@ var _ interface {
 	ErrorName() string
 } = RegisterHorseResponseValidationError{}
 
+// Validate checks the field values on EditHorseRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *EditHorseRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EditHorseRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// EditHorseRequestMultiError, or nil if none found.
+func (m *EditHorseRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EditHorseRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() < 1 {
+		err := EditHorseRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.Name != nil {
+
+		if !_EditHorseRequest_Name_Pattern.MatchString(m.GetName()) {
+			err := EditHorseRequestValidationError{
+				field:  "Name",
+				reason: "value does not match regex pattern \"^\\\\p{Katakana}(\\\\p{Katakana}|ー){1,8}$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Owner != nil {
+
+		if l := utf8.RuneCountInString(m.GetOwner()); l < 2 || l > 256 {
+			err := EditHorseRequestValidationError{
+				field:  "Owner",
+				reason: "value length must be between 2 and 256 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Image != nil {
+
+		if all {
+			switch v := interface{}(m.GetImage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EditHorseRequestValidationError{
+						field:  "Image",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EditHorseRequestValidationError{
+						field:  "Image",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetImage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EditHorseRequestValidationError{
+					field:  "Image",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return EditHorseRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// EditHorseRequestMultiError is an error wrapping multiple validation errors
+// returned by EditHorseRequest.ValidateAll() if the designated constraints
+// aren't met.
+type EditHorseRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EditHorseRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EditHorseRequestMultiError) AllErrors() []error { return m }
+
+// EditHorseRequestValidationError is the validation error returned by
+// EditHorseRequest.Validate if the designated constraints aren't met.
+type EditHorseRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EditHorseRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EditHorseRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EditHorseRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EditHorseRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EditHorseRequestValidationError) ErrorName() string { return "EditHorseRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EditHorseRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEditHorseRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EditHorseRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EditHorseRequestValidationError{}
+
+var _EditHorseRequest_Name_Pattern = regexp.MustCompile("^\\p{Katakana}(\\p{Katakana}|ー){1,8}$")
+
+// Validate checks the field values on EditHorseResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *EditHorseResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EditHorseResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// EditHorseResponseMultiError, or nil if none found.
+func (m *EditHorseResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EditHorseResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return EditHorseResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// EditHorseResponseMultiError is an error wrapping multiple validation errors
+// returned by EditHorseResponse.ValidateAll() if the designated constraints
+// aren't met.
+type EditHorseResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EditHorseResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EditHorseResponseMultiError) AllErrors() []error { return m }
+
+// EditHorseResponseValidationError is the validation error returned by
+// EditHorseResponse.Validate if the designated constraints aren't met.
+type EditHorseResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EditHorseResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EditHorseResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EditHorseResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EditHorseResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EditHorseResponseValidationError) ErrorName() string {
+	return "EditHorseResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e EditHorseResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEditHorseResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EditHorseResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EditHorseResponseValidationError{}
+
 // Validate checks the field values on Race with the rules defined in the proto
 // definition for this message. If any rules are violated, the first error
 // encountered is returned, or nil if there are no violations.

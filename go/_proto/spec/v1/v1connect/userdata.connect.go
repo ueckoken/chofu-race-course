@@ -147,6 +147,8 @@ type HorseDataServiceClient interface {
 	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
 	// 要Admin認証
 	RegisterHorse(context.Context, *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error)
+	// 要Admin認証
+	EditHorse(context.Context, *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error)
 }
 
 // NewHorseDataServiceClient constructs a client for the spec.v1.HorseDataService service. By
@@ -174,6 +176,11 @@ func NewHorseDataServiceClient(httpClient connect_go.HTTPClient, baseURL string,
 			baseURL+"/spec.v1.HorseDataService/RegisterHorse",
 			opts...,
 		),
+		editHorse: connect_go.NewClient[v1.EditHorseRequest, v1.EditHorseResponse](
+			httpClient,
+			baseURL+"/spec.v1.HorseDataService/EditHorse",
+			opts...,
+		),
 	}
 }
 
@@ -182,6 +189,7 @@ type horseDataServiceClient struct {
 	horseData     *connect_go.Client[v1.HorseDataRequest, v1.HorseDataResponse]
 	allHorseData  *connect_go.Client[v1.AllHorseDataRequest, v1.AllHorseDataResponse]
 	registerHorse *connect_go.Client[v1.RegisterHorseRequest, v1.RegisterHorseResponse]
+	editHorse     *connect_go.Client[v1.EditHorseRequest, v1.EditHorseResponse]
 }
 
 // HorseData calls spec.v1.HorseDataService.HorseData.
@@ -199,12 +207,19 @@ func (c *horseDataServiceClient) RegisterHorse(ctx context.Context, req *connect
 	return c.registerHorse.CallUnary(ctx, req)
 }
 
+// EditHorse calls spec.v1.HorseDataService.EditHorse.
+func (c *horseDataServiceClient) EditHorse(ctx context.Context, req *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error) {
+	return c.editHorse.CallUnary(ctx, req)
+}
+
 // HorseDataServiceHandler is an implementation of the spec.v1.HorseDataService service.
 type HorseDataServiceHandler interface {
 	HorseData(context.Context, *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error)
 	AllHorseData(context.Context, *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error)
 	// 要Admin認証
 	RegisterHorse(context.Context, *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error)
+	// 要Admin認証
+	EditHorse(context.Context, *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error)
 }
 
 // NewHorseDataServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -229,6 +244,11 @@ func NewHorseDataServiceHandler(svc HorseDataServiceHandler, opts ...connect_go.
 		svc.RegisterHorse,
 		opts...,
 	))
+	mux.Handle("/spec.v1.HorseDataService/EditHorse", connect_go.NewUnaryHandler(
+		"/spec.v1.HorseDataService/EditHorse",
+		svc.EditHorse,
+		opts...,
+	))
 	return "/spec.v1.HorseDataService/", mux
 }
 
@@ -245,6 +265,10 @@ func (UnimplementedHorseDataServiceHandler) AllHorseData(context.Context, *conne
 
 func (UnimplementedHorseDataServiceHandler) RegisterHorse(context.Context, *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.HorseDataService.RegisterHorse is not implemented"))
+}
+
+func (UnimplementedHorseDataServiceHandler) EditHorse(context.Context, *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.HorseDataService.EditHorse is not implemented"))
 }
 
 // RaceDataServiceClient is a client for the spec.v1.RaceDataService service.
