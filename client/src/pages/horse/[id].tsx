@@ -8,7 +8,7 @@ import { raceOrderToString } from "../../util/util";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { transport } from "../../util/use-client";
-import { CodeGeneratorResponse_File, JsonValue } from "@bufbuild/protobuf";
+import { JsonValue } from "@bufbuild/protobuf";
 
 interface Params extends ParsedUrlQuery {
     id: string;
