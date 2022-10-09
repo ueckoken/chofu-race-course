@@ -70,8 +70,14 @@ kind: Ingress
 metadata:
   name: api
   namespace: api
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - kraapi.azukibar.dev
+      secretName: api-tls
   rules:
     - host: kraapi.azukibar.dev
       http:
