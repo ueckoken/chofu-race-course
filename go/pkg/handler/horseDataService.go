@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"fmt"
+	"log"
 
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
@@ -74,6 +75,7 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 	if err := h.store.Create(&hd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
+	log.Printf("add horse successful, %+v", &hd)
 	return &connect_go.Response[v1.RegisterHorseResponse]{Msg: &v1.RegisterHorseResponse{}}, nil
 }
 
