@@ -237,6 +237,30 @@ export const RegisterHorseResponse = proto3.makeMessageType(
 );
 
 /**
+ * 非nullで渡された値を更新する
+ *
+ * @generated from message spec.v1.EditHorseRequest
+ */
+export const EditHorseRequest = proto3.makeMessageType(
+  "spec.v1.EditHorseRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "image", kind: "message", T: HorseDetail_Image, opt: true },
+    { no: 5, name: "admin_jwt", kind: "message", T: JWT },
+  ],
+);
+
+/**
+ * @generated from message spec.v1.EditHorseResponse
+ */
+export const EditHorseResponse = proto3.makeMessageType(
+  "spec.v1.EditHorseResponse",
+  [],
+);
+
+/**
  * @generated from message spec.v1.Race
  */
 export const Race = proto3.makeMessageType(

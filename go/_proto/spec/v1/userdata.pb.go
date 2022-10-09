@@ -122,7 +122,7 @@ func (x RaceOrder_NoteType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use RaceOrder_NoteType.Descriptor instead.
 func (RaceOrder_NoteType) EnumDescriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{19, 0}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{21, 0}
 }
 
 // ユーザを表現する型
@@ -1037,6 +1037,126 @@ func (*RegisterHorseResponse) Descriptor() ([]byte, []int) {
 	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{17}
 }
 
+// 非nullで渡された値を更新する
+type EditHorseRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// 対象を指定するため必須
+	Id    uint32             `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name  *string            `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	Owner *string            `protobuf:"bytes,3,opt,name=owner,proto3,oneof" json:"owner,omitempty"`
+	Image *HorseDetail_Image `protobuf:"bytes,4,opt,name=image,proto3,oneof" json:"image,omitempty"`
+	// admin JWT
+	AdminJwt *JWT `protobuf:"bytes,5,opt,name=admin_jwt,json=adminJwt,proto3" json:"admin_jwt,omitempty"`
+}
+
+func (x *EditHorseRequest) Reset() {
+	*x = EditHorseRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_spec_v1_userdata_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EditHorseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EditHorseRequest) ProtoMessage() {}
+
+func (x *EditHorseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_spec_v1_userdata_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EditHorseRequest.ProtoReflect.Descriptor instead.
+func (*EditHorseRequest) Descriptor() ([]byte, []int) {
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *EditHorseRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *EditHorseRequest) GetName() string {
+	if x != nil && x.Name != nil {
+		return *x.Name
+	}
+	return ""
+}
+
+func (x *EditHorseRequest) GetOwner() string {
+	if x != nil && x.Owner != nil {
+		return *x.Owner
+	}
+	return ""
+}
+
+func (x *EditHorseRequest) GetImage() *HorseDetail_Image {
+	if x != nil {
+		return x.Image
+	}
+	return nil
+}
+
+func (x *EditHorseRequest) GetAdminJwt() *JWT {
+	if x != nil {
+		return x.AdminJwt
+	}
+	return nil
+}
+
+type EditHorseResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *EditHorseResponse) Reset() {
+	*x = EditHorseResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_spec_v1_userdata_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EditHorseResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EditHorseResponse) ProtoMessage() {}
+
+func (x *EditHorseResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_spec_v1_userdata_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EditHorseResponse.ProtoReflect.Descriptor instead.
+func (*EditHorseResponse) Descriptor() ([]byte, []int) {
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{19}
+}
+
 type Race struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1053,7 +1173,7 @@ type Race struct {
 func (x *Race) Reset() {
 	*x = Race{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[18]
+		mi := &file_spec_v1_userdata_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1066,7 +1186,7 @@ func (x *Race) String() string {
 func (*Race) ProtoMessage() {}
 
 func (x *Race) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[18]
+	mi := &file_spec_v1_userdata_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1079,7 +1199,7 @@ func (x *Race) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Race.ProtoReflect.Descriptor instead.
 func (*Race) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{18}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *Race) GetId() uint32 {
@@ -1132,7 +1252,7 @@ type RaceOrder struct {
 func (x *RaceOrder) Reset() {
 	*x = RaceOrder{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[19]
+		mi := &file_spec_v1_userdata_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1145,7 +1265,7 @@ func (x *RaceOrder) String() string {
 func (*RaceOrder) ProtoMessage() {}
 
 func (x *RaceOrder) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[19]
+	mi := &file_spec_v1_userdata_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1158,7 +1278,7 @@ func (x *RaceOrder) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RaceOrder.ProtoReflect.Descriptor instead.
 func (*RaceOrder) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{19}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{21}
 }
 
 func (m *RaceOrder) GetOrderOneof() isRaceOrder_OrderOneof {
@@ -1214,7 +1334,7 @@ type RaceDetail struct {
 func (x *RaceDetail) Reset() {
 	*x = RaceDetail{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[20]
+		mi := &file_spec_v1_userdata_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1227,7 +1347,7 @@ func (x *RaceDetail) String() string {
 func (*RaceDetail) ProtoMessage() {}
 
 func (x *RaceDetail) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[20]
+	mi := &file_spec_v1_userdata_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1240,7 +1360,7 @@ func (x *RaceDetail) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RaceDetail.ProtoReflect.Descriptor instead.
 func (*RaceDetail) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{20}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *RaceDetail) GetData() *Race {
@@ -1289,7 +1409,7 @@ type RaceDetails struct {
 func (x *RaceDetails) Reset() {
 	*x = RaceDetails{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[21]
+		mi := &file_spec_v1_userdata_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1302,7 +1422,7 @@ func (x *RaceDetails) String() string {
 func (*RaceDetails) ProtoMessage() {}
 
 func (x *RaceDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[21]
+	mi := &file_spec_v1_userdata_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1315,7 +1435,7 @@ func (x *RaceDetails) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RaceDetails.ProtoReflect.Descriptor instead.
 func (*RaceDetails) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{21}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *RaceDetails) GetRaceDetails() []*RaceDetail {
@@ -1336,7 +1456,7 @@ type RaceDataRequest struct {
 func (x *RaceDataRequest) Reset() {
 	*x = RaceDataRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[22]
+		mi := &file_spec_v1_userdata_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1349,7 +1469,7 @@ func (x *RaceDataRequest) String() string {
 func (*RaceDataRequest) ProtoMessage() {}
 
 func (x *RaceDataRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[22]
+	mi := &file_spec_v1_userdata_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1362,7 +1482,7 @@ func (x *RaceDataRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RaceDataRequest.ProtoReflect.Descriptor instead.
 func (*RaceDataRequest) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{22}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *RaceDataRequest) GetId() uint32 {
@@ -1383,7 +1503,7 @@ type RaceDataResponse struct {
 func (x *RaceDataResponse) Reset() {
 	*x = RaceDataResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[23]
+		mi := &file_spec_v1_userdata_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1396,7 +1516,7 @@ func (x *RaceDataResponse) String() string {
 func (*RaceDataResponse) ProtoMessage() {}
 
 func (x *RaceDataResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[23]
+	mi := &file_spec_v1_userdata_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1409,7 +1529,7 @@ func (x *RaceDataResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RaceDataResponse.ProtoReflect.Descriptor instead.
 func (*RaceDataResponse) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{23}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *RaceDataResponse) GetRace() *RaceDetail {
@@ -1428,7 +1548,7 @@ type AllRaceDataRequest struct {
 func (x *AllRaceDataRequest) Reset() {
 	*x = AllRaceDataRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[24]
+		mi := &file_spec_v1_userdata_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1441,7 +1561,7 @@ func (x *AllRaceDataRequest) String() string {
 func (*AllRaceDataRequest) ProtoMessage() {}
 
 func (x *AllRaceDataRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[24]
+	mi := &file_spec_v1_userdata_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1454,7 +1574,7 @@ func (x *AllRaceDataRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AllRaceDataRequest.ProtoReflect.Descriptor instead.
 func (*AllRaceDataRequest) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{24}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{26}
 }
 
 type AllRaceDataResponse struct {
@@ -1468,7 +1588,7 @@ type AllRaceDataResponse struct {
 func (x *AllRaceDataResponse) Reset() {
 	*x = AllRaceDataResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[25]
+		mi := &file_spec_v1_userdata_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1481,7 +1601,7 @@ func (x *AllRaceDataResponse) String() string {
 func (*AllRaceDataResponse) ProtoMessage() {}
 
 func (x *AllRaceDataResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[25]
+	mi := &file_spec_v1_userdata_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1494,7 +1614,7 @@ func (x *AllRaceDataResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AllRaceDataResponse.ProtoReflect.Descriptor instead.
 func (*AllRaceDataResponse) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{25}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *AllRaceDataResponse) GetRaces() []*Race {
@@ -1525,7 +1645,7 @@ type RegisterRaceRequest struct {
 func (x *RegisterRaceRequest) Reset() {
 	*x = RegisterRaceRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[26]
+		mi := &file_spec_v1_userdata_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1538,7 +1658,7 @@ func (x *RegisterRaceRequest) String() string {
 func (*RegisterRaceRequest) ProtoMessage() {}
 
 func (x *RegisterRaceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[26]
+	mi := &file_spec_v1_userdata_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1551,7 +1671,7 @@ func (x *RegisterRaceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterRaceRequest.ProtoReflect.Descriptor instead.
 func (*RegisterRaceRequest) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{26}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *RegisterRaceRequest) GetName() string {
@@ -1598,7 +1718,7 @@ type RegisterRaceResponse struct {
 func (x *RegisterRaceResponse) Reset() {
 	*x = RegisterRaceResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[27]
+		mi := &file_spec_v1_userdata_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1611,7 +1731,7 @@ func (x *RegisterRaceResponse) String() string {
 func (*RegisterRaceResponse) ProtoMessage() {}
 
 func (x *RegisterRaceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[27]
+	mi := &file_spec_v1_userdata_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1624,7 +1744,7 @@ func (x *RegisterRaceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterRaceResponse.ProtoReflect.Descriptor instead.
 func (*RegisterRaceResponse) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{27}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{29}
 }
 
 type VoteRequest struct {
@@ -1642,7 +1762,7 @@ type VoteRequest struct {
 func (x *VoteRequest) Reset() {
 	*x = VoteRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[28]
+		mi := &file_spec_v1_userdata_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1655,7 +1775,7 @@ func (x *VoteRequest) String() string {
 func (*VoteRequest) ProtoMessage() {}
 
 func (x *VoteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[28]
+	mi := &file_spec_v1_userdata_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1668,7 +1788,7 @@ func (x *VoteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VoteRequest.ProtoReflect.Descriptor instead.
 func (*VoteRequest) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{28}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *VoteRequest) GetRace() uint32 {
@@ -1701,7 +1821,7 @@ type VoteResponse struct {
 func (x *VoteResponse) Reset() {
 	*x = VoteResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[29]
+		mi := &file_spec_v1_userdata_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1714,7 +1834,7 @@ func (x *VoteResponse) String() string {
 func (*VoteResponse) ProtoMessage() {}
 
 func (x *VoteResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[29]
+	mi := &file_spec_v1_userdata_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1727,7 +1847,7 @@ func (x *VoteResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VoteResponse.ProtoReflect.Descriptor instead.
 func (*VoteResponse) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{29}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{31}
 }
 
 type HorseDetail_Image struct {
@@ -1744,7 +1864,7 @@ type HorseDetail_Image struct {
 func (x *HorseDetail_Image) Reset() {
 	*x = HorseDetail_Image{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[30]
+		mi := &file_spec_v1_userdata_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1757,7 +1877,7 @@ func (x *HorseDetail_Image) String() string {
 func (*HorseDetail_Image) ProtoMessage() {}
 
 func (x *HorseDetail_Image) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[30]
+	mi := &file_spec_v1_userdata_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1804,7 +1924,7 @@ type HorseDetail_History struct {
 func (x *HorseDetail_History) Reset() {
 	*x = HorseDetail_History{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[31]
+		mi := &file_spec_v1_userdata_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1817,7 +1937,7 @@ func (x *HorseDetail_History) String() string {
 func (*HorseDetail_History) ProtoMessage() {}
 
 func (x *HorseDetail_History) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[31]
+	mi := &file_spec_v1_userdata_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1868,7 +1988,7 @@ type RaceDetail_Member struct {
 func (x *RaceDetail_Member) Reset() {
 	*x = RaceDetail_Member{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_spec_v1_userdata_proto_msgTypes[32]
+		mi := &file_spec_v1_userdata_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1881,7 +2001,7 @@ func (x *RaceDetail_Member) String() string {
 func (*RaceDetail_Member) ProtoMessage() {}
 
 func (x *RaceDetail_Member) ProtoReflect() protoreflect.Message {
-	mi := &file_spec_v1_userdata_proto_msgTypes[32]
+	mi := &file_spec_v1_userdata_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1894,7 +2014,7 @@ func (x *RaceDetail_Member) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RaceDetail_Member.ProtoReflect.Descriptor instead.
 func (*RaceDetail_Member) Descriptor() ([]byte, []int) {
-	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{20, 0}
+	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{22, 0}
 }
 
 func (x *RaceDetail_Member) GetOrder() *RaceOrder {
@@ -2042,6 +2162,22 @@ var file_spec_v1_userdata_proto_rawDesc = []byte{
 	0x31, 0x2e, 0x4a, 0x57, 0x54, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52,
 	0x08, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x4a, 0x77, 0x74, 0x22, 0x17, 0x0a, 0x15, 0x52, 0x65, 0x67,
 	0x69, 0x73, 0x74, 0x65, 0x72, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0xe8, 0x01, 0x0a, 0x10, 0x45, 0x64, 0x69, 0x74, 0x48, 0x6f, 0x72, 0x73, 0x65,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0d, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x2a, 0x02, 0x28, 0x01, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x17, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00,
+	0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x88, 0x01, 0x01, 0x12, 0x19, 0x0a, 0x05, 0x6f, 0x77, 0x6e,
+	0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x01, 0x52, 0x05, 0x6f, 0x77, 0x6e, 0x65,
+	0x72, 0x88, 0x01, 0x01, 0x12, 0x35, 0x0a, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x48, 0x6f,
+	0x72, 0x73, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x2e, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x48,
+	0x02, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x88, 0x01, 0x01, 0x12, 0x33, 0x0a, 0x09, 0x61,
+	0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x6a, 0x77, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c,
+	0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x4a, 0x57, 0x54, 0x42, 0x08, 0xfa, 0x42,
+	0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x08, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x4a, 0x77, 0x74,
+	0x42, 0x07, 0x0a, 0x05, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x6f, 0x77,
+	0x6e, 0x65, 0x72, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x22, 0x13, 0x0a,
+	0x11, 0x45, 0x64, 0x69, 0x74, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
 	0x73, 0x65, 0x22, 0xb8, 0x01, 0x0a, 0x04, 0x52, 0x61, 0x63, 0x65, 0x12, 0x17, 0x0a, 0x02, 0x69,
 	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x2a, 0x02, 0x28, 0x01,
 	0x52, 0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01,
@@ -2150,7 +2286,7 @@ var file_spec_v1_userdata_proto_rawDesc = []byte{
 	0x69, 0x6e, 0x41, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x1a, 0x1d, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e,
 	0x41, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
-	0x00, 0x32, 0xf9, 0x01, 0x0a, 0x10, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x53,
+	0x00, 0x32, 0xbf, 0x02, 0x0a, 0x10, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x53,
 	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x44, 0x0a, 0x09, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x44,
 	0x61, 0x74, 0x61, 0x12, 0x19, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x48, 0x6f,
 	0x72, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a,
@@ -2165,31 +2301,35 @@ var file_spec_v1_userdata_proto_rawDesc = []byte{
 	0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x48,
 	0x6f, 0x72, 0x73, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e, 0x73, 0x70,
 	0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x48, 0x6f,
-	0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x32, 0xef, 0x01,
-	0x0a, 0x0f, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x12, 0x4a, 0x0a, 0x0b, 0x41, 0x6c, 0x6c, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61,
-	0x12, 0x1b, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x6c, 0x6c, 0x52, 0x61,
-	0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e,
-	0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x6c, 0x6c, 0x52, 0x61, 0x63, 0x65, 0x44,
-	0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x41, 0x0a,
-	0x08, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x18, 0x2e, 0x73, 0x70, 0x65, 0x63,
-	0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61,
-	0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
-	0x12, 0x4d, 0x0a, 0x0c, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x52, 0x61, 0x63, 0x65,
-	0x12, 0x1c, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73,
-	0x74, 0x65, 0x72, 0x52, 0x61, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d,
-	0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65,
-	0x72, 0x52, 0x61, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x32,
-	0x44, 0x0a, 0x0b, 0x56, 0x6f, 0x74, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x35,
-	0x0a, 0x04, 0x56, 0x6f, 0x74, 0x65, 0x12, 0x14, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31,
-	0x2e, 0x56, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x73,
-	0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x39, 0x5a, 0x37, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x75, 0x65, 0x63, 0x6b, 0x6f, 0x6b, 0x65, 0x6e, 0x2f, 0x63, 0x68, 0x6f,
-	0x66, 0x75, 0x2d, 0x72, 0x61, 0x63, 0x65, 0x2d, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x2f, 0x67,
-	0x6f, 0x2f, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x73, 0x70, 0x65, 0x63, 0x2f, 0x76, 0x31,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x44, 0x0a,
+	0x09, 0x45, 0x64, 0x69, 0x74, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x12, 0x19, 0x2e, 0x73, 0x70, 0x65,
+	0x63, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x64, 0x69, 0x74, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e,
+	0x45, 0x64, 0x69, 0x74, 0x48, 0x6f, 0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x32, 0xef, 0x01, 0x0a, 0x0f, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61,
+	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4a, 0x0a, 0x0b, 0x41, 0x6c, 0x6c, 0x52, 0x61,
+	0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x1b, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31,
+	0x2e, 0x41, 0x6c, 0x6c, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x6c,
+	0x6c, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x12, 0x41, 0x0a, 0x08, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12,
+	0x18, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61,
+	0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x73, 0x70, 0x65, 0x63,
+	0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x63, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x4d, 0x0a, 0x0c, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74,
+	0x65, 0x72, 0x52, 0x61, 0x63, 0x65, 0x12, 0x1c, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31,
+	0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x52, 0x61, 0x63, 0x65, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52,
+	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x52, 0x61, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x00, 0x32, 0x44, 0x0a, 0x0b, 0x56, 0x6f, 0x74, 0x65, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x12, 0x35, 0x0a, 0x04, 0x56, 0x6f, 0x74, 0x65, 0x12, 0x14, 0x2e, 0x73,
+	0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x15, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x6f, 0x74,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x39, 0x5a, 0x37, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x75, 0x65, 0x63, 0x6b, 0x6f, 0x6b,
+	0x65, 0x6e, 0x2f, 0x63, 0x68, 0x6f, 0x66, 0x75, 0x2d, 0x72, 0x61, 0x63, 0x65, 0x2d, 0x63, 0x6f,
+	0x75, 0x72, 0x73, 0x65, 0x2f, 0x67, 0x6f, 0x2f, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x73,
+	0x70, 0x65, 0x63, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2205,7 +2345,7 @@ func file_spec_v1_userdata_proto_rawDescGZIP() []byte {
 }
 
 var file_spec_v1_userdata_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_spec_v1_userdata_proto_msgTypes = make([]protoimpl.MessageInfo, 33)
+var file_spec_v1_userdata_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
 var file_spec_v1_userdata_proto_goTypes = []interface{}{
 	(HorseDetail_Image_ImageType)(0), // 0: spec.v1.HorseDetail.Image.ImageType
 	(RaceOrder_NoteType)(0),          // 1: spec.v1.RaceOrder.NoteType
@@ -2227,22 +2367,24 @@ var file_spec_v1_userdata_proto_goTypes = []interface{}{
 	(*AllHorseDataResponse)(nil),     // 17: spec.v1.AllHorseDataResponse
 	(*RegisterHorseRequest)(nil),     // 18: spec.v1.RegisterHorseRequest
 	(*RegisterHorseResponse)(nil),    // 19: spec.v1.RegisterHorseResponse
-	(*Race)(nil),                     // 20: spec.v1.Race
-	(*RaceOrder)(nil),                // 21: spec.v1.RaceOrder
-	(*RaceDetail)(nil),               // 22: spec.v1.RaceDetail
-	(*RaceDetails)(nil),              // 23: spec.v1.RaceDetails
-	(*RaceDataRequest)(nil),          // 24: spec.v1.RaceDataRequest
-	(*RaceDataResponse)(nil),         // 25: spec.v1.RaceDataResponse
-	(*AllRaceDataRequest)(nil),       // 26: spec.v1.AllRaceDataRequest
-	(*AllRaceDataResponse)(nil),      // 27: spec.v1.AllRaceDataResponse
-	(*RegisterRaceRequest)(nil),      // 28: spec.v1.RegisterRaceRequest
-	(*RegisterRaceResponse)(nil),     // 29: spec.v1.RegisterRaceResponse
-	(*VoteRequest)(nil),              // 30: spec.v1.VoteRequest
-	(*VoteResponse)(nil),             // 31: spec.v1.VoteResponse
-	(*HorseDetail_Image)(nil),        // 32: spec.v1.HorseDetail.Image
-	(*HorseDetail_History)(nil),      // 33: spec.v1.HorseDetail.History
-	(*RaceDetail_Member)(nil),        // 34: spec.v1.RaceDetail.Member
-	(*timestamppb.Timestamp)(nil),    // 35: google.protobuf.Timestamp
+	(*EditHorseRequest)(nil),         // 20: spec.v1.EditHorseRequest
+	(*EditHorseResponse)(nil),        // 21: spec.v1.EditHorseResponse
+	(*Race)(nil),                     // 22: spec.v1.Race
+	(*RaceOrder)(nil),                // 23: spec.v1.RaceOrder
+	(*RaceDetail)(nil),               // 24: spec.v1.RaceDetail
+	(*RaceDetails)(nil),              // 25: spec.v1.RaceDetails
+	(*RaceDataRequest)(nil),          // 26: spec.v1.RaceDataRequest
+	(*RaceDataResponse)(nil),         // 27: spec.v1.RaceDataResponse
+	(*AllRaceDataRequest)(nil),       // 28: spec.v1.AllRaceDataRequest
+	(*AllRaceDataResponse)(nil),      // 29: spec.v1.AllRaceDataResponse
+	(*RegisterRaceRequest)(nil),      // 30: spec.v1.RegisterRaceRequest
+	(*RegisterRaceResponse)(nil),     // 31: spec.v1.RegisterRaceResponse
+	(*VoteRequest)(nil),              // 32: spec.v1.VoteRequest
+	(*VoteResponse)(nil),             // 33: spec.v1.VoteResponse
+	(*HorseDetail_Image)(nil),        // 34: spec.v1.HorseDetail.Image
+	(*HorseDetail_History)(nil),      // 35: spec.v1.HorseDetail.History
+	(*RaceDetail_Member)(nil),        // 36: spec.v1.RaceDetail.Member
+	(*timestamppb.Timestamp)(nil),    // 37: google.protobuf.Timestamp
 }
 var file_spec_v1_userdata_proto_depIdxs = []int32{
 	2,  // 0: spec.v1.Users.users:type_name -> spec.v1.User
@@ -2252,55 +2394,59 @@ var file_spec_v1_userdata_proto_depIdxs = []int32{
 	5,  // 4: spec.v1.CreateUserResponse.jwt:type_name -> spec.v1.JWT
 	5,  // 5: spec.v1.LoginAsAdminResponse.admin_jwt:type_name -> spec.v1.JWT
 	11, // 6: spec.v1.HorseDetail.data:type_name -> spec.v1.Horse
-	32, // 7: spec.v1.HorseDetail.image:type_name -> spec.v1.HorseDetail.Image
-	20, // 8: spec.v1.HorseDetail.next:type_name -> spec.v1.Race
-	33, // 9: spec.v1.HorseDetail.histories:type_name -> spec.v1.HorseDetail.History
+	34, // 7: spec.v1.HorseDetail.image:type_name -> spec.v1.HorseDetail.Image
+	22, // 8: spec.v1.HorseDetail.next:type_name -> spec.v1.Race
+	35, // 9: spec.v1.HorseDetail.histories:type_name -> spec.v1.HorseDetail.History
 	12, // 10: spec.v1.HorseDetails.horse_details:type_name -> spec.v1.HorseDetail
 	12, // 11: spec.v1.HorseDataResponse.horse:type_name -> spec.v1.HorseDetail
 	11, // 12: spec.v1.AllHorseDataResponse.horses:type_name -> spec.v1.Horse
 	5,  // 13: spec.v1.RegisterHorseRequest.admin_jwt:type_name -> spec.v1.JWT
-	35, // 14: spec.v1.Race.start:type_name -> google.protobuf.Timestamp
-	1,  // 15: spec.v1.RaceOrder.note:type_name -> spec.v1.RaceOrder.NoteType
-	20, // 16: spec.v1.RaceDetail.data:type_name -> spec.v1.Race
-	34, // 17: spec.v1.RaceDetail.members:type_name -> spec.v1.RaceDetail.Member
-	35, // 18: spec.v1.RaceDetail.vote_begin:type_name -> google.protobuf.Timestamp
-	35, // 19: spec.v1.RaceDetail.vote_end:type_name -> google.protobuf.Timestamp
-	22, // 20: spec.v1.RaceDetails.race_details:type_name -> spec.v1.RaceDetail
-	22, // 21: spec.v1.RaceDataResponse.race:type_name -> spec.v1.RaceDetail
-	20, // 22: spec.v1.AllRaceDataResponse.races:type_name -> spec.v1.Race
-	35, // 23: spec.v1.RegisterRaceRequest.start:type_name -> google.protobuf.Timestamp
-	5,  // 24: spec.v1.RegisterRaceRequest.admin_jwt:type_name -> spec.v1.JWT
-	5,  // 25: spec.v1.VoteRequest.jwt:type_name -> spec.v1.JWT
-	0,  // 26: spec.v1.HorseDetail.Image.type:type_name -> spec.v1.HorseDetail.Image.ImageType
-	20, // 27: spec.v1.HorseDetail.History.race:type_name -> spec.v1.Race
-	21, // 28: spec.v1.HorseDetail.History.result:type_name -> spec.v1.RaceOrder
-	21, // 29: spec.v1.RaceDetail.Member.order:type_name -> spec.v1.RaceOrder
-	11, // 30: spec.v1.RaceDetail.Member.horse:type_name -> spec.v1.Horse
-	4,  // 31: spec.v1.UserDataService.UserData:input_type -> spec.v1.UserDataRequest
-	7,  // 32: spec.v1.UserDataService.CreateUser:input_type -> spec.v1.CreateUserRequest
-	9,  // 33: spec.v1.UserDataService.LoginAsAdmin:input_type -> spec.v1.LoginAsAdminRequest
-	14, // 34: spec.v1.HorseDataService.HorseData:input_type -> spec.v1.HorseDataRequest
-	16, // 35: spec.v1.HorseDataService.AllHorseData:input_type -> spec.v1.AllHorseDataRequest
-	18, // 36: spec.v1.HorseDataService.RegisterHorse:input_type -> spec.v1.RegisterHorseRequest
-	26, // 37: spec.v1.RaceDataService.AllRaceData:input_type -> spec.v1.AllRaceDataRequest
-	24, // 38: spec.v1.RaceDataService.RaceData:input_type -> spec.v1.RaceDataRequest
-	28, // 39: spec.v1.RaceDataService.RegisterRace:input_type -> spec.v1.RegisterRaceRequest
-	30, // 40: spec.v1.VoteService.Vote:input_type -> spec.v1.VoteRequest
-	6,  // 41: spec.v1.UserDataService.UserData:output_type -> spec.v1.UserDataResponse
-	8,  // 42: spec.v1.UserDataService.CreateUser:output_type -> spec.v1.CreateUserResponse
-	10, // 43: spec.v1.UserDataService.LoginAsAdmin:output_type -> spec.v1.LoginAsAdminResponse
-	15, // 44: spec.v1.HorseDataService.HorseData:output_type -> spec.v1.HorseDataResponse
-	17, // 45: spec.v1.HorseDataService.AllHorseData:output_type -> spec.v1.AllHorseDataResponse
-	19, // 46: spec.v1.HorseDataService.RegisterHorse:output_type -> spec.v1.RegisterHorseResponse
-	27, // 47: spec.v1.RaceDataService.AllRaceData:output_type -> spec.v1.AllRaceDataResponse
-	25, // 48: spec.v1.RaceDataService.RaceData:output_type -> spec.v1.RaceDataResponse
-	29, // 49: spec.v1.RaceDataService.RegisterRace:output_type -> spec.v1.RegisterRaceResponse
-	31, // 50: spec.v1.VoteService.Vote:output_type -> spec.v1.VoteResponse
-	41, // [41:51] is the sub-list for method output_type
-	31, // [31:41] is the sub-list for method input_type
-	31, // [31:31] is the sub-list for extension type_name
-	31, // [31:31] is the sub-list for extension extendee
-	0,  // [0:31] is the sub-list for field type_name
+	34, // 14: spec.v1.EditHorseRequest.image:type_name -> spec.v1.HorseDetail.Image
+	5,  // 15: spec.v1.EditHorseRequest.admin_jwt:type_name -> spec.v1.JWT
+	37, // 16: spec.v1.Race.start:type_name -> google.protobuf.Timestamp
+	1,  // 17: spec.v1.RaceOrder.note:type_name -> spec.v1.RaceOrder.NoteType
+	22, // 18: spec.v1.RaceDetail.data:type_name -> spec.v1.Race
+	36, // 19: spec.v1.RaceDetail.members:type_name -> spec.v1.RaceDetail.Member
+	37, // 20: spec.v1.RaceDetail.vote_begin:type_name -> google.protobuf.Timestamp
+	37, // 21: spec.v1.RaceDetail.vote_end:type_name -> google.protobuf.Timestamp
+	24, // 22: spec.v1.RaceDetails.race_details:type_name -> spec.v1.RaceDetail
+	24, // 23: spec.v1.RaceDataResponse.race:type_name -> spec.v1.RaceDetail
+	22, // 24: spec.v1.AllRaceDataResponse.races:type_name -> spec.v1.Race
+	37, // 25: spec.v1.RegisterRaceRequest.start:type_name -> google.protobuf.Timestamp
+	5,  // 26: spec.v1.RegisterRaceRequest.admin_jwt:type_name -> spec.v1.JWT
+	5,  // 27: spec.v1.VoteRequest.jwt:type_name -> spec.v1.JWT
+	0,  // 28: spec.v1.HorseDetail.Image.type:type_name -> spec.v1.HorseDetail.Image.ImageType
+	22, // 29: spec.v1.HorseDetail.History.race:type_name -> spec.v1.Race
+	23, // 30: spec.v1.HorseDetail.History.result:type_name -> spec.v1.RaceOrder
+	23, // 31: spec.v1.RaceDetail.Member.order:type_name -> spec.v1.RaceOrder
+	11, // 32: spec.v1.RaceDetail.Member.horse:type_name -> spec.v1.Horse
+	4,  // 33: spec.v1.UserDataService.UserData:input_type -> spec.v1.UserDataRequest
+	7,  // 34: spec.v1.UserDataService.CreateUser:input_type -> spec.v1.CreateUserRequest
+	9,  // 35: spec.v1.UserDataService.LoginAsAdmin:input_type -> spec.v1.LoginAsAdminRequest
+	14, // 36: spec.v1.HorseDataService.HorseData:input_type -> spec.v1.HorseDataRequest
+	16, // 37: spec.v1.HorseDataService.AllHorseData:input_type -> spec.v1.AllHorseDataRequest
+	18, // 38: spec.v1.HorseDataService.RegisterHorse:input_type -> spec.v1.RegisterHorseRequest
+	20, // 39: spec.v1.HorseDataService.EditHorse:input_type -> spec.v1.EditHorseRequest
+	28, // 40: spec.v1.RaceDataService.AllRaceData:input_type -> spec.v1.AllRaceDataRequest
+	26, // 41: spec.v1.RaceDataService.RaceData:input_type -> spec.v1.RaceDataRequest
+	30, // 42: spec.v1.RaceDataService.RegisterRace:input_type -> spec.v1.RegisterRaceRequest
+	32, // 43: spec.v1.VoteService.Vote:input_type -> spec.v1.VoteRequest
+	6,  // 44: spec.v1.UserDataService.UserData:output_type -> spec.v1.UserDataResponse
+	8,  // 45: spec.v1.UserDataService.CreateUser:output_type -> spec.v1.CreateUserResponse
+	10, // 46: spec.v1.UserDataService.LoginAsAdmin:output_type -> spec.v1.LoginAsAdminResponse
+	15, // 47: spec.v1.HorseDataService.HorseData:output_type -> spec.v1.HorseDataResponse
+	17, // 48: spec.v1.HorseDataService.AllHorseData:output_type -> spec.v1.AllHorseDataResponse
+	19, // 49: spec.v1.HorseDataService.RegisterHorse:output_type -> spec.v1.RegisterHorseResponse
+	21, // 50: spec.v1.HorseDataService.EditHorse:output_type -> spec.v1.EditHorseResponse
+	29, // 51: spec.v1.RaceDataService.AllRaceData:output_type -> spec.v1.AllRaceDataResponse
+	27, // 52: spec.v1.RaceDataService.RaceData:output_type -> spec.v1.RaceDataResponse
+	31, // 53: spec.v1.RaceDataService.RegisterRace:output_type -> spec.v1.RegisterRaceResponse
+	33, // 54: spec.v1.VoteService.Vote:output_type -> spec.v1.VoteResponse
+	44, // [44:55] is the sub-list for method output_type
+	33, // [33:44] is the sub-list for method input_type
+	33, // [33:33] is the sub-list for extension type_name
+	33, // [33:33] is the sub-list for extension extendee
+	0,  // [0:33] is the sub-list for field type_name
 }
 
 func init() { file_spec_v1_userdata_proto_init() }
@@ -2526,7 +2672,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Race); i {
+			switch v := v.(*EditHorseRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2538,7 +2684,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RaceOrder); i {
+			switch v := v.(*EditHorseResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2550,7 +2696,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RaceDetail); i {
+			switch v := v.(*Race); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2562,7 +2708,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RaceDetails); i {
+			switch v := v.(*RaceOrder); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2574,7 +2720,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RaceDataRequest); i {
+			switch v := v.(*RaceDetail); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2586,7 +2732,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RaceDataResponse); i {
+			switch v := v.(*RaceDetails); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2598,7 +2744,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AllRaceDataRequest); i {
+			switch v := v.(*RaceDataRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2610,7 +2756,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AllRaceDataResponse); i {
+			switch v := v.(*RaceDataResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2622,7 +2768,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterRaceRequest); i {
+			switch v := v.(*AllRaceDataRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2634,7 +2780,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterRaceResponse); i {
+			switch v := v.(*AllRaceDataResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2646,7 +2792,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*VoteRequest); i {
+			switch v := v.(*RegisterRaceRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2658,7 +2804,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*VoteResponse); i {
+			switch v := v.(*RegisterRaceResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2670,7 +2816,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HorseDetail_Image); i {
+			switch v := v.(*VoteRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2682,7 +2828,7 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HorseDetail_History); i {
+			switch v := v.(*VoteResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2694,6 +2840,30 @@ func file_spec_v1_userdata_proto_init() {
 			}
 		}
 		file_spec_v1_userdata_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HorseDetail_Image); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_spec_v1_userdata_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HorseDetail_History); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_spec_v1_userdata_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RaceDetail_Member); i {
 			case 0:
 				return &v.state
@@ -2707,7 +2877,8 @@ func file_spec_v1_userdata_proto_init() {
 		}
 	}
 	file_spec_v1_userdata_proto_msgTypes[10].OneofWrappers = []interface{}{}
-	file_spec_v1_userdata_proto_msgTypes[19].OneofWrappers = []interface{}{
+	file_spec_v1_userdata_proto_msgTypes[18].OneofWrappers = []interface{}{}
+	file_spec_v1_userdata_proto_msgTypes[21].OneofWrappers = []interface{}{
 		(*RaceOrder_Order)(nil),
 		(*RaceOrder_Note)(nil),
 	}
@@ -2717,7 +2888,7 @@ func file_spec_v1_userdata_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_spec_v1_userdata_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   33,
+			NumMessages:   35,
 			NumExtensions: 0,
 			NumServices:   4,
 		},

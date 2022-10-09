@@ -7,6 +7,7 @@ import (
 
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
+	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
 	"github.com/ueckoken/chofu-race-course/go/pkg/authorizer"
 	"github.com/ueckoken/chofu-race-course/go/pkg/file"
 )
@@ -14,12 +15,14 @@ import (
 type Horse struct {
 	store     HorseStore
 	adminAuth authorizer.AdminAuthorizer
+	v1connect.UnimplementedHorseDataServiceHandler
 }
 
 type HorseStore interface {
 	Create(h *v1.HorseDetail) error
 	GetAll() (*v1.HorseDetails, error)
 	GetById(id uint32) (*v1.HorseDetail, error)
+	Update(h *v1.HorseDetail) error
 }
 
 func NewHorseServer(store HorseStore, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
@@ -79,6 +82,35 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 	return &connect_go.Response[v1.RegisterHorseResponse]{Msg: &v1.RegisterHorseResponse{}}, nil
 }
 
+func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error) {
+	_, ok, err := h.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, err)
+	}
+	if !ok {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, fmt.Errorf("invalid jwt, maybe expired"))
+	}
+	if err := req.Msg.ValidateAll(); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
+	}
+	hd, err := h.store.GetById(req.Msg.GetId())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	if req.Msg.GetName() != "" {
+		hd.Data.Name = req.Msg.GetName()
+	}
+	if req.Msg.GetOwner() != "" {
+		hd.Owner = req.Msg.GetOwner()
+	}
+	if req.Msg.GetImage() != nil {
+		hd.Image = req.Msg.GetImage()
+	}
+	if err := h.store.Update(hd); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	return &connect_go.Response[v1.EditHorseResponse]{}, nil
+}
 func horseDetail2horse(hd *v1.HorseDetail) *v1.Horse {
 	return &v1.Horse{Id: hd.Data.GetId(), Name: hd.Data.GetName()}
 }

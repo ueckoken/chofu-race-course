@@ -10,6 +10,8 @@
     - [AllRaceDataResponse](#spec-v1-AllRaceDataResponse)
     - [CreateUserRequest](#spec-v1-CreateUserRequest)
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
+    - [EditHorseRequest](#spec-v1-EditHorseRequest)
+    - [EditHorseResponse](#spec-v1-EditHorseResponse)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
@@ -127,6 +129,35 @@
 | ----- | ---- | ----- | ----------- |
 | user | [User](#spec-v1-User) |  |  |
 | jwt | [JWT](#spec-v1-JWT) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-EditHorseRequest"></a>
+
+### EditHorseRequest
+非nullで渡された値を更新する
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| name | [string](#string) | optional |  |
+| owner | [string](#string) | optional |  |
+| image | [HorseDetail.Image](#spec-v1-HorseDetail-Image) | optional |  |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-EditHorseResponse"></a>
+
+### EditHorseResponse
+
 
 
 
@@ -598,6 +629,7 @@ start - n, vote_end: start - m
 | HorseData | [HorseDataRequest](#spec-v1-HorseDataRequest) | [HorseDataResponse](#spec-v1-HorseDataResponse) |  |
 | AllHorseData | [AllHorseDataRequest](#spec-v1-AllHorseDataRequest) | [AllHorseDataResponse](#spec-v1-AllHorseDataResponse) |  |
 | RegisterHorse | [RegisterHorseRequest](#spec-v1-RegisterHorseRequest) | [RegisterHorseResponse](#spec-v1-RegisterHorseResponse) | 要Admin認証 |
+| EditHorse | [EditHorseRequest](#spec-v1-EditHorseRequest) | [EditHorseResponse](#spec-v1-EditHorseResponse) | 要Admin認証 |
 
 
 <a name="spec-v1-RaceDataService"></a>

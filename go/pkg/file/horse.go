@@ -3,6 +3,7 @@ package file
 import (
 	"fmt"
 	"sort"
+	"sync"
 
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 )
@@ -10,6 +11,7 @@ import (
 // Horse contains file data and its cache
 type Horse struct {
 	cache *Persistent[*v1.HorseDetails]
+	mu    *sync.Mutex
 }
 
 // NewHorseFile creates something like file for persistent
@@ -20,6 +22,7 @@ func NewHorseFile(path string) (*Horse, error) {
 	}
 	return &Horse{
 		cache: hc,
+		mu:    &sync.Mutex{},
 	}, nil
 }
 
@@ -45,6 +48,8 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 	if err := h.ValidateAll(); err != nil {
 		return err
 	}
+	w.mu.Lock()
+	defer w.mu.Unlock()
 	oldRecs, err := w.GetAll()
 	if err != nil {
 		return err
@@ -71,6 +76,33 @@ func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
 		}
 	}
 	return nil, notFound
+}
+
+func (w *Horse) Update(newHd *v1.HorseDetail) error {
+	if err := newHd.ValidateAll(); err != nil {
+		return err
+	}
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	hds, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	isExist := false
+	for i, hd := range hds.GetHorseDetails() {
+		if hd.GetData().GetId() == newHd.GetData().GetId() {
+			hds.HorseDetails[i] = newHd
+			isExist = true
+			break
+		}
+	}
+	if !isExist {
+		return notFound
+	}
+	if err := w.cache.Set(&v1.HorseDetails{HorseDetails: hds.GetHorseDetails()}); err != nil {
+		return fmt.Errorf("failed to write, err=%w", err)
+	}
+	return nil
 }
 
 // supplyNewID はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
