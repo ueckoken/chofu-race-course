@@ -83,6 +83,13 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 }
 
 func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error) {
+	_, ok, err := h.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, err)
+	}
+	if !ok {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, fmt.Errorf("invalid jwt, maybe expired"))
+	}
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
