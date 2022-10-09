@@ -23,20 +23,25 @@ const AdminPage: FC<{}> = () => {
     return (
         <>
             <h2>管理</h2>
-            <button
-                onClick={() => {
-                    (async () => {
-                        const password =
-                            prompt("パスワードを入力してください。");
-                        if (!password) return;
-                        const res = await userClient.loginAsAdmin({ password });
-                        setJwt(res.adminJwt!);
-                        localStorage.setItem("token", res.adminJwt!.token);
-                    })();
-                }}
-            >
-                ログイン
-            </button>
+            <div>
+                <button
+                    onClick={() => {
+                        (async () => {
+                            const password =
+                                prompt("パスワードを入力してください。");
+                            if (!password) return;
+                            const res = await userClient.loginAsAdmin({
+                                password,
+                            });
+                            setJwt(res.adminJwt!);
+                            localStorage.setItem("token", res.adminJwt!.token);
+                        })();
+                    }}
+                >
+                    ログイン
+                </button>
+                : {jwt ? "ログイン済" : "未ログイン"}
+            </div>
             <fieldset>
                 <legend>競争馬登録</legend>
                 <div>
