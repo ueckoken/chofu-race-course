@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import { createPromiseClient } from "@bufbuild/connect-web";
 import { HorseDataResponse } from "../../../_proto/spec/v1/userdata_pb";
@@ -23,6 +24,9 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
     const horse = data.horse!;
     return (
         <>
+            <Head>
+                <title>{`${horseData!.data!.name} | 調布競馬ポータル`}</title>
+            </Head>
             <h2>{horse.data!.name}</h2>
             <dl>
                 <dt>馬主</dt>

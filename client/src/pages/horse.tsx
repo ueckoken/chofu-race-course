@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import { createPromiseClient } from "@bufbuild/connect-web";
 import { transport } from "../util/use-client";
@@ -15,6 +16,9 @@ const HorsePage: FC<Props> = ({ json }) => {
     const data = AllHorseDataResponse.fromJson(json);
     return (
         <>
+            <Head>
+                <title>競争馬一覧 | 調布競馬ポータル</title>
+            </Head>
             <h2>競争馬一覧</h2>
             <ul>
                 {data!.horses.map((horseData) => (

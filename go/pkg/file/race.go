@@ -85,6 +85,77 @@ func (w *Race) Create(rd *v1.RaceDetail) error {
 	return err
 }
 
+func (w *Race) Delete(id uint32) error {
+	oldRecs, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	var deleteId int
+	isExist := false
+	for i, rec := range oldRecs {
+		if rec.GetData().GetId() == id {
+			deleteId = i
+			isExist = true
+			break
+		}
+	}
+	if !isExist {
+		return notFound
+	}
+	oldRecs[deleteId] = oldRecs[len(oldRecs)-1]
+	oldRecs[len(oldRecs)-1] = nil
+	updatedRecs := oldRecs[:len(oldRecs)-1]
+
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	f, err := os.Create(w.filepath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: updatedRecs})
+	if err != nil {
+		return err
+	}
+	_, err = f.Write(b)
+	return err
+}
+
+// Update は *v1.RaceDetail の Data フィールドにある *v1.Race の IDを主キーとして更新します
+func (w *Race) Update(rec *v1.RaceDetail) error {
+	if err := rec.ValidateAll(); err != nil {
+		return err
+	}
+	oldRecs, err := w.GetAll()
+	if err != nil {
+		return err
+	}
+	existRec := false
+	id := rec.GetData().GetId()
+	for i, oldRec := range oldRecs {
+		if oldRec.GetData().GetId() == id {
+			existRec = true
+			oldRecs[i] = rec
+			break
+		}
+	}
+	if !existRec {
+		return notFound
+	}
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	f, err := os.Create(w.filepath)
+	if err != nil {
+		return err
+	}
+	b, err := proto.Marshal(&v1.RaceDetails{RaceDetails: oldRecs})
+	if err != nil {
+		return err
+	}
+	_, err = f.Write(b)
+	return err
+}
+
 func (w *Race) readFromFile() (*v1.RaceDetails, error) {
 	w.mu.RLock()
 	defer w.mu.RUnlock()
