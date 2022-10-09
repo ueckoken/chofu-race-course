@@ -3,4 +3,4 @@ resources:
   - nextjs
   - helm
   - image-automation
-  - cert-manager
+  # - cert-manager
