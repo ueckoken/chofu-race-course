@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
+	"google.golang.org/protobuf/proto"
 )
 
 func TestNewHorseFile(t *testing.T) {
@@ -70,4 +71,24 @@ func TestAddNewHorse(t *testing.T) {
 
 	err = h.Create(&v1.HorseDetail{Data: &v1.Horse{Id: 2, Name: "ツー"}, Owner: "オーナー"})
 	assert.Error(t, err, "IDが重複しているときは登録できない")
+}
+
+func TestPersistence(t *testing.T) {
+	d := filepath.Join(t.TempDir(), "testing-horse")
+	h1, err := NewHorseFile(d)
+	assert.Nil(t, err)
+
+	uma := &v1.HorseDetail{Data: &v1.Horse{Id: 0, Name: "ウマ"}, Owner: "オーナー"}
+	err = h1.Create(uma)
+	assert.Nil(t, err)
+
+	u1, err := h1.GetAll()
+	assert.Nil(t, err)
+	assert.True(t, proto.Equal(uma, u1.GetHorseDetails()[0]))
+
+	h2, err := NewHorseFile(d)
+	assert.Nil(t, err)
+	u2, err := h2.GetAll()
+	assert.Nil(t, err)
+	assert.True(t, proto.Equal(uma, u2.GetHorseDetails()[0]))
 }
