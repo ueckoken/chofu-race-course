@@ -35,27 +35,33 @@ const RaceDetailPage: FC<Props> = ({ json }) => {
             )}発走`}</p>
             <h3>出走馬</h3>
             <table>
-                <tr>
-                    <th>着順</th>
-                    <th>馬番</th>
-                    <th>馬名</th>
-                    <th>オッズ</th>
-                    <th>人気</th>
-                </tr>
-                {race.members.map((e) => (
-                    <tr key={`horse${e.horse!.id}`}>
-                        <td>{raceOrderToString(e.order!)}</td>
-                        <td>
-                            <Link href={`/horse/${e.horse!.id}`}>
-                                <a>{e.horse!.name}</a>
-                            </Link>
-                        </td>
-                        <td>
-                            {Number.isInteger(e.odds) ? `${e.odds}.0` : e.odds}
-                        </td>
-                        <td>{e.popularity}</td>
+                <thead>
+                    <tr>
+                        <th>着順</th>
+                        <th>馬番</th>
+                        <th>馬名</th>
+                        <th>オッズ</th>
+                        <th>人気</th>
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                    {race.members.map((e) => (
+                        <tr key={`horse${e.horse!.id}`}>
+                            <td>{raceOrderToString(e.order!)}</td>
+                            <td>
+                                <Link href={`/horse/${e.horse!.id}`}>
+                                    <a>{e.horse!.name}</a>
+                                </Link>
+                            </td>
+                            <td>
+                                {Number.isInteger(e.odds)
+                                    ? `${e.odds}.0`
+                                    : e.odds}
+                            </td>
+                            <td>{e.popularity}</td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </>
     );
