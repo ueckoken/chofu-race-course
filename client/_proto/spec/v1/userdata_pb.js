@@ -294,6 +294,7 @@ export const RaceOrder_NoteType = proto3.makeEnum(
     {no: 0, name: "NOTE_TYPE_UNSPECIFIED", localName: "UNSPECIFIED"},
     {no: 1, name: "NOTE_TYPE_CANCEL", localName: "CANCEL"},
     {no: 2, name: "NOTE_TYPE_GIVEUP", localName: "GIVEUP"},
+    {no: 3, name: "NOTE_TYPE_EXCLUDE", localName: "EXCLUDE"},
   ],
 );
 

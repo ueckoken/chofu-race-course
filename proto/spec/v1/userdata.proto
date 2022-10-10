@@ -169,7 +169,7 @@ message RaceOrder {
     // 競争中止。発走したがゴールできなかった場合。
     NOTE_TYPE_GIVEUP = 2;
     // 競争除外。検査不合格などでレースに出走できなかった場合。
-    NOTE_TYPE_EXCLUDE =3;
+    NOTE_TYPE_EXCLUDE = 3;
   }
   oneof order_oneof {
     option (validate.required) = true;

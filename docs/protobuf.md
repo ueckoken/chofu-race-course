@@ -610,8 +610,9 @@ start - n, vote_end: start - m
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | NOTE_TYPE_UNSPECIFIED | 0 |  |
-| NOTE_TYPE_CANCEL | 1 | 出走取消 |
-| NOTE_TYPE_GIVEUP | 2 | 競争中止 |
+| NOTE_TYPE_CANCEL | 1 | 出走取消。止むを得ず馬を出走させられなかった場合。 |
+| NOTE_TYPE_GIVEUP | 2 | 競争中止。発走したがゴールできなかった場合。 |
+| NOTE_TYPE_EXCLUDE | 3 | 競争除外。検査不合格などでレースに出走できなかった場合。 |
 
 
  
