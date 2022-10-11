@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/rs/cors"
 	"github.com/ueckoken/chofu-race-course/go/internal"
@@ -28,7 +29,7 @@ func main() {
 	})
 	err = http.ListenAndServe(
 		env.ListenAddr,
-		corsConf.Handler(h2c.NewHandler(route, &http2.Server{})),
+		http.TimeoutHandler(corsConf.Handler(h2c.NewHandler(route, &http2.Server{})), 30*time.Second, "timeout"),
 	)
 	if err != nil {
 		log.Fatal(err)
