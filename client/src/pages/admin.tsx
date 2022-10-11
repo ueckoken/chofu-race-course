@@ -76,6 +76,100 @@ const AdminPage: FC<{}> = () => {
                 </button>
                 : {jwt ? "ログイン済" : "未ログイン"}
             </div>
+
+            <fieldset>
+                <legend>レース登録</legend>
+                <div>
+                    <label>
+                        名前:{" "}
+                        <input
+                            type="text"
+                            value={registerRaceName}
+                            onChange={(e) =>
+                                setRegisterRaceName(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        順番:{" "}
+                        <input
+                            type="number"
+                            value={registerRaceOrder}
+                            onChange={(e) =>
+                                setRegisterRaceOrder(+e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        日付:{" "}
+                        <input
+                            type="date"
+                            value={registerRaceDate}
+                            onChange={(e) =>
+                                setRegisterRaceDate(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        時刻:{" "}
+                        <input
+                            type="time"
+                            value={registerRaceTime}
+                            onChange={(e) =>
+                                setRegisterRaceTime(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        説明:{" "}
+                        <input
+                            type="text"
+                            value={registerRaceDescription}
+                            onChange={(e) =>
+                                setRegisterRaceDescription(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <button
+                    onClick={() => {
+                        if (
+                            registerRaceDate === "" ||
+                            registerRaceTime === ""
+                        ) {
+                            alert("不正な入力です。");
+                            return;
+                        }
+                        raceClient
+                            .registerRace({
+                                name: registerRaceName,
+                                order: registerRaceOrder,
+                                start: Timestamp.fromDate(
+                                    new Date(
+                                        `${registerRaceDate}T${registerRaceTime}`
+                                    )
+                                ),
+                                adminJwt: jwt!,
+                            })
+                            .then(() => alert("登録完了！"))
+                            .catch((err) => {
+                                console.error(err);
+                                alert("登録失敗......");
+                            });
+                    }}
+                >
+                    登録
+                </button>
+            </fieldset>
+
             <fieldset>
                 <legend>競争馬登録</legend>
                 <div>
@@ -201,93 +295,7 @@ const AdminPage: FC<{}> = () => {
                             })
                     }
                 >
-                    登録
-                </button>
-            </fieldset>
-
-            <fieldset>
-                <legend>レース登録</legend>
-                <div>
-                    <label>
-                        名前:{" "}
-                        <input
-                            type="text"
-                            value={registerRaceName}
-                            onChange={(e) =>
-                                setRegisterRaceName(e.target.value)
-                            }
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        順番:{" "}
-                        <input
-                            type="number"
-                            value={registerRaceOrder}
-                            onChange={(e) =>
-                                setRegisterRaceOrder(+e.target.value)
-                            }
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        日付:{" "}
-                        <input
-                            type="date"
-                            value={registerRaceDate}
-                            onChange={(e) =>
-                                setRegisterRaceDate(e.target.value)
-                            }
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        時刻:{" "}
-                        <input
-                            type="time"
-                            value={registerRaceTime}
-                            onChange={(e) =>
-                                setRegisterRaceTime(e.target.value)
-                            }
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        説明:{" "}
-                        <input
-                            type="text"
-                            value={registerRaceDescription}
-                            onChange={(e) =>
-                                setRegisterRaceDescription(e.target.value)
-                            }
-                        />
-                    </label>
-                </div>
-                <button
-                    onClick={() =>
-                        raceClient
-                            .registerRace({
-                                name: registerRaceName,
-                                order: registerRaceOrder,
-                                start: Timestamp.fromDate(
-                                    new Date(
-                                        `${registerRaceDate}T${registerRaceTime}`
-                                    )
-                                ),
-                                adminJwt: jwt!,
-                            })
-                            .then(() => alert("登録完了！"))
-                            .catch((err) => {
-                                console.error(err);
-                                alert("登録失敗......");
-                            })
-                    }
-                >
-                    登録
+                    編集
                 </button>
             </fieldset>
         </>
