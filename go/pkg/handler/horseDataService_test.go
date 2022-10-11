@@ -73,4 +73,3 @@ func TestRegisterHorse(t *testing.T) {
 	assert.Nil(t, res)
 	assert.Error(t, err, "馬名の上限を越えている")
 }
-

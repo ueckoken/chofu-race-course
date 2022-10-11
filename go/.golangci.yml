@@ -14,3 +14,4 @@ linters:
     - forbidigo
     - gocritic
     - revive
+    - gofmt

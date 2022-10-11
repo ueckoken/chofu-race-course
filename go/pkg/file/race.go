@@ -7,12 +7,12 @@ import (
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 )
 
-// Race contains file data and its cache
+// Race contains file data and its cache.
 type Race struct {
 	cache *Persistent[*v1.RaceDetails]
 }
 
-// NewRaceFile creates something like file for persistent
+// NewRaceFile creates something like file for persistent.
 func NewRaceFile(path string) (*Race, error) {
 	hc, err := NewPersistentStruct(path, &v1.RaceDetails{})
 	if err != nil {
@@ -40,7 +40,7 @@ func (w *Race) GetById(id uint32) (*v1.RaceDetail, error) {
 	return nil, notFound
 }
 
-// Create は新しいレースを登録します。rd の中にあるIDが0の場合は新しいIDを付与します
+// Create は新しいレースを登録します。rd の中にあるIDが0の場合は新しいIDを付与します.
 func (w *Race) Create(rd *v1.RaceDetail) error {
 	if rd.GetData().GetId() == 0 {
 		id, err := w.supplyNewId()
@@ -95,7 +95,7 @@ func (w *Race) Delete(id uint32) error {
 	return err
 }
 
-// Update は *v1.RaceDetail の Data フィールドにある *v1.Race の IDを主キーとして更新します
+// Update は *v1.RaceDetail の Data フィールドにある *v1.Race の IDを主キーとして更新します.
 func (w *Race) Update(rec *v1.RaceDetail) error {
 	if err := rec.ValidateAll(); err != nil {
 		return err

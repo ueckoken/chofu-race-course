@@ -11,13 +11,13 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-// JWTIssuer is a set of private and public key and can sign and verify jwt
+// JWTIssuer is a set of private and public key and can sign and verify jwt.
 type JWTIssuer interface {
 	Sign(audience string) (jwt string, err error)
 	Verify(j string) (username string, ok bool, err error)
 }
 
-// KeyPairED25519 is a pair of publickey and private key
+// KeyPairED25519 is a pair of publickey and private key.
 type KeyPairED25519 struct {
 	issuerName string
 	ttl        time.Duration
@@ -63,7 +63,7 @@ func loadPrivKey(path string) (*ed25519.PrivateKey, error) {
 	return &ep, nil
 }
 
-// NewJWTIssuer creates jwt issuer and saves private key to specified path if not exists. If exists, loads private key and restores
+// NewJWTIssuer creates jwt issuer and saves private key to specified path if not exists. If exists, loads private key and restores.
 func NewJWTIssuer(path string, generalExpiry time.Duration) (*KeyPairED25519, error) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		userauthorizer, err := newEd25519Keypair("generalUser", generalExpiry)
@@ -83,7 +83,7 @@ func NewJWTIssuer(path string, generalExpiry time.Duration) (*KeyPairED25519, er
 	return k, nil
 }
 
-// Sign sign received username with key
+// Sign sign received username with key.
 func (i *KeyPairED25519) Sign(audience string) (string, error) {
 	now := time.Now()
 	claim := &jwt.StandardClaims{
@@ -101,7 +101,7 @@ func (i *KeyPairED25519) Sign(audience string) (string, error) {
 	return ret, nil
 }
 
-// Verify verifies jwt
+// Verify verifies jwt.
 func (i *KeyPairED25519) Verify(j string) (username string, ok bool, err error) {
 	token, err := jwt.Parse(j, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodEd25519); !ok {

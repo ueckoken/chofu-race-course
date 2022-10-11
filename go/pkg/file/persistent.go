@@ -38,7 +38,7 @@ func NewPersistentStruct[T proto.Message](filePath string, buf T) (*Persistent[T
 
 }
 
-// Set replace current data with arg
+// Set replace current data with arg.
 func (h *Persistent[T]) Set(d T) error {
 	h.filemtx.Lock()
 	defer h.filemtx.Unlock()
