@@ -10,6 +10,8 @@ const raceOrderToString = (order: RaceOrder): string => {
             return "取消";
         } else if (order.orderOneof.value === RaceOrder_NoteType.GIVEUP) {
             return "中止";
+        } else if (order.orderOneof.value === RaceOrder_NoteType.EXCLUDE) {
+            return "除外";
         } else {
             throw new Error();
         }
