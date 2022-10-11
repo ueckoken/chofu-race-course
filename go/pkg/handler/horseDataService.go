@@ -21,7 +21,7 @@ type Horse struct {
 type HorseStore interface {
 	Create(h *v1.HorseDetail) error
 	GetAll() (*v1.HorseDetails, error)
-	GetById(id uint32) (*v1.HorseDetail, error)
+	GetByID(id uint32) (*v1.HorseDetail, error)
 	Update(h *v1.HorseDetail) error
 }
 
@@ -30,7 +30,7 @@ func NewHorseServer(store HorseStore, adminauth authorizer.AdminAuthorizer) (*Ho
 }
 
 func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error) {
-	hd, err := h.store.GetById(req.Msg.GetId())
+	hd, err := h.store.GetByID(req.Msg.GetId())
 	if err != nil {
 		switch err.(type) {
 		case file.NotFound:
@@ -93,7 +93,7 @@ func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHors
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
-	hd, err := h.store.GetById(req.Msg.GetId())
+	hd, err := h.store.GetByID(req.Msg.GetId())
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
