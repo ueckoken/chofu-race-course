@@ -27,10 +27,16 @@ func main() {
 		AllowedOrigins:   env.CorsArrowedOrigins,
 		AllowCredentials: true,
 	})
-	err = http.ListenAndServe(
-		env.ListenAddr,
-		http.TimeoutHandler(corsConf.Handler(h2c.NewHandler(route, &http2.Server{})), 30*time.Second, "timeout"),
-	)
+	srv := &http.Server{
+		Addr:              env.ListenAddr,
+		Handler:           corsConf.Handler(h2c.NewHandler(route, &http2.Server{})),
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       5 * time.Second,
+		WriteTimeout:      10 * time.Second,
+	}
+	if err := srv.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
