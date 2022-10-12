@@ -152,8 +152,6 @@ service RaceDataService {
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
   //要Admin認証
   rpc RegisterRace(RegisterRaceRequest) returns (RegsterRaceResponse) {}
-  //要Admin認証
-  rpc EditRace(EditRaceRequest) returns (EditRaceResponse) {}
 }
 message Race {
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
@@ -226,21 +224,6 @@ message RegisterRaceRequest {
   JWT admin_jwt = 5 [(validate.rules).message.required = true];
 }
 message RegisterRaceResponse {}
-// 値が入ってたら更新する。
-message EditRaceRequest {
-  // 対象を指定するため必須
-  uint32 id = 1 [(validate.rules).uint32.gte = 1];
-  optional string name = 2;
-  // 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。
-  optional uint32 order = 3;
-  optional google.protobuf.Timestamp start = 4;
-  optional string description = 5;
-  // 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします
-  optional repeated RaceDetail.Member members = 6;
-  // admin JWT
-  JWT admin_jwt = 7 [(validate.rules).message.required = true];
-}
-message EditRaceResponse {}
 
 service VoteService {
   // 要ユーザ認証: 投票する
