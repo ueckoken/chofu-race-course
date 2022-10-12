@@ -761,18 +761,25 @@ export declare enum RaceOrder_NoteType {
   UNSPECIFIED = 0,
 
   /**
-   * 出走取消
+   * 出走取消。止むを得ず馬を出走させられなかった場合。
    *
    * @generated from enum value: NOTE_TYPE_CANCEL = 1;
    */
   CANCEL = 1,
 
   /**
-   * 競争中止
+   * 競争中止。発走したがゴールできなかった場合。
    *
    * @generated from enum value: NOTE_TYPE_GIVEUP = 2;
    */
   GIVEUP = 2,
+
+  /**
+   * 競争除外。検査不合格などでレースに出走できなかった場合。
+   *
+   * @generated from enum value: NOTE_TYPE_EXCLUDE = 3;
+   */
+  EXCLUDE = 3,
 }
 
 /**

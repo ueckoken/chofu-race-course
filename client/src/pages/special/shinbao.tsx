@@ -120,7 +120,6 @@ const SpecialPage: FC<{}> = () => {
                         <th>3着</th>
                         <th>4着</th>
                         <th>中止</th>
-                        <th>除外</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,7 +130,6 @@ const SpecialPage: FC<{}> = () => {
                         <td>4点</td>
                         <td>3点</td>
                         <td>2点</td>
-                        <td>0点</td>
                     </tr>
                     <tr>
                         <td>3頭</td>
@@ -140,7 +138,6 @@ const SpecialPage: FC<{}> = () => {
                         <td>3点</td>
                         <td></td>
                         <td>2点</td>
-                        <td>0点</td>
                     </tr>
                     <tr>
                         <td>2頭</td>
@@ -149,11 +146,22 @@ const SpecialPage: FC<{}> = () => {
                         <td></td>
                         <td></td>
                         <td>2点</td>
-                        <td>0点</td>
+                    </tr>
+                    <tr>
+                        <td>1頭</td>
+                        <td>12点</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>2点</td>
                     </tr>
                 </tbody>
             </table>
             <p>同着の場合は1つ下の順位の得点との平均を取る。</p>
+            <h3>表彰</h3>
+            <p>
+                全てのレースが終了した時点で3レース以上出走しているうち、最も得点が高い馬を新馬王として表彰する。
+            </p>
         </>
     );
 };

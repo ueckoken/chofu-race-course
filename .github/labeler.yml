@@ -1,13 +1,17 @@
 frontend:
-  - client/**/*
+  - any:
+      - client/**/*
+      - "!client/_proto/**"
 backend:
-  - go/**/*
+  - any:
+      - go/**/*
+      - "!go/_proto/**"
 ci-cd:
   - .github/**/*
 documentation:
   - README.md
-  - '**/docs/**/*.md'
+  - "**/docs/**/*.md"
 PB:
-  - './proto/**'
-  - 'buf.gen.yaml'
-  - 'buf.work.yaml'
+  - "proto/**/*.proto"
+  - "buf.gen.yaml"
+  - "buf.work.yaml"

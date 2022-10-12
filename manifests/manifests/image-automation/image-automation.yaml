@@ -16,10 +16,12 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
+      messageTemplate: |
+        {{range .Updated.Images}}{{println .}}{{end}}
+
+        [skip ci]
     push:
       branch: main
   update:
     path: ./manifests/manifests
     strategy: Setters
-
