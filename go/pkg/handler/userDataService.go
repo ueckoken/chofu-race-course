@@ -42,7 +42,7 @@ func (w *User) UserData(ctx context.Context, req *connectGo.Request[v1.UserDataR
 	if err != nil {
 		return nil, connectGo.NewError(connectGo.CodeNotFound, err)
 	}
-	return &connectGo.Response[v1.UserDataResponse]{Msg: &v1.UserDataResponse{User: user}}, nil
+	return connectGo.NewResponse(&v1.UserDataResponse{User: user}), nil
 }
 
 func (w *User) CreateUser(ctx context.Context, req *connectGo.Request[v1.CreateUserRequest]) (*connectGo.Response[v1.CreateUserResponse], error) {
@@ -60,7 +60,7 @@ func (w *User) CreateUser(ctx context.Context, req *connectGo.Request[v1.CreateU
 	if err != nil {
 		return nil, connectGo.NewError(connectGo.CodeInvalidArgument, err)
 	}
-	return &connectGo.Response[v1.CreateUserResponse]{Msg: &v1.CreateUserResponse{User: uid, Jwt: &v1.JWT{Token: j}}}, nil
+	return connectGo.NewResponse(&v1.CreateUserResponse{User: uid, Jwt: &v1.JWT{Token: j}}), nil
 }
 
 func (w *User) LoginAsAdmin(ctx context.Context, req *connectGo.Request[v1.LoginAsAdminRequest]) (*connectGo.Response[v1.LoginAsAdminResponse], error) {
@@ -77,5 +77,5 @@ func (w *User) LoginAsAdmin(ctx context.Context, req *connectGo.Request[v1.Login
 	if err != nil {
 		return nil, connectGo.NewError(connectGo.CodeAborted, fmt.Errorf("failed to generate jwt"))
 	}
-	return &connectGo.Response[v1.LoginAsAdminResponse]{Msg: &v1.LoginAsAdminResponse{AdminJwt: &v1.JWT{Token: j}}}, nil
+	return connectGo.NewResponse(&v1.LoginAsAdminResponse{AdminJwt: &v1.JWT{Token: j}}), nil
 }

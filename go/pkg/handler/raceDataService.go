@@ -34,7 +34,7 @@ func (r *Race) AllRaceData(_ context.Context, req *connect_go.Request[v1.AllRace
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.AllRaceDataResponse]{Msg: &v1.AllRaceDataResponse{Races: raceDetails2Races(rds.GetRaceDetails())}}, nil
+	return connect_go.NewResponse(&v1.AllRaceDataResponse{Races: raceDetails2Races(rds.GetRaceDetails())}), nil
 }
 
 func (r *Race) RaceData(_ context.Context, req *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {
@@ -45,7 +45,7 @@ func (r *Race) RaceData(_ context.Context, req *connect_go.Request[v1.RaceDataRe
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.RaceDataResponse]{Msg: &v1.RaceDataResponse{Race: rd}}, nil
+	return connect_go.NewResponse(&v1.RaceDataResponse{Race: rd}), nil
 }
 func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error) {
 	_, ok, err := r.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
@@ -75,7 +75,7 @@ func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.Regist
 	if err := r.store.Create(rd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.RegisterRaceResponse]{Msg: &v1.RegisterRaceResponse{}}, nil
+	return connect_go.NewResponse(&v1.RegisterRaceResponse{}), nil
 }
 
 func raceDetails2Races(rds []*v1.RaceDetail) []*v1.Race {

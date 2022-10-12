@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/bufbuild/connect-go"
 	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 	"github.com/ueckoken/chofu-race-course/go/_proto/spec/v1/v1connect"
@@ -39,7 +40,7 @@ func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDat
 			return nil, connect_go.NewError(connect_go.CodeInternal, err)
 		}
 	}
-	return &connect_go.Response[v1.HorseDataResponse]{Msg: &v1.HorseDataResponse{Horse: hd}}, nil
+	return connect.NewResponse(&v1.HorseDataResponse{Horse: hd}), nil
 }
 func (h *Horse) AllHorseData(_ context.Context, req *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
 	records, err := h.store.GetAll()
@@ -50,7 +51,7 @@ func (h *Horse) AllHorseData(_ context.Context, req *connect_go.Request[v1.AllHo
 	for _, hd := range records.GetHorseDetails() {
 		hs = append(hs, horseDetail2horse(hd))
 	}
-	return &connect_go.Response[v1.AllHorseDataResponse]{Msg: &v1.AllHorseDataResponse{Horses: hs}}, nil
+	return connect.NewResponse(&v1.AllHorseDataResponse{Horses: hs}), nil
 }
 func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.RegisterHorseRequest]) (*connect_go.Response[v1.RegisterHorseResponse], error) {
 	_, ok, err := h.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
@@ -79,7 +80,7 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	log.Printf("add horse successful, %+v", &hd)
-	return &connect_go.Response[v1.RegisterHorseResponse]{Msg: &v1.RegisterHorseResponse{}}, nil
+	return connect.NewResponse(&v1.RegisterHorseResponse{}), nil
 }
 
 func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHorseRequest]) (*connect_go.Response[v1.EditHorseResponse], error) {
@@ -109,7 +110,7 @@ func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHors
 	if err := h.store.Update(hd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.EditHorseResponse]{}, nil
+	return connect_go.NewResponse(&v1.EditHorseResponse{}), nil
 }
 func horseDetail2horse(hd *v1.HorseDetail) *v1.Horse {
 	return &v1.Horse{Id: hd.Data.GetId(), Name: hd.Data.GetName()}

@@ -151,7 +151,7 @@ service RaceDataService {
   rpc AllRaceData(AllRaceDataRequest) returns (AllRaceDataResponse) {}
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
   //要Admin認証
-  rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
+  rpc RegisterRace(RegisterRaceRequest) returns (RegsterRaceResponse) {}
 }
 message Race {
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
