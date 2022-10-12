@@ -1,7 +1,9 @@
 import { createPromiseClient } from "@bufbuild/connect-web";
+import { Timestamp } from "@bufbuild/protobuf";
 import { FC, useEffect, useState } from "react";
 import {
     HorseDataService,
+    RaceDataService,
     UserDataService,
 } from "../../_proto/spec/v1/userdata_connectweb";
 import {
@@ -24,6 +26,7 @@ const stringToImageType = (str: string): HorseDetail_Image_ImageType => {
 
 const AdminPage: FC<{}> = () => {
     const [jwt, setJwt] = useState<JWT | null>(null);
+
     const [registerHorseName, setRegisterHorseName] = useState<string>("");
     const [registerOwnerName, setRegisterOwnerName] = useState<string>("");
 
@@ -34,8 +37,16 @@ const AdminPage: FC<{}> = () => {
         HorseDetail_Image | undefined
     >(undefined);
 
+    const [registerRaceName, setRegisterRaceName] = useState<string>("");
+    const [registerRaceOrder, setRegisterRaceOrder] = useState<number>(0);
+    const [registerRaceDate, setRegisterRaceDate] = useState<string>("");
+    const [registerRaceTime, setRegisterRaceTime] = useState<string>("");
+    const [registerRaceDescription, setRegisterRaceDescription] =
+        useState<string>("");
+
     const userClient = createPromiseClient(UserDataService, transport);
     const horseClient = createPromiseClient(HorseDataService, transport);
+    const raceClient = createPromiseClient(RaceDataService, transport);
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) return;
@@ -65,6 +76,100 @@ const AdminPage: FC<{}> = () => {
                 </button>
                 : {jwt ? "ログイン済" : "未ログイン"}
             </div>
+
+            <fieldset>
+                <legend>レース登録</legend>
+                <div>
+                    <label>
+                        名前:{" "}
+                        <input
+                            type="text"
+                            value={registerRaceName}
+                            onChange={(e) =>
+                                setRegisterRaceName(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        順番:{" "}
+                        <input
+                            type="number"
+                            value={registerRaceOrder}
+                            onChange={(e) =>
+                                setRegisterRaceOrder(+e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        日付:{" "}
+                        <input
+                            type="date"
+                            value={registerRaceDate}
+                            onChange={(e) =>
+                                setRegisterRaceDate(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        時刻:{" "}
+                        <input
+                            type="time"
+                            value={registerRaceTime}
+                            onChange={(e) =>
+                                setRegisterRaceTime(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        説明:{" "}
+                        <input
+                            type="text"
+                            value={registerRaceDescription}
+                            onChange={(e) =>
+                                setRegisterRaceDescription(e.target.value)
+                            }
+                        />
+                    </label>
+                </div>
+                <button
+                    onClick={() => {
+                        if (
+                            registerRaceDate === "" ||
+                            registerRaceTime === ""
+                        ) {
+                            alert("不正な入力です。");
+                            return;
+                        }
+                        raceClient
+                            .registerRace({
+                                name: registerRaceName,
+                                order: registerRaceOrder,
+                                start: Timestamp.fromDate(
+                                    new Date(
+                                        `${registerRaceDate}T${registerRaceTime}`
+                                    )
+                                ),
+                                adminJwt: jwt!,
+                            })
+                            .then(() => alert("登録完了！"))
+                            .catch((err) => {
+                                console.error(err);
+                                alert("登録失敗......");
+                            });
+                    }}
+                >
+                    登録
+                </button>
+            </fieldset>
+
             <fieldset>
                 <legend>競争馬登録</legend>
                 <div>
@@ -152,7 +257,6 @@ const AdminPage: FC<{}> = () => {
                                 const reader = new FileReader();
                                 reader.onload = (ev) => {
                                     const base64 = ev.target!.result! as string;
-                                    console.log(base64);
                                     const regex =
                                         /^data:image\/(.+);base64,(.+)/;
                                     const match = base64.match(regex);
@@ -169,20 +273,7 @@ const AdminPage: FC<{}> = () => {
                     </label>
                 </div>
                 <button
-                    onClick={() => {
-                        console.log({
-                            id: editHorseId,
-                            adminJwt: jwt!,
-                            name:
-                                editHorseName !== ""
-                                    ? editHorseName
-                                    : undefined,
-                            owner:
-                                editOwnerName !== ""
-                                    ? editOwnerName
-                                    : undefined,
-                            image: editHorseImage,
-                        });
+                    onClick={() =>
                         horseClient
                             .editHorse({
                                 id: editHorseId,
@@ -201,10 +292,10 @@ const AdminPage: FC<{}> = () => {
                             .catch((err) => {
                                 console.error(err);
                                 alert("編集失敗......");
-                            });
-                    }}
+                            })
+                    }
                 >
-                    登録
+                    編集
                 </button>
             </fieldset>
         </>
