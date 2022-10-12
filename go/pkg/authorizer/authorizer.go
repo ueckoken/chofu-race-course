@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// Authorizer authorize user and persist its
+// Authorizer authorize user and persist its.
 type Authorizer struct {
 	JWTIssuer
 }

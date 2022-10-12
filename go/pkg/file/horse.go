@@ -8,13 +8,13 @@ import (
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 )
 
-// Horse contains file data and its cache
+// Horse contains file data and its cache.
 type Horse struct {
 	cache *Persistent[*v1.HorseDetails]
 	mu    *sync.Mutex
 }
 
-// NewHorseFile creates something like file for persistent
+// NewHorseFile creates something like file for persistent.
 func NewHorseFile(path string) (*Horse, error) {
 	hc, err := NewPersistentStruct(path, &v1.HorseDetails{})
 	if err != nil {
