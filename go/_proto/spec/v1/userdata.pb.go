@@ -1861,7 +1861,7 @@ type HorseDetail_Image struct {
 
 	// 拡張子
 	Type HorseDetail_Image_ImageType `protobuf:"varint,1,opt,name=type,proto3,enum=spec.v1.HorseDetail_Image_ImageType" json:"type,omitempty"`
-	// base64形式
+	// 画像のデータ bytes(img)
 	Data []byte `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 }
 
