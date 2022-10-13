@@ -84,7 +84,7 @@ message HorseDetail {
       ],
       defined_only: true,
     }];
-    // base64形式
+    // 画像のデータ bytes(img)
     bytes data = 2 [(validate.rules).bytes = {
       min_len: 1,
       max_len: 1048576
