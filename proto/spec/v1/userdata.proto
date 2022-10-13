@@ -20,8 +20,8 @@ service UserDataService {
 message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1 [(validate.rules).string = {
-    min_bytes: 16,
-    max_bytes: 1024,
+    min_len: 1,
+    max_len: 1024,
   }];
 }
 message Users {
@@ -85,7 +85,10 @@ message HorseDetail {
       defined_only: true,
     }];
     // base64形式
-    bytes data = 2 [(validate.rules).bytes.min_len = 1];
+    bytes data = 2 [(validate.rules).bytes = {
+      min_len: 1,
+      max_len: 1048576
+    }];
   }
   optional Image image = 3;
   // 勝利数
