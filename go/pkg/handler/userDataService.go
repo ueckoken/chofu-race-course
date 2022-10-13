@@ -20,7 +20,7 @@ type User struct {
 }
 
 type UserStore interface {
-	GetById(id string) (*v1.User, error)
+	GetByID(id string) (*v1.User, error)
 	Create(u *v1.User) error
 }
 
@@ -38,7 +38,7 @@ func (w *User) UserData(ctx context.Context, req *connectGo.Request[v1.UserDataR
 		log.Printf("auth returned not ok, err=%s\n", err)
 		return nil, connectGo.NewError(connectGo.CodeUnauthenticated, fmt.Errorf("failed to authorize, maybe expired?"))
 	}
-	user, err := w.store.GetById(u)
+	user, err := w.store.GetByID(u)
 	if err != nil {
 		return nil, connectGo.NewError(connectGo.CodeNotFound, err)
 	}

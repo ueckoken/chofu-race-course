@@ -1,0 +1,21 @@
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - gosec
+    - godot
+    - forbidigo
+    - gocritic
+    - revive
+    - gofmt
+linters-settings:
+  gosec:
+    exclude-generated: true
+    severity: low
+    confidence: low

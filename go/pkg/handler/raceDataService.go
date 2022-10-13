@@ -18,7 +18,7 @@ type Race struct {
 
 type RaceStore interface {
 	GetAll() (*v1.RaceDetails, error)
-	GetById(id uint32) (*v1.RaceDetail, error)
+	GetByID(id uint32) (*v1.RaceDetail, error)
 	Create(*v1.RaceDetail) error
 }
 
@@ -41,7 +41,7 @@ func (r *Race) RaceData(_ context.Context, req *connect_go.Request[v1.RaceDataRe
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
-	rd, err := r.store.GetById(req.Msg.GetId())
+	rd, err := r.store.GetByID(req.Msg.GetId())
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}

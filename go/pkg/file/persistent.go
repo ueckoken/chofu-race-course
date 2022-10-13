@@ -2,6 +2,7 @@ package file
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"sync"
 
@@ -48,7 +49,7 @@ func (h *Persistent[T]) Set(d T) error {
 	}
 	defer func() {
 		if err := f.Close(); err != nil {
-			fmt.Println("failed to close, err=%w", err)
+			log.Println("failed to close, err=%w", err)
 		}
 	}()
 	h.data = d

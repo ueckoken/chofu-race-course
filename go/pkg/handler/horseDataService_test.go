@@ -18,7 +18,7 @@ type horseStoreMock struct {
 
 func (m horseStoreMock) Create(h *v1.HorseDetail) error             { return m.err }
 func (m horseStoreMock) GetAll() (*v1.HorseDetails, error)          { return &v1.HorseDetails{}, m.err }
-func (m horseStoreMock) GetById(id uint32) (*v1.HorseDetail, error) { return nil, m.err }
+func (m horseStoreMock) GetByID(id uint32) (*v1.HorseDetail, error) { return nil, m.err }
 
 type adminAuthorizerMock struct {
 	authorizer.AdminAuthorizer
