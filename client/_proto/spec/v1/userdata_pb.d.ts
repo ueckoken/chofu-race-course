@@ -1055,6 +1055,89 @@ export declare class RegisterRaceResponse extends Message<RegisterRaceResponse> 
 }
 
 /**
+ * 値が入ってたら更新する。
+ *
+ * @generated from message spec.v1.EditRaceRequest
+ */
+export declare class EditRaceRequest extends Message<EditRaceRequest> {
+  /**
+   * 対象を指定するため必須
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * @generated from field: optional string name = 2;
+   */
+  name?: string;
+
+  /**
+   * 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。
+   *
+   * @generated from field: optional uint32 order = 3;
+   */
+  order?: number;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp start = 4;
+   */
+  start?: Timestamp;
+
+  /**
+   * @generated from field: optional string description = 5;
+   */
+  description?: string;
+
+  /**
+   * 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします
+   *
+   * @generated from field: repeated spec.v1.RaceDetail.Member members = 6;
+   */
+  members: RaceDetail_Member[];
+
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 7;
+   */
+  adminJwt?: JWT;
+
+  constructor(data?: PartialMessage<EditRaceRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.EditRaceRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditRaceRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditRaceRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditRaceRequest;
+
+  static equals(a: EditRaceRequest | PlainMessage<EditRaceRequest> | undefined, b: EditRaceRequest | PlainMessage<EditRaceRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message spec.v1.EditRaceResponse
+ */
+export declare class EditRaceResponse extends Message<EditRaceResponse> {
+  constructor(data?: PartialMessage<EditRaceResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.EditRaceResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EditRaceResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EditRaceResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EditRaceResponse;
+
+  static equals(a: EditRaceResponse | PlainMessage<EditRaceResponse> | undefined, b: EditRaceResponse | PlainMessage<EditRaceResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export declare class VoteRequest extends Message<VoteRequest> {

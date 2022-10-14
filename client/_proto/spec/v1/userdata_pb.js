@@ -400,6 +400,32 @@ export const RegisterRaceResponse = proto3.makeMessageType(
 );
 
 /**
+ * 値が入ってたら更新する。
+ *
+ * @generated from message spec.v1.EditRaceRequest
+ */
+export const EditRaceRequest = proto3.makeMessageType(
+  "spec.v1.EditRaceRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+    { no: 4, name: "start", kind: "message", T: Timestamp, opt: true },
+    { no: 5, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "members", kind: "message", T: RaceDetail_Member, repeated: true },
+    { no: 7, name: "admin_jwt", kind: "message", T: JWT },
+  ],
+);
+
+/**
+ * @generated from message spec.v1.EditRaceResponse
+ */
+export const EditRaceResponse = proto3.makeMessageType(
+  "spec.v1.EditRaceResponse",
+  [],
+);
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export const VoteRequest = proto3.makeMessageType(

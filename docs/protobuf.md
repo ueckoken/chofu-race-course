@@ -12,6 +12,8 @@
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
     - [EditHorseRequest](#spec-v1-EditHorseRequest)
     - [EditHorseResponse](#spec-v1-EditHorseResponse)
+    - [EditRaceRequest](#spec-v1-EditRaceRequest)
+    - [EditRaceResponse](#spec-v1-EditRaceResponse)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
@@ -157,6 +159,37 @@
 <a name="spec-v1-EditHorseResponse"></a>
 
 ### EditHorseResponse
+
+
+
+
+
+
+
+<a name="spec-v1-EditRaceRequest"></a>
+
+### EditRaceRequest
+値が入ってたら更新する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| name | [string](#string) | optional |  |
+| order | [uint32](#uint32) | optional | 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。 |
+| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional |  |
+| description | [string](#string) | optional |  |
+| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated | 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-EditRaceResponse"></a>
+
+### EditRaceResponse
 
 
 
@@ -643,6 +676,7 @@ start - n, vote_end: start - m
 | AllRaceData | [AllRaceDataRequest](#spec-v1-AllRaceDataRequest) | [AllRaceDataResponse](#spec-v1-AllRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
 | RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
+| EditRace | [EditRaceRequest](#spec-v1-EditRaceRequest) | [EditRaceResponse](#spec-v1-EditRaceResponse) | 要Admin認証 |
 
 
 <a name="spec-v1-UserDataService"></a>
