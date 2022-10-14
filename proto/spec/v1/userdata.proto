@@ -151,7 +151,7 @@ service RaceDataService {
   rpc AllRaceData(AllRaceDataRequest) returns (AllRaceDataResponse) {}
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
   //要Admin認証
-  rpc RegisterRace(RegisterRaceRequest) returns (RegsterRaceResponse) {}
+  rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
   //要Admin認証
   rpc EditRace(EditRaceRequest) returns (EditRaceResponse) {}
 }
@@ -236,7 +236,7 @@ message EditRaceRequest {
   optional google.protobuf.Timestamp start = 4;
   optional string description = 5;
   // 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします
-  optional repeated RaceDetail.Member members = 6;
+  repeated RaceDetail.Member members = 6;
   // admin JWT
   JWT admin_jwt = 7 [(validate.rules).message.required = true];
 }
