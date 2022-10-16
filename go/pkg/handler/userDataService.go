@@ -13,7 +13,7 @@ import (
 )
 
 type User struct {
-	store     UserStore
+	store     DataSaver
 	auth      authorizer.JWTIssuer
 	adminauth authorizer.AdminAuthorizer
 	v1connect.UnimplementedUserDataServiceHandler
@@ -24,7 +24,7 @@ type UserStore interface {
 	Create(u *v1.User) error
 }
 
-func NewUserServer(store UserStore, issuer authorizer.JWTIssuer, adminauth authorizer.AdminAuthorizer) (*User, error) {
+func NewUserServer(store DataSaver, issuer authorizer.JWTIssuer, adminauth authorizer.AdminAuthorizer) (*User, error) {
 	return &User{store: store, auth: issuer, adminauth: adminauth}, nil
 }
 
@@ -38,7 +38,7 @@ func (w *User) UserData(ctx context.Context, req *connectGo.Request[v1.UserDataR
 		log.Printf("auth returned not ok, err=%s\n", err)
 		return nil, connectGo.NewError(connectGo.CodeUnauthenticated, fmt.Errorf("failed to authorize, maybe expired?"))
 	}
-	user, err := w.store.GetByID(u)
+	user, err := w.store.User.GetByID(u)
 	if err != nil {
 		return nil, connectGo.NewError(connectGo.CodeNotFound, err)
 	}
@@ -52,7 +52,7 @@ func (w *User) CreateUser(ctx context.Context, req *connectGo.Request[v1.CreateU
 		return nil, fmt.Errorf("username generation error")
 	}
 	uid := &v1.User{Id: fmt.Sprintf("%x", buf)}
-	err := w.store.Create(uid)
+	err := w.store.User.Create(uid)
 	if err != nil {
 		return nil, connectGo.NewError(connectGo.CodeInvalidArgument, err)
 	}

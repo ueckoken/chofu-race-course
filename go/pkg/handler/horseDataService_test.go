@@ -29,7 +29,7 @@ func (adminAuthorizerMock) Verify(j string) (username string, ok bool, err error
 }
 
 func TestRegisterHorse(t *testing.T) {
-	h, err := NewHorseServer(horseStoreMock{}, adminAuthorizerMock{})
+	h, err := NewHorseServer(DataSaver{Horse: horseStoreMock{}}, adminAuthorizerMock{})
 	assert.NoError(t, err)
 	require.NotNil(t, h)
 

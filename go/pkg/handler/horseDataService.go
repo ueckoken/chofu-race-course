@@ -14,7 +14,7 @@ import (
 )
 
 type Horse struct {
-	store     HorseStore
+	store     DataSaver
 	adminAuth authorizer.AdminAuthorizer
 	v1connect.UnimplementedHorseDataServiceHandler
 }
@@ -26,12 +26,12 @@ type HorseStore interface {
 	Update(h *v1.HorseDetail) error
 }
 
-func NewHorseServer(store HorseStore, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
+func NewHorseServer(store DataSaver, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
 	return &Horse{store: store, adminAuth: adminauth}, nil
 }
 
 func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDataRequest]) (*connect_go.Response[v1.HorseDataResponse], error) {
-	hd, err := h.store.GetByID(req.Msg.GetId())
+	hd, err := h.store.Horse.GetByID(req.Msg.GetId())
 	if err != nil {
 		switch err.(type) {
 		case file.NotFound:
@@ -43,7 +43,7 @@ func (h *Horse) HorseData(_ context.Context, req *connect_go.Request[v1.HorseDat
 	return connect.NewResponse(&v1.HorseDataResponse{Horse: hd}), nil
 }
 func (h *Horse) AllHorseData(_ context.Context, req *connect_go.Request[v1.AllHorseDataRequest]) (*connect_go.Response[v1.AllHorseDataResponse], error) {
-	records, err := h.store.GetAll()
+	records, err := h.store.Horse.GetAll()
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
@@ -76,7 +76,7 @@ func (h *Horse) RegisterHorse(_ context.Context, req *connect_go.Request[v1.Regi
 		Next:      nil,
 		Histories: []*v1.HorseDetail_History{},
 	}
-	if err := h.store.Create(&hd); err != nil {
+	if err := h.store.Horse.Create(&hd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	log.Printf("add horse successful, %+v", &hd)
@@ -94,7 +94,7 @@ func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHors
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
-	hd, err := h.store.GetByID(req.Msg.GetId())
+	hd, err := h.store.Horse.GetByID(req.Msg.GetId())
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
@@ -107,7 +107,7 @@ func (h *Horse) EditHorse(_ context.Context, req *connect_go.Request[v1.EditHors
 	if req.Msg.GetImage() != nil {
 		hd.Image = req.Msg.GetImage()
 	}
-	if err := h.store.Update(hd); err != nil {
+	if err := h.store.Horse.Update(hd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	return connect_go.NewResponse(&v1.EditHorseResponse{}), nil

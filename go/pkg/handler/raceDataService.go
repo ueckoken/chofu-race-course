@@ -11,7 +11,7 @@ import (
 )
 
 type Race struct {
-	store     RaceStore
+	store     DataSaver
 	adminAuth authorizer.AdminAuthorizer
 	v1connect.UnimplementedRaceDataServiceHandler
 }
@@ -22,7 +22,7 @@ type RaceStore interface {
 	Create(*v1.RaceDetail) error
 }
 
-func NewRaceServer(store RaceStore, adminauth authorizer.AdminAuthorizer) (*Race, error) {
+func NewRaceServer(store DataSaver, adminauth authorizer.AdminAuthorizer) (*Race, error) {
 	return &Race{store: store, adminAuth: adminauth}, nil
 }
 
@@ -30,7 +30,7 @@ func (r *Race) AllRaceData(_ context.Context, req *connect_go.Request[v1.AllRace
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
-	rds, err := r.store.GetAll()
+	rds, err := r.store.Race.GetAll()
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
@@ -41,7 +41,7 @@ func (r *Race) RaceData(_ context.Context, req *connect_go.Request[v1.RaceDataRe
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
-	rd, err := r.store.GetByID(req.Msg.GetId())
+	rd, err := r.store.Race.GetByID(req.Msg.GetId())
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
@@ -72,7 +72,7 @@ func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.Regist
 		VoteBegin: req.Msg.GetStart(),
 		VoteEnd:   req.Msg.GetStart(),
 	}
-	if err := r.store.Create(rd); err != nil {
+	if err := r.store.Race.Create(rd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	return connect_go.NewResponse(&v1.RegisterRaceResponse{}), nil

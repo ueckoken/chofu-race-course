@@ -45,19 +45,19 @@ func NewRoute(conf *envConfig.EnvVar) (*http.ServeMux, error) {
 		Horse: horseWriter,
 		Race:  raceWriter,
 	}
-	u, err := handler.NewUserServer(userWriter, a, ad)
+	u, err := handler.NewUserServer(store, a, ad)
 	if err != nil {
 		return nil, err
 	}
 	mux.Handle(v1connect.NewUserDataServiceHandler(u))
 
-	h, err := handler.NewHorseServer(horseWriter, ad)
+	h, err := handler.NewHorseServer(store, ad)
 	if err != nil {
 		return nil, err
 	}
 	mux.Handle(v1connect.NewHorseDataServiceHandler(h))
 
-	r, err := handler.NewRaceServer(raceWriter, ad)
+	r, err := handler.NewRaceServer(store, ad)
 	if err != nil {
 		return nil, err
 	}
