@@ -4096,6 +4096,625 @@ var _ interface {
 	ErrorName() string
 } = RegisterRaceResponseValidationError{}
 
+// Validate checks the field values on RegisterRaceResultRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegisterRaceResultRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegisterRaceResultRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegisterRaceResultRequestMultiError, or nil if none found.
+func (m *RegisterRaceResultRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegisterRaceResultRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() < 1 {
+		err := RegisterRaceResultRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetMembers() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RegisterRaceResultRequestValidationError{
+						field:  fmt.Sprintf("Members[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RegisterRaceResultRequestValidationError{
+						field:  fmt.Sprintf("Members[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RegisterRaceResultRequestValidationError{
+					field:  fmt.Sprintf("Members[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.GetAdminJwt() == nil {
+		err := RegisterRaceResultRequestValidationError{
+			field:  "AdminJwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAdminJwt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RegisterRaceResultRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RegisterRaceResultRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAdminJwt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RegisterRaceResultRequestValidationError{
+				field:  "AdminJwt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RegisterRaceResultRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegisterRaceResultRequestMultiError is an error wrapping multiple validation
+// errors returned by RegisterRaceResultRequest.ValidateAll() if the
+// designated constraints aren't met.
+type RegisterRaceResultRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegisterRaceResultRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegisterRaceResultRequestMultiError) AllErrors() []error { return m }
+
+// RegisterRaceResultRequestValidationError is the validation error returned by
+// RegisterRaceResultRequest.Validate if the designated constraints aren't met.
+type RegisterRaceResultRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegisterRaceResultRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegisterRaceResultRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegisterRaceResultRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegisterRaceResultRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegisterRaceResultRequestValidationError) ErrorName() string {
+	return "RegisterRaceResultRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegisterRaceResultRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegisterRaceResultRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegisterRaceResultRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegisterRaceResultRequestValidationError{}
+
+// Validate checks the field values on RegisterRaceResultResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegisterRaceResultResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegisterRaceResultResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegisterRaceResultResponseMultiError, or nil if none found.
+func (m *RegisterRaceResultResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegisterRaceResultResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RegisterRaceResultResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegisterRaceResultResponseMultiError is an error wrapping multiple
+// validation errors returned by RegisterRaceResultResponse.ValidateAll() if
+// the designated constraints aren't met.
+type RegisterRaceResultResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegisterRaceResultResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegisterRaceResultResponseMultiError) AllErrors() []error { return m }
+
+// RegisterRaceResultResponseValidationError is the validation error returned
+// by RegisterRaceResultResponse.Validate if the designated constraints aren't met.
+type RegisterRaceResultResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegisterRaceResultResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegisterRaceResultResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegisterRaceResultResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegisterRaceResultResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegisterRaceResultResponseValidationError) ErrorName() string {
+	return "RegisterRaceResultResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegisterRaceResultResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegisterRaceResultResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegisterRaceResultResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegisterRaceResultResponseValidationError{}
+
+// Validate checks the field values on EditRaceRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *EditRaceRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EditRaceRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// EditRaceRequestMultiError, or nil if none found.
+func (m *EditRaceRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EditRaceRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() < 1 {
+		err := EditRaceRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetMembers() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EditRaceRequestValidationError{
+						field:  fmt.Sprintf("Members[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EditRaceRequestValidationError{
+						field:  fmt.Sprintf("Members[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EditRaceRequestValidationError{
+					field:  fmt.Sprintf("Members[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.GetAdminJwt() == nil {
+		err := EditRaceRequestValidationError{
+			field:  "AdminJwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAdminJwt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, EditRaceRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, EditRaceRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAdminJwt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return EditRaceRequestValidationError{
+				field:  "AdminJwt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.Name != nil {
+		// no validation rules for Name
+	}
+
+	if m.Order != nil {
+		// no validation rules for Order
+	}
+
+	if m.Start != nil {
+
+		if all {
+			switch v := interface{}(m.GetStart()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EditRaceRequestValidationError{
+						field:  "Start",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EditRaceRequestValidationError{
+						field:  "Start",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EditRaceRequestValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Description != nil {
+		// no validation rules for Description
+	}
+
+	if len(errors) > 0 {
+		return EditRaceRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// EditRaceRequestMultiError is an error wrapping multiple validation errors
+// returned by EditRaceRequest.ValidateAll() if the designated constraints
+// aren't met.
+type EditRaceRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EditRaceRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EditRaceRequestMultiError) AllErrors() []error { return m }
+
+// EditRaceRequestValidationError is the validation error returned by
+// EditRaceRequest.Validate if the designated constraints aren't met.
+type EditRaceRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EditRaceRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EditRaceRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EditRaceRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EditRaceRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EditRaceRequestValidationError) ErrorName() string { return "EditRaceRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EditRaceRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEditRaceRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EditRaceRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EditRaceRequestValidationError{}
+
+// Validate checks the field values on EditRaceResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *EditRaceResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EditRaceResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// EditRaceResponseMultiError, or nil if none found.
+func (m *EditRaceResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EditRaceResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return EditRaceResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// EditRaceResponseMultiError is an error wrapping multiple validation errors
+// returned by EditRaceResponse.ValidateAll() if the designated constraints
+// aren't met.
+type EditRaceResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EditRaceResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EditRaceResponseMultiError) AllErrors() []error { return m }
+
+// EditRaceResponseValidationError is the validation error returned by
+// EditRaceResponse.Validate if the designated constraints aren't met.
+type EditRaceResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EditRaceResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EditRaceResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EditRaceResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EditRaceResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EditRaceResponseValidationError) ErrorName() string { return "EditRaceResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EditRaceResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEditRaceResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EditRaceResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EditRaceResponseValidationError{}
+
 // Validate checks the field values on VoteRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

@@ -12,6 +12,8 @@
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
     - [EditHorseRequest](#spec-v1-EditHorseRequest)
     - [EditHorseResponse](#spec-v1-EditHorseResponse)
+    - [EditRaceRequest](#spec-v1-EditRaceRequest)
+    - [EditRaceResponse](#spec-v1-EditRaceResponse)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
@@ -33,6 +35,8 @@
     - [RegisterHorseResponse](#spec-v1-RegisterHorseResponse)
     - [RegisterRaceRequest](#spec-v1-RegisterRaceRequest)
     - [RegisterRaceResponse](#spec-v1-RegisterRaceResponse)
+    - [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest)
+    - [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse)
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
@@ -157,6 +161,37 @@
 <a name="spec-v1-EditHorseResponse"></a>
 
 ### EditHorseResponse
+
+
+
+
+
+
+
+<a name="spec-v1-EditRaceRequest"></a>
+
+### EditRaceRequest
+値が入ってたら更新する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| name | [string](#string) | optional |  |
+| order | [uint32](#uint32) | optional | 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。 |
+| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional |  |
+| description | [string](#string) | optional |  |
+| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated | 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-EditRaceResponse"></a>
+
+### EditRaceResponse
 
 
 
@@ -499,6 +534,33 @@ start - n, vote_end: start - m
 
 
 
+<a name="spec-v1-RegisterRaceResultRequest"></a>
+
+### RegisterRaceResultRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated |  |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-RegisterRaceResultResponse"></a>
+
+### RegisterRaceResultResponse
+
+
+
+
+
+
+
 <a name="spec-v1-User"></a>
 
 ### User
@@ -643,6 +705,8 @@ start - n, vote_end: start - m
 | AllRaceData | [AllRaceDataRequest](#spec-v1-AllRaceDataRequest) | [AllRaceDataResponse](#spec-v1-AllRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
 | RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
+| RegisterRaceResult | [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest) | [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse) | 要Admin認証、結果の入力に使う(他のデータにも影響が発生する) |
+| EditRace | [EditRaceRequest](#spec-v1-EditRaceRequest) | [EditRaceResponse](#spec-v1-EditRaceResponse) | 要Admin認証、データの編集に使う |
 
 
 <a name="spec-v1-UserDataService"></a>
