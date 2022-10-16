@@ -11,7 +11,7 @@ import (
 )
 
 type Race struct {
-	store     DataSaver
+	store     DataStore
 	adminAuth authorizer.AdminAuthorizer
 	v1connect.UnimplementedRaceDataServiceHandler
 }
@@ -22,7 +22,7 @@ type RaceStore interface {
 	Create(*v1.RaceDetail) error
 }
 
-func NewRaceServer(store DataSaver, adminauth authorizer.AdminAuthorizer) (*Race, error) {
+func NewRaceServer(store DataStore, adminauth authorizer.AdminAuthorizer) (*Race, error) {
 	return &Race{store: store, adminAuth: adminauth}, nil
 }
 

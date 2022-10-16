@@ -40,7 +40,7 @@ func NewRoute(conf *envConfig.EnvVar) (*http.ServeMux, error) {
 		return nil, err
 	}
 
-	store := handler.DataSaver{
+	store := handler.DataStore{
 		User:  userWriter,
 		Horse: horseWriter,
 		Race:  raceWriter,

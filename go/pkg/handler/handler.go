@@ -1,6 +1,6 @@
 package handler
 
-type DataSaver struct {
+type DataStore struct {
 	Horse HorseStore
 	Race  RaceStore
 	User  UserStore

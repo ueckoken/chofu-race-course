@@ -13,7 +13,7 @@ import (
 )
 
 type User struct {
-	store     DataSaver
+	store     DataStore
 	auth      authorizer.JWTIssuer
 	adminauth authorizer.AdminAuthorizer
 	v1connect.UnimplementedUserDataServiceHandler
@@ -24,7 +24,7 @@ type UserStore interface {
 	Create(u *v1.User) error
 }
 
-func NewUserServer(store DataSaver, issuer authorizer.JWTIssuer, adminauth authorizer.AdminAuthorizer) (*User, error) {
+func NewUserServer(store DataStore, issuer authorizer.JWTIssuer, adminauth authorizer.AdminAuthorizer) (*User, error) {
 	return &User{store: store, auth: issuer, adminauth: adminauth}, nil
 }
 

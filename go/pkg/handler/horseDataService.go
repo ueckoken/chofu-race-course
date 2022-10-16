@@ -14,7 +14,7 @@ import (
 )
 
 type Horse struct {
-	store     DataSaver
+	store     DataStore
 	adminAuth authorizer.AdminAuthorizer
 	v1connect.UnimplementedHorseDataServiceHandler
 }
@@ -26,7 +26,7 @@ type HorseStore interface {
 	Update(h *v1.HorseDetail) error
 }
 
-func NewHorseServer(store DataSaver, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
+func NewHorseServer(store DataStore, adminauth authorizer.AdminAuthorizer) (*Horse, error) {
 	return &Horse{store: store, adminAuth: adminauth}, nil
 }
 
