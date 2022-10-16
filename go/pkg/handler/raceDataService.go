@@ -11,18 +11,18 @@ import (
 )
 
 type Race struct {
-	store     RaceStore
+	store     DataStore
 	adminAuth authorizer.AdminAuthorizer
 	v1connect.UnimplementedRaceDataServiceHandler
 }
 
 type RaceStore interface {
 	GetAll() (*v1.RaceDetails, error)
-	GetById(id uint32) (*v1.RaceDetail, error)
+	GetByID(id uint32) (*v1.RaceDetail, error)
 	Create(*v1.RaceDetail) error
 }
 
-func NewRaceServer(store RaceStore, adminauth authorizer.AdminAuthorizer) (*Race, error) {
+func NewRaceServer(store DataStore, adminauth authorizer.AdminAuthorizer) (*Race, error) {
 	return &Race{store: store, adminAuth: adminauth}, nil
 }
 
@@ -30,22 +30,22 @@ func (r *Race) AllRaceData(_ context.Context, req *connect_go.Request[v1.AllRace
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
-	rds, err := r.store.GetAll()
+	rds, err := r.store.Race.GetAll()
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.AllRaceDataResponse]{Msg: &v1.AllRaceDataResponse{Races: raceDetails2Races(rds.GetRaceDetails())}}, nil
+	return connect_go.NewResponse(&v1.AllRaceDataResponse{Races: raceDetails2Races(rds.GetRaceDetails())}), nil
 }
 
 func (r *Race) RaceData(_ context.Context, req *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error) {
 	if err := req.Msg.ValidateAll(); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
 	}
-	rd, err := r.store.GetById(req.Msg.GetId())
+	rd, err := r.store.Race.GetByID(req.Msg.GetId())
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.RaceDataResponse]{Msg: &v1.RaceDataResponse{Race: rd}}, nil
+	return connect_go.NewResponse(&v1.RaceDataResponse{Race: rd}), nil
 }
 func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error) {
 	_, ok, err := r.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
@@ -72,10 +72,10 @@ func (r *Race) RegisterRace(_ context.Context, req *connect_go.Request[v1.Regist
 		VoteBegin: req.Msg.GetStart(),
 		VoteEnd:   req.Msg.GetStart(),
 	}
-	if err := r.store.Create(rd); err != nil {
+	if err := r.store.Race.Create(rd); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	return &connect_go.Response[v1.RegisterRaceResponse]{Msg: &v1.RegisterRaceResponse{}}, nil
+	return connect_go.NewResponse(&v1.RegisterRaceResponse{}), nil
 }
 
 func raceDetails2Races(rds []*v1.RaceDetail) []*v1.Race {

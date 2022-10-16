@@ -7,12 +7,12 @@ import (
 	v1 "github.com/ueckoken/chofu-race-course/go/_proto/spec/v1"
 )
 
-// Race contains file data and its cache
+// Race contains file data and its cache.
 type Race struct {
 	cache *Persistent[*v1.RaceDetails]
 }
 
-// NewRaceFile creates something like file for persistent
+// NewRaceFile creates something like file for persistent.
 func NewRaceFile(path string) (*Race, error) {
 	hc, err := NewPersistentStruct(path, &v1.RaceDetails{})
 	if err != nil {
@@ -27,7 +27,7 @@ func (w *Race) GetAll() (*v1.RaceDetails, error) {
 	return w.cache.Get()
 }
 
-func (w *Race) GetById(id uint32) (*v1.RaceDetail, error) {
+func (w *Race) GetByID(id uint32) (*v1.RaceDetail, error) {
 	rds, err := w.GetAll()
 	if err != nil {
 		return nil, err
@@ -37,23 +37,23 @@ func (w *Race) GetById(id uint32) (*v1.RaceDetail, error) {
 			return rd, nil
 		}
 	}
-	return nil, notFound
+	return nil, errNotFound
 }
 
-// Create は新しいレースを登録します。rd の中にあるIDが0の場合は新しいIDを付与します
+// Create は新しいレースを登録します。rd の中にあるIDが0の場合は新しいIDを付与します.
 func (w *Race) Create(rd *v1.RaceDetail) error {
 	if rd.GetData().GetId() == 0 {
-		id, err := w.supplyNewId()
+		id, err := w.supplyNewID()
 		if err != nil {
 			return err
 		}
 		rd.Data.Id = id
 	}
-	existedRec, err := w.GetById(rd.GetData().GetId())
+	existedRec, err := w.GetByID(rd.GetData().GetId())
 	if existedRec != nil {
 		return fmt.Errorf("already existed")
 	}
-	if err != nil && err != notFound {
+	if err != nil && err != errNotFound {
 		return err
 	}
 	oldRecs, err := w.GetAll()
@@ -73,19 +73,19 @@ func (w *Race) Delete(id uint32) error {
 		return err
 	}
 	oldRecs := oldRecs2.GetRaceDetails()
-	var deleteId int
+	var deleteID int
 	isExist := false
 	for i, rec := range oldRecs {
 		if rec.GetData().GetId() == id {
-			deleteId = i
+			deleteID = i
 			isExist = true
 			break
 		}
 	}
 	if !isExist {
-		return notFound
+		return errNotFound
 	}
-	oldRecs[deleteId] = oldRecs[len(oldRecs)-1]
+	oldRecs[deleteID] = oldRecs[len(oldRecs)-1]
 	oldRecs[len(oldRecs)-1] = nil
 	updatedRecs := oldRecs[:len(oldRecs)-1]
 
@@ -95,7 +95,7 @@ func (w *Race) Delete(id uint32) error {
 	return err
 }
 
-// Update は *v1.RaceDetail の Data フィールドにある *v1.Race の IDを主キーとして更新します
+// Update は *v1.RaceDetail の Data フィールドにある *v1.Race の IDを主キーとして更新します.
 func (w *Race) Update(rec *v1.RaceDetail) error {
 	if err := rec.ValidateAll(); err != nil {
 		return err
@@ -115,7 +115,7 @@ func (w *Race) Update(rec *v1.RaceDetail) error {
 		}
 	}
 	if !existRec {
-		return notFound
+		return errNotFound
 	}
 	if err := w.cache.Set(&v1.RaceDetails{RaceDetails: oldRecs}); err != nil {
 		return err
@@ -123,8 +123,8 @@ func (w *Race) Update(rec *v1.RaceDetail) error {
 	return nil
 }
 
-// supplyNewId はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
-func (w *Race) supplyNewId() (uint32, error) {
+// supplyNewID はデータベースから最も大きいIDを検索し、そのIDに1を足した値を返します。
+func (w *Race) supplyNewID() (uint32, error) {
 	rs2, err := w.GetAll()
 	rs := rs2.GetRaceDetails()
 	if err != nil {

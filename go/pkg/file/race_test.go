@@ -19,7 +19,7 @@ func TestRaceFlow(t *testing.T) {
 	require.NotNil(t, r)
 	assert.Implements(t, (*handler.RaceStore)(nil), r)
 
-	res, err := r.GetById(0)
+	res, err := r.GetByID(0)
 	assert.Nil(t, res)
 	assert.Error(t, err, "レコードが存在しないときはnotfoundエラー")
 
@@ -47,7 +47,7 @@ func TestRaceFlow(t *testing.T) {
 	assert.Len(t, rds.GetRaceDetails(), 2)
 	assert.NoError(t, err)
 
-	rd, err := r.GetById(10)
+	rd, err := r.GetByID(10)
 	assert.NoError(t, err)
 	assert.NotNil(t, rd)
 	assert.NotNil(t, rd.GetData())
@@ -89,7 +89,7 @@ func TestRaceUpdate(t *testing.T) {
 	},
 	)
 	assert.NoError(t, err)
-	rd, _ := r.GetById(1)
+	rd, _ := r.GetByID(1)
 	assert.Equal(t, "更新のテスト", rd.GetData().GetName())
 
 	rds, _ := r.GetAll()

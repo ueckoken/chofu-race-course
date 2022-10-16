@@ -18,7 +18,7 @@ type horseStoreMock struct {
 
 func (m horseStoreMock) Create(h *v1.HorseDetail) error             { return m.err }
 func (m horseStoreMock) GetAll() (*v1.HorseDetails, error)          { return &v1.HorseDetails{}, m.err }
-func (m horseStoreMock) GetById(id uint32) (*v1.HorseDetail, error) { return nil, m.err }
+func (m horseStoreMock) GetByID(id uint32) (*v1.HorseDetail, error) { return nil, m.err }
 
 type adminAuthorizerMock struct {
 	authorizer.AdminAuthorizer
@@ -29,7 +29,7 @@ func (adminAuthorizerMock) Verify(j string) (username string, ok bool, err error
 }
 
 func TestRegisterHorse(t *testing.T) {
-	h, err := NewHorseServer(horseStoreMock{}, adminAuthorizerMock{})
+	h, err := NewHorseServer(DataStore{Horse: horseStoreMock{}}, adminAuthorizerMock{})
 	assert.NoError(t, err)
 	require.NotNil(t, h)
 
@@ -73,4 +73,3 @@ func TestRegisterHorse(t *testing.T) {
 	assert.Nil(t, res)
 	assert.Error(t, err, "馬名の上限を越えている")
 }
-

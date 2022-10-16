@@ -2,6 +2,7 @@ package file
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"sync"
 
@@ -38,7 +39,7 @@ func NewPersistentStruct[T proto.Message](filePath string, buf T) (*Persistent[T
 
 }
 
-// Set replace current data with arg
+// Set replace current data with arg.
 func (h *Persistent[T]) Set(d T) error {
 	h.filemtx.Lock()
 	defer h.filemtx.Unlock()
@@ -48,7 +49,7 @@ func (h *Persistent[T]) Set(d T) error {
 	}
 	defer func() {
 		if err := f.Close(); err != nil {
-			fmt.Println("failed to close, err=%w", err)
+			log.Println("failed to close, err=%w", err)
 		}
 	}()
 	h.data = d

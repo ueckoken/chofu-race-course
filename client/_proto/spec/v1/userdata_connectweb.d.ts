@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, EditHorseRequest, EditHorseResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, EditHorseRequest, EditHorseResponse, EditRaceRequest, EditRaceResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, RegisterRaceResultRequest, RegisterRaceResultResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -132,6 +132,28 @@ export declare const RaceDataService: {
       readonly name: "RegisterRace",
       readonly I: typeof RegisterRaceRequest,
       readonly O: typeof RegisterRaceResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * 要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
+     *
+     * @generated from rpc spec.v1.RaceDataService.RegisterRaceResult
+     */
+    readonly registerRaceResult: {
+      readonly name: "RegisterRaceResult",
+      readonly I: typeof RegisterRaceResultRequest,
+      readonly O: typeof RegisterRaceResultResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * 要Admin認証、データの編集に使う
+     *
+     * @generated from rpc spec.v1.RaceDataService.EditRace
+     */
+    readonly editRace: {
+      readonly name: "EditRace",
+      readonly I: typeof EditRaceRequest,
+      readonly O: typeof EditRaceResponse,
       readonly kind: MethodKind.Unary,
     },
   }

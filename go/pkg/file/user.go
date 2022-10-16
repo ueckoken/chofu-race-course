@@ -32,18 +32,18 @@ func NewUserFile(path string) (*User, error) {
 }
 
 func (w *User) Create(u *v1.User) error {
-	userInRec, err := w.GetById(u.GetId())
+	userInRec, err := w.GetByID(u.GetId())
 	if userInRec != nil {
-		return recordDupricate
+		return errRecordDupricate
 	}
-	if err != nil && err != notFound {
+	if err != nil && err != errNotFound {
 		return err
 	}
-	oldRecs, err := w.GetAll()
+	recs, err := w.GetAll()
 	if err != nil {
 		return err
 	}
-	newRecs := append(oldRecs, u)
+	recs = append(recs, u)
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	f, err := os.Create(w.filePath)
@@ -51,7 +51,7 @@ func (w *User) Create(u *v1.User) error {
 		return err
 	}
 	defer f.Close()
-	b, err := proto.Marshal(&v1.Users{Users: newRecs})
+	b, err := proto.Marshal(&v1.Users{Users: recs})
 	if err != nil {
 		return err
 	}
@@ -59,8 +59,8 @@ func (w *User) Create(u *v1.User) error {
 	return err
 }
 
-// GetById は与えたIDを持つUserを返す。存在しないときはErrorを返す。
-func (w *User) GetById(id string) (*v1.User, error) {
+// GetByID は与えたIDを持つUserを返す。存在しないときはErrorを返す。
+func (w *User) GetByID(id string) (*v1.User, error) {
 	us, err := w.GetAll()
 	if err != nil {
 		return nil, err
@@ -70,7 +70,7 @@ func (w *User) GetById(id string) (*v1.User, error) {
 			return u, nil
 		}
 	}
-	return nil, notFound
+	return nil, errNotFound
 }
 
 func (w *User) GetAll() ([]*v1.User, error) {
