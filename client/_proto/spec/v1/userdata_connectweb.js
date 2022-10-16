@@ -135,7 +135,7 @@ export const RaceDataService = {
       kind: MethodKind.Unary,
     },
     /**
-     * 要Admin認証
+     * 要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
      *
      * @generated from rpc spec.v1.RaceDataService.RegisterRaceResult
      */
@@ -146,7 +146,7 @@ export const RaceDataService = {
       kind: MethodKind.Unary,
     },
     /**
-     * 要Admin認証
+     * 要Admin認証、データの編集に使う
      *
      * @generated from rpc spec.v1.RaceDataService.EditRace
      */

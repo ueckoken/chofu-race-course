@@ -277,9 +277,9 @@ type RaceDataServiceClient interface {
 	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
 	// 要Admin認証
 	RegisterRace(context.Context, *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error)
-	// 要Admin認証
+	// 要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
 	RegisterRaceResult(context.Context, *connect_go.Request[v1.RegisterRaceResultRequest]) (*connect_go.Response[v1.RegisterRaceResultResponse], error)
-	// 要Admin認証
+	// 要Admin認証、データの編集に使う
 	EditRace(context.Context, *connect_go.Request[v1.EditRaceRequest]) (*connect_go.Response[v1.EditRaceResponse], error)
 }
 
@@ -361,9 +361,9 @@ type RaceDataServiceHandler interface {
 	RaceData(context.Context, *connect_go.Request[v1.RaceDataRequest]) (*connect_go.Response[v1.RaceDataResponse], error)
 	// 要Admin認証
 	RegisterRace(context.Context, *connect_go.Request[v1.RegisterRaceRequest]) (*connect_go.Response[v1.RegisterRaceResponse], error)
-	// 要Admin認証
+	// 要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
 	RegisterRaceResult(context.Context, *connect_go.Request[v1.RegisterRaceResultRequest]) (*connect_go.Response[v1.RegisterRaceResultResponse], error)
-	// 要Admin認証
+	// 要Admin認証、データの編集に使う
 	EditRace(context.Context, *connect_go.Request[v1.EditRaceRequest]) (*connect_go.Response[v1.EditRaceResponse], error)
 }
 

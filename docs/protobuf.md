@@ -705,8 +705,8 @@ start - n, vote_end: start - m
 | AllRaceData | [AllRaceDataRequest](#spec-v1-AllRaceDataRequest) | [AllRaceDataResponse](#spec-v1-AllRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
 | RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
-| RegisterRaceResult | [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest) | [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse) | 要Admin認証 |
-| EditRace | [EditRaceRequest](#spec-v1-EditRaceRequest) | [EditRaceResponse](#spec-v1-EditRaceResponse) | 要Admin認証 |
+| RegisterRaceResult | [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest) | [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse) | 要Admin認証、結果の入力に使う(他のデータにも影響が発生する) |
+| EditRace | [EditRaceRequest](#spec-v1-EditRaceRequest) | [EditRaceResponse](#spec-v1-EditRaceResponse) | 要Admin認証、データの編集に使う |
 
 
 <a name="spec-v1-UserDataService"></a>
