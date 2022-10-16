@@ -129,7 +129,7 @@ const SpecialPage: FC<{}> = () => {
                 </tbody>
             </table>
             <h3>ランキング</h3>
-            <p>1日目終了時点</p>
+            <p>2日目終了時点</p>
             <table>
                 <thead>
                     <tr>
