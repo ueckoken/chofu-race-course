@@ -152,9 +152,9 @@ service RaceDataService {
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
   //要Admin認証
   rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
-  //要Admin認証
+  //要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
   rpc RegisterRaceResult(RegisterRaceResultRequest) returns (RegisterRaceResultResponse) {}
-  //要Admin認証
+  //要Admin認証、データの編集に使う
   rpc EditRace(EditRaceRequest) returns (EditRaceResponse) {}
 }
 message Race {
