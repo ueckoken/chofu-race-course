@@ -12,48 +12,90 @@ const SpecialPage: FC<{}> = () => {
         },
         {
             order: 2,
+            name: "バックフリップ",
+            id: 12,
+            point: 12,
+        },
+        {
+            order: 2,
+            name: "ブツガイサイサイリ",
+            id: 19,
+            point: 12,
+        },
+        {
+            order: 4,
+            name: "サクラモッチリーン",
+            id: 7,
+            point: 7,
+        },
+        {
+            order: 4,
+            name: "ネイバオキリコミ",
+            id: 2,
+            point: 7,
+        },
+        {
+            order: 6,
+            name: "エレファンススズカ",
+            id: 15,
+            point: 6,
+        },
+        {
+            order: 6,
+            name: "オーバートップ",
+            id: 20,
+            point: 6,
+        },
+        {
+            order: 8,
+            name: "オナマエシール",
+            id: 11,
+            point: 5,
+        },
+        {
+            order: 9,
+            name: "キウイオイシカッタ",
+            id: 14,
+            point: 3,
+        },
+        {
+            order: 10,
+            name: "ライラックアロー",
+            id: 10,
+            point: 2.5,
+        },
+        {
+            order: 11,
             name: "エイシャオラー",
             id: 3,
             point: 2,
         },
         {
-            order: 2,
+            order: 11,
             name: "オゼハカイザイダン",
             id: 8,
             point: 2,
         },
         {
-            order: 2,
+            order: 11,
             name: "オタクカエルヨー",
             id: 4,
             point: 2,
         },
         {
-            order: 2,
-            name: "サクラモッチリーン",
-            id: 7,
+            order: 14,
+            name: "ウタサンブラック",
+            id: 18,
             point: 2,
         },
         {
-            order: 2,
-            name: "ネイバオキリコミ",
-            id: 2,
-            point: 2,
-        },
-        {
-            order: 2,
+            order: 14,
             name: "ハリボテエレジー",
             id: 6,
             point: 2,
         },
         {
-            order: 2,
-            name: "ライラックアロー",
-            id: 10,
-            point: 2,
-        },
-        {
-            order: 2,
+            order: 14,
             name: "レモナーノナレハテ",
             id: 1,
             point: 2,
@@ -93,7 +135,7 @@ const SpecialPage: FC<{}> = () => {
                     <tr>
                         <th>順位</th>
                         <th>馬名</th>
-                        <th>得点</th>
+                        <th>レート</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,7 +152,7 @@ const SpecialPage: FC<{}> = () => {
                     ))}
                 </tbody>
             </table>
-            <p>合計点の平均を得点とする。着順ごとの獲得点は以下の通り。</p>
+            <p>合計点の平均をレートとする。着順ごとの獲得点は以下の通り。</p>
             <table>
                 <thead>
                     <tr>
