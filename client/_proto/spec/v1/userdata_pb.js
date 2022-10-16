@@ -400,6 +400,26 @@ export const RegisterRaceResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message spec.v1.RegisterRaceResultRequest
+ */
+export const RegisterRaceResultRequest = proto3.makeMessageType(
+  "spec.v1.RegisterRaceResultRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "members", kind: "message", T: RaceDetail_Member, repeated: true },
+    { no: 3, name: "admin_jwt", kind: "message", T: JWT },
+  ],
+);
+
+/**
+ * @generated from message spec.v1.RegisterRaceResultResponse
+ */
+export const RegisterRaceResultResponse = proto3.makeMessageType(
+  "spec.v1.RegisterRaceResultResponse",
+  [],
+);
+
+/**
  * 値が入ってたら更新する。
  *
  * @generated from message spec.v1.EditRaceRequest

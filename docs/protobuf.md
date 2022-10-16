@@ -35,6 +35,8 @@
     - [RegisterHorseResponse](#spec-v1-RegisterHorseResponse)
     - [RegisterRaceRequest](#spec-v1-RegisterRaceRequest)
     - [RegisterRaceResponse](#spec-v1-RegisterRaceResponse)
+    - [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest)
+    - [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse)
     - [User](#spec-v1-User)
     - [UserDataRequest](#spec-v1-UserDataRequest)
     - [UserDataResponse](#spec-v1-UserDataResponse)
@@ -532,6 +534,33 @@ start - n, vote_end: start - m
 
 
 
+<a name="spec-v1-RegisterRaceResultRequest"></a>
+
+### RegisterRaceResultRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated |  |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-RegisterRaceResultResponse"></a>
+
+### RegisterRaceResultResponse
+
+
+
+
+
+
+
 <a name="spec-v1-User"></a>
 
 ### User
@@ -676,6 +705,7 @@ start - n, vote_end: start - m
 | AllRaceData | [AllRaceDataRequest](#spec-v1-AllRaceDataRequest) | [AllRaceDataResponse](#spec-v1-AllRaceDataResponse) |  |
 | RaceData | [RaceDataRequest](#spec-v1-RaceDataRequest) | [RaceDataResponse](#spec-v1-RaceDataResponse) |  |
 | RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
+| RegisterRaceResult | [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest) | [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse) | 要Admin認証 |
 | EditRace | [EditRaceRequest](#spec-v1-EditRaceRequest) | [EditRaceResponse](#spec-v1-EditRaceResponse) | 要Admin認証 |
 
 

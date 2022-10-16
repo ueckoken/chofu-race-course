@@ -1055,6 +1055,63 @@ export declare class RegisterRaceResponse extends Message<RegisterRaceResponse> 
 }
 
 /**
+ * @generated from message spec.v1.RegisterRaceResultRequest
+ */
+export declare class RegisterRaceResultRequest extends Message<RegisterRaceResultRequest> {
+  /**
+   * 対象を指定するため必須
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * @generated from field: repeated spec.v1.RaceDetail.Member members = 2;
+   */
+  members: RaceDetail_Member[];
+
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 3;
+   */
+  adminJwt?: JWT;
+
+  constructor(data?: PartialMessage<RegisterRaceResultRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.RegisterRaceResultRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterRaceResultRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterRaceResultRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterRaceResultRequest;
+
+  static equals(a: RegisterRaceResultRequest | PlainMessage<RegisterRaceResultRequest> | undefined, b: RegisterRaceResultRequest | PlainMessage<RegisterRaceResultRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message spec.v1.RegisterRaceResultResponse
+ */
+export declare class RegisterRaceResultResponse extends Message<RegisterRaceResultResponse> {
+  constructor(data?: PartialMessage<RegisterRaceResultResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.RegisterRaceResultResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterRaceResultResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterRaceResultResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterRaceResultResponse;
+
+  static equals(a: RegisterRaceResultResponse | PlainMessage<RegisterRaceResultResponse> | undefined, b: RegisterRaceResultResponse | PlainMessage<RegisterRaceResultResponse> | undefined): boolean;
+}
+
+/**
  * 値が入ってたら更新する。
  *
  * @generated from message spec.v1.EditRaceRequest

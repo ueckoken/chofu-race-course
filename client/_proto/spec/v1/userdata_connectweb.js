@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, EditHorseRequest, EditHorseResponse, EditRaceRequest, EditRaceResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, EditHorseRequest, EditHorseResponse, EditRaceRequest, EditRaceResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, RegisterRaceResultRequest, RegisterRaceResultResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -132,6 +132,17 @@ export const RaceDataService = {
       name: "RegisterRace",
       I: RegisterRaceRequest,
       O: RegisterRaceResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * 要Admin認証
+     *
+     * @generated from rpc spec.v1.RaceDataService.RegisterRaceResult
+     */
+    registerRaceResult: {
+      name: "RegisterRaceResult",
+      I: RegisterRaceResultRequest,
+      O: RegisterRaceResultResponse,
       kind: MethodKind.Unary,
     },
     /**
