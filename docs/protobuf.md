@@ -257,7 +257,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | type | [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType) |  | 拡張子 |
-| data | [bytes](#bytes) |  | base64形式 |
+| data | [bytes](#bytes) |  | 画像のデータ bytes(img) |
 
 
 

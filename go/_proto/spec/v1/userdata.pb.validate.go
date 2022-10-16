@@ -56,10 +56,10 @@ func (m *User) validate(all bool) error {
 
 	var errors []error
 
-	if l := len(m.GetId()); l < 16 || l > 1024 {
+	if l := utf8.RuneCountInString(m.GetId()); l < 1 || l > 1024 {
 		err := UserValidationError{
 			field:  "Id",
-			reason: "value length must be between 16 and 1024 bytes, inclusive",
+			reason: "value length must be between 1 and 1024 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -4371,10 +4371,10 @@ func (m *HorseDetail_Image) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if len(m.GetData()) < 1 {
+	if l := len(m.GetData()); l < 1 || l > 1048576 {
 		err := HorseDetail_ImageValidationError{
 			field:  "Data",
-			reason: "value length must be at least 1 bytes",
+			reason: "value length must be between 1 and 1048576 bytes, inclusive",
 		}
 		if !all {
 			return err
