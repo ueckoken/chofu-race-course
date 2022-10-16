@@ -153,6 +153,8 @@ service RaceDataService {
   //要Admin認証
   rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
   //要Admin認証
+  rpc RegisterRaceResult(RegisterRaceResultRequest) returns (RegisterRaceResultResponse) {}
+  //要Admin認証
   rpc EditRace(EditRaceRequest) returns (EditRaceResponse) {}
 }
 message Race {
@@ -226,6 +228,14 @@ message RegisterRaceRequest {
   JWT admin_jwt = 5 [(validate.rules).message.required = true];
 }
 message RegisterRaceResponse {}
+message RegisterRaceResultRequest {
+  // 対象を指定するため必須
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
+  repeated RaceDetail.Member members = 2;
+  // admin JWT
+  JWT admin_jwt = 3 [(validate.rules).message.required = true];
+}
+message RegisterRaceResultResponse {}
 // 値が入ってたら更新する。
 message EditRaceRequest {
   // 対象を指定するため必須
