@@ -3,7 +3,6 @@ package horse
 import (
 	"context"
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -41,6 +40,7 @@ func (r *Regist) Execute(ctx context.Context, f *flag.FlagSet, args ...interface
 		return subcommands.ExitFailure
 	}
 	client := &http.Client{}
+
 	userClient := v1connect.NewUserDataServiceClient(client, r.endpoint)
 	res, err := userClient.LoginAsAdmin(ctx, &connect.Request[v1.LoginAsAdminRequest]{Msg: &v1.LoginAsAdminRequest{Password: r.password}})
 	if err != nil {
@@ -49,7 +49,6 @@ func (r *Regist) Execute(ctx context.Context, f *flag.FlagSet, args ...interface
 	}
 
 	jwt := res.Msg.GetAdminJwt()
-	fmt.Printf("%+v", jwt.GetToken())
 	horseClient := v1connect.NewHorseDataServiceClient(client, r.endpoint)
 	_, err = horseClient.RegisterHorse(ctx, &connect.Request[v1.RegisterHorseRequest]{Msg: &v1.RegisterHorseRequest{
 		Name:     r.horseName,

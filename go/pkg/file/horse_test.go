@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"path/filepath"
 	"testing"
 
@@ -71,7 +70,7 @@ func TestAddNewHorse(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Len(t, hds.GetHorseDetails(), 2)
 
-	hd, err := h.GetById(2)
+	hd, err := h.GetByID(2)
 	assert.NoError(t, err)
 	assert.Equal(t, uint32(2), hd.GetData().GetId(), "ID=0で作成したユーザは自動的にIDをインクリメントする。またIDで検索できる")
 	assert.Equal(t, "ワン", hd.GetData().GetName())
@@ -81,7 +80,6 @@ func TestAddNewHorse(t *testing.T) {
 }
 
 func TestPersistence(t *testing.T) {
-	fmt.Println("starting ")
 	d := filepath.Join(t.TempDir(), "testing-horse")
 	h1, err := NewHorseFile(d)
 	assert.NoError(t, err)
@@ -121,7 +119,7 @@ func TestUpdateHorse(t *testing.T) {
 
 	err = h.Update(&v1.HorseDetail{Data: &v1.Horse{Id: 1, Name: "バメイバメイ"}, Owner: "新オーナー"})
 	assert.NoError(t, err, "IDが存在するので変更できる")
-	hd, err := h.GetById(1)
+	hd, err := h.GetByID(1)
 	assert.NoError(t, err)
 	assert.Equal(t, "新オーナー", hd.GetOwner())
 	assert.Equal(t, "バメイバメイ", hd.GetData().GetName())

@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/rs/cors"
 	"github.com/ueckoken/chofu-race-course/go/internal"
@@ -26,11 +27,14 @@ func main() {
 		AllowedOrigins:   env.CorsArrowedOrigins,
 		AllowCredentials: true,
 	})
-	err = http.ListenAndServe(
-		env.ListenAddr,
-		corsConf.Handler(h2c.NewHandler(route, &http2.Server{})),
-	)
-	if err != nil {
+	srv := &http.Server{
+		Addr:              env.ListenAddr,
+		Handler:           corsConf.Handler(h2c.NewHandler(route, &http2.Server{})),
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       5 * time.Second,
+		WriteTimeout:      10 * time.Second,
+	}
+	if err := srv.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
 }

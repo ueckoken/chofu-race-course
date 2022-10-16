@@ -31,11 +31,11 @@ func (w *Horse) Create(h *v1.HorseDetail) error {
 	if h == nil {
 		return fmt.Errorf("h is nil")
 	}
-	existedHorse, err := w.GetById(h.GetData().GetId())
+	existedHorse, err := w.GetByID(h.GetData().GetId())
 	if existedHorse != nil {
-		return recordDupricate
+		return errRecordDupricate
 	}
-	if err != nil && err != notFound {
+	if err != nil && err != errNotFound {
 		return err
 	}
 	if h.GetData().GetId() == 0 && h.GetData() != nil {
@@ -65,7 +65,7 @@ func (w *Horse) GetAll() (*v1.HorseDetails, error) {
 	return w.cache.Get()
 }
 
-func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
+func (w *Horse) GetByID(id uint32) (*v1.HorseDetail, error) {
 	hs, err := w.GetAll()
 	if err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func (w *Horse) GetById(id uint32) (*v1.HorseDetail, error) {
 			return h, nil
 		}
 	}
-	return nil, notFound
+	return nil, errNotFound
 }
 
 func (w *Horse) Update(newHd *v1.HorseDetail) error {
@@ -97,7 +97,7 @@ func (w *Horse) Update(newHd *v1.HorseDetail) error {
 		}
 	}
 	if !isExist {
-		return notFound
+		return errNotFound
 	}
 	if err := w.cache.Set(&v1.HorseDetails{HorseDetails: hds.GetHorseDetails()}); err != nil {
 		return fmt.Errorf("failed to write, err=%w", err)

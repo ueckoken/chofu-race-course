@@ -333,7 +333,7 @@ export declare class HorseDetail_Image extends Message<HorseDetail_Image> {
   type: HorseDetail_Image_ImageType;
 
   /**
-   * base64形式
+   * 画像のデータ bytes(img)
    *
    * @generated from field: bytes data = 2;
    */
