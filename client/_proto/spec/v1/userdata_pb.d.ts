@@ -1147,11 +1147,11 @@ export declare class EditRaceRequest extends Message<EditRaceRequest> {
   description?: string;
 
   /**
-   * 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします
+   * 馬のidの配列で指定
    *
-   * @generated from field: repeated spec.v1.RaceDetail.Member members = 6;
+   * @generated from field: repeated uint32 members = 6;
    */
-  members: RaceDetail_Member[];
+  members: number[];
 
   /**
    * admin JWT
