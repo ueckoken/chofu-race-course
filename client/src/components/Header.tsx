@@ -1,10 +1,18 @@
 import { FC } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header: FC<{}> = () => {
     return (
         <header>
-            <h1>調布競馬ポータル</h1>
+            <h1>
+                <Image
+                    src="/logo.png"
+                    alt="調布競馬"
+                    height="48px"
+                    width="220.8px"
+                />
+            </h1>
             <nav>
                 <ul>
                     <li>
