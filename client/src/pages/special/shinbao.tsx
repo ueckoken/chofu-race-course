@@ -111,6 +111,11 @@ const SpecialPage: FC<{}> = () => {
                     content="https://kra.azukibar.dev/ogp.png"
                 />
                 <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                    name="twitter:title"
+                    content="新馬王戦 | 調布競馬ポータル"
+                />
+                <meta name="twitter:description" content="第1回開催" />
             </Head>
             <h2>新馬王戦</h2>
             <h3>日程</h3>
