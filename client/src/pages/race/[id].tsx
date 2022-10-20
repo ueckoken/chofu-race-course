@@ -28,7 +28,10 @@ const RaceDetailPage: FC<Props> = ({ json }) => {
             <Head>
                 <title>{`${race.data!.name} | 調布競馬ポータル`}</title>
                 <link rel="icon" href="/logo256.ico" />
-                <meta name="og:image" content="/ogp.png" />
+                <meta
+                    name="og:image"
+                    content="https://kra.azukibar.dev/ogp.png"
+                />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <h2>{`第${race.data!.order}競争 ${race.data!.name}`}</h2>
