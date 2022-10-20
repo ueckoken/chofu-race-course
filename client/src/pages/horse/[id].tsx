@@ -40,6 +40,7 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
         <>
             <Head>
                 <title>{`${horse.data!.name} | 調布競馬ポータル`}</title>
+                <link rel="icon" href="/logo256.ico" />
             </Head>
             <h2>{horse.data!.name}</h2>
             {horse.image ? (

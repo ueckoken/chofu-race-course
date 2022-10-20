@@ -7,6 +7,9 @@ const TopPage: FC<{}> = () => {
         <>
             <Head>
                 <title>調布競馬ポータル</title>
+                <link rel="icon" href="/logo256.ico" />
+                <meta name="og:image" content="/ogp.png" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <h2>開催情報</h2>
             <p>

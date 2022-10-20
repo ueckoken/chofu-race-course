@@ -105,6 +105,9 @@ const SpecialPage: FC<{}> = () => {
         <>
             <Head>
                 <title>新馬王戦 | 調布競馬ポータル</title>
+                <link rel="icon" href="/logo256.ico" />
+                <meta name="og:image" content="/ogp.png" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <h2>新馬王戦</h2>
             <h3>日程</h3>
@@ -129,7 +132,7 @@ const SpecialPage: FC<{}> = () => {
                 </tbody>
             </table>
             <h3>ランキング</h3>
-            <p>1日目終了時点</p>
+            <p>2日目終了時点</p>
             <table>
                 <thead>
                     <tr>
