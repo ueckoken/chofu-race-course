@@ -811,7 +811,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     sass: 1.55.0
-    sharp: ^0.31.1
+    sharp: 0.31.1
     typescript: 4.8.4
   languageName: unknown
   linkType: soft
@@ -3063,7 +3063,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.31.1":
+"sharp@npm:0.31.1":
   version: 0.31.1
   resolution: "sharp@npm:0.31.1"
   dependencies:
