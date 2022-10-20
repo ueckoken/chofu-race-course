@@ -102,7 +102,7 @@ const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
 const EditRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
     const [id, setId] = useState<number>(0);
     const [name, setName] = useState<string>("");
-    const [order, setOrder] = useState<number>(NaN);
+    const [order, setOrder] = useState<number>(0);
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
     const [member, setMember] = useState<string>("");
@@ -182,26 +182,44 @@ const EditRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
             </div>
             <button
                 onClick={() =>
-                    raceClient
-                        .editRace({
-                            adminJwt: jwt!,
-                            id,
-                            name: name !== "" ? name : undefined,
-                            order: !Number.isNaN(order) ? order : undefined,
-                            start:
-                                date !== "" && time !== ""
-                                    ? Timestamp.fromDate(
-                                          new Date(`${date}T${time}`)
-                                      )
-                                    : undefined,
-                            description:
-                                description !== "" ? description : undefined,
-                        })
-                        .then(() => alert("編集完了！"))
-                        .catch((err) => {
-                            console.error(err);
-                            alert("編集失敗......");
-                        })
+                    horseClient.allHorseData({}).then((data) => {
+                        const horses = data.horses;
+                        raceClient
+                            .editRace({
+                                adminJwt: jwt!,
+                                id,
+                                name: name !== "" ? name : undefined,
+                                order: order !== 0 ? order : undefined,
+                                start:
+                                    date !== "" && time !== ""
+                                        ? Timestamp.fromDate(
+                                              new Date(`${date}T${time}`)
+                                          )
+                                        : undefined,
+                                description:
+                                    description !== ""
+                                        ? description
+                                        : undefined,
+                                members:
+                                    member !== ""
+                                        ? member.split(",").map((e) => {
+                                              return {
+                                                  horse: horses.filter(
+                                                      (h) => h.id === +e
+                                                  )[0],
+                                                  order: undefined,
+                                                  odds: 1,
+                                                  popularity: 1,
+                                              };
+                                          })
+                                        : undefined,
+                            })
+                            .then(() => alert("編集完了！"))
+                            .catch((err) => {
+                                console.error(err);
+                                alert("編集失敗......");
+                            });
+                    })
                 }
             >
                 編集

@@ -248,8 +248,8 @@ message EditRaceRequest {
   optional uint32 order = 3;
   optional google.protobuf.Timestamp start = 4;
   optional string description = 5;
-  // 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします
-  repeated RaceDetail.Member members = 6;
+  // 馬のidの配列で指定
+  repeated uint32 members = 6;
   // admin JWT
   JWT admin_jwt = 7 [(validate.rules).message.required = true];
 }
