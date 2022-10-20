@@ -24,6 +24,11 @@ const HorsePage: FC<Props> = ({ json }) => {
                     content="https://kra.azukibar.dev/ogp.png"
                 />
                 <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                    name="twitter:title"
+                    content="競争馬一覧 | 調布競馬ポータル"
+                />
+                <meta name="twitter:description" content="競争馬一覧ページ" />
             </Head>
             <h2>競争馬一覧</h2>
             <ul>
