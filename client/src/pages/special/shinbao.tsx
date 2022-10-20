@@ -106,7 +106,10 @@ const SpecialPage: FC<{}> = () => {
             <Head>
                 <title>新馬王戦 | 調布競馬ポータル</title>
                 <link rel="icon" href="/logo256.ico" />
-                <meta name="og:image" content="/ogp.png" />
+                <meta
+                    name="og:image"
+                    content="https://kra.azukibar.dev/ogp.png"
+                />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <h2>新馬王戦</h2>
