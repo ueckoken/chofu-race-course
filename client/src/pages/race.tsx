@@ -19,6 +19,7 @@ const RacePage: FC<Props> = ({ json }) => {
         <>
             <Head>
                 <title>レース一覧 | 調布競馬ポータル</title>
+                <link rel="icon" href="/logo256.ico" />
             </Head>
             <h2>レース一覧</h2>
             <table>
