@@ -16,8 +16,7 @@ FROM gcr.io/distroless/nodejs:16 AS runner
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# COPY --from=builder --chown=nonroot:nonroot /app/public ./public
-
+COPY --from=builder --chown=nonroot:nonroot /app/public ./public
 COPY --from=builder --chown=nonroot:nonroot /app/.next/standalone ./
 COPY --from=builder --chown=nonroot:nonroot /app/.next/static ./.next/static
 
