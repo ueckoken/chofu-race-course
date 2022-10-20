@@ -19,6 +19,8 @@ const HorsePage: FC<Props> = ({ json }) => {
             <Head>
                 <title>競争馬一覧 | 調布競馬ポータル</title>
                 <link rel="icon" href="/logo256.ico" />
+                <meta name="og:image" content="/ogp.png" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <h2>競争馬一覧</h2>
             <ul>
