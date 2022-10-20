@@ -33,6 +33,14 @@ const RaceDetailPage: FC<Props> = ({ json }) => {
                     content="https://kra.azukibar.dev/ogp.png"
                 />
                 <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                    name="twitter:title"
+                    content={`${race.data!.name} | 調布競馬ポータル`}
+                />
+                <meta
+                    name="twitter:description"
+                    content={`${race.data!.name}のデータ`}
+                />
             </Head>
             <h2>{`第${race.data!.order}競争 ${race.data!.name}`}</h2>
             <p>{race.description}</p>

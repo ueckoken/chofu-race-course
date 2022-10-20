@@ -13,6 +13,8 @@ const TopPage: FC<{}> = () => {
                     content="https://kra.azukibar.dev/ogp.png"
                 />
                 <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="調布競馬ポータル" />
+                <meta name="twitter:description" content="調布競馬公式サイト" />
             </Head>
             <h2>開催情報</h2>
             <p>
