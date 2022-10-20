@@ -13,11 +13,11 @@ const horseClient = createPromiseClient(HorseDataService, transport);
 const raceClient = createPromiseClient(RaceDataService, transport);
 
 const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
-    const [raceName, setRaceName] = useState<string>("");
-    const [raceOrder, setRaceOrder] = useState<number>(0);
-    const [raceDate, setRaceDate] = useState<string>("");
-    const [raceTime, setRaceTime] = useState<string>("");
-    const [raceDescription, setRaceDescription] = useState<string>("");
+    const [name, setName] = useState<string>("");
+    const [order, setOrder] = useState<number>(0);
+    const [date, setDate] = useState<string>("");
+    const [time, setTime] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
     return (
         <fieldset>
             <legend>レース登録</legend>
@@ -26,8 +26,8 @@ const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     名前:{" "}
                     <input
                         type="text"
-                        value={raceName}
-                        onChange={(e) => setRaceName(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </label>
             </div>
@@ -36,8 +36,8 @@ const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     順番:{" "}
                     <input
                         type="number"
-                        value={raceOrder}
-                        onChange={(e) => setRaceOrder(+e.target.value)}
+                        value={order}
+                        onChange={(e) => setOrder(+e.target.value)}
                     />
                 </label>
             </div>
@@ -46,8 +46,8 @@ const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     日付:{" "}
                     <input
                         type="date"
-                        value={raceDate}
-                        onChange={(e) => setRaceDate(e.target.value)}
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
                     />
                 </label>
             </div>
@@ -56,8 +56,8 @@ const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     時刻:{" "}
                     <input
                         type="time"
-                        value={raceTime}
-                        onChange={(e) => setRaceTime(e.target.value)}
+                        value={time}
+                        onChange={(e) => setTime(e.target.value)}
                     />
                 </label>
             </div>
@@ -66,23 +66,23 @@ const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     説明:{" "}
                     <input
                         type="text"
-                        value={raceDescription}
-                        onChange={(e) => setRaceDescription(e.target.value)}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                 </label>
             </div>
             <button
                 onClick={() => {
-                    if (raceDate === "" || raceTime === "") {
+                    if (date === "" || time === "") {
                         alert("不正な入力です。");
                         return;
                     }
                     raceClient
                         .registerRace({
-                            name: raceName,
-                            order: raceOrder,
+                            name,
+                            order,
                             start: Timestamp.fromDate(
-                                new Date(`${raceDate}T${raceTime}`)
+                                new Date(`${date}T${time}`)
                             ),
                             adminJwt: jwt!,
                         })
@@ -100,52 +100,119 @@ const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
 };
 
 const EditRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
+    const [id, setId] = useState<number>(0);
+    const [name, setName] = useState<string>("");
+    const [order, setOrder] = useState<number>(NaN);
+    const [date, setDate] = useState<string>("");
+    const [time, setTime] = useState<string>("");
+    const [member, setMember] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
     return (
         <fieldset>
             <legend>レース編集</legend>
             <div>
                 <label>
-                    id: <input type="number" />
+                    id:{" "}
+                    <input
+                        type="number"
+                        value={id}
+                        onChange={(e) => setId(+e.target.value)}
+                    />
                 </label>
             </div>
             <div>
                 <label>
-                    レース名: <input type="text" />
+                    レース名:{" "}
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
                 </label>
             </div>
             <div>
                 <label>
-                    R: <input type="number" />
+                    R:{" "}
+                    <input
+                        type="number"
+                        value={order}
+                        onChange={(e) => setOrder(+e.target.value)}
+                    />
                 </label>
             </div>
             <div>
                 <label>
-                    日付: <input type="date" />
+                    日付:{" "}
+                    <input
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                    />
                 </label>
             </div>
             <div>
                 <label>
-                    時刻: <input type="time" />
+                    時刻:{" "}
+                    <input
+                        type="time"
+                        value={time}
+                        onChange={(e) => setTime(e.target.value)}
+                    />
                 </label>
             </div>
             <div>
                 <label>
-                    メンバー: <input type="text" />
+                    メンバー:{" "}
+                    <input
+                        type="text"
+                        value={member}
+                        onChange={(e) => setMember(e.target.value)}
+                    />
                 </label>
             </div>
             <div>
                 <label>
-                    説明: <input type="text" />
+                    説明:{" "}
+                    <input
+                        type="text"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
                 </label>
             </div>
-            <button>編集</button>
+            <button
+                onClick={() =>
+                    raceClient
+                        .editRace({
+                            adminJwt: jwt!,
+                            id,
+                            name: name !== "" ? name : undefined,
+                            order: !Number.isNaN(order) ? order : undefined,
+                            start:
+                                date !== "" && time !== ""
+                                    ? Timestamp.fromDate(
+                                          new Date(`${date}T${time}`)
+                                      )
+                                    : undefined,
+                            description:
+                                description !== "" ? description : undefined,
+                        })
+                        .then(() => alert("編集完了！"))
+                        .catch((err) => {
+                            console.error(err);
+                            alert("編集失敗......");
+                        })
+                }
+            >
+                編集
+            </button>
         </fieldset>
     );
 };
 
 const RegisterHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
-    const [horseName, setHorseName] = useState<string>("");
-    const [ownerName, setOwnerName] = useState<string>("");
+    const [name, setName] = useState<string>("");
+    const [owner, setOwner] = useState<string>("");
     return (
         <fieldset>
             <legend>競争馬登録</legend>
@@ -154,8 +221,8 @@ const RegisterHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     馬名:{" "}
                     <input
                         type="text"
-                        value={horseName}
-                        onChange={(e) => setHorseName(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </label>
             </div>
@@ -164,8 +231,8 @@ const RegisterHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     馬主名:{" "}
                     <input
                         type="text"
-                        value={ownerName}
-                        onChange={(e) => setOwnerName(e.target.value)}
+                        value={owner}
+                        onChange={(e) => setOwner(e.target.value)}
                     />
                 </label>
             </div>
@@ -174,8 +241,8 @@ const RegisterHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     horseClient
                         .registerHorse({
                             adminJwt: jwt!,
-                            name: horseName,
-                            owner: ownerName,
+                            name,
+                            owner,
                         })
                         .then(() => alert("登録完了！"))
                         .catch((err) => {
@@ -191,10 +258,10 @@ const RegisterHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
 };
 
 const EditHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
-    const [horseId, setHorseId] = useState<number>(0);
-    const [horseName, setHorseName] = useState<string>("");
-    const [ownerName, setOwnerName] = useState<string>("");
-    const [horseImage, setHorseImage] = useState<HorseDetail_Image | undefined>(
+    const [id, setId] = useState<number>(0);
+    const [name, setName] = useState<string>("");
+    const [owner, setOwner] = useState<string>("");
+    const [image, setImage] = useState<HorseDetail_Image | undefined>(
         undefined
     );
     return (
@@ -205,8 +272,8 @@ const EditHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     id:{" "}
                     <input
                         type="number"
-                        value={horseId}
-                        onChange={(e) => setHorseId(+e.target.value)}
+                        value={id}
+                        onChange={(e) => setId(+e.target.value)}
                     />
                 </label>
             </div>
@@ -215,8 +282,8 @@ const EditHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     馬名:{" "}
                     <input
                         type="text"
-                        value={horseName}
-                        onChange={(e) => setHorseName(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </label>
             </div>
@@ -225,8 +292,8 @@ const EditHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                     馬主名:{" "}
                     <input
                         type="text"
-                        value={ownerName}
-                        onChange={(e) => setOwnerName(e.target.value)}
+                        value={owner}
+                        onChange={(e) => setOwner(e.target.value)}
                     />
                 </label>
             </div>
@@ -247,7 +314,7 @@ const EditHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                                 const img = new HorseDetail_Image();
                                 img.type = stringToImageType(type);
                                 img.data = new TextEncoder().encode(data);
-                                setHorseImage(img);
+                                setImage(img);
                             };
                             reader.readAsDataURL(file);
                         }}
@@ -258,11 +325,11 @@ const EditHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                 onClick={() =>
                     horseClient
                         .editHorse({
-                            id: horseId,
+                            id,
                             adminJwt: jwt!,
-                            name: horseName !== "" ? horseName : undefined,
-                            owner: ownerName !== "" ? ownerName : undefined,
-                            image: horseImage,
+                            name: name !== "" ? name : undefined,
+                            owner: owner !== "" ? owner : undefined,
+                            image,
                         })
                         .then(() => alert("編集完了！"))
                         .catch((err) => {
