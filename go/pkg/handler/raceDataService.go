@@ -147,13 +147,29 @@ func (r *Race) EditRace(ctx context.Context, req *connect_go.Request[v1.EditRace
 		oldRec.Description = req.Msg.GetDescription()
 	}
 	if editFields&EditRaceRequestMembers != 0 {
-		oldRec.Members = req.Msg.GetMembers()
+		ms, err := r.fetchMembers(req.Msg.GetMembers())
+		if err != nil {
+			return nil, err
+		}
+		oldRec.Members = ms
 	}
 
 	if err := r.store.Race.Update(oldRec); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	return connect_go.NewResponse(&v1.EditRaceResponse{}), nil
+}
+
+func (r *Race) fetchMembers(horseIDs []uint32) ([]*v1.RaceDetail_Member, error) {
+	res := make([]*v1.RaceDetail_Member, len(horseIDs))
+	for i, horseID := range horseIDs {
+		h, err := r.store.Horse.GetByID(horseID)
+		if err != nil {
+			return nil, err
+		}
+		res[i] = &v1.RaceDetail_Member{Horse: horseDetail2horse(h)}
+	}
+	return res, nil
 }
 
 type EditRaceRequestField int
