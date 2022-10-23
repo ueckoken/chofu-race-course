@@ -16,6 +16,7 @@ service UserDataService {
   // 管理者としてログインを試みる
   rpc LoginAsAdmin(LoginAsAdminRequest) returns (LoginAsAdminResponse) {}
 }
+
 // ユーザを表現する型
 message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
@@ -30,11 +31,10 @@ message Users {
 message UserDataRequest {
   JWT jwt = 1 [(validate.rules).message.required = true];
 }
+
 // JWTトークン
 message JWT {
-  string token = 1 [(validate.rules).string = {
-    min_len: 1
-  }];
+  string token = 1 [(validate.rules).string = {min_len: 1}];
 }
 message UserDataResponse {
   User user = 1;
@@ -79,9 +79,7 @@ message HorseDetail {
     }
     // 拡張子
     ImageType type = 1 [(validate.rules).enum = {
-      not_in: [
-        0
-      ],
+      not_in: [0],
       defined_only: true,
     }];
     // 画像のデータ bytes(img)
@@ -124,6 +122,7 @@ message AllHorseDataResponse {
   // 登録している馬が1頭もいない場合はエラーではなく[]を返す。
   repeated Horse horses = 1;
 }
+
 // HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
 // histories: []
 message RegisterHorseRequest {
@@ -184,9 +183,7 @@ message RaceOrder {
     uint32 order = 1 [(validate.rules).uint32.gte = 1];
     NoteType note = 2 [(validate.rules).enum = {
       defined_only: true,
-      not_in: [
-        0
-      ]
+      not_in: [0]
     }];
   }
 }
@@ -194,10 +191,10 @@ message RaceDetail {
   Race data = 1 [(validate.rules).message.required = true];
   string description = 2;
   message Member {
-    RaceOrder order = 1 [(validate.rules).message.required = true];
-    Horse horse = 2 [(validate.rules).message.required = true];
-    double odds = 3 [(validate.rules).double.gte = 1];
-    uint32 popularity = 4 [(validate.rules).uint32.gte = 1];
+    RaceOrder order = 1;
+    Horse horse = 2;
+    double odds = 3;
+    uint32 popularity = 4;
   }
   repeated Member members = 4;
   google.protobuf.Timestamp vote_begin = 5 [(validate.rules).timestamp.required = true];
@@ -217,6 +214,7 @@ message AllRaceDataRequest {}
 message AllRaceDataResponse {
   repeated Race races = 1;
 }
+
 // RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin:
 // start - n, vote_end: start - m
 message RegisterRaceRequest {
@@ -239,6 +237,7 @@ message RegisterRaceResultRequest {
   JWT admin_jwt = 3 [(validate.rules).message.required = true];
 }
 message RegisterRaceResultResponse {}
+
 // 値が入ってたら更新する。
 message EditRaceRequest {
   // 対象を指定するため必須
@@ -248,8 +247,8 @@ message EditRaceRequest {
   optional uint32 order = 3;
   optional google.protobuf.Timestamp start = 4;
   optional string description = 5;
-  // 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします
-  repeated RaceDetail.Member members = 6;
+  // 馬のidの配列で指定
+  repeated uint32 members = 6;
   // admin JWT
   JWT admin_jwt = 7 [(validate.rules).message.required = true];
 }

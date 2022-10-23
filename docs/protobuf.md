@@ -181,7 +181,7 @@
 | order | [uint32](#uint32) | optional | 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。 |
 | start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional |  |
 | description | [string](#string) | optional |  |
-| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated | 出走表決定も着順確定も同じフィールドを使うけどとりあえずは運用でカバーします |
+| members | [uint32](#uint32) | repeated | 馬のidの配列で指定 |
 | admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 

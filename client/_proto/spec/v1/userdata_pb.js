@@ -432,7 +432,7 @@ export const EditRaceRequest = proto3.makeMessageType(
     { no: 3, name: "order", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
     { no: 4, name: "start", kind: "message", T: Timestamp, opt: true },
     { no: 5, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 6, name: "members", kind: "message", T: RaceDetail_Member, repeated: true },
+    { no: 6, name: "members", kind: "scalar", T: 13 /* ScalarType.UINT32 */, repeated: true },
     { no: 7, name: "admin_jwt", kind: "message", T: JWT },
   ],
 );
