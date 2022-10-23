@@ -12,51 +12,57 @@ const SpecialPage: FC<{}> = () => {
         },
         {
             order: 2,
-            name: "バックフリップ",
-            id: 12,
-            point: 12,
-        },
-        {
-            order: 2,
-            name: "ブツガイサイサイリ",
-            id: 19,
-            point: 12,
-        },
-        {
-            order: 4,
-            name: "サクラモッチリーン",
-            id: 7,
-            point: 7,
-        },
-        {
-            order: 4,
             name: "ネイバオキリコミ",
             id: 2,
+            point: 8.6,
+        },
+        {
+            order: 3,
+            name: "オナマエシール",
+            id: 11,
+            point: 8.5,
+        },
+        {
+            order: 3,
+            name: "ブツガイサイサイリ",
+            id: 19,
+            point: 8.5,
+        },
+        {
+            order: 5,
+            name: "バックフリップ",
+            id: 12,
             point: 7,
         },
         {
             order: 6,
-            name: "エレファンススズカ",
-            id: 15,
-            point: 6,
+            name: "サクラモッチリーン",
+            id: 7,
+            point: 6.3,
         },
         {
-            order: 6,
+            order: 7,
             name: "オーバートップ",
             id: 20,
-            point: 6,
+            point: 4,
         },
         {
             order: 8,
-            name: "オナマエシール",
-            id: 11,
-            point: 5,
+            name: "オゼハカイザイダン",
+            id: 8,
+            point: 3.3,
         },
         {
             order: 9,
+            name: "ウタサンブラック",
+            id: 18,
+            point: 3,
+        },
+        {
+            order: 10,
             name: "キウイオイシカッタ",
             id: 14,
-            point: 3,
+            point: 2.5,
         },
         {
             order: 10,
@@ -65,37 +71,19 @@ const SpecialPage: FC<{}> = () => {
             point: 2.5,
         },
         {
-            order: 11,
+            order: 12,
             name: "エイシャオラー",
             id: 3,
             point: 2,
         },
         {
-            order: 11,
-            name: "オゼハカイザイダン",
-            id: 8,
-            point: 2,
-        },
-        {
-            order: 11,
+            order: 13,
             name: "オタクカエルヨー",
             id: 4,
             point: 2,
         },
         {
-            order: 14,
-            name: "ウタサンブラック",
-            id: 18,
-            point: 2,
-        },
-        {
-            order: 14,
-            name: "ハリボテエレジー",
-            id: 6,
-            point: 2,
-        },
-        {
-            order: 14,
+            order: 13,
             name: "レモナーノナレハテ",
             id: 1,
             point: 2,
@@ -140,7 +128,7 @@ const SpecialPage: FC<{}> = () => {
                 </tbody>
             </table>
             <h3>ランキング</h3>
-            <p>2日目終了時点</p>
+            <p>3日目終了時点</p>
             <table>
                 <thead>
                     <tr>
@@ -158,7 +146,11 @@ const SpecialPage: FC<{}> = () => {
                                     <a>{e.name}</a>
                                 </Link>
                             </td>
-                            <td>{e?.point}</td>
+                            <td>
+                                {Number.isInteger(e.point)
+                                    ? `${e.point}.0`
+                                    : e.point}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
