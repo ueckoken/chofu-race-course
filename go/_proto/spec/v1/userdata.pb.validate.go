@@ -5266,17 +5266,6 @@ func (m *RaceDetail_Member) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetOrder() == nil {
-		err := RaceDetail_MemberValidationError{
-			field:  "Order",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if all {
 		switch v := interface{}(m.GetOrder()).(type) {
 		case interface{ ValidateAll() error }:
@@ -5304,17 +5293,6 @@ func (m *RaceDetail_Member) validate(all bool) error {
 				cause:  err,
 			}
 		}
-	}
-
-	if m.GetHorse() == nil {
-		err := RaceDetail_MemberValidationError{
-			field:  "Horse",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
 	}
 
 	if all {
@@ -5346,27 +5324,9 @@ func (m *RaceDetail_Member) validate(all bool) error {
 		}
 	}
 
-	if m.GetOdds() < 1 {
-		err := RaceDetail_MemberValidationError{
-			field:  "Odds",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Odds
 
-	if m.GetPopularity() < 1 {
-		err := RaceDetail_MemberValidationError{
-			field:  "Popularity",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Popularity
 
 	if len(errors) > 0 {
 		return RaceDetail_MemberMultiError(errors)
