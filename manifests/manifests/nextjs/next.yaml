@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: ghcr.io/ueckoken/chofu-race-course-webapp:2d6b32d-1666277396 # {"$imagepolicy": "flux-system:webapp"}
+          image: ghcr.io/ueckoken/chofu-race-course-webapp:69f420b-1666529187 # {"$imagepolicy": "flux-system:webapp"}
           ports:
             - containerPort: 3000
 ---
