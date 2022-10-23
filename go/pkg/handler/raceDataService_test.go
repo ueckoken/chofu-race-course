@@ -21,11 +21,7 @@ type horseStoreMock struct {
 
 func (h *horseStoreMock) GetByID(id uint32) (*v1.HorseDetail, error) {
 	return &v1.HorseDetail{
-		Data: &v1.Horse{
-			Id:   id,
-			Name: "アアア",
-		},
-		Owner:     "アーア",
+		Data:      &v1.Horse{Id: id, Name: "バメイ"},
 		Image:     &v1.HorseDetail_Image{},
 		Wins:      0,
 		Matches:   0,
@@ -37,10 +33,6 @@ type raceStoreMock struct {
 	handler.RaceStore
 	mock.Mock
 }
-
-// func (r *raceStoreMock) Update(req *v1.RaceDetail) error { return req.ValidateAll() }
-
-// func (r *raceStoreMock) GetAll() (*v1.RaceDetails, error) { return nil, nil }
 
 func (r *raceStoreMock) GetByID(id uint32) (*v1.RaceDetail, error) {
 	rd := &v1.RaceDetail{
@@ -72,13 +64,9 @@ func TestEditRace(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := r.EditRace(context.TODO(), connect.NewRequest(&v1.EditRaceRequest{
-		Id:          1,
-		Name:        new(string),
-		Order:       new(uint32),
-		Start:       &timestamppb.Timestamp{},
-		Description: new(string),
-		Members:     []uint32{1, 2, 3, 4},
-		AdminJwt:    &v1.JWT{Token: "token"},
+		Id:       1,
+		Members:  []uint32{1, 2, 3, 4},
+		AdminJwt: &v1.JWT{Token: "token"},
 	}))
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
