@@ -182,44 +182,34 @@ const EditRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
             </div>
             <button
                 onClick={() =>
-                    horseClient.allHorseData({}).then((data) => {
-                        const horses = data.horses;
-                        raceClient
-                            .editRace({
-                                adminJwt: jwt!,
-                                id,
-                                name: name !== "" ? name : undefined,
-                                order: order !== 0 ? order : undefined,
-                                start:
-                                    date !== "" && time !== ""
-                                        ? Timestamp.fromDate(
-                                              new Date(`${date}T${time}`)
-                                          )
-                                        : undefined,
-                                description:
-                                    description !== ""
-                                        ? description
-                                        : undefined,
-                                members:
-                                    member !== ""
-                                        ? member.split(",").map((e) => {
-                                              return {
-                                                  horse: horses.filter(
-                                                      (h) => h.id === +e
-                                                  )[0],
-                                                  order: undefined,
-                                                  odds: 1,
-                                                  popularity: 1,
-                                              };
-                                          })
-                                        : undefined,
-                            })
-                            .then(() => alert("編集完了！"))
-                            .catch((err) => {
-                                console.error(err);
-                                alert("編集失敗......");
-                            });
-                    })
+                    raceClient
+                        .editRace({
+                            adminJwt: jwt!,
+                            id,
+                            name: name !== "" ? name : undefined,
+                            order: order !== 0 ? order : undefined,
+                            start:
+                                date !== "" && time !== ""
+                                    ? Timestamp.fromDate(
+                                          new Date(`${date}T${time}`)
+                                      )
+                                    : undefined,
+                            description:
+                                description !== "" ? description : undefined,
+                            members:
+                                member !== ""
+                                    ? member.split(",").map((e) => {
+                                          if (Number.isNaN(+e))
+                                              throw new Error();
+                                          return +e;
+                                      })
+                                    : undefined,
+                        })
+                        .then(() => alert("編集完了！"))
+                        .catch((err) => {
+                            console.error(err);
+                            alert("編集失敗......");
+                        })
                 }
             >
                 編集
