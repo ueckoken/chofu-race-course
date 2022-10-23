@@ -51,6 +51,7 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
                         )};base64,${new TextDecoder().decode(
                             horse.image.data
                         )}`}
+                        style={{ maxWidth: "100%" }}
                     />
                 </div>
             ) : (
