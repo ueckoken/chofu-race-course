@@ -18,7 +18,7 @@ spec:
   summary: "実運用サーバ"
   providerRef:
     name: discord
-    eventSeverity: info
+  eventSeverity: info
   eventSources:
     - kind: Kustomization
       name: "*"
