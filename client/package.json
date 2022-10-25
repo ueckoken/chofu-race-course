@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@bufbuild/connect-web": "0.2.1",
-    "@bufbuild/protobuf": "0.1.1",
+    "@bufbuild/protobuf": "0.2.0",
     "@types/node": "18.11.5",
     "@types/react": "18.0.22",
     "@types/react-dom": "18.0.7",
