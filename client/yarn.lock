@@ -33,13 +33,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/protobuf@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@bufbuild/protobuf@npm:0.1.1"
-  checksum: 5eb969efb0535ef595f666dfc577bc315e3963fc7ef9d88015ecc5fcd246710dc4e77c4166930a3131e1470d6624c36ea7949f03083c7b6fee36434be0578bcd
-  languageName: node
-  linkType: hard
-
 "@bufbuild/protobuf@npm:0.2.0":
   version: 0.2.0
   resolution: "@bufbuild/protobuf@npm:0.2.0"
@@ -47,14 +40,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/protoc-gen-connect-web@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.2.1"
+"@bufbuild/protoc-gen-connect-web@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.3.0"
   dependencies:
-    "@bufbuild/protoplugin": 0.1.1
+    "@bufbuild/protoplugin": 0.2.0
   peerDependencies:
-    "@bufbuild/connect-web": 0.2.1
-    "@bufbuild/protoc-gen-es": 0.1.1
+    "@bufbuild/connect-web": 0.3.0
+    "@bufbuild/protoc-gen-es": 0.2.0
   peerDependenciesMeta:
     "@bufbuild/connect-web":
       optional: true
@@ -62,7 +55,7 @@ __metadata:
       optional: true
   bin:
     protoc-gen-connect-web: bin/protoc-gen-connect-web
-  checksum: 750138bc072487d6d0e26e72fb6f7eca172e93a138fc8571ab7074d9089385b81d5dc99b406a86e2ed803e9f1ec108e23bdca36944edf7f2c2319687898c96e1
+  checksum: 1a995fe7759589cc0dcef1ccb203c40a713f92cf9a692aecf26ff047fb223c2863d07465841fab16df55f93a4ec075a8c47624d09ca0e12f5c4b62ef4cbf8803
   languageName: node
   linkType: hard
 
@@ -79,15 +72,6 @@ __metadata:
   bin:
     protoc-gen-es: bin/protoc-gen-es
   checksum: 6736dd54e95989b5491e00a13e466f1088245c079d7f5691e77c8c173293de49f7721ce80f6fcccbdf4a64d182ab54046b33159b7af58deb558259ea232b246e
-  languageName: node
-  linkType: hard
-
-"@bufbuild/protoplugin@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@bufbuild/protoplugin@npm:0.1.1"
-  dependencies:
-    "@bufbuild/protobuf": 0.1.1
-  checksum: 178799b936a57c003d461336e7c6cb6bb5689d50937cb24233838fc8058eb680d6715bda4123af405ab291f483e076723e311c39ae607c7af9a405df6de9b680
   languageName: node
   linkType: hard
 
@@ -826,7 +810,7 @@ __metadata:
   dependencies:
     "@bufbuild/connect-web": 0.3.0
     "@bufbuild/protobuf": 0.2.0
-    "@bufbuild/protoc-gen-connect-web": 0.2.1
+    "@bufbuild/protoc-gen-connect-web": 0.3.0
     "@bufbuild/protoc-gen-es": 0.2.0
     "@types/node": 18.11.5
     "@types/react": 18.0.23
