@@ -40,6 +40,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bufbuild/protobuf@npm:0.2.1":
+  version: 0.2.1
+  resolution: "@bufbuild/protobuf@npm:0.2.1"
+  checksum: 6a6f2ac91354ddde89a3db4d69c1b560a2d37acc5f983cb76ed0358701926907e24d2f9e3be401f69ca3e629279c599967ef498b54d5566b0d317afa83b29def
+  languageName: node
+  linkType: hard
+
 "@bufbuild/protoc-gen-connect-web@npm:0.3.0":
   version: 0.3.0
   resolution: "@bufbuild/protoc-gen-connect-web@npm:0.3.0"
@@ -809,7 +816,7 @@ __metadata:
   resolution: "client@workspace:."
   dependencies:
     "@bufbuild/connect-web": 0.3.0
-    "@bufbuild/protobuf": 0.2.0
+    "@bufbuild/protobuf": 0.2.1
     "@bufbuild/protoc-gen-connect-web": 0.3.0
     "@bufbuild/protoc-gen-es": 0.2.0
     "@types/node": 18.11.8
