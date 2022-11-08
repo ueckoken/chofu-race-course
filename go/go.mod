@@ -10,7 +10,7 @@ require (
 	github.com/google/subcommands v1.2.0
 	github.com/rs/cors v1.8.2
 	github.com/stretchr/testify v1.8.1
-	golang.org/x/net v0.1.0
+	golang.org/x/net v0.2.0
 	google.golang.org/protobuf v1.28.1
 )
 
