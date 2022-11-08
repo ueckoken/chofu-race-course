@@ -23,6 +23,12 @@ const raceOrderToString = (order: RaceOrder): string => {
     }
 };
 
+const stringToRaceOrder = (order: string): RaceOrder => {
+    if (Number.isInteger(+order))
+        return RaceOrder.fromJsonString(JSON.stringify({ order: +order }));
+    throw new Error();
+};
+
 const stringToImageType = (str: string): HorseDetail_Image_ImageType => {
     if (str === "gif") {
         return HorseDetail_Image_ImageType.GIF;
@@ -34,4 +40,4 @@ const stringToImageType = (str: string): HorseDetail_Image_ImageType => {
     throw new Error();
 };
 
-export { raceOrderToString, stringToImageType };
+export { raceOrderToString, stringToRaceOrder, stringToImageType };

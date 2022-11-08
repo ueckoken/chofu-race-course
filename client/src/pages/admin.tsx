@@ -1,20 +1,18 @@
-import { createPromiseClient } from "@bufbuild/connect-web";
 import { FC, useEffect, useState } from "react";
-import { UserDataService } from "../../_proto/spec/v1/userdata_connectweb";
 import { JWT } from "../../_proto/spec/v1/userdata_pb";
-import { transport } from "../util/use-client";
+import { userClient } from "../util/client";
 
 import {
     RegisterHorseField,
     EditRaceField,
     RegisterRaceField,
     EditHorseField,
+    RegisterRaceResultField,
 } from "../components/RegisterField";
 
 const AdminPage: FC<{}> = () => {
     const [jwt, setJwt] = useState<JWT | null>(null);
 
-    const userClient = createPromiseClient(UserDataService, transport);
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) return;
@@ -52,6 +50,8 @@ const AdminPage: FC<{}> = () => {
             <RegisterHorseField jwt={jwt} />
 
             <EditHorseField jwt={jwt} />
+
+            <RegisterRaceResultField jwt={jwt} />
         </>
     );
 };
