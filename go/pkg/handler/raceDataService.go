@@ -220,9 +220,20 @@ func raceDetails2Races(rds []*v1.RaceDetail) []*v1.Race {
 }
 
 func (r *Race) getFixHorseDetail(horse *v1.RaceDetail_Member, rd *v1.RaceDetail) (*v1.HorseDetail, error) {
+	if horse == nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, errors.New("not arrow nil"))
+	}
+	if rd == nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, errors.New("not arrow nil"))
+	}
 	hd, err := r.store.Horse.GetByID(horse.GetHorse().GetId())
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	for _, history := range hd.GetHistories() {
+		if history.GetRace().GetId() == rd.GetData().GetId() {
+			return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("same race id record is existed, id=%d", rd.GetData().GetId()))
+		}
 	}
 	switch o := horse.GetOrder().GetOrderOneof().(type) {
 	case *v1.RaceOrder_Order:
