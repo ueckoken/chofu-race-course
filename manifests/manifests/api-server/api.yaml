@@ -29,7 +29,7 @@ spec:
               name: database
       containers:
         - name: api
-          image: ghcr.io/ueckoken/chofu-race-course-api:d1f8aec-1666537763 # {"$imagepolicy": "flux-system:api"}
+          image: ghcr.io/ueckoken/chofu-race-course-api:df92474-1667924452 # {"$imagepolicy": "flux-system:api"}
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -70,14 +70,8 @@ kind: Ingress
 metadata:
   name: api
   namespace: api
-  # annotations:
-  #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - kraapi.azukibar.dev
-      secretName: api-tls
   rules:
     - host: kraapi.azukibar.dev
       http:

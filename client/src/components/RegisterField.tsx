@@ -1,16 +1,13 @@
-import { FC, useState } from "react";
-import { createPromiseClient } from "@bufbuild/connect-web";
+import { FC, useEffect, useState } from "react";
 import { Timestamp } from "@bufbuild/protobuf";
 import {
-    HorseDataService,
-    RaceDataService,
-} from "../../_proto/spec/v1/userdata_connectweb";
-import { HorseDetail_Image, JWT } from "../../_proto/spec/v1/userdata_pb";
-import { transport } from "../util/use-client";
-import { stringToImageType } from "../util/util";
-
-const horseClient = createPromiseClient(HorseDataService, transport);
-const raceClient = createPromiseClient(RaceDataService, transport);
+    HorseDetail_Image,
+    JWT,
+    RaceDetail_Member,
+    RaceOrder_NoteType,
+} from "../../_proto/spec/v1/userdata_pb";
+import { horseClient, raceClient } from "../util/client";
+import { Order, stringToImageType, stringToRaceOrder } from "../util/util";
 
 const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
     const [name, setName] = useState<string>("");
@@ -352,4 +349,89 @@ const EditHorseField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
     );
 };
 
-export { RegisterRaceField, EditRaceField, RegisterHorseField, EditHorseField };
+const RegisterRaceResultField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
+    const [id, setId] = useState<number>(1);
+    const [horses, setHorses] = useState<RaceDetail_Member[]>([]);
+    useEffect(() => {
+        raceClient
+            .raceData({ id })
+            .then((res) => setHorses(res.race!.members!));
+    }, [id]);
+    return (
+        <fieldset>
+            <legend>競争結果入力</legend>
+            <div>
+                <label>
+                    id:{" "}
+                    <input
+                        type="number"
+                        value={id}
+                        onChange={(e) => setId(+e.target.value)}
+                    />
+                </label>
+            </div>
+            {horses.map((e) => (
+                <div key={`h-${e.horse!.id}`}>
+                    <label>
+                        {e.horse!.name}:{" "}
+                        <select
+                            onChange={(ev) => {
+                                setHorses(
+                                    horses.map((h) => {
+                                        if (h.horse!.id !== e.horse!.id)
+                                            return h;
+                                        return new RaceDetail_Member({
+                                            ...h,
+                                            order: stringToRaceOrder(
+                                                ev.target.value as Order
+                                            ),
+                                        });
+                                    })
+                                );
+                            }}
+                        >
+                            <option value="1st">1着</option>
+                            <option value="2nd">2着</option>
+                            <option value="3rd">3着</option>
+                            <option value="4th">4着</option>
+                            <option value={RaceOrder_NoteType.CANCEL}>
+                                取消
+                            </option>
+                            <option value={RaceOrder_NoteType.EXCLUDE}>
+                                除外
+                            </option>
+                            <option value={RaceOrder_NoteType.GIVEUP}>
+                                中止
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            ))}
+            <button
+                onClick={() => {
+                    raceClient
+                        .registerRaceResult({
+                            adminJwt: jwt!,
+                            members: horses,
+                            id,
+                        })
+                        .then(() => alert("登録完了！"))
+                        .catch((err) => {
+                            console.error(err);
+                            alert("登録失敗......");
+                        });
+                }}
+            >
+                決定
+            </button>
+        </fieldset>
+    );
+};
+
+export {
+    RegisterRaceField,
+    EditRaceField,
+    RegisterHorseField,
+    EditHorseField,
+    RegisterRaceResultField,
+};
