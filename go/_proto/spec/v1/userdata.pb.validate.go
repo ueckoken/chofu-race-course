@@ -4681,6 +4681,259 @@ var _ interface {
 	ErrorName() string
 } = EditRaceResponseValidationError{}
 
+// Validate checks the field values on EraseRaceRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *EraseRaceRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EraseRaceRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// EraseRaceRequestMultiError, or nil if none found.
+func (m *EraseRaceRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EraseRaceRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() < 1 {
+		err := EraseRaceRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAdminJwt() == nil {
+		err := EraseRaceRequestValidationError{
+			field:  "AdminJwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAdminJwt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, EraseRaceRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, EraseRaceRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAdminJwt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return EraseRaceRequestValidationError{
+				field:  "AdminJwt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return EraseRaceRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// EraseRaceRequestMultiError is an error wrapping multiple validation errors
+// returned by EraseRaceRequest.ValidateAll() if the designated constraints
+// aren't met.
+type EraseRaceRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EraseRaceRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EraseRaceRequestMultiError) AllErrors() []error { return m }
+
+// EraseRaceRequestValidationError is the validation error returned by
+// EraseRaceRequest.Validate if the designated constraints aren't met.
+type EraseRaceRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EraseRaceRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EraseRaceRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EraseRaceRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EraseRaceRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EraseRaceRequestValidationError) ErrorName() string { return "EraseRaceRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EraseRaceRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEraseRaceRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EraseRaceRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EraseRaceRequestValidationError{}
+
+// Validate checks the field values on EraseRaceResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *EraseRaceResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EraseRaceResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// EraseRaceResponseMultiError, or nil if none found.
+func (m *EraseRaceResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EraseRaceResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return EraseRaceResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// EraseRaceResponseMultiError is an error wrapping multiple validation errors
+// returned by EraseRaceResponse.ValidateAll() if the designated constraints
+// aren't met.
+type EraseRaceResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EraseRaceResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EraseRaceResponseMultiError) AllErrors() []error { return m }
+
+// EraseRaceResponseValidationError is the validation error returned by
+// EraseRaceResponse.Validate if the designated constraints aren't met.
+type EraseRaceResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EraseRaceResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EraseRaceResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EraseRaceResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EraseRaceResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EraseRaceResponseValidationError) ErrorName() string {
+	return "EraseRaceResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e EraseRaceResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEraseRaceResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EraseRaceResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EraseRaceResponseValidationError{}
+
 // Validate checks the field values on VoteRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

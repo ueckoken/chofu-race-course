@@ -14,6 +14,8 @@
     - [EditHorseResponse](#spec-v1-EditHorseResponse)
     - [EditRaceRequest](#spec-v1-EditRaceRequest)
     - [EditRaceResponse](#spec-v1-EditRaceResponse)
+    - [EraseRaceRequest](#spec-v1-EraseRaceRequest)
+    - [EraseRaceResponse](#spec-v1-EraseRaceResponse)
     - [Horse](#spec-v1-Horse)
     - [HorseDataRequest](#spec-v1-HorseDataRequest)
     - [HorseDataResponse](#spec-v1-HorseDataResponse)
@@ -192,6 +194,32 @@
 <a name="spec-v1-EditRaceResponse"></a>
 
 ### EditRaceResponse
+
+
+
+
+
+
+
+<a name="spec-v1-EraseRaceRequest"></a>
+
+### EraseRaceRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-EraseRaceResponse"></a>
+
+### EraseRaceResponse
 
 
 
@@ -707,6 +735,7 @@ start - n, vote_end: start - m
 | RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
 | RegisterRaceResult | [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest) | [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse) | 要Admin認証、結果の入力に使う(他のデータにも影響が発生する) |
 | EditRace | [EditRaceRequest](#spec-v1-EditRaceRequest) | [EditRaceResponse](#spec-v1-EditRaceResponse) | 要Admin認証、データの編集に使う |
+| EraseRace | [EraseRaceRequest](#spec-v1-EraseRaceRequest) | [EraseRaceResponse](#spec-v1-EraseRaceResponse) | 要Admin認証、データの編集に使う |
 
 
 <a name="spec-v1-UserDataService"></a>

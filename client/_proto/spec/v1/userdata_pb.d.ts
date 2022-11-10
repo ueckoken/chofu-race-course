@@ -1195,6 +1195,58 @@ export declare class EditRaceResponse extends Message<EditRaceResponse> {
 }
 
 /**
+ * @generated from message spec.v1.EraseRaceRequest
+ */
+export declare class EraseRaceRequest extends Message<EraseRaceRequest> {
+  /**
+   * 対象を指定するため必須
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 2;
+   */
+  adminJwt?: JWT;
+
+  constructor(data?: PartialMessage<EraseRaceRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.EraseRaceRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EraseRaceRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EraseRaceRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EraseRaceRequest;
+
+  static equals(a: EraseRaceRequest | PlainMessage<EraseRaceRequest> | undefined, b: EraseRaceRequest | PlainMessage<EraseRaceRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message spec.v1.EraseRaceResponse
+ */
+export declare class EraseRaceResponse extends Message<EraseRaceResponse> {
+  constructor(data?: PartialMessage<EraseRaceResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.EraseRaceResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EraseRaceResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EraseRaceResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EraseRaceResponse;
+
+  static equals(a: EraseRaceResponse | PlainMessage<EraseRaceResponse> | undefined, b: EraseRaceResponse | PlainMessage<EraseRaceResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export declare class VoteRequest extends Message<VoteRequest> {

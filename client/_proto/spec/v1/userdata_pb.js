@@ -446,6 +446,25 @@ export const EditRaceResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message spec.v1.EraseRaceRequest
+ */
+export const EraseRaceRequest = proto3.makeMessageType(
+  "spec.v1.EraseRaceRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "admin_jwt", kind: "message", T: JWT },
+  ],
+);
+
+/**
+ * @generated from message spec.v1.EraseRaceResponse
+ */
+export const EraseRaceResponse = proto3.makeMessageType(
+  "spec.v1.EraseRaceResponse",
+  [],
+);
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export const VoteRequest = proto3.makeMessageType(
