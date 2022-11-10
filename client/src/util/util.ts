@@ -24,37 +24,27 @@ const raceOrderToString = (order: RaceOrder): string => {
 };
 
 const stringToRaceOrder = (order: string): RaceOrder => {
-    console.log(order);
-    const tmp = new RaceOrder();
     switch (order) {
         case "1st":
-            tmp.orderOneof.value = 1;
-            tmp.orderOneof.case = "order";
-            return tmp;
+            return new RaceOrder({ orderOneof: { value: 1, case: "order" } });
         case "2nd":
-            tmp.orderOneof.value = 2;
-            tmp.orderOneof.case = "order";
-            return tmp;
+            return new RaceOrder({ orderOneof: { value: 2, case: "order" } });
         case "3rd":
-            tmp.orderOneof.value = 3;
-            tmp.orderOneof.case = "order";
-            return tmp;
+            return new RaceOrder({ orderOneof: { value: 3, case: "order" } });
         case "4th":
-            tmp.orderOneof.value = 4;
-            tmp.orderOneof.case = "order";
-            return tmp;
+            return new RaceOrder({ orderOneof: { value: 4, case: "order" } });
         case RaceOrder_NoteType.CANCEL.toString():
-            tmp.orderOneof.value = 1;
-            tmp.orderOneof.case = "note";
-            return tmp;
+            return new RaceOrder({
+                orderOneof: { value: RaceOrder_NoteType.CANCEL, case: "note" },
+            });
         case RaceOrder_NoteType.EXCLUDE.toString():
-            tmp.orderOneof.value = 3;
-            tmp.orderOneof.case = "note";
-            return tmp;
+            return new RaceOrder({
+                orderOneof: { value: RaceOrder_NoteType.EXCLUDE, case: "note" },
+            });
         case RaceOrder_NoteType.GIVEUP.toString():
-            tmp.orderOneof.value = 2;
-            tmp.orderOneof.case = "note";
-            return tmp;
+            return new RaceOrder({
+                orderOneof: { value: RaceOrder_NoteType.GIVEUP, case: "note" },
+            });
     }
     throw new Error();
 };
