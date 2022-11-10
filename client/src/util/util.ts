@@ -23,7 +23,8 @@ const raceOrderToString = (order: RaceOrder): string => {
     }
 };
 
-const stringToRaceOrder = (order: string): RaceOrder => {
+export type Order = "1st" | "2nd" | "3rd" | "4th" | RaceOrder_NoteType;
+const stringToRaceOrder = (order: Order): RaceOrder => {
     switch (order) {
         case "1st":
             return new RaceOrder({ orderOneof: { value: 1, case: "order" } });

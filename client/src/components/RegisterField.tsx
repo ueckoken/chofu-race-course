@@ -7,7 +7,7 @@ import {
     RaceOrder_NoteType,
 } from "../../_proto/spec/v1/userdata_pb";
 import { horseClient, raceClient } from "../util/client";
-import { stringToImageType, stringToRaceOrder } from "../util/util";
+import { Order, stringToImageType, stringToRaceOrder } from "../util/util";
 
 const RegisterRaceField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
     const [name, setName] = useState<string>("");
@@ -380,16 +380,12 @@ const RegisterRaceResultField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                                     horses.map((h) => {
                                         if (h.horse!.id !== e.horse!.id)
                                             return h;
-                                        return RaceDetail_Member.fromJson(
-                                            JSON.parse(
-                                                JSON.stringify({
-                                                    ...h,
-                                                    order: stringToRaceOrder(
-                                                        ev.target.value
-                                                    ).toJson(),
-                                                })
-                                            )
-                                        );
+                                        return new RaceDetail_Member({
+                                            ...h,
+                                            order: stringToRaceOrder(
+                                                ev.target.value as Order
+                                            ),
+                                        });
                                     })
                                 );
                             }}
