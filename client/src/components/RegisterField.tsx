@@ -380,7 +380,7 @@ const RegisterRaceResultField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                             onChange={(ev) => {
                                 setHorses(
                                     horses.map((h) => {
-                                        if (h.horse!.id === e.horse!.id)
+                                        if (h.horse!.id !== e.horse!.id)
                                             return h;
                                         return RaceDetail_Member.fromJson(
                                             JSON.parse(
@@ -396,10 +396,10 @@ const RegisterRaceResultField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
                                 );
                             }}
                         >
-                            <option value="1">1着</option>
-                            <option value="2">2着</option>
-                            <option value="3">3着</option>
-                            <option value="4">4着</option>
+                            <option value="1st">1着</option>
+                            <option value="2nd">2着</option>
+                            <option value="3rd">3着</option>
+                            <option value="4th">4着</option>
                             <option value={RaceOrder_NoteType.CANCEL}>
                                 取消
                             </option>

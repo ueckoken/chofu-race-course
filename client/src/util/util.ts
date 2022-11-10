@@ -24,8 +24,38 @@ const raceOrderToString = (order: RaceOrder): string => {
 };
 
 const stringToRaceOrder = (order: string): RaceOrder => {
-    if (Number.isInteger(+order))
-        return RaceOrder.fromJsonString(JSON.stringify({ order: +order }));
+    console.log(order);
+    const tmp = new RaceOrder();
+    switch (order) {
+        case "1st":
+            tmp.orderOneof.value = 1;
+            tmp.orderOneof.case = "order";
+            return tmp;
+        case "2nd":
+            tmp.orderOneof.value = 2;
+            tmp.orderOneof.case = "order";
+            return tmp;
+        case "3rd":
+            tmp.orderOneof.value = 3;
+            tmp.orderOneof.case = "order";
+            return tmp;
+        case "4th":
+            tmp.orderOneof.value = 4;
+            tmp.orderOneof.case = "order";
+            return tmp;
+        case RaceOrder_NoteType.CANCEL.toString():
+            tmp.orderOneof.value = 1;
+            tmp.orderOneof.case = "note";
+            return tmp;
+        case RaceOrder_NoteType.EXCLUDE.toString():
+            tmp.orderOneof.value = 3;
+            tmp.orderOneof.case = "note";
+            return tmp;
+        case RaceOrder_NoteType.GIVEUP.toString():
+            tmp.orderOneof.value = 2;
+            tmp.orderOneof.case = "note";
+            return tmp;
+    }
     throw new Error();
 };
 
