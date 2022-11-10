@@ -446,10 +446,10 @@ export const EditRaceResponse = proto3.makeMessageType(
 );
 
 /**
- * @generated from message spec.v1.EraseRaceRequest
+ * @generated from message spec.v1.DeleteRaceResultRequest
  */
-export const EraseRaceRequest = proto3.makeMessageType(
-  "spec.v1.EraseRaceRequest",
+export const DeleteRaceResultRequest = proto3.makeMessageType(
+  "spec.v1.DeleteRaceResultRequest",
   () => [
     { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "admin_jwt", kind: "message", T: JWT },
@@ -457,10 +457,10 @@ export const EraseRaceRequest = proto3.makeMessageType(
 );
 
 /**
- * @generated from message spec.v1.EraseRaceResponse
+ * @generated from message spec.v1.DeleteRaceResultResponse
  */
-export const EraseRaceResponse = proto3.makeMessageType(
-  "spec.v1.EraseRaceResponse",
+export const DeleteRaceResultResponse = proto3.makeMessageType(
+  "spec.v1.DeleteRaceResultResponse",
   [],
 );
 

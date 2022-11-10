@@ -1195,9 +1195,9 @@ export declare class EditRaceResponse extends Message<EditRaceResponse> {
 }
 
 /**
- * @generated from message spec.v1.EraseRaceRequest
+ * @generated from message spec.v1.DeleteRaceResultRequest
  */
-export declare class EraseRaceRequest extends Message<EraseRaceRequest> {
+export declare class DeleteRaceResultRequest extends Message<DeleteRaceResultRequest> {
   /**
    * 対象を指定するため必須
    *
@@ -1212,38 +1212,38 @@ export declare class EraseRaceRequest extends Message<EraseRaceRequest> {
    */
   adminJwt?: JWT;
 
-  constructor(data?: PartialMessage<EraseRaceRequest>);
+  constructor(data?: PartialMessage<DeleteRaceResultRequest>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "spec.v1.EraseRaceRequest";
+  static readonly typeName = "spec.v1.DeleteRaceResultRequest";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EraseRaceRequest;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteRaceResultRequest;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EraseRaceRequest;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteRaceResultRequest;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EraseRaceRequest;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRaceResultRequest;
 
-  static equals(a: EraseRaceRequest | PlainMessage<EraseRaceRequest> | undefined, b: EraseRaceRequest | PlainMessage<EraseRaceRequest> | undefined): boolean;
+  static equals(a: DeleteRaceResultRequest | PlainMessage<DeleteRaceResultRequest> | undefined, b: DeleteRaceResultRequest | PlainMessage<DeleteRaceResultRequest> | undefined): boolean;
 }
 
 /**
- * @generated from message spec.v1.EraseRaceResponse
+ * @generated from message spec.v1.DeleteRaceResultResponse
  */
-export declare class EraseRaceResponse extends Message<EraseRaceResponse> {
-  constructor(data?: PartialMessage<EraseRaceResponse>);
+export declare class DeleteRaceResultResponse extends Message<DeleteRaceResultResponse> {
+  constructor(data?: PartialMessage<DeleteRaceResultResponse>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "spec.v1.EraseRaceResponse";
+  static readonly typeName = "spec.v1.DeleteRaceResultResponse";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EraseRaceResponse;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteRaceResultResponse;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EraseRaceResponse;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteRaceResultResponse;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EraseRaceResponse;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRaceResultResponse;
 
-  static equals(a: EraseRaceResponse | PlainMessage<EraseRaceResponse> | undefined, b: EraseRaceResponse | PlainMessage<EraseRaceResponse> | undefined): boolean;
+  static equals(a: DeleteRaceResultResponse | PlainMessage<DeleteRaceResultResponse> | undefined, b: DeleteRaceResultResponse | PlainMessage<DeleteRaceResultResponse> | undefined): boolean;
 }
 
 /**

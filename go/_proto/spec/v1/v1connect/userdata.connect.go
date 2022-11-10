@@ -282,7 +282,7 @@ type RaceDataServiceClient interface {
 	// 要Admin認証、データの編集に使う
 	EditRace(context.Context, *connect_go.Request[v1.EditRaceRequest]) (*connect_go.Response[v1.EditRaceResponse], error)
 	// 要Admin認証、データの編集に使う
-	EraseRace(context.Context, *connect_go.Request[v1.EraseRaceRequest]) (*connect_go.Response[v1.EraseRaceResponse], error)
+	DeleteRaceResult(context.Context, *connect_go.Request[v1.DeleteRaceResultRequest]) (*connect_go.Response[v1.DeleteRaceResultResponse], error)
 }
 
 // NewRaceDataServiceClient constructs a client for the spec.v1.RaceDataService service. By default,
@@ -320,9 +320,9 @@ func NewRaceDataServiceClient(httpClient connect_go.HTTPClient, baseURL string, 
 			baseURL+"/spec.v1.RaceDataService/EditRace",
 			opts...,
 		),
-		eraseRace: connect_go.NewClient[v1.EraseRaceRequest, v1.EraseRaceResponse](
+		deleteRaceResult: connect_go.NewClient[v1.DeleteRaceResultRequest, v1.DeleteRaceResultResponse](
 			httpClient,
-			baseURL+"/spec.v1.RaceDataService/EraseRace",
+			baseURL+"/spec.v1.RaceDataService/DeleteRaceResult",
 			opts...,
 		),
 	}
@@ -335,7 +335,7 @@ type raceDataServiceClient struct {
 	registerRace       *connect_go.Client[v1.RegisterRaceRequest, v1.RegisterRaceResponse]
 	registerRaceResult *connect_go.Client[v1.RegisterRaceResultRequest, v1.RegisterRaceResultResponse]
 	editRace           *connect_go.Client[v1.EditRaceRequest, v1.EditRaceResponse]
-	eraseRace          *connect_go.Client[v1.EraseRaceRequest, v1.EraseRaceResponse]
+	deleteRaceResult   *connect_go.Client[v1.DeleteRaceResultRequest, v1.DeleteRaceResultResponse]
 }
 
 // AllRaceData calls spec.v1.RaceDataService.AllRaceData.
@@ -363,9 +363,9 @@ func (c *raceDataServiceClient) EditRace(ctx context.Context, req *connect_go.Re
 	return c.editRace.CallUnary(ctx, req)
 }
 
-// EraseRace calls spec.v1.RaceDataService.EraseRace.
-func (c *raceDataServiceClient) EraseRace(ctx context.Context, req *connect_go.Request[v1.EraseRaceRequest]) (*connect_go.Response[v1.EraseRaceResponse], error) {
-	return c.eraseRace.CallUnary(ctx, req)
+// DeleteRaceResult calls spec.v1.RaceDataService.DeleteRaceResult.
+func (c *raceDataServiceClient) DeleteRaceResult(ctx context.Context, req *connect_go.Request[v1.DeleteRaceResultRequest]) (*connect_go.Response[v1.DeleteRaceResultResponse], error) {
+	return c.deleteRaceResult.CallUnary(ctx, req)
 }
 
 // RaceDataServiceHandler is an implementation of the spec.v1.RaceDataService service.
@@ -379,7 +379,7 @@ type RaceDataServiceHandler interface {
 	// 要Admin認証、データの編集に使う
 	EditRace(context.Context, *connect_go.Request[v1.EditRaceRequest]) (*connect_go.Response[v1.EditRaceResponse], error)
 	// 要Admin認証、データの編集に使う
-	EraseRace(context.Context, *connect_go.Request[v1.EraseRaceRequest]) (*connect_go.Response[v1.EraseRaceResponse], error)
+	DeleteRaceResult(context.Context, *connect_go.Request[v1.DeleteRaceResultRequest]) (*connect_go.Response[v1.DeleteRaceResultResponse], error)
 }
 
 // NewRaceDataServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -414,9 +414,9 @@ func NewRaceDataServiceHandler(svc RaceDataServiceHandler, opts ...connect_go.Ha
 		svc.EditRace,
 		opts...,
 	))
-	mux.Handle("/spec.v1.RaceDataService/EraseRace", connect_go.NewUnaryHandler(
-		"/spec.v1.RaceDataService/EraseRace",
-		svc.EraseRace,
+	mux.Handle("/spec.v1.RaceDataService/DeleteRaceResult", connect_go.NewUnaryHandler(
+		"/spec.v1.RaceDataService/DeleteRaceResult",
+		svc.DeleteRaceResult,
 		opts...,
 	))
 	return "/spec.v1.RaceDataService/", mux
@@ -445,8 +445,8 @@ func (UnimplementedRaceDataServiceHandler) EditRace(context.Context, *connect_go
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.EditRace is not implemented"))
 }
 
-func (UnimplementedRaceDataServiceHandler) EraseRace(context.Context, *connect_go.Request[v1.EraseRaceRequest]) (*connect_go.Response[v1.EraseRaceResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.EraseRace is not implemented"))
+func (UnimplementedRaceDataServiceHandler) DeleteRaceResult(context.Context, *connect_go.Request[v1.DeleteRaceResultRequest]) (*connect_go.Response[v1.DeleteRaceResultResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("spec.v1.RaceDataService.DeleteRaceResult is not implemented"))
 }
 
 // VoteServiceClient is a client for the spec.v1.VoteService service.

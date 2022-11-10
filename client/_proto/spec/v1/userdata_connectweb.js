@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, EditHorseRequest, EditHorseResponse, EditRaceRequest, EditRaceResponse, EraseRaceRequest, EraseRaceResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, RegisterRaceResultRequest, RegisterRaceResultResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
+import {AllHorseDataRequest, AllHorseDataResponse, AllRaceDataRequest, AllRaceDataResponse, CreateUserRequest, CreateUserResponse, DeleteRaceResultRequest, DeleteRaceResultResponse, EditHorseRequest, EditHorseResponse, EditRaceRequest, EditRaceResponse, HorseDataRequest, HorseDataResponse, LoginAsAdminRequest, LoginAsAdminResponse, RaceDataRequest, RaceDataResponse, RegisterHorseRequest, RegisterHorseResponse, RegisterRaceRequest, RegisterRaceResponse, RegisterRaceResultRequest, RegisterRaceResultResponse, UserDataRequest, UserDataResponse, VoteRequest, VoteResponse} from "./userdata_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -159,12 +159,12 @@ export const RaceDataService = {
     /**
      * 要Admin認証、データの編集に使う
      *
-     * @generated from rpc spec.v1.RaceDataService.EraseRace
+     * @generated from rpc spec.v1.RaceDataService.DeleteRaceResult
      */
-    eraseRace: {
-      name: "EraseRace",
-      I: EraseRaceRequest,
-      O: EraseRaceResponse,
+    deleteRaceResult: {
+      name: "DeleteRaceResult",
+      I: DeleteRaceResultRequest,
+      O: DeleteRaceResultResponse,
       kind: MethodKind.Unary,
     },
   }
