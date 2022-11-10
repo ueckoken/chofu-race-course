@@ -158,6 +158,8 @@ service RaceDataService {
   rpc RegisterRaceResult(RegisterRaceResultRequest) returns (RegisterRaceResultResponse) {}
   //要Admin認証、データの編集に使う
   rpc EditRace(EditRaceRequest) returns (EditRaceResponse) {}
+  //要Admin認証、データの編集に使う
+  rpc EraseRace(EraseRaceRequest) returns (EraseRaceResponse) {}
 }
 message Race {
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
@@ -253,6 +255,14 @@ message EditRaceRequest {
   JWT admin_jwt = 7 [(validate.rules).message.required = true];
 }
 message EditRaceResponse {}
+
+message EraseRaceRequest {
+  // 対象を指定するため必須
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
+  // admin JWT
+  JWT admin_jwt = 2 [(validate.rules).message.required = true];
+}
+message EraseRaceResponse {}
 
 service VoteService {
   // 要ユーザ認証: 投票する
