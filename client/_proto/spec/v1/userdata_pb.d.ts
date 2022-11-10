@@ -1217,6 +1217,11 @@ export declare class VoteRequest extends Message<VoteRequest> {
    */
   jwt?: JWT;
 
+  /**
+   * @generated from field: string user_id = 4;
+   */
+  userId: string;
+
   constructor(data?: PartialMessage<VoteRequest>);
 
   static readonly runtime: typeof proto3;

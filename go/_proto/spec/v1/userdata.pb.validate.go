@@ -4736,6 +4736,8 @@ func (m *VoteRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for UserId
+
 	if len(errors) > 0 {
 		return VoteRequestMultiError(errors)
 	}
