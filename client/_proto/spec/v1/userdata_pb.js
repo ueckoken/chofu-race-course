@@ -454,6 +454,7 @@ export const VoteRequest = proto3.makeMessageType(
     { no: 1, name: "race", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "horse", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 3, name: "jwt", kind: "message", T: JWT },
+    { no: 4, name: "user_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 
