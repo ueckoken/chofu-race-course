@@ -264,6 +264,6 @@ message VoteRequest {
   // 投票する馬の馬番
   uint32 horse = 2;
   JWT jwt = 3;
-  string userId = 4;
+  string user_id = 4;
 }
 message VoteResponse {}
