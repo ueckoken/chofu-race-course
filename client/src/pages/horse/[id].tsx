@@ -11,6 +11,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { JsonValue } from "@bufbuild/protobuf";
 import { horseClient } from "../../util/client";
+import styles from "../../styles/table.module.scss";
 
 interface Params extends ParsedUrlQuery {
     id: string;
@@ -74,7 +75,7 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
                 </dd>
             </dl>
             <h3>出走レース</h3>
-            <table>
+            <table className={styles.horseTable}>
                 <thead>
                     <tr>
                         <th>年月日</th>
