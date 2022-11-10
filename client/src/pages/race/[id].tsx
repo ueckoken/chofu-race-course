@@ -1,9 +1,7 @@
 import { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { createPromiseClient } from "@bufbuild/connect-web";
 import { RaceDataResponse } from "../../../_proto/spec/v1/userdata_pb";
-import { RaceDataService } from "../../../_proto/spec/v1/userdata_connectweb";
 import { dateToHHmm, dateToYYYYMMDD } from "../../util/time";
 import { raceOrderToString } from "../../util/util";
 import { GetStaticPaths, GetStaticProps } from "next";

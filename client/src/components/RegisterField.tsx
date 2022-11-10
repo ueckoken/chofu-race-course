@@ -1,8 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Timestamp } from "@bufbuild/protobuf";
 import {
-    Horse,
-    HorseDetail,
     HorseDetail_Image,
     JWT,
     RaceDetail_Member,
