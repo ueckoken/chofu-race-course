@@ -1,13 +1,11 @@
 import { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { createPromiseClient } from "@bufbuild/connect-web";
-import { transport } from "../util/use-client";
 import { dateToYYYYMMDD } from "../util/time";
 import { AllRaceDataResponse } from "../../_proto/spec/v1/userdata_pb";
 import { GetStaticProps } from "next";
 import { JsonValue } from "@bufbuild/protobuf";
-import { RaceDataService } from "../../_proto/spec/v1/userdata_connectweb";
+import { raceClient } from "../util/client";
 
 interface Props {
     json: JsonValue;
@@ -67,8 +65,7 @@ const RacePage: FC<Props> = ({ json }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const client = createPromiseClient(RaceDataService, transport);
-    const res = await client.allRaceData({});
+    const res = await raceClient.allRaceData({});
     return {
         props: {
             json: res.toJson(),

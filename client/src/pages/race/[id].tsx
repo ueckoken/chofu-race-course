@@ -1,15 +1,13 @@
 import { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { createPromiseClient } from "@bufbuild/connect-web";
 import { RaceDataResponse } from "../../../_proto/spec/v1/userdata_pb";
-import { RaceDataService } from "../../../_proto/spec/v1/userdata_connectweb";
 import { dateToHHmm, dateToYYYYMMDD } from "../../util/time";
 import { raceOrderToString } from "../../util/util";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { transport } from "../../util/use-client";
 import { JsonValue } from "@bufbuild/protobuf";
+import { raceClient } from "../../util/client";
 
 interface Params extends ParsedUrlQuery {
     id: string;
@@ -75,8 +73,7 @@ const RaceDetailPage: FC<Props> = ({ json }) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-    const client = createPromiseClient(RaceDataService, transport);
-    const res = await client.allRaceData({});
+    const res = await raceClient.allRaceData({});
     const paths = res.races.map((race) => `/race/${race.id}`);
     return { paths, fallback: false };
 };
@@ -85,8 +82,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     params,
 }) => {
     const { id } = params as Params;
-    const client = createPromiseClient(RaceDataService, transport);
-    const res = await client.raceData({ id: +id });
+    const res = await raceClient.raceData({ id: +id });
     return {
         props: {
             json: res.toJson(),

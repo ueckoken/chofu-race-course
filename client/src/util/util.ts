@@ -23,6 +23,33 @@ const raceOrderToString = (order: RaceOrder): string => {
     }
 };
 
+export type Order = "1st" | "2nd" | "3rd" | "4th" | RaceOrder_NoteType;
+const stringToRaceOrder = (order: Order): RaceOrder => {
+    switch (order) {
+        case "1st":
+            return new RaceOrder({ orderOneof: { value: 1, case: "order" } });
+        case "2nd":
+            return new RaceOrder({ orderOneof: { value: 2, case: "order" } });
+        case "3rd":
+            return new RaceOrder({ orderOneof: { value: 3, case: "order" } });
+        case "4th":
+            return new RaceOrder({ orderOneof: { value: 4, case: "order" } });
+        case RaceOrder_NoteType.CANCEL.toString():
+            return new RaceOrder({
+                orderOneof: { value: RaceOrder_NoteType.CANCEL, case: "note" },
+            });
+        case RaceOrder_NoteType.EXCLUDE.toString():
+            return new RaceOrder({
+                orderOneof: { value: RaceOrder_NoteType.EXCLUDE, case: "note" },
+            });
+        case RaceOrder_NoteType.GIVEUP.toString():
+            return new RaceOrder({
+                orderOneof: { value: RaceOrder_NoteType.GIVEUP, case: "note" },
+            });
+    }
+    throw new Error();
+};
+
 const stringToImageType = (str: string): HorseDetail_Image_ImageType => {
     if (str === "gif") {
         return HorseDetail_Image_ImageType.GIF;
@@ -34,4 +61,4 @@ const stringToImageType = (str: string): HorseDetail_Image_ImageType => {
     throw new Error();
 };
 
-export { raceOrderToString, stringToImageType };
+export { raceOrderToString, stringToRaceOrder, stringToImageType };

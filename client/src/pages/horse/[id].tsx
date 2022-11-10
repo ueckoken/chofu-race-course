@@ -1,18 +1,16 @@
 import { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { createPromiseClient } from "@bufbuild/connect-web";
 import {
     HorseDataResponse,
     HorseDetail_Image_ImageType,
 } from "../../../_proto/spec/v1/userdata_pb";
-import { HorseDataService } from "../../../_proto/spec/v1/userdata_connectweb";
 import { dateToYYYYMMDD } from "../../util/time";
 import { raceOrderToString } from "../../util/util";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { transport } from "../../util/use-client";
 import { JsonValue } from "@bufbuild/protobuf";
+import { horseClient } from "../../util/client";
 
 interface Params extends ParsedUrlQuery {
     id: string;
@@ -105,8 +103,7 @@ const HorseDetailPage: FC<Props> = ({ json }) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-    const client = createPromiseClient(HorseDataService, transport);
-    const res = await client.allHorseData({});
+    const res = await horseClient.allHorseData({});
     const paths = res.horses.map((horse) => `/horse/${horse.id}`);
     return { paths, fallback: false };
 };
@@ -115,8 +112,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     params,
 }) => {
     const { id } = params as Params;
-    const client = createPromiseClient(HorseDataService, transport);
-    const res = await client.horseData({ id: +id });
+    const res = await horseClient.horseData({ id: +id });
     return {
         props: {
             json: res.toJson(),
