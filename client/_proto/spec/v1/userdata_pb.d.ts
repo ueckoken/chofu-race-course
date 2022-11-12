@@ -1206,9 +1206,16 @@ export declare class DeleteRaceResultRequest extends Message<DeleteRaceResultReq
   id: number;
 
   /**
+   * 削除対象の馬を指定
+   *
+   * @generated from field: repeated spec.v1.RaceDetail.Member members = 2;
+   */
+  members: RaceDetail_Member[];
+
+  /**
    * admin JWT
    *
-   * @generated from field: spec.v1.JWT admin_jwt = 2;
+   * @generated from field: spec.v1.JWT admin_jwt = 3;
    */
   adminJwt?: JWT;
 

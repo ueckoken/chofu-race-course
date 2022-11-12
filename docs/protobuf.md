@@ -150,6 +150,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated | 削除対象の馬を指定 |
 | admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 

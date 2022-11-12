@@ -452,7 +452,8 @@ export const DeleteRaceResultRequest = proto3.makeMessageType(
   "spec.v1.DeleteRaceResultRequest",
   () => [
     { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
-    { no: 2, name: "admin_jwt", kind: "message", T: JWT },
+    { no: 2, name: "members", kind: "message", T: RaceDetail_Member, repeated: true },
+    { no: 3, name: "admin_jwt", kind: "message", T: JWT },
   ],
 );
 
