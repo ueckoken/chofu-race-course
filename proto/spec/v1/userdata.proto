@@ -258,7 +258,7 @@ message EditRaceResponse {}
 
 message DeleteRaceResultRequest {
   // 対象を指定するため必須
-  uint32 id = 1 [(validate.rules).uint32.gte = 1];
+  repeated uint32 id = 1;
   // admin JWT
   JWT admin_jwt = 2 [(validate.rules).message.required = true];
 }
