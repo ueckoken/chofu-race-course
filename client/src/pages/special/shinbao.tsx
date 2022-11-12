@@ -18,74 +18,56 @@ const SpecialPage: FC<{}> = () => {
         },
         {
             order: 3,
-            name: "オナマエシール",
-            id: 11,
-            point: 8.5,
-        },
-        {
-            order: 3,
             name: "ブツガイサイサイリ",
             id: 19,
-            point: 8.5,
+            point: 6.3,
+        },
+        {
+            order: 4,
+            name: "サクラモッチリーン",
+            id: 7,
+            point: 5.5,
         },
         {
             order: 5,
-            name: "バックフリップ",
-            id: 12,
-            point: 7,
+            name: "オゼハカイザイダン",
+            id: 8,
+            point: 5.5,
         },
         {
             order: 6,
-            name: "サクラモッチリーン",
-            id: 7,
-            point: 6.3,
+            name: "バックフリップ",
+            id: 12,
+            point: 4.7,
         },
         {
             order: 7,
             name: "オーバートップ",
             id: 20,
-            point: 4,
+            point: 4.3,
         },
         {
             order: 8,
-            name: "オゼハカイザイダン",
-            id: 8,
-            point: 3.3,
-        },
-        {
-            order: 9,
-            name: "ウタサンブラック",
-            id: 18,
-            point: 3,
-        },
-        {
-            order: 10,
             name: "キウイオイシカッタ",
             id: 14,
-            point: 2.5,
+            point: 2.3,
+        },
+        {
+            order: 8,
+            name: "ライラックアロー",
+            id: 10,
+            point: 2.3,
         },
         {
             order: 10,
-            name: "ライラックアロー",
-            id: 10,
-            point: 2.5,
-        },
-        {
-            order: 12,
             name: "エイシャオラー",
             id: 3,
             point: 2,
         },
         {
-            order: 13,
+            order: 11,
             name: "オタクカエルヨー",
             id: 4,
-            point: 2,
-        },
-        {
-            order: 13,
-            name: "レモナーノナレハテ",
-            id: 1,
             point: 2,
         },
     ];
@@ -128,7 +110,6 @@ const SpecialPage: FC<{}> = () => {
                 </tbody>
             </table>
             <h3>ランキング</h3>
-            <p>3日目終了時点</p>
             <table>
                 <thead>
                     <tr>

@@ -17,6 +17,7 @@ const TopPage: FC<{}> = () => {
                 <meta name="twitter:description" content="調布競馬公式サイト" />
             </Head>
             <h2>開催情報</h2>
+            <p>第2回調布競馬「工学研究部杯」(11月18日から11月20日)</p>
             <p>
                 第1回調布競馬「新馬王戦(
                 <Link href="/special/shinbao">
