@@ -1201,9 +1201,9 @@ export declare class DeleteRaceResultRequest extends Message<DeleteRaceResultReq
   /**
    * 対象を指定するため必須
    *
-   * @generated from field: uint32 id = 1;
+   * @generated from field: repeated uint32 id = 1;
    */
-  id: number;
+  id: number[];
 
   /**
    * admin JWT

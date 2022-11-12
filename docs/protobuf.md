@@ -149,7 +149,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| id | [uint32](#uint32) | repeated | 対象を指定するため必須 |
 | admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
 
 

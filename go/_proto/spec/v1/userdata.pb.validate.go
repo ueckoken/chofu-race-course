@@ -4703,17 +4703,6 @@ func (m *DeleteRaceResultRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetId() < 1 {
-		err := DeleteRaceResultRequestValidationError{
-			field:  "Id",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if m.GetAdminJwt() == nil {
 		err := DeleteRaceResultRequestValidationError{
 			field:  "AdminJwt",
