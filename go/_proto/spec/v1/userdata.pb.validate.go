@@ -4681,6 +4681,261 @@ var _ interface {
 	ErrorName() string
 } = EditRaceResponseValidationError{}
 
+// Validate checks the field values on DeleteRaceResultRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteRaceResultRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteRaceResultRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteRaceResultRequestMultiError, or nil if none found.
+func (m *DeleteRaceResultRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteRaceResultRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() < 1 {
+		err := DeleteRaceResultRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAdminJwt() == nil {
+		err := DeleteRaceResultRequestValidationError{
+			field:  "AdminJwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetAdminJwt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeleteRaceResultRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeleteRaceResultRequestValidationError{
+					field:  "AdminJwt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAdminJwt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeleteRaceResultRequestValidationError{
+				field:  "AdminJwt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return DeleteRaceResultRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteRaceResultRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteRaceResultRequest.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteRaceResultRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteRaceResultRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteRaceResultRequestMultiError) AllErrors() []error { return m }
+
+// DeleteRaceResultRequestValidationError is the validation error returned by
+// DeleteRaceResultRequest.Validate if the designated constraints aren't met.
+type DeleteRaceResultRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRaceResultRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRaceResultRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRaceResultRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRaceResultRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRaceResultRequestValidationError) ErrorName() string {
+	return "DeleteRaceResultRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRaceResultRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRaceResultRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRaceResultRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRaceResultRequestValidationError{}
+
+// Validate checks the field values on DeleteRaceResultResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteRaceResultResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteRaceResultResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteRaceResultResponseMultiError, or nil if none found.
+func (m *DeleteRaceResultResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteRaceResultResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteRaceResultResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteRaceResultResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteRaceResultResponse.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteRaceResultResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteRaceResultResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteRaceResultResponseMultiError) AllErrors() []error { return m }
+
+// DeleteRaceResultResponseValidationError is the validation error returned by
+// DeleteRaceResultResponse.Validate if the designated constraints aren't met.
+type DeleteRaceResultResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRaceResultResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRaceResultResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRaceResultResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRaceResultResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRaceResultResponseValidationError) ErrorName() string {
+	return "DeleteRaceResultResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRaceResultResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRaceResultResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRaceResultResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRaceResultResponseValidationError{}
+
 // Validate checks the field values on VoteRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

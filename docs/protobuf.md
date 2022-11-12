@@ -10,6 +10,8 @@
     - [AllRaceDataResponse](#spec-v1-AllRaceDataResponse)
     - [CreateUserRequest](#spec-v1-CreateUserRequest)
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
+    - [DeleteRaceResultRequest](#spec-v1-DeleteRaceResultRequest)
+    - [DeleteRaceResultResponse](#spec-v1-DeleteRaceResultResponse)
     - [EditHorseRequest](#spec-v1-EditHorseRequest)
     - [EditHorseResponse](#spec-v1-EditHorseResponse)
     - [EditRaceRequest](#spec-v1-EditRaceRequest)
@@ -133,6 +135,32 @@
 | ----- | ---- | ----- | ----------- |
 | user | [User](#spec-v1-User) |  |  |
 | jwt | [JWT](#spec-v1-JWT) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-DeleteRaceResultRequest"></a>
+
+### DeleteRaceResultRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint32](#uint32) |  | 対象を指定するため必須 |
+| admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-DeleteRaceResultResponse"></a>
+
+### DeleteRaceResultResponse
+
 
 
 
@@ -707,6 +735,7 @@ start - n, vote_end: start - m
 | RegisterRace | [RegisterRaceRequest](#spec-v1-RegisterRaceRequest) | [RegisterRaceResponse](#spec-v1-RegisterRaceResponse) | 要Admin認証 |
 | RegisterRaceResult | [RegisterRaceResultRequest](#spec-v1-RegisterRaceResultRequest) | [RegisterRaceResultResponse](#spec-v1-RegisterRaceResultResponse) | 要Admin認証、結果の入力に使う(他のデータにも影響が発生する) |
 | EditRace | [EditRaceRequest](#spec-v1-EditRaceRequest) | [EditRaceResponse](#spec-v1-EditRaceResponse) | 要Admin認証、データの編集に使う |
+| DeleteRaceResult | [DeleteRaceResultRequest](#spec-v1-DeleteRaceResultRequest) | [DeleteRaceResultResponse](#spec-v1-DeleteRaceResultResponse) | 要Admin認証、データの編集に使う |
 
 
 <a name="spec-v1-UserDataService"></a>

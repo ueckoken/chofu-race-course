@@ -1195,6 +1195,58 @@ export declare class EditRaceResponse extends Message<EditRaceResponse> {
 }
 
 /**
+ * @generated from message spec.v1.DeleteRaceResultRequest
+ */
+export declare class DeleteRaceResultRequest extends Message<DeleteRaceResultRequest> {
+  /**
+   * 対象を指定するため必須
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * admin JWT
+   *
+   * @generated from field: spec.v1.JWT admin_jwt = 2;
+   */
+  adminJwt?: JWT;
+
+  constructor(data?: PartialMessage<DeleteRaceResultRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.DeleteRaceResultRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteRaceResultRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteRaceResultRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRaceResultRequest;
+
+  static equals(a: DeleteRaceResultRequest | PlainMessage<DeleteRaceResultRequest> | undefined, b: DeleteRaceResultRequest | PlainMessage<DeleteRaceResultRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message spec.v1.DeleteRaceResultResponse
+ */
+export declare class DeleteRaceResultResponse extends Message<DeleteRaceResultResponse> {
+  constructor(data?: PartialMessage<DeleteRaceResultResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.DeleteRaceResultResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteRaceResultResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteRaceResultResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRaceResultResponse;
+
+  static equals(a: DeleteRaceResultResponse | PlainMessage<DeleteRaceResultResponse> | undefined, b: DeleteRaceResultResponse | PlainMessage<DeleteRaceResultResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export declare class VoteRequest extends Message<VoteRequest> {

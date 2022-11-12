@@ -446,6 +446,25 @@ export const EditRaceResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message spec.v1.DeleteRaceResultRequest
+ */
+export const DeleteRaceResultRequest = proto3.makeMessageType(
+  "spec.v1.DeleteRaceResultRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "admin_jwt", kind: "message", T: JWT },
+  ],
+);
+
+/**
+ * @generated from message spec.v1.DeleteRaceResultResponse
+ */
+export const DeleteRaceResultResponse = proto3.makeMessageType(
+  "spec.v1.DeleteRaceResultResponse",
+  [],
+);
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export const VoteRequest = proto3.makeMessageType(
