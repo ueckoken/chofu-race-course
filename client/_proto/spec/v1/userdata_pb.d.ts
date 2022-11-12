@@ -1201,14 +1201,21 @@ export declare class DeleteRaceResultRequest extends Message<DeleteRaceResultReq
   /**
    * 対象を指定するため必須
    *
-   * @generated from field: repeated uint32 id = 1;
+   * @generated from field: uint32 id = 1;
    */
-  id: number[];
+  id: number;
+
+  /**
+   * 削除対象の馬を指定
+   *
+   * @generated from field: repeated spec.v1.RaceDetail.Member members = 2;
+   */
+  members: RaceDetail_Member[];
 
   /**
    * admin JWT
    *
-   * @generated from field: spec.v1.JWT admin_jwt = 2;
+   * @generated from field: spec.v1.JWT admin_jwt = 3;
    */
   adminJwt?: JWT;
 

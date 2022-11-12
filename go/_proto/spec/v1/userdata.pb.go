@@ -1998,9 +1998,11 @@ type DeleteRaceResultRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// 対象を指定するため必須
-	Id []uint32 `protobuf:"varint,1,rep,packed,name=id,proto3" json:"id,omitempty"`
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 削除対象の馬を指定
+	Members []*RaceDetail_Member `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
 	// admin JWT
-	AdminJwt *JWT `protobuf:"bytes,2,opt,name=admin_jwt,json=adminJwt,proto3" json:"admin_jwt,omitempty"`
+	AdminJwt *JWT `protobuf:"bytes,3,opt,name=admin_jwt,json=adminJwt,proto3" json:"admin_jwt,omitempty"`
 }
 
 func (x *DeleteRaceResultRequest) Reset() {
@@ -2035,9 +2037,16 @@ func (*DeleteRaceResultRequest) Descriptor() ([]byte, []int) {
 	return file_spec_v1_userdata_proto_rawDescGZIP(), []int{34}
 }
 
-func (x *DeleteRaceResultRequest) GetId() []uint32 {
+func (x *DeleteRaceResultRequest) GetId() uint32 {
 	if x != nil {
 		return x.Id
+	}
+	return 0
+}
+
+func (x *DeleteRaceResultRequest) GetMembers() []*RaceDetail_Member {
+	if x != nil {
+		return x.Members
 	}
 	return nil
 }
@@ -2636,10 +2645,14 @@ var file_spec_v1_userdata_proto_rawDesc = []byte{
 	0x0a, 0x06, 0x5f, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x73, 0x74, 0x61,
 	0x72, 0x74, 0x42, 0x0e, 0x0a, 0x0c, 0x5f, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
 	0x6f, 0x6e, 0x22, 0x12, 0x0a, 0x10, 0x45, 0x64, 0x69, 0x74, 0x52, 0x61, 0x63, 0x65, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x5e, 0x0a, 0x17, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
-	0x52, 0x61, 0x63, 0x65, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0d, 0x52, 0x02, 0x69,
-	0x64, 0x12, 0x33, 0x0a, 0x09, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x6a, 0x77, 0x74, 0x18, 0x02,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x9d, 0x01, 0x0a, 0x17, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x52, 0x61, 0x63, 0x65, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x42, 0x07,
+	0xfa, 0x42, 0x04, 0x2a, 0x02, 0x28, 0x01, 0x52, 0x02, 0x69, 0x64, 0x12, 0x34, 0x0a, 0x07, 0x6d,
+	0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x73,
+	0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x63, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69,
+	0x6c, 0x2e, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x52, 0x07, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72,
+	0x73, 0x12, 0x33, 0x0a, 0x09, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x6a, 0x77, 0x74, 0x18, 0x03,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x70, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x4a,
 	0x57, 0x54, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x08, 0x61, 0x64,
 	0x6d, 0x69, 0x6e, 0x4a, 0x77, 0x74, 0x22, 0x1a, 0x0a, 0x18, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
@@ -2820,46 +2833,47 @@ var file_spec_v1_userdata_proto_depIdxs = []int32{
 	5,  // 28: spec.v1.RegisterRaceResultRequest.admin_jwt:type_name -> spec.v1.JWT
 	43, // 29: spec.v1.EditRaceRequest.start:type_name -> google.protobuf.Timestamp
 	5,  // 30: spec.v1.EditRaceRequest.admin_jwt:type_name -> spec.v1.JWT
-	5,  // 31: spec.v1.DeleteRaceResultRequest.admin_jwt:type_name -> spec.v1.JWT
-	5,  // 32: spec.v1.VoteRequest.jwt:type_name -> spec.v1.JWT
-	0,  // 33: spec.v1.HorseDetail.Image.type:type_name -> spec.v1.HorseDetail.Image.ImageType
-	22, // 34: spec.v1.HorseDetail.History.race:type_name -> spec.v1.Race
-	23, // 35: spec.v1.HorseDetail.History.result:type_name -> spec.v1.RaceOrder
-	23, // 36: spec.v1.RaceDetail.Member.order:type_name -> spec.v1.RaceOrder
-	11, // 37: spec.v1.RaceDetail.Member.horse:type_name -> spec.v1.Horse
-	4,  // 38: spec.v1.UserDataService.UserData:input_type -> spec.v1.UserDataRequest
-	7,  // 39: spec.v1.UserDataService.CreateUser:input_type -> spec.v1.CreateUserRequest
-	9,  // 40: spec.v1.UserDataService.LoginAsAdmin:input_type -> spec.v1.LoginAsAdminRequest
-	14, // 41: spec.v1.HorseDataService.HorseData:input_type -> spec.v1.HorseDataRequest
-	16, // 42: spec.v1.HorseDataService.AllHorseData:input_type -> spec.v1.AllHorseDataRequest
-	18, // 43: spec.v1.HorseDataService.RegisterHorse:input_type -> spec.v1.RegisterHorseRequest
-	20, // 44: spec.v1.HorseDataService.EditHorse:input_type -> spec.v1.EditHorseRequest
-	28, // 45: spec.v1.RaceDataService.AllRaceData:input_type -> spec.v1.AllRaceDataRequest
-	26, // 46: spec.v1.RaceDataService.RaceData:input_type -> spec.v1.RaceDataRequest
-	30, // 47: spec.v1.RaceDataService.RegisterRace:input_type -> spec.v1.RegisterRaceRequest
-	32, // 48: spec.v1.RaceDataService.RegisterRaceResult:input_type -> spec.v1.RegisterRaceResultRequest
-	34, // 49: spec.v1.RaceDataService.EditRace:input_type -> spec.v1.EditRaceRequest
-	36, // 50: spec.v1.RaceDataService.DeleteRaceResult:input_type -> spec.v1.DeleteRaceResultRequest
-	38, // 51: spec.v1.VoteService.Vote:input_type -> spec.v1.VoteRequest
-	6,  // 52: spec.v1.UserDataService.UserData:output_type -> spec.v1.UserDataResponse
-	8,  // 53: spec.v1.UserDataService.CreateUser:output_type -> spec.v1.CreateUserResponse
-	10, // 54: spec.v1.UserDataService.LoginAsAdmin:output_type -> spec.v1.LoginAsAdminResponse
-	15, // 55: spec.v1.HorseDataService.HorseData:output_type -> spec.v1.HorseDataResponse
-	17, // 56: spec.v1.HorseDataService.AllHorseData:output_type -> spec.v1.AllHorseDataResponse
-	19, // 57: spec.v1.HorseDataService.RegisterHorse:output_type -> spec.v1.RegisterHorseResponse
-	21, // 58: spec.v1.HorseDataService.EditHorse:output_type -> spec.v1.EditHorseResponse
-	29, // 59: spec.v1.RaceDataService.AllRaceData:output_type -> spec.v1.AllRaceDataResponse
-	27, // 60: spec.v1.RaceDataService.RaceData:output_type -> spec.v1.RaceDataResponse
-	31, // 61: spec.v1.RaceDataService.RegisterRace:output_type -> spec.v1.RegisterRaceResponse
-	33, // 62: spec.v1.RaceDataService.RegisterRaceResult:output_type -> spec.v1.RegisterRaceResultResponse
-	35, // 63: spec.v1.RaceDataService.EditRace:output_type -> spec.v1.EditRaceResponse
-	37, // 64: spec.v1.RaceDataService.DeleteRaceResult:output_type -> spec.v1.DeleteRaceResultResponse
-	39, // 65: spec.v1.VoteService.Vote:output_type -> spec.v1.VoteResponse
-	52, // [52:66] is the sub-list for method output_type
-	38, // [38:52] is the sub-list for method input_type
-	38, // [38:38] is the sub-list for extension type_name
-	38, // [38:38] is the sub-list for extension extendee
-	0,  // [0:38] is the sub-list for field type_name
+	42, // 31: spec.v1.DeleteRaceResultRequest.members:type_name -> spec.v1.RaceDetail.Member
+	5,  // 32: spec.v1.DeleteRaceResultRequest.admin_jwt:type_name -> spec.v1.JWT
+	5,  // 33: spec.v1.VoteRequest.jwt:type_name -> spec.v1.JWT
+	0,  // 34: spec.v1.HorseDetail.Image.type:type_name -> spec.v1.HorseDetail.Image.ImageType
+	22, // 35: spec.v1.HorseDetail.History.race:type_name -> spec.v1.Race
+	23, // 36: spec.v1.HorseDetail.History.result:type_name -> spec.v1.RaceOrder
+	23, // 37: spec.v1.RaceDetail.Member.order:type_name -> spec.v1.RaceOrder
+	11, // 38: spec.v1.RaceDetail.Member.horse:type_name -> spec.v1.Horse
+	4,  // 39: spec.v1.UserDataService.UserData:input_type -> spec.v1.UserDataRequest
+	7,  // 40: spec.v1.UserDataService.CreateUser:input_type -> spec.v1.CreateUserRequest
+	9,  // 41: spec.v1.UserDataService.LoginAsAdmin:input_type -> spec.v1.LoginAsAdminRequest
+	14, // 42: spec.v1.HorseDataService.HorseData:input_type -> spec.v1.HorseDataRequest
+	16, // 43: spec.v1.HorseDataService.AllHorseData:input_type -> spec.v1.AllHorseDataRequest
+	18, // 44: spec.v1.HorseDataService.RegisterHorse:input_type -> spec.v1.RegisterHorseRequest
+	20, // 45: spec.v1.HorseDataService.EditHorse:input_type -> spec.v1.EditHorseRequest
+	28, // 46: spec.v1.RaceDataService.AllRaceData:input_type -> spec.v1.AllRaceDataRequest
+	26, // 47: spec.v1.RaceDataService.RaceData:input_type -> spec.v1.RaceDataRequest
+	30, // 48: spec.v1.RaceDataService.RegisterRace:input_type -> spec.v1.RegisterRaceRequest
+	32, // 49: spec.v1.RaceDataService.RegisterRaceResult:input_type -> spec.v1.RegisterRaceResultRequest
+	34, // 50: spec.v1.RaceDataService.EditRace:input_type -> spec.v1.EditRaceRequest
+	36, // 51: spec.v1.RaceDataService.DeleteRaceResult:input_type -> spec.v1.DeleteRaceResultRequest
+	38, // 52: spec.v1.VoteService.Vote:input_type -> spec.v1.VoteRequest
+	6,  // 53: spec.v1.UserDataService.UserData:output_type -> spec.v1.UserDataResponse
+	8,  // 54: spec.v1.UserDataService.CreateUser:output_type -> spec.v1.CreateUserResponse
+	10, // 55: spec.v1.UserDataService.LoginAsAdmin:output_type -> spec.v1.LoginAsAdminResponse
+	15, // 56: spec.v1.HorseDataService.HorseData:output_type -> spec.v1.HorseDataResponse
+	17, // 57: spec.v1.HorseDataService.AllHorseData:output_type -> spec.v1.AllHorseDataResponse
+	19, // 58: spec.v1.HorseDataService.RegisterHorse:output_type -> spec.v1.RegisterHorseResponse
+	21, // 59: spec.v1.HorseDataService.EditHorse:output_type -> spec.v1.EditHorseResponse
+	29, // 60: spec.v1.RaceDataService.AllRaceData:output_type -> spec.v1.AllRaceDataResponse
+	27, // 61: spec.v1.RaceDataService.RaceData:output_type -> spec.v1.RaceDataResponse
+	31, // 62: spec.v1.RaceDataService.RegisterRace:output_type -> spec.v1.RegisterRaceResponse
+	33, // 63: spec.v1.RaceDataService.RegisterRaceResult:output_type -> spec.v1.RegisterRaceResultResponse
+	35, // 64: spec.v1.RaceDataService.EditRace:output_type -> spec.v1.EditRaceResponse
+	37, // 65: spec.v1.RaceDataService.DeleteRaceResult:output_type -> spec.v1.DeleteRaceResultResponse
+	39, // 66: spec.v1.VoteService.Vote:output_type -> spec.v1.VoteResponse
+	53, // [53:67] is the sub-list for method output_type
+	39, // [39:53] is the sub-list for method input_type
+	39, // [39:39] is the sub-list for extension type_name
+	39, // [39:39] is the sub-list for extension extendee
+	0,  // [0:39] is the sub-list for field type_name
 }
 
 func init() { file_spec_v1_userdata_proto_init() }
