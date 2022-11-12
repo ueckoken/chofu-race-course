@@ -632,7 +632,7 @@ start - n, vote_end: start - m
 | race | [uint32](#uint32) |  | 投票するレースのID |
 | horse | [uint32](#uint32) |  | 投票する馬の馬番 |
 | jwt | [JWT](#spec-v1-JWT) |  |  |
-| user_id | [string](#string) |  |  |
+| user | [User](#spec-v1-User) |  |  |
 
 
 

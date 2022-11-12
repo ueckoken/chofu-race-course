@@ -1218,9 +1218,9 @@ export declare class VoteRequest extends Message<VoteRequest> {
   jwt?: JWT;
 
   /**
-   * @generated from field: string user_id = 4;
+   * @generated from field: spec.v1.User user = 4;
    */
-  userId: string;
+  user?: User;
 
   constructor(data?: PartialMessage<VoteRequest>);
 
