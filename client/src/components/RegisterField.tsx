@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Timestamp } from "@bufbuild/protobuf";
 import {
-    DeleteRaceResultRequest,
     DeleteRaceResultRequest_HorseAndEffect,
     HorseDetail_Image,
     JWT,
