@@ -168,8 +168,8 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | member | [RaceDetail.Member](#spec-v1-RaceDetail-Member) |  |  |
-| match | [bool](#bool) |  |  |
-| win | [bool](#bool) |  |  |
+| match | [bool](#bool) |  | trueならデクリメント |
+| win | [bool](#bool) |  | trueならデクリメント |
 
 
 

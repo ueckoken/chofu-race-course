@@ -1244,11 +1244,15 @@ export declare class DeleteRaceResultRequest_HorseAndEffect extends Message<Dele
   member?: RaceDetail_Member;
 
   /**
+   * trueならデクリメント
+   *
    * @generated from field: bool match = 2;
    */
   match: boolean;
 
   /**
+   * trueならデクリメント
+   *
    * @generated from field: bool win = 3;
    */
   win: boolean;

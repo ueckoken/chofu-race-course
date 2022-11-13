@@ -2400,8 +2400,10 @@ type DeleteRaceResultRequest_HorseAndEffect struct {
 	unknownFields protoimpl.UnknownFields
 
 	Member *RaceDetail_Member `protobuf:"bytes,1,opt,name=member,proto3" json:"member,omitempty"`
-	Match  bool               `protobuf:"varint,2,opt,name=match,proto3" json:"match,omitempty"`
-	Win    bool               `protobuf:"varint,3,opt,name=win,proto3" json:"win,omitempty"`
+	// trueならデクリメント
+	Match bool `protobuf:"varint,2,opt,name=match,proto3" json:"match,omitempty"`
+	// trueならデクリメント
+	Win bool `protobuf:"varint,3,opt,name=win,proto3" json:"win,omitempty"`
 }
 
 func (x *DeleteRaceResultRequest_HorseAndEffect) Reset() {
