@@ -315,11 +315,6 @@ func (r *Race) getDeletedHorseDetail(horseAndEffect *v1.DeleteRaceResultRequest_
 	if err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-	for _, history := range hd.GetHistories() {
-		if history.GetRace().GetId() == rd.GetData().GetId() {
-			return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("same race id record is existed, id=%d", rd.GetData().GetId()))
-		}
-	}
 	if horseAndEffect.GetMatch() {
 		hd.Matches--
 	}
