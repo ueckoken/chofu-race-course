@@ -260,7 +260,12 @@ message DeleteRaceResultRequest {
   // 対象を指定するため必須
   uint32 id = 1 [(validate.rules).uint32.gte = 1];
   // 削除対象の馬を指定
-  repeated RaceDetail.Member members = 2;
+  message HorseAndEffect {
+    RaceDetail.Member member = 1;
+    bool match = 2;
+    bool win = 2;
+  }
+  repeated HorseAndEffect horse_and_effects = 2;
   // admin JWT
   JWT admin_jwt = 3 [(validate.rules).message.required = true];
 }
