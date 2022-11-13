@@ -47,6 +47,7 @@ func (h *Persistent[T]) Set(d T) error {
 	if err != nil {
 		return fmt.Errorf("failed to create file, err=%w", err)
 	}
+	log.Println(d)
 	defer func() {
 		if err := f.Close(); err != nil {
 			log.Println("failed to close, err=%w", err)

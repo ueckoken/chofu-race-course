@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Timestamp } from "@bufbuild/protobuf";
 import {
+    DeleteRaceResultRequest_HorseAndEffect,
     HorseDetail_Image,
     JWT,
     RaceDetail_Member,
@@ -428,10 +429,121 @@ const RegisterRaceResultField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
     );
 };
 
+const DeleteRaceResultField: FC<{ jwt: JWT | null }> = ({ jwt }) => {
+    const [id, setId] = useState<number>(1);
+    const [horses, setHorses] = useState<
+        DeleteRaceResultRequest_HorseAndEffect[]
+    >([]);
+    useEffect(() => {
+        raceClient
+            .raceData({ id })
+            .then((res) =>
+                setHorses(
+                    res.race!.members!.map(
+                        (h) =>
+                            new DeleteRaceResultRequest_HorseAndEffect({
+                                member: h,
+                                match: false,
+                                win: false,
+                            })
+                    )
+                )
+            );
+    }, [id]);
+    return (
+        <fieldset>
+            <legend>競争結果削除</legend>
+            <div>
+                <label>
+                    id:{" "}
+                    <input
+                        type="number"
+                        value={id}
+                        onChange={(e) => setId(+e.target.value)}
+                    />
+                </label>
+            </div>
+            {horses.map((e) => (
+                <div key={`h-${e.member!.horse!.id}`}>
+                    {e.member!.horse!.name}:{" "}
+                    <label>
+                        <input
+                            type="checkbox"
+                            value={e.win ? "on" : ""}
+                            onChange={(ev) =>
+                                setHorses(
+                                    horses.map((h) =>
+                                        e.member!.horse!.id ===
+                                        h.member!.horse!.id
+                                            ? new DeleteRaceResultRequest_HorseAndEffect(
+                                                  {
+                                                      member: h.member,
+                                                      match: h.match,
+                                                      win:
+                                                          ev.target.value ===
+                                                          "on",
+                                                  }
+                                              )
+                                            : h
+                                    )
+                                )
+                            }
+                        />
+                        win
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value={e.match ? "on" : ""}
+                            onChange={(ev) =>
+                                setHorses(
+                                    horses.map((h) =>
+                                        e.member!.horse!.id ===
+                                        h.member!.horse!.id
+                                            ? new DeleteRaceResultRequest_HorseAndEffect(
+                                                  {
+                                                      member: h.member,
+                                                      win: h.win,
+                                                      match:
+                                                          ev.target.value ===
+                                                          "on",
+                                                  }
+                                              )
+                                            : h
+                                    )
+                                )
+                            }
+                        />
+                        match
+                    </label>
+                </div>
+            ))}
+            <button
+                onClick={() => {
+                    raceClient
+                        .deleteRaceResult({
+                            adminJwt: jwt!,
+                            horseAndEffects: horses,
+                            id,
+                        })
+                        .then(() => alert("削除完了！"))
+                        .catch((err) => {
+                            console.error(err);
+                            alert("削除失敗......");
+                        });
+                }}
+            >
+                決定
+            </button>
+        </fieldset>
+    );
+};
+
 export {
     RegisterRaceField,
     EditRaceField,
     RegisterHorseField,
     EditHorseField,
     RegisterRaceResultField,
+    DeleteRaceResultField,
 };

@@ -8,6 +8,7 @@ import {
     RegisterRaceField,
     EditHorseField,
     RegisterRaceResultField,
+    DeleteRaceResultField,
 } from "../components/RegisterField";
 
 const AdminPage: FC<{}> = () => {
@@ -52,6 +53,8 @@ const AdminPage: FC<{}> = () => {
             <EditHorseField jwt={jwt} />
 
             <RegisterRaceResultField jwt={jwt} />
+
+            <DeleteRaceResultField jwt={jwt} />
         </>
     );
 };

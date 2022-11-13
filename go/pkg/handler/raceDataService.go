@@ -104,12 +104,17 @@ func (r *Race) RegisterRaceResult(ctx context.Context, req *connect_go.Request[v
 	if err := r.store.Race.Update(raceRec); err != nil {
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
-
+	// TODO; ここに既j存レコードが存在するかの判定を移動する
+	hds := make([]*v1.HorseDetail, len(req.Msg.GetMembers()))
 	for i, horse := range req.Msg.GetMembers() {
-		hd, err := r.getFixHorseDetail(horse, raceRec)
+		hd, err := r.getRegisteredHorseDetail(horse, raceRec)
 		if err != nil {
-			return nil, connect_go.NewError(connect_go.CodeInternal, fmt.Errorf("updateHorseDetail failed in `%d`, %w", i, err))
+			return nil, connect_go.NewError(connect_go.CodeInternal, fmt.Errorf("updateHorseDetail failed, no update executed in all members, id=`%d`, %w", i, err))
 		}
+		hds[i] = hd
+	}
+
+	for _, hd := range hds {
 		if err := r.store.Horse.Update(hd); err != nil {
 			return nil, connect_go.NewError(connect_go.CodeInternal, fmt.Errorf("horse update failed, %w", err))
 		}
@@ -158,6 +163,46 @@ func (r *Race) EditRace(ctx context.Context, req *connect_go.Request[v1.EditRace
 		return nil, connect_go.NewError(connect_go.CodeInternal, err)
 	}
 	return connect_go.NewResponse(&v1.EditRaceResponse{}), nil
+}
+
+func (r *Race) DeleteRaceResult(ctx context.Context, req *connect_go.Request[v1.DeleteRaceResultRequest]) (*connect_go.Response[v1.DeleteRaceResultResponse], error) {
+	_, ok, err := r.adminAuth.Verify(req.Msg.GetAdminJwt().GetToken())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, err)
+	}
+	if !ok {
+		return nil, connect_go.NewError(connect_go.CodePermissionDenied, fmt.Errorf("invalid jwt, maybe expired"))
+	}
+	if err := req.Msg.ValidateAll(); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, err)
+	}
+	if len(req.Msg.GetHorseAndEffects()) == 0 {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, fmt.Errorf("members array length 0 is invalid"))
+	}
+	raceRec, err := r.store.Race.GetByID(req.Msg.GetId())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	raceRec.Members = nil
+	if err := r.store.Race.Update(raceRec); err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	// TODO; ここに既存レコードが存在するかの判定を移動する
+	hds := make([]*v1.HorseDetail, len(req.Msg.GetHorseAndEffects()))
+	for i, horse := range req.Msg.GetHorseAndEffects() {
+		hd, err := r.getDeletedHorseDetail(horse, raceRec)
+		if err != nil {
+			return nil, connect_go.NewError(connect_go.CodeInternal, fmt.Errorf("updateHorseDetail failed, no update executed in all members, id=`%d`, %w", i, err))
+		}
+		hds[i] = hd
+	}
+
+	for _, hd := range hds {
+		if err := r.store.Horse.Update(hd); err != nil {
+			return nil, connect_go.NewError(connect_go.CodeInternal, fmt.Errorf("horse update failed, %w", err))
+		}
+	}
+	return connect_go.NewResponse(&v1.DeleteRaceResultResponse{}), nil
 }
 
 func (r *Race) fetchMembers(horseIDs []uint32) ([]*v1.RaceDetail_Member, error) {
@@ -219,7 +264,7 @@ func raceDetails2Races(rds []*v1.RaceDetail) []*v1.Race {
 	return rs
 }
 
-func (r *Race) getFixHorseDetail(horse *v1.RaceDetail_Member, rd *v1.RaceDetail) (*v1.HorseDetail, error) {
+func (r *Race) getRegisteredHorseDetail(horse *v1.RaceDetail_Member, rd *v1.RaceDetail) (*v1.HorseDetail, error) {
 	if horse == nil {
 		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, errors.New("not arrow nil"))
 	}
@@ -248,7 +293,8 @@ func (r *Race) getFixHorseDetail(horse *v1.RaceDetail_Member, rd *v1.RaceDetail)
 			hd.Matches++
 		}
 	default:
-		return nil, connect_go.NewError(connect_go.CodeAlreadyExists, errors.New("hoge"))
+		// orderがnilのとき
+		return nil, connect_go.NewError(connect_go.CodeAlreadyExists, errors.New(hd.String()))
 	}
 	hd.Histories = append(hd.Histories, &v1.HorseDetail_History{
 		Race: raceDetail2Race(rd),
@@ -256,5 +302,30 @@ func (r *Race) getFixHorseDetail(horse *v1.RaceDetail_Member, rd *v1.RaceDetail)
 		Order:  rd.GetData().GetOrder(),
 		Result: horse.GetOrder(),
 	})
+	return hd, nil
+}
+func (r *Race) getDeletedHorseDetail(horseAndEffect *v1.DeleteRaceResultRequest_HorseAndEffect, rd *v1.RaceDetail) (*v1.HorseDetail, error) {
+	if horseAndEffect == nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, errors.New("not arrow nil"))
+	}
+	if rd == nil {
+		return nil, connect_go.NewError(connect_go.CodeInvalidArgument, errors.New("not arrow nil"))
+	}
+	hd, err := r.store.Horse.GetByID(horseAndEffect.GetMember().GetHorse().GetId())
+	if err != nil {
+		return nil, connect_go.NewError(connect_go.CodeInternal, err)
+	}
+	if horseAndEffect.GetMatch() {
+		hd.Matches--
+	}
+	if horseAndEffect.GetWin() {
+		hd.Wins--
+	}
+	if len(hd.GetHistories()) > 0 {
+		hd.Histories[len(hd.GetHistories())-1] = nil
+		if len(hd.GetHistories())-2 >= 0 {
+			hd.Histories = hd.Histories[:len(hd.GetHistories())-2]
+		}
+	}
 	return hd, nil
 }
