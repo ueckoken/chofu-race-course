@@ -4714,7 +4714,7 @@ func (m *DeleteRaceResultRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	for idx, item := range m.GetMembers() {
+	for idx, item := range m.GetHorseAndEffects() {
 		_, _ = idx, item
 
 		if all {
@@ -4722,7 +4722,7 @@ func (m *DeleteRaceResultRequest) validate(all bool) error {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, DeleteRaceResultRequestValidationError{
-						field:  fmt.Sprintf("Members[%v]", idx),
+						field:  fmt.Sprintf("HorseAndEffects[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -4730,7 +4730,7 @@ func (m *DeleteRaceResultRequest) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, DeleteRaceResultRequestValidationError{
-						field:  fmt.Sprintf("Members[%v]", idx),
+						field:  fmt.Sprintf("HorseAndEffects[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -4739,7 +4739,7 @@ func (m *DeleteRaceResultRequest) validate(all bool) error {
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return DeleteRaceResultRequestValidationError{
-					field:  fmt.Sprintf("Members[%v]", idx),
+					field:  fmt.Sprintf("HorseAndEffects[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -5696,3 +5696,142 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RaceDetail_MemberValidationError{}
+
+// Validate checks the field values on DeleteRaceResultRequest_HorseAndEffect
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *DeleteRaceResultRequest_HorseAndEffect) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// DeleteRaceResultRequest_HorseAndEffect with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// DeleteRaceResultRequest_HorseAndEffectMultiError, or nil if none found.
+func (m *DeleteRaceResultRequest_HorseAndEffect) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteRaceResultRequest_HorseAndEffect) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetMember()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeleteRaceResultRequest_HorseAndEffectValidationError{
+					field:  "Member",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeleteRaceResultRequest_HorseAndEffectValidationError{
+					field:  "Member",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMember()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeleteRaceResultRequest_HorseAndEffectValidationError{
+				field:  "Member",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Match
+
+	// no validation rules for Win
+
+	if len(errors) > 0 {
+		return DeleteRaceResultRequest_HorseAndEffectMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteRaceResultRequest_HorseAndEffectMultiError is an error wrapping
+// multiple validation errors returned by
+// DeleteRaceResultRequest_HorseAndEffect.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteRaceResultRequest_HorseAndEffectMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteRaceResultRequest_HorseAndEffectMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteRaceResultRequest_HorseAndEffectMultiError) AllErrors() []error { return m }
+
+// DeleteRaceResultRequest_HorseAndEffectValidationError is the validation
+// error returned by DeleteRaceResultRequest_HorseAndEffect.Validate if the
+// designated constraints aren't met.
+type DeleteRaceResultRequest_HorseAndEffectValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRaceResultRequest_HorseAndEffectValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRaceResultRequest_HorseAndEffectValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRaceResultRequest_HorseAndEffectValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRaceResultRequest_HorseAndEffectValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRaceResultRequest_HorseAndEffectValidationError) ErrorName() string {
+	return "DeleteRaceResultRequest_HorseAndEffectValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRaceResultRequest_HorseAndEffectValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRaceResultRequest_HorseAndEffect.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRaceResultRequest_HorseAndEffectValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRaceResultRequest_HorseAndEffectValidationError{}

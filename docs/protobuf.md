@@ -11,6 +11,7 @@
     - [CreateUserRequest](#spec-v1-CreateUserRequest)
     - [CreateUserResponse](#spec-v1-CreateUserResponse)
     - [DeleteRaceResultRequest](#spec-v1-DeleteRaceResultRequest)
+    - [DeleteRaceResultRequest.HorseAndEffect](#spec-v1-DeleteRaceResultRequest-HorseAndEffect)
     - [DeleteRaceResultResponse](#spec-v1-DeleteRaceResultResponse)
     - [EditHorseRequest](#spec-v1-EditHorseRequest)
     - [EditHorseResponse](#spec-v1-EditHorseResponse)
@@ -150,8 +151,25 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [uint32](#uint32) |  | 対象を指定するため必須 |
-| members | [RaceDetail.Member](#spec-v1-RaceDetail-Member) | repeated | 削除対象の馬を指定 |
+| horse_and_effects | [DeleteRaceResultRequest.HorseAndEffect](#spec-v1-DeleteRaceResultRequest-HorseAndEffect) | repeated |  |
 | admin_jwt | [JWT](#spec-v1-JWT) |  | admin JWT |
+
+
+
+
+
+
+<a name="spec-v1-DeleteRaceResultRequest-HorseAndEffect"></a>
+
+### DeleteRaceResultRequest.HorseAndEffect
+削除対象の馬を指定
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| member | [RaceDetail.Member](#spec-v1-RaceDetail-Member) |  |  |
+| match | [bool](#bool) |  | trueならデクリメント |
+| win | [bool](#bool) |  | trueならデクリメント |
 
 
 

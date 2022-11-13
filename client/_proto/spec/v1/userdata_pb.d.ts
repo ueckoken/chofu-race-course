@@ -1206,11 +1206,9 @@ export declare class DeleteRaceResultRequest extends Message<DeleteRaceResultReq
   id: number;
 
   /**
-   * 削除対象の馬を指定
-   *
-   * @generated from field: repeated spec.v1.RaceDetail.Member members = 2;
+   * @generated from field: repeated spec.v1.DeleteRaceResultRequest.HorseAndEffect horse_and_effects = 2;
    */
-  members: RaceDetail_Member[];
+  horseAndEffects: DeleteRaceResultRequest_HorseAndEffect[];
 
   /**
    * admin JWT
@@ -1232,6 +1230,46 @@ export declare class DeleteRaceResultRequest extends Message<DeleteRaceResultReq
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRaceResultRequest;
 
   static equals(a: DeleteRaceResultRequest | PlainMessage<DeleteRaceResultRequest> | undefined, b: DeleteRaceResultRequest | PlainMessage<DeleteRaceResultRequest> | undefined): boolean;
+}
+
+/**
+ * 削除対象の馬を指定
+ *
+ * @generated from message spec.v1.DeleteRaceResultRequest.HorseAndEffect
+ */
+export declare class DeleteRaceResultRequest_HorseAndEffect extends Message<DeleteRaceResultRequest_HorseAndEffect> {
+  /**
+   * @generated from field: spec.v1.RaceDetail.Member member = 1;
+   */
+  member?: RaceDetail_Member;
+
+  /**
+   * trueならデクリメント
+   *
+   * @generated from field: bool match = 2;
+   */
+  match: boolean;
+
+  /**
+   * trueならデクリメント
+   *
+   * @generated from field: bool win = 3;
+   */
+  win: boolean;
+
+  constructor(data?: PartialMessage<DeleteRaceResultRequest_HorseAndEffect>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.DeleteRaceResultRequest.HorseAndEffect";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteRaceResultRequest_HorseAndEffect;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteRaceResultRequest_HorseAndEffect;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRaceResultRequest_HorseAndEffect;
+
+  static equals(a: DeleteRaceResultRequest_HorseAndEffect | PlainMessage<DeleteRaceResultRequest_HorseAndEffect> | undefined, b: DeleteRaceResultRequest_HorseAndEffect | PlainMessage<DeleteRaceResultRequest_HorseAndEffect> | undefined): boolean;
 }
 
 /**
