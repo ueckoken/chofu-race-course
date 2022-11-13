@@ -1314,6 +1314,11 @@ export declare class VoteRequest extends Message<VoteRequest> {
    */
   jwt?: JWT;
 
+  /**
+   * @generated from field: spec.v1.VoteRequest.VoteTime vote_time = 4;
+   */
+  voteTime?: VoteRequest_VoteTime;
+
   constructor(data?: PartialMessage<VoteRequest>);
 
   static readonly runtime: typeof proto3;
@@ -1327,6 +1332,35 @@ export declare class VoteRequest extends Message<VoteRequest> {
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VoteRequest;
 
   static equals(a: VoteRequest | PlainMessage<VoteRequest> | undefined, b: VoteRequest | PlainMessage<VoteRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message spec.v1.VoteRequest.VoteTime
+ */
+export declare class VoteRequest_VoteTime extends Message<VoteRequest_VoteTime> {
+  /**
+   * @generated from field: google.protobuf.Timestamp start = 1;
+   */
+  start?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end = 2;
+   */
+  end?: Timestamp;
+
+  constructor(data?: PartialMessage<VoteRequest_VoteTime>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "spec.v1.VoteRequest.VoteTime";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VoteRequest_VoteTime;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VoteRequest_VoteTime;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VoteRequest_VoteTime;
+
+  static equals(a: VoteRequest_VoteTime | PlainMessage<VoteRequest_VoteTime> | undefined, b: VoteRequest_VoteTime | PlainMessage<VoteRequest_VoteTime> | undefined): boolean;
 }
 
 /**

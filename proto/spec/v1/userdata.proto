@@ -20,28 +20,36 @@ service UserDataService {
 // ユーザを表現する型
 message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
-  string id = 1 [ (validate.rules).string = {
-    min_len : 1,
-    max_len : 1024,
-  } ];
+  string id = 1 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 1024,
+  }];
 }
-message Users { repeated User users = 1; }
+message Users {
+  repeated User users = 1;
+}
 message UserDataRequest {
-  JWT jwt = 1 [ (validate.rules).message.required = true ];
+  JWT jwt = 1 [(validate.rules).message.required = true];
 }
 
 // JWTトークン
-message JWT { string token = 1 [ (validate.rules).string = {min_len : 1} ]; }
-message UserDataResponse { User user = 1; }
+message JWT {
+  string token = 1 [(validate.rules).string = {min_len: 1}];
+}
+message UserDataResponse {
+  User user = 1;
+}
 message CreateUserRequest {}
 message CreateUserResponse {
   User user = 1;
   JWT jwt = 2;
 }
 message LoginAsAdminRequest {
-  string password = 1 [ (validate.rules).string.min_bytes = 1 ];
+  string password = 1 [(validate.rules).string.min_bytes = 1];
 }
-message LoginAsAdminResponse { JWT admin_jwt = 3; }
+message LoginAsAdminResponse {
+  JWT admin_jwt = 3;
+}
 
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
@@ -52,14 +60,16 @@ service HorseDataService {
   rpc EditHorse(EditHorseRequest) returns (EditHorseResponse) {}
 }
 message Horse {
-  uint32 id = 1 [ (validate.rules).uint32.gte = 1 ];
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
   // 馬の名前
-  string name = 2 [ (validate.rules).string.pattern =
-                        "^\\p{Katakana}(\\p{Katakana}|ー){1,8}$" ];
+  string name = 2 [(validate.rules).string.pattern = "^\\p{Katakana}(\\p{Katakana}|ー){1,8}$"];
 }
 message HorseDetail {
-  Horse data = 1 [ (validate.rules).message.required = true ];
-  string owner = 2 [ (validate.rules).string = {min_len : 2, max_len : 256} ];
+  Horse data = 1 [(validate.rules).message.required = true];
+  string owner = 2 [(validate.rules).string = {
+    min_len: 2,
+    max_len: 256
+  }];
   message Image {
     enum ImageType {
       IMAGE_TYPE_UNSPECIFIED = 0;
@@ -68,13 +78,15 @@ message HorseDetail {
       IMAGE_TYPE_GIF = 3;
     }
     // 拡張子
-    ImageType type = 1 [ (validate.rules).enum = {
-      not_in : [ 0 ],
-      defined_only : true,
-    } ];
+    ImageType type = 1 [(validate.rules).enum = {
+      not_in: [0],
+      defined_only: true,
+    }];
     // 画像のデータ bytes(img)
-    bytes data = 2
-        [ (validate.rules).bytes = {min_len : 1, max_len : 1048576} ];
+    bytes data = 2 [(validate.rules).bytes = {
+      min_len: 1,
+      max_len: 1048576
+    }];
   }
   optional Image image = 3;
   // 勝利数
@@ -86,19 +98,25 @@ message HorseDetail {
   // 出走履歴のそれぞれ
   message History {
     // 出走したレース
-    Race race = 1 [ (validate.rules).message.required = true ];
+    Race race = 1 [(validate.rules).message.required = true];
     // その日の何番目のレースか
-    uint32 order = 2 [ (validate.rules).uint32.gte = 1 ];
+    uint32 order = 2 [(validate.rules).uint32.gte = 1];
     // 順位
-    RaceOrder result = 3 [ (validate.rules).message.required = true ];
+    RaceOrder result = 3 [(validate.rules).message.required = true];
   }
   // レース出走履歴
   repeated History histories = 7;
 }
 
-message HorseDetails { repeated HorseDetail horse_details = 1; }
-message HorseDataRequest { uint32 id = 1 [ (validate.rules).uint32.gte = 1 ]; }
-message HorseDataResponse { HorseDetail horse = 1; }
+message HorseDetails {
+  repeated HorseDetail horse_details = 1;
+}
+message HorseDataRequest {
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
+}
+message HorseDataResponse {
+  HorseDetail horse = 1;
+}
 message AllHorseDataRequest {}
 message AllHorseDataResponse {
   // 登録している馬が1頭もいない場合はエラーではなく[]を返す。
@@ -108,24 +126,26 @@ message AllHorseDataResponse {
 // HorseDetailの初期値 id: id++, image: null, wins: 0, matches: 0, next: null,
 // histories: []
 message RegisterHorseRequest {
-  string name = 1 [ (validate.rules).string.pattern =
-                        "^\\p{Katakana}(\\p{Katakana}|ー){1,8}$" ];
+  string name = 1 [(validate.rules).string.pattern = "^\\p{Katakana}(\\p{Katakana}|ー){1,8}$"];
   // 所有者名
-  string owner = 2 [ (validate.rules).string = {min_len : 2, max_len : 256} ];
+  string owner = 2 [(validate.rules).string = {
+    min_len: 2,
+    max_len: 256
+  }];
   // admin JWT
-  JWT admin_jwt = 3 [ (validate.rules).message.required = true ];
+  JWT admin_jwt = 3 [(validate.rules).message.required = true];
 }
 message RegisterHorseResponse {}
 
 // 非nullで渡された値を更新する
 message EditHorseRequest {
   // 対象を指定するため必須
-  uint32 id = 1 [ (validate.rules).uint32.gte = 1 ];
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
   optional string name = 2;
   optional string owner = 3;
   optional HorseDetail.Image image = 4;
   // admin JWT
-  JWT admin_jwt = 5 [ (validate.rules).message.required = true ];
+  JWT admin_jwt = 5 [(validate.rules).message.required = true];
 }
 message EditHorseResponse {}
 
@@ -135,21 +155,18 @@ service RaceDataService {
   // 要Admin認証
   rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
   // 要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
-  rpc RegisterRaceResult(RegisterRaceResultRequest)
-      returns (RegisterRaceResultResponse) {}
+  rpc RegisterRaceResult(RegisterRaceResultRequest) returns (RegisterRaceResultResponse) {}
   // 要Admin認証、データの編集に使う
   rpc EditRace(EditRaceRequest) returns (EditRaceResponse) {}
   // 要Admin認証、データの編集に使う
-  rpc DeleteRaceResult(DeleteRaceResultRequest)
-      returns (DeleteRaceResultResponse) {}
+  rpc DeleteRaceResult(DeleteRaceResultRequest) returns (DeleteRaceResultResponse) {}
 }
 message Race {
-  uint32 id = 1 [ (validate.rules).uint32.gte = 1 ];
-  string name = 2 [ (validate.rules).string.min_len = 1 ];
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
+  string name = 2 [(validate.rules).string.min_len = 1];
   // 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。
-  uint32 order = 3 [ (validate.rules).uint32.gte = 1 ];
-  google.protobuf.Timestamp start = 4
-      [ (validate.rules).timestamp.required = true ];
+  uint32 order = 3 [(validate.rules).uint32.gte = 1];
+  google.protobuf.Timestamp start = 4 [(validate.rules).timestamp.required = true];
   bool is_finished = 5;
 }
 message RaceOrder {
@@ -165,15 +182,15 @@ message RaceOrder {
   oneof order_oneof {
     option (validate.required) = true;
     // 順位。最も早くゴールしたときに1。
-    uint32 order = 1 [ (validate.rules).uint32.gte = 1 ];
-    NoteType note = 2 [ (validate.rules).enum = {
-      defined_only : true,
-      not_in : [ 0 ]
-    } ];
+    uint32 order = 1 [(validate.rules).uint32.gte = 1];
+    NoteType note = 2 [(validate.rules).enum = {
+      defined_only: true,
+      not_in: [0]
+    }];
   }
 }
 message RaceDetail {
-  Race data = 1 [ (validate.rules).message.required = true ];
+  Race data = 1 [(validate.rules).message.required = true];
   string description = 2;
   message Member {
     RaceOrder order = 1;
@@ -182,46 +199,51 @@ message RaceDetail {
     uint32 popularity = 4;
   }
   repeated Member members = 4;
-  google.protobuf.Timestamp vote_begin = 5
-      [ (validate.rules).timestamp.required = true ];
-  google.protobuf.Timestamp vote_end = 6
-      [ (validate.rules).timestamp.required = true ];
+  google.protobuf.Timestamp vote_begin = 5 [(validate.rules).timestamp.required = true];
+  google.protobuf.Timestamp vote_end = 6 [(validate.rules).timestamp.required = true];
 }
 
-message RaceDetails { repeated RaceDetail race_details = 1; }
-message RaceDataRequest { uint32 id = 1 [ (validate.rules).uint32.gte = 1 ]; }
-message RaceDataResponse { RaceDetail race = 1; }
+message RaceDetails {
+  repeated RaceDetail race_details = 1;
+}
+message RaceDataRequest {
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
+}
+message RaceDataResponse {
+  RaceDetail race = 1;
+}
 message AllRaceDataRequest {}
-message AllRaceDataResponse { repeated Race races = 1; }
+message AllRaceDataResponse {
+  repeated Race races = 1;
+}
 
 // RaceDetailの初期値 id: id++, is_finished: false, members: [], vote_begin:
 // start - n, vote_end: start - m
 message RegisterRaceRequest {
-  string name = 1 [ (validate.rules).string.min_len = 1 ];
+  string name = 1 [(validate.rules).string.min_len = 1];
   // その日の何番目のレースか
-  uint32 order = 2 [ (validate.rules).uint32.gte = 1 ];
+  uint32 order = 2 [(validate.rules).uint32.gte = 1];
   // 出走時刻
-  google.protobuf.Timestamp start = 3
-      [ (validate.rules).timestamp.required = true ];
+  google.protobuf.Timestamp start = 3 [(validate.rules).timestamp.required = true];
   // コースなどの詳細説明
   string description = 4;
   // admin JWT
-  JWT admin_jwt = 5 [ (validate.rules).message.required = true ];
+  JWT admin_jwt = 5 [(validate.rules).message.required = true];
 }
 message RegisterRaceResponse {}
 message RegisterRaceResultRequest {
   // 対象を指定するため必須
-  uint32 id = 1 [ (validate.rules).uint32.gte = 1 ];
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
   repeated RaceDetail.Member members = 2;
   // admin JWT
-  JWT admin_jwt = 3 [ (validate.rules).message.required = true ];
+  JWT admin_jwt = 3 [(validate.rules).message.required = true];
 }
 message RegisterRaceResultResponse {}
 
 // 値が入ってたら更新する。
 message EditRaceRequest {
   // 対象を指定するため必須
-  uint32 id = 1 [ (validate.rules).uint32.gte = 1 ];
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
   optional string name = 2;
   // 第nレースのnのように、その日の何番目のレースなのかを指定する。1オリジン。
   optional uint32 order = 3;
@@ -230,13 +252,13 @@ message EditRaceRequest {
   // 馬のidの配列で指定
   repeated uint32 members = 6;
   // admin JWT
-  JWT admin_jwt = 7 [ (validate.rules).message.required = true ];
+  JWT admin_jwt = 7 [(validate.rules).message.required = true];
 }
 message EditRaceResponse {}
 
 message DeleteRaceResultRequest {
   // 対象を指定するため必須
-  uint32 id = 1 [ (validate.rules).uint32.gte = 1 ];
+  uint32 id = 1 [(validate.rules).uint32.gte = 1];
   // 削除対象の馬を指定
   message HorseAndEffect {
     RaceDetail.Member member = 1;
@@ -247,7 +269,7 @@ message DeleteRaceResultRequest {
   }
   repeated HorseAndEffect horse_and_effects = 2;
   // admin JWT
-  JWT admin_jwt = 3 [ (validate.rules).message.required = true ];
+  JWT admin_jwt = 3 [(validate.rules).message.required = true];
 }
 message DeleteRaceResultResponse {}
 
@@ -257,14 +279,14 @@ service VoteService {
 }
 message VoteRequest {
   // 投票するレースのID
-  uint32 race = 1 [ (validate.rules).uint32.gte = 1 ];
+  uint32 race = 1 [(validate.rules).uint32.gte = 1];
   // 投票する馬の馬番
-  uint32 horse = 2 [ (validate.rules).uint32.gte = 1 ];
-  JWT jwt = 3 [ (validate.rules).message.required = true ];
+  uint32 horse = 2 [(validate.rules).uint32.gte = 1];
+  JWT jwt = 3 [(validate.rules).message.required = true];
   message VoteTime {
     google.protobuf.Timestamp start = 1;
     google.protobuf.Timestamp end = 2;
   }
-  VoteTime vote_time = 4 [ (validate.rules).message.required = true ];
+  VoteTime vote_time = 4 [(validate.rules).message.required = true];
 }
 message VoteResponse {}
