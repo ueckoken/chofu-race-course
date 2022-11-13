@@ -263,7 +263,7 @@ message DeleteRaceResultRequest {
   message HorseAndEffect {
     RaceDetail.Member member = 1;
     bool match = 2;
-    bool win = 2;
+    bool win = 3;
   }
   repeated HorseAndEffect horse_and_effects = 2;
   // admin JWT
