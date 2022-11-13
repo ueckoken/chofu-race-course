@@ -262,7 +262,9 @@ message DeleteRaceResultRequest {
   // 削除対象の馬を指定
   message HorseAndEffect {
     RaceDetail.Member member = 1;
+    // trueならデクリメント
     bool match = 2;
+    // trueならデクリメント
     bool win = 3;
   }
   repeated HorseAndEffect horse_and_effects = 2;
