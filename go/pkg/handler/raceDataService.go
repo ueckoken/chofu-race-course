@@ -322,6 +322,8 @@ func (r *Race) getDeletedHorseDetail(horseAndEffect *v1.DeleteRaceResultRequest_
 		hd.Wins--
 	}
 	hd.Histories[len(hd.GetHistories())-1] = nil
-	hd.Histories = hd.Histories[:len(hd.GetHistories())-2]
+	if len(hd.GetHistories())-2 >= 0 {
+		hd.Histories = hd.Histories[:len(hd.GetHistories())-2]
+	}
 	return hd, nil
 }
