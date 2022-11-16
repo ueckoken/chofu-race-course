@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "packageManager": "yarn@3.2.4",
+  "packageManager": "yarn@3.3.0",
   "devDependencies": {
     "@bufbuild/protoc-gen-connect-web": "0.3.1",
     "@bufbuild/protoc-gen-es": "0.2.1",
