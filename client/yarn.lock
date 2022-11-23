@@ -47,14 +47,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/protoc-gen-connect-web@npm:0.3.1":
-  version: 0.3.1
-  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.3.1"
+"@bufbuild/protoc-gen-connect-web@npm:0.3.2":
+  version: 0.3.2
+  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.3.2"
   dependencies:
-    "@bufbuild/protoplugin": 0.2.1
+    "@bufbuild/protoplugin": 0.3.0
   peerDependencies:
-    "@bufbuild/connect-web": 0.3.1
-    "@bufbuild/protoc-gen-es": 0.2.1
+    "@bufbuild/connect-web": 0.3.2
+    "@bufbuild/protoc-gen-es": 0.3.0
   peerDependenciesMeta:
     "@bufbuild/connect-web":
       optional: true
@@ -62,7 +62,7 @@ __metadata:
       optional: true
   bin:
     protoc-gen-connect-web: bin/protoc-gen-connect-web
-  checksum: ad49b3c8eca245b4dffc39be2fac1e04dcf69cde804258df33d7203cabf95a79e960c2d8653eaed5f59e20dd028ddd0341580d256a34fd56d1369b12cf356143
+  checksum: 102e6c5a40f35aa13506326aabdbb4ff869f57f7e8eb64d4fa126fdaaf305d3f770e1829a83cd10c8bc07ff6ac7aeba1c22d49ee07880fba06552aafe37a07cf
   languageName: node
   linkType: hard
 
@@ -90,6 +90,17 @@ __metadata:
     "@typescript/vfs": ^1.4.0
     typescript: 4.5.2
   checksum: daf77fe300e0293eabcd4dabae6e2f98522ae7f30c0672c744b92a591c671b0bddf73cb75da546bd6886f5ef22741202f766f39ce563459bd74d27df6d52b5a4
+  languageName: node
+  linkType: hard
+
+"@bufbuild/protoplugin@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@bufbuild/protoplugin@npm:0.3.0"
+  dependencies:
+    "@bufbuild/protobuf": 0.3.0
+    "@typescript/vfs": ^1.4.0
+    typescript: 4.5.2
+  checksum: d7cb43d604ecb46cf091ef535ee78f60abb29d82357300b4a6c6c2a45669b02a487c7e52295a2821c63995e95bbebecdd53139b54999ee020049546aa80f8fc7
   languageName: node
   linkType: hard
 
@@ -817,7 +828,7 @@ __metadata:
   dependencies:
     "@bufbuild/connect-web": 0.3.2
     "@bufbuild/protobuf": 0.3.0
-    "@bufbuild/protoc-gen-connect-web": 0.3.1
+    "@bufbuild/protoc-gen-connect-web": 0.3.2
     "@bufbuild/protoc-gen-es": 0.2.1
     "@types/node": 18.11.9
     "@types/react": 18.0.25
