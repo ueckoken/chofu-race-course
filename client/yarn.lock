@@ -33,13 +33,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/protobuf@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@bufbuild/protobuf@npm:0.2.1"
-  checksum: 6a6f2ac91354ddde89a3db4d69c1b560a2d37acc5f983cb76ed0358701926907e24d2f9e3be401f69ca3e629279c599967ef498b54d5566b0d317afa83b29def
-  languageName: node
-  linkType: hard
-
 "@bufbuild/protobuf@npm:0.3.0":
   version: 0.3.0
   resolution: "@bufbuild/protobuf@npm:0.3.0"
@@ -66,30 +59,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/protoc-gen-es@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@bufbuild/protoc-gen-es@npm:0.2.1"
+"@bufbuild/protoc-gen-es@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@bufbuild/protoc-gen-es@npm:0.3.0"
   dependencies:
-    "@bufbuild/protoplugin": 0.2.1
+    "@bufbuild/protoplugin": 0.3.0
   peerDependencies:
-    "@bufbuild/protobuf": 0.2.1
+    "@bufbuild/protobuf": 0.3.0
   peerDependenciesMeta:
     "@bufbuild/protobuf":
       optional: true
   bin:
     protoc-gen-es: bin/protoc-gen-es
-  checksum: 4f5eb5c9e7c2bae7bd7e62f3f840c35e0ffacd3b92b08954315bc448726fc0a4d0a9a2eacdd2c57f15e92d1c937498b1d1402d80015b1a1f8fbe897c063f5dc7
-  languageName: node
-  linkType: hard
-
-"@bufbuild/protoplugin@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@bufbuild/protoplugin@npm:0.2.1"
-  dependencies:
-    "@bufbuild/protobuf": 0.2.1
-    "@typescript/vfs": ^1.4.0
-    typescript: 4.5.2
-  checksum: daf77fe300e0293eabcd4dabae6e2f98522ae7f30c0672c744b92a591c671b0bddf73cb75da546bd6886f5ef22741202f766f39ce563459bd74d27df6d52b5a4
+  checksum: 70ee3cd18805da8d4dec6deecdffdb3b9f034998d8ea67ee5c97c3b41fb142038ff1ef7256347e518cc01d2c8b2814d3cabdebb009d6b2e63f95a080d12803cc
   languageName: node
   linkType: hard
 
@@ -829,7 +811,7 @@ __metadata:
     "@bufbuild/connect-web": 0.3.2
     "@bufbuild/protobuf": 0.3.0
     "@bufbuild/protoc-gen-connect-web": 0.3.2
-    "@bufbuild/protoc-gen-es": 0.2.1
+    "@bufbuild/protoc-gen-es": 0.3.0
     "@types/node": 18.11.9
     "@types/react": 18.0.25
     "@types/react-dom": 18.0.9
