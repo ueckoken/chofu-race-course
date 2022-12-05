@@ -40,14 +40,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/protoc-gen-connect-web@npm:0.3.2":
-  version: 0.3.2
-  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.3.2"
+"@bufbuild/protobuf@npm:0.4.0":
+  version: 0.4.0
+  resolution: "@bufbuild/protobuf@npm:0.4.0"
+  checksum: d0f004b44497dfaabe5aa43ddc59b58729c865d03cd6cd0a18cf4858ea02893267edcd954898eb1bd2c242acc8847736572db40dd5698826a9e23950edff2fe0
+  languageName: node
+  linkType: hard
+
+"@bufbuild/protoc-gen-connect-web@npm:0.3.3":
+  version: 0.3.3
+  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.3.3"
   dependencies:
-    "@bufbuild/protoplugin": 0.3.0
+    "@bufbuild/protoplugin": 0.4.0
   peerDependencies:
-    "@bufbuild/connect-web": 0.3.2
-    "@bufbuild/protoc-gen-es": 0.3.0
+    "@bufbuild/connect-web": 0.3.3
+    "@bufbuild/protoc-gen-es": 0.4.0
   peerDependenciesMeta:
     "@bufbuild/connect-web":
       optional: true
@@ -55,7 +62,7 @@ __metadata:
       optional: true
   bin:
     protoc-gen-connect-web: bin/protoc-gen-connect-web
-  checksum: 102e6c5a40f35aa13506326aabdbb4ff869f57f7e8eb64d4fa126fdaaf305d3f770e1829a83cd10c8bc07ff6ac7aeba1c22d49ee07880fba06552aafe37a07cf
+  checksum: fc22663974c32a8d2312fb8fdfd85c05f2ae55457b5b2a62060dca7e87de74bbded0f6d7cb70ee5ecd371fa440a0d4f7db4fa1291e15dff326bf8d30229ff7ab
   languageName: node
   linkType: hard
 
@@ -83,6 +90,17 @@ __metadata:
     "@typescript/vfs": ^1.4.0
     typescript: 4.5.2
   checksum: d7cb43d604ecb46cf091ef535ee78f60abb29d82357300b4a6c6c2a45669b02a487c7e52295a2821c63995e95bbebecdd53139b54999ee020049546aa80f8fc7
+  languageName: node
+  linkType: hard
+
+"@bufbuild/protoplugin@npm:0.4.0":
+  version: 0.4.0
+  resolution: "@bufbuild/protoplugin@npm:0.4.0"
+  dependencies:
+    "@bufbuild/protobuf": 0.4.0
+    "@typescript/vfs": ^1.4.0
+    typescript: 4.5.2
+  checksum: f1be49ba734669dacde6094e073e99fcad448e825f13b7272719d5802ae1bc590d6ea04ba99f9ac84023184cd5eeac8aeebd81c16573cf2d53782d520a3f01ed
   languageName: node
   linkType: hard
 
@@ -810,7 +828,7 @@ __metadata:
   dependencies:
     "@bufbuild/connect-web": 0.3.3
     "@bufbuild/protobuf": 0.3.0
-    "@bufbuild/protoc-gen-connect-web": 0.3.2
+    "@bufbuild/protoc-gen-connect-web": 0.3.3
     "@bufbuild/protoc-gen-es": 0.3.0
     "@types/node": 18.11.10
     "@types/react": 18.0.26
