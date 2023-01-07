@@ -22,7 +22,7 @@ spec:
     spec:
       initContainers:
         - name: file-owner
-          image: busybox:1.35
+          image: busybox:1.36
           command: ["chown", "-R", "65532:65532", "/data"]
           volumeMounts:
             - mountPath: /data
