@@ -4,7 +4,7 @@
   "devDependencies": {
     "@bufbuild/protoc-gen-connect-web": "0.6.0",
     "@bufbuild/protoc-gen-es": "0.5.0",
-    "eslint": "8.32.0",
+    "eslint": "8.33.0",
     "eslint-config-next": "12.3.4"
   },
   "dependencies": {
