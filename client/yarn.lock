@@ -24,23 +24,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/connect-web@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@bufbuild/connect-web@npm:0.8.1"
+"@bufbuild/connect-web@npm:0.8.3":
+  version: 0.8.3
+  resolution: "@bufbuild/connect-web@npm:0.8.3"
   dependencies:
-    "@bufbuild/connect": 0.8.1
+    "@bufbuild/connect": 0.8.3
   peerDependencies:
     "@bufbuild/protobuf": ^1.0.0
-  checksum: f1c455f35cac8d314f8de51f83ffcff3759e8d929897856807b4663b2f2e95ae09520a50d76309712e917a10d8e43b03635e6dcab7b2b9c03128879df19bf07e
+  checksum: 1dc0f51390f359e559679b9f4eff35d40207ff7c0d48652e5735ffa43cef5be318f1630e50925d206cea50fb1bf2e08f030c7bed2a28e93ec9b8f49a6ba95050
   languageName: node
   linkType: hard
 
-"@bufbuild/connect@npm:0.8.1":
-  version: 0.8.1
-  resolution: "@bufbuild/connect@npm:0.8.1"
+"@bufbuild/connect@npm:0.8.3":
+  version: 0.8.3
+  resolution: "@bufbuild/connect@npm:0.8.3"
   peerDependencies:
     "@bufbuild/protobuf": ^1.0.0
-  checksum: 88b8be56fcd43d8cc9b7fa17be84031ae67f21680e978275b891f65fed95c75e8271c5bdc9829fb606f61c8119a7ed6fdfb75c3fd315339e3bd644ceaeb20710
+  checksum: 9ce8c5c9c32dfc8446deba306e39e3237c7f35e859bb1348ff5a1f0d155064b951c84735935e301c40050b91b979fa40e2248281f726c4e4182a541148dbc218
   languageName: node
   linkType: hard
 
@@ -852,7 +852,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "client@workspace:."
   dependencies:
-    "@bufbuild/connect-web": 0.8.1
+    "@bufbuild/connect-web": 0.8.3
     "@bufbuild/protobuf": 0.5.0
     "@bufbuild/protoc-gen-connect-web": 0.8.2
     "@bufbuild/protoc-gen-es": 0.5.0
