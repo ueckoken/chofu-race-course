@@ -65,14 +65,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bufbuild/protoc-gen-connect-web@npm:0.8.3":
-  version: 0.8.3
-  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.8.3"
+"@bufbuild/protoc-gen-connect-web@npm:0.8.4":
+  version: 0.8.4
+  resolution: "@bufbuild/protoc-gen-connect-web@npm:0.8.4"
   dependencies:
     "@bufbuild/protobuf": ^1.0.0
     "@bufbuild/protoplugin": ^1.0.0
   peerDependencies:
-    "@bufbuild/connect": 0.8.3
+    "@bufbuild/connect": 0.8.4
     "@bufbuild/protoc-gen-es": ^1.0.0
   peerDependenciesMeta:
     "@bufbuild/connect":
@@ -81,7 +81,7 @@ __metadata:
       optional: true
   bin:
     protoc-gen-connect-web: bin/protoc-gen-connect-web
-  checksum: 46f65121695b2bded91b5c738c8a244ccf2f21773a8ca1e62701d880a5cefe6144fbc868512f6c59cd28e59b2667222b7e10d220d454f4e048126dfa85450bf8
+  checksum: 431870a14b57334595c95767dc48e25a8aba7b30169548e0daa52187003b5d4fd59604cae469302a8d3d10773f2f03bf38d340650b0967e2a8e4648898b6c35f
   languageName: node
   linkType: hard
 
@@ -872,7 +872,7 @@ __metadata:
   dependencies:
     "@bufbuild/connect-web": 0.8.4
     "@bufbuild/protobuf": 0.5.0
-    "@bufbuild/protoc-gen-connect-web": 0.8.3
+    "@bufbuild/protoc-gen-connect-web": 0.8.4
     "@bufbuild/protoc-gen-es": 0.5.0
     "@types/node": 18.15.3
     "@types/react": 18.0.28
