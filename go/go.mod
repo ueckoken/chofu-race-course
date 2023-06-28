@@ -9,7 +9,7 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/subcommands v1.2.0
 	github.com/rs/cors v1.9.0
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.4
 	golang.org/x/net v0.10.0
 	google.golang.org/protobuf v1.30.0
 )
