@@ -446,6 +446,41 @@ export const EditRaceResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message spec.v1.DeleteRaceResultRequest
+ */
+export const DeleteRaceResultRequest = proto3.makeMessageType(
+  "spec.v1.DeleteRaceResultRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "horse_and_effects", kind: "message", T: DeleteRaceResultRequest_HorseAndEffect, repeated: true },
+    { no: 3, name: "admin_jwt", kind: "message", T: JWT },
+  ],
+);
+
+/**
+ * 削除対象の馬を指定
+ *
+ * @generated from message spec.v1.DeleteRaceResultRequest.HorseAndEffect
+ */
+export const DeleteRaceResultRequest_HorseAndEffect = proto3.makeMessageType(
+  "spec.v1.DeleteRaceResultRequest.HorseAndEffect",
+  () => [
+    { no: 1, name: "member", kind: "message", T: RaceDetail_Member },
+    { no: 2, name: "match", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "win", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+  {localName: "DeleteRaceResultRequest_HorseAndEffect"},
+);
+
+/**
+ * @generated from message spec.v1.DeleteRaceResultResponse
+ */
+export const DeleteRaceResultResponse = proto3.makeMessageType(
+  "spec.v1.DeleteRaceResultResponse",
+  [],
+);
+
+/**
  * @generated from message spec.v1.VoteRequest
  */
 export const VoteRequest = proto3.makeMessageType(

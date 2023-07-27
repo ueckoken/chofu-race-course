@@ -13,12 +13,16 @@ spec:
     spec:
       chart: ingress-nginx
       reconcileStrategy: ChartVersion
-      version: 4.4.0
+      version: 4.7.1
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-  values: {}
+  values:
+    ingressClassResource:
+      default: true
+    admissionWebhooks:
+      enabled: false
   interval: 1h
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2

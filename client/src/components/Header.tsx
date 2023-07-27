@@ -6,12 +6,16 @@ const Header: FC<{}> = () => {
     return (
         <header>
             <h1>
-                <Image
-                    src="/logo.png"
-                    alt="調布競馬"
-                    height="48px"
-                    width="220.8px"
-                />
+                <Link href="/">
+                    <a>
+                        <Image
+                            src="/logo.png"
+                            alt="調布競馬"
+                            height="48px"
+                            width="220.8px"
+                        />
+                    </a>
+                </Link>
             </h1>
             <nav>
                 <ul>

@@ -22,14 +22,14 @@ spec:
     spec:
       initContainers:
         - name: file-owner
-          image: busybox:1.35
+          image: busybox:1.36
           command: ["chown", "-R", "65532:65532", "/data"]
           volumeMounts:
             - mountPath: /data
               name: database
       containers:
         - name: api
-          image: ghcr.io/ueckoken/chofu-race-course-api:0b1c6aa-1668087330 # {"$imagepolicy": "flux-system:api"}
+          image: ghcr.io/ueckoken/chofu-race-course-api:d4a98ff-1668094529 # {"$imagepolicy": "flux-system:api"}
           ports:
             - containerPort: 8080
           volumeMounts:
