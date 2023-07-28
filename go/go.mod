@@ -3,7 +3,7 @@ module github.com/ueckoken/chofu-race-course/go
 go 1.19
 
 require (
-	github.com/bufbuild/connect-go v1.9.0
+	github.com/bufbuild/connect-go v1.10.0
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
 	github.com/golang-jwt/jwt v3.2.2+incompatible
