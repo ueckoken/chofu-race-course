@@ -381,12 +381,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.19.21":
-  version: 18.19.21
-  resolution: "@types/node@npm:18.19.21"
+"@types/node@npm:20.11.30":
+  version: 20.11.30
+  resolution: "@types/node@npm:20.11.30"
   dependencies:
     undici-types: ~5.26.4
-  checksum: a8c66d97426e8bbe341a6bdf42af9659ff5ad500c790b9046c981e234db42a1354a6ae86d5d1b75c86dfa018c742fb65c400a0e31d8f9f7505d4cfe5bd11ba72
+  checksum: 7597767aa3e44b0f1bf62efa522dd17741135f283c11de6a20ead8bb7016fb4999cc30adcd8f2bb29ebb216906c92894346ccd187de170927dc1e212d2c07c81
   languageName: node
   linkType: hard
 
@@ -890,7 +890,7 @@ __metadata:
     "@bufbuild/protobuf": 0.5.0
     "@bufbuild/protoc-gen-connect-web": 0.11.0
     "@bufbuild/protoc-gen-es": 0.5.0
-    "@types/node": 18.19.21
+    "@types/node": 20.11.30
     "@types/react": 18.2.69
     "@types/react-dom": 18.2.22
     eslint: 8.56.0
