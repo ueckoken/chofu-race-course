@@ -1,6 +1,8 @@
 module github.com/ueckoken/chofu-race-course/go
 
-go 1.19
+go 1.21
+
+toolchain go1.23.3
 
 require (
 	github.com/bufbuild/connect-go v1.10.0
@@ -11,7 +13,7 @@ require (
 	github.com/rs/cors v1.11.1
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/net v0.31.0
-	google.golang.org/protobuf v1.34.2
+	google.golang.org/protobuf v1.35.2
 )
 
 require (
