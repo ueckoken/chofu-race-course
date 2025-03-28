@@ -54,9 +54,9 @@ message LoginAsAdminResponse {
 service HorseDataService {
   rpc HorseData(HorseDataRequest) returns (HorseDataResponse) {}
   rpc AllHorseData(AllHorseDataRequest) returns (AllHorseDataResponse) {}
-  //要Admin認証
+  // 要Admin認証
   rpc RegisterHorse(RegisterHorseRequest) returns (RegisterHorseResponse) {}
-  //要Admin認証
+  // 要Admin認証
   rpc EditHorse(EditHorseRequest) returns (EditHorseResponse) {}
 }
 message Horse {
@@ -152,13 +152,13 @@ message EditHorseResponse {}
 service RaceDataService {
   rpc AllRaceData(AllRaceDataRequest) returns (AllRaceDataResponse) {}
   rpc RaceData(RaceDataRequest) returns (RaceDataResponse) {}
-  //要Admin認証
+  // 要Admin認証
   rpc RegisterRace(RegisterRaceRequest) returns (RegisterRaceResponse) {}
-  //要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
+  // 要Admin認証、結果の入力に使う(他のデータにも影響が発生する)
   rpc RegisterRaceResult(RegisterRaceResultRequest) returns (RegisterRaceResultResponse) {}
-  //要Admin認証、データの編集に使う
+  // 要Admin認証、データの編集に使う
   rpc EditRace(EditRaceRequest) returns (EditRaceResponse) {}
-  //要Admin認証、データの編集に使う
+  // 要Admin認証、データの編集に使う
   rpc DeleteRaceResult(DeleteRaceResultRequest) returns (DeleteRaceResultResponse) {}
 }
 message Race {
@@ -279,9 +279,14 @@ service VoteService {
 }
 message VoteRequest {
   // 投票するレースのID
-  uint32 race = 1;
+  uint32 race = 1 [(validate.rules).uint32.gte = 1];
   // 投票する馬の馬番
-  uint32 horse = 2;
-  JWT jwt = 3;
+  uint32 horse = 2 [(validate.rules).uint32.gte = 1];
+  JWT jwt = 3 [(validate.rules).message.required = true];
+  message VoteTime {
+    google.protobuf.Timestamp start = 1;
+    google.protobuf.Timestamp end = 2;
+  }
+  VoteTime vote_time = 4 [(validate.rules).message.required = true];
 }
 message VoteResponse {}
