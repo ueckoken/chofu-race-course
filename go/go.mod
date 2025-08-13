@@ -7,13 +7,13 @@ toolchain go1.25.0
 require (
 	github.com/bufbuild/connect-go v1.10.0
 	github.com/caarlos0/env/v6 v6.10.1
-	github.com/envoyproxy/protoc-gen-validate v1.1.0
+	github.com/envoyproxy/protoc-gen-validate v1.2.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/subcommands v1.2.0
 	github.com/rs/cors v1.11.1
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/net v0.38.0
-	google.golang.org/protobuf v1.35.2
+	google.golang.org/protobuf v1.36.3
 )
 
 require (
