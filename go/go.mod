@@ -2,7 +2,7 @@ module github.com/ueckoken/chofu-race-course/go
 
 go 1.24.1
 
-toolchain go1.25.5
+toolchain go1.26.4
 
 require (
 	github.com/bufbuild/connect-go v1.10.0
