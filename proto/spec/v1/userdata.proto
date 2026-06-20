@@ -21,8 +21,8 @@ service UserDataService {
 message User {
   // ユーザID。他のIDはuint32であるが、ユーザIDのみJWTを使う都合上string。
   string id = 1 [(validate.rules).string = {
-    min_len: 1,
-    max_len: 1024,
+    min_len: 1
+    max_len: 1024
   }];
 }
 message Users {
@@ -67,7 +67,7 @@ message Horse {
 message HorseDetail {
   Horse data = 1 [(validate.rules).message.required = true];
   string owner = 2 [(validate.rules).string = {
-    min_len: 2,
+    min_len: 2
     max_len: 256
   }];
   message Image {
@@ -79,12 +79,12 @@ message HorseDetail {
     }
     // 拡張子
     ImageType type = 1 [(validate.rules).enum = {
-      not_in: [0],
-      defined_only: true,
+      not_in: [0]
+      defined_only: true
     }];
     // 画像のデータ bytes(img)
     bytes data = 2 [(validate.rules).bytes = {
-      min_len: 1,
+      min_len: 1
       max_len: 1048576
     }];
   }
@@ -129,7 +129,7 @@ message RegisterHorseRequest {
   string name = 1 [(validate.rules).string.pattern = "^\\p{Katakana}(\\p{Katakana}|ー){1,8}$"];
   // 所有者名
   string owner = 2 [(validate.rules).string = {
-    min_len: 2,
+    min_len: 2
     max_len: 256
   }];
   // admin JWT
@@ -184,7 +184,7 @@ message RaceOrder {
     // 順位。最も早くゴールしたときに1。
     uint32 order = 1 [(validate.rules).uint32.gte = 1];
     NoteType note = 2 [(validate.rules).enum = {
-      defined_only: true,
+      defined_only: true
       not_in: [0]
     }];
   }

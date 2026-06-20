@@ -29,7 +29,7 @@ jobs:
           go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@v0.5.0
           go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1
           go install github.com/envoyproxy/protoc-gen-validate@v0.6.13
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - name: Get yarn cache directory path
