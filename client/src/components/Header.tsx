@@ -34,6 +34,11 @@ const Header: FC<{}> = () => {
                             <a>競争馬</a>
                         </Link>
                     </li>
+                    <li>
+                        <Link href="/vote">
+                            <a>投票</a>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </header>
