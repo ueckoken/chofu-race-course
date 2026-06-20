@@ -45,6 +45,7 @@
     - [UserDataResponse](#spec-v1-UserDataResponse)
     - [Users](#spec-v1-Users)
     - [VoteRequest](#spec-v1-VoteRequest)
+    - [VoteRequest.VoteTime](#spec-v1-VoteRequest-VoteTime)
     - [VoteResponse](#spec-v1-VoteResponse)
   
     - [HorseDetail.Image.ImageType](#spec-v1-HorseDetail-Image-ImageType)
@@ -679,6 +680,23 @@ start - n, vote_end: start - m
 | race | [uint32](#uint32) |  | 投票するレースのID |
 | horse | [uint32](#uint32) |  | 投票する馬の馬番 |
 | jwt | [JWT](#spec-v1-JWT) |  |  |
+| vote_time | [VoteRequest.VoteTime](#spec-v1-VoteRequest-VoteTime) |  |  |
+
+
+
+
+
+
+<a name="spec-v1-VoteRequest-VoteTime"></a>
+
+### VoteRequest.VoteTime
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| start | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| end | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 
