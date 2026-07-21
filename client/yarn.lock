@@ -1218,7 +1218,7 @@ __metadata:
     prettier: 2.8.8
     react: 18.3.1
     react-dom: 18.3.1
-    sass: 1.101.0
+    sass: 1.101.3
     sharp: 0.35.3
     typescript: 4.9.5
   languageName: unknown
@@ -3243,9 +3243,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.101.0":
-  version: 1.101.0
-  resolution: "sass@npm:1.101.0"
+"sass@npm:1.101.3":
+  version: 1.101.3
+  resolution: "sass@npm:1.101.3"
   dependencies:
     "@parcel/watcher": ^2.4.1
     chokidar: ^5.0.0
@@ -3256,7 +3256,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: c73a37db6f4cbad653aaaeb668a69e689eec0002ffc0ce8248e2a09bbc2ea5a12adb69ae635e4c8c332d34d4ca81e2915843dbf42943a96396c56935f864aab5
+  checksum: fcb2e81bc30f93646a1387f97c2896414b483e65df47fdeccfb1848206f1070e0e8c3c171b131cc9200b13da1a5324ad1f73bf2126355ecd568e2e09180a7fb7
   languageName: node
   linkType: hard
 
