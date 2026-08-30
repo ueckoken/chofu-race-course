@@ -4992,9 +4992,38 @@ func (m *VoteRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Race
+	if m.GetRace() < 1 {
+		err := VoteRequestValidationError{
+			field:  "Race",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Horse
+	if m.GetHorse() < 1 {
+		err := VoteRequestValidationError{
+			field:  "Horse",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetJwt() == nil {
+		err := VoteRequestValidationError{
+			field:  "Jwt",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetJwt()).(type) {
@@ -5019,6 +5048,46 @@ func (m *VoteRequest) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return VoteRequestValidationError{
 				field:  "Jwt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetVoteTime() == nil {
+		err := VoteRequestValidationError{
+			field:  "VoteTime",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetVoteTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, VoteRequestValidationError{
+					field:  "VoteTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, VoteRequestValidationError{
+					field:  "VoteTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetVoteTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VoteRequestValidationError{
+				field:  "VoteTime",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -5835,3 +5904,163 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteRaceResultRequest_HorseAndEffectValidationError{}
+
+// Validate checks the field values on VoteRequest_VoteTime with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VoteRequest_VoteTime) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VoteRequest_VoteTime with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VoteRequest_VoteTimeMultiError, or nil if none found.
+func (m *VoteRequest_VoteTime) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VoteRequest_VoteTime) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetStart()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, VoteRequest_VoteTimeValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, VoteRequest_VoteTimeValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VoteRequest_VoteTimeValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEnd()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, VoteRequest_VoteTimeValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, VoteRequest_VoteTimeValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VoteRequest_VoteTimeValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return VoteRequest_VoteTimeMultiError(errors)
+	}
+
+	return nil
+}
+
+// VoteRequest_VoteTimeMultiError is an error wrapping multiple validation
+// errors returned by VoteRequest_VoteTime.ValidateAll() if the designated
+// constraints aren't met.
+type VoteRequest_VoteTimeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VoteRequest_VoteTimeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VoteRequest_VoteTimeMultiError) AllErrors() []error { return m }
+
+// VoteRequest_VoteTimeValidationError is the validation error returned by
+// VoteRequest_VoteTime.Validate if the designated constraints aren't met.
+type VoteRequest_VoteTimeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VoteRequest_VoteTimeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VoteRequest_VoteTimeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VoteRequest_VoteTimeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VoteRequest_VoteTimeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VoteRequest_VoteTimeValidationError) ErrorName() string {
+	return "VoteRequest_VoteTimeValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VoteRequest_VoteTimeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVoteRequest_VoteTime.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VoteRequest_VoteTimeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VoteRequest_VoteTimeValidationError{}

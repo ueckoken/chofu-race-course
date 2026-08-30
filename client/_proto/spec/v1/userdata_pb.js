@@ -489,7 +489,20 @@ export const VoteRequest = proto3.makeMessageType(
     { no: 1, name: "race", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 2, name: "horse", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
     { no: 3, name: "jwt", kind: "message", T: JWT },
+    { no: 4, name: "vote_time", kind: "message", T: VoteRequest_VoteTime },
   ],
+);
+
+/**
+ * @generated from message spec.v1.VoteRequest.VoteTime
+ */
+export const VoteRequest_VoteTime = proto3.makeMessageType(
+  "spec.v1.VoteRequest.VoteTime",
+  () => [
+    { no: 1, name: "start", kind: "message", T: Timestamp },
+    { no: 2, name: "end", kind: "message", T: Timestamp },
+  ],
+  {localName: "VoteRequest_VoteTime"},
 );
 
 /**
